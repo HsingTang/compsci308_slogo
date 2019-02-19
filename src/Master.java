@@ -30,9 +30,7 @@ public class Master extends Application {
     private void handleTransition() {
         root = new Group();
         window = new Window(root, WIDTH, HEIGHT, WINDOW_COLOR);
-        myStage.close();
         myStage.setScene(window);
-        myStage.show();
     }
 
     public static void main(String[] args) {
