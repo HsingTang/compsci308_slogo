@@ -1,6 +1,7 @@
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -8,6 +9,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.Stage;
 
 public class SplashScreen extends Scene {
 
@@ -15,8 +17,8 @@ public class SplashScreen extends Scene {
     public static final double BUTTON_Y_OFFSET = 100;
     public static final double IMAGE_Y_OFFSET = 150;
     public static final double TEXT_Y_OFFSET = 100;
-    public static final double TEXT_X_OFFSET = 140;
-    public static final int FONT_SIZE = 50;
+    public static final double TEXT_X_OFFSET = 210;
+    public static final int FONT_SIZE = 70;
     public static final double STROKE_WIDTH = 2;
     public static final String TITLE_TEXT = "SLogo IDE";
 
@@ -37,6 +39,11 @@ public class SplashScreen extends Scene {
         displayButton();
         displayImage();
         displayText();
+        initializeButton();
+    }
+
+    public Button getStartButton() {
+        return this.startButton;
     }
 
     private void displayButton() {
@@ -69,5 +76,17 @@ public class SplashScreen extends Scene {
        root.getChildren().add(startImageView);
     }
 
+    private void initializeButton() {
+        startButton.addEventHandler(MouseEvent.MOUSE_ENTERED, e-> handleHover());
+        startButton.addEventHandler(MouseEvent.MOUSE_EXITED, e-> handleLeave());
+    }
+
+    private void handleHover() {
+        startButton.setStyle("-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );");
+    }
+
+    private void handleLeave() {
+        startButton.setStyle("-fx-effect: none");
+    }
 
 }
