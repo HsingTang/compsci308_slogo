@@ -18,6 +18,7 @@ public class SplashScreen extends Scene {
     public static final double TEXT_X_OFFSET = 140;
     public static final int FONT_SIZE = 50;
     public static final double STROKE_WIDTH = 2;
+    public static final String TITLE_TEXT = "SLogo IDE";
 
     private double width;
     private double height;
@@ -47,7 +48,7 @@ public class SplashScreen extends Scene {
     }
 
     private void displayText() {
-        startText = new Text("SLogo IDE");
+        startText = new Text(TITLE_TEXT);
         startText.setX(width/2 - TEXT_X_OFFSET);
         startText.setY(TEXT_Y_OFFSET);
         startText.setFill(Color.WHITE);
@@ -55,7 +56,6 @@ public class SplashScreen extends Scene {
         startText.setStrokeWidth(STROKE_WIDTH);
         startText.setTextAlignment(TextAlignment.CENTER);
         startText.setFont(Font.font("Verdana", FontWeight.BOLD, FONT_SIZE));
-        startButton.getStyleClass().add("start-text");
         root.getChildren().add(startText);
 
     }
