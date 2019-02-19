@@ -8,20 +8,31 @@ import javafx.stage.Stage;
 public class Master extends Application {
 
     public static final String PROJECT_NAME = "SLogo IDE";
-    public static final Color SPLASH_SCREEN_COLOR = Color.GRAY;
+    public static final Color SPLASH_SCREEN_COLOR = Color.DIMGRAY;
     public static final double HEIGHT = 800;
     public static final double WIDTH = 1200;
 
     private Group root;
-    private Scene myScene;
+    private Stage myStage;
+    private Scene window;
+    private SplashScreen startScreen;
 
     public void start(Stage myStage) {
         root = new Group();
-        myScene = new SplashScreen(root, WIDTH, HEIGHT, SPLASH_SCREEN_COLOR);
+        this.myStage = myStage;
+        startScreen = new SplashScreen(root, WIDTH, HEIGHT, SPLASH_SCREEN_COLOR);
         myStage.setTitle(PROJECT_NAME);
-        myStage.setScene(myScene);
+        myStage.setScene(startScreen);
         myStage.show();
+        startScreen.getStartButton().setOnAction(e -> handleTransition());
+    }
 
+    private void handleTransition() {
+        root = new Group();
+        window = new Window(root, WIDTH, HEIGHT);
+        myStage.close();
+        myStage.setScene(window);
+        myStage.show();
     }
 
     public static void main(String[] args) {
