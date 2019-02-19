@@ -7,7 +7,7 @@ import javafx.stage.Stage;
 
 public class Master extends Application {
 
-    public static final String PROJECT_NAME = "SLogo";
+    public static final String PROJECT_NAME = "SLogo IDE";
     public static final Color SPLASH_SCREEN_COLOR = Color.GRAY;
     public static final double HEIGHT = 800;
     public static final double WIDTH = 1200;
