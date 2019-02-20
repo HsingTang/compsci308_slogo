@@ -35,10 +35,14 @@ public class SplashScreen extends Scene {
         this.width = width;
         this.height = height;
         this.getStylesheets().add(STYLE_SHEET);
+        displayNodes();
+        initializeButton();
+    }
+
+    private void displayNodes() {
         displayButton();
         displayImage();
         displayText();
-        initializeButton();
     }
 
     public Button getStartButton() {
@@ -87,5 +91,6 @@ public class SplashScreen extends Scene {
     private void handleLeave() {
         startButton.setStyle("-fx-effect: none");
     }
+
 
 }

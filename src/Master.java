@@ -14,7 +14,7 @@ public class Master extends Application {
 
     private Group root;
     private Stage myStage;
-    private Scene window;
+    private Scene mainWindow;
     private SplashScreen startScreen;
 
     public void start(Stage myStage) {
@@ -29,8 +29,8 @@ public class Master extends Application {
 
     private void handleTransition() {
         root = new Group();
-        window = new Window(root, WIDTH, HEIGHT, WINDOW_COLOR);
-        myStage.setScene(window);
+        mainWindow = new Window(root, WIDTH, HEIGHT, WINDOW_COLOR);
+        myStage.setScene(mainWindow);
     }
 
     public static void main(String[] args) {
