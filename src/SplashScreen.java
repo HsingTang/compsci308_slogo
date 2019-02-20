@@ -13,7 +13,8 @@ import javafx.scene.text.TextAlignment;
 public class SplashScreen extends Scene {
 
     public static final String STYLE_SHEET = "StyleStartScreen.css";
-    public static final double BUTTON_Y_OFFSET = 100;
+    public static final double BUTTON_X_OFFSET = 530;
+    public static final double BUTTON_Y_OFFSET = 710;
     public static final double IMAGE_Y_OFFSET = 150;
     public static final double TEXT_Y_OFFSET = 100;
     public static final double TEXT_X_OFFSET = 210;
@@ -50,10 +51,7 @@ public class SplashScreen extends Scene {
     }
 
     private void displayButton() {
-        startButton = new StartButton();
-        startButton.setLayoutX(width/2 - startButton.getWidth()/2);
-        startButton.setLayoutY(height - BUTTON_Y_OFFSET);
-        startButton.getStyleClass().add("start-button");
+        startButton = new StartButton(BUTTON_X_OFFSET, BUTTON_Y_OFFSET);
         root.getChildren().add(startButton);
     }
 
