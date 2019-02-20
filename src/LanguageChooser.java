@@ -4,9 +4,11 @@ import javafx.scene.control.ComboBox;
 
 public class LanguageChooser {
 
+    public static final String PROMPT_TEXT = "Choose Language";
+
     private ComboBox myChooser;
 
-    public LanguageChooser() {
+    public LanguageChooser(double xPos, double yPos) {
         ObservableList<String> languages = FXCollections.observableArrayList(
                 "English",
                 "Chinese",
@@ -19,6 +21,12 @@ public class LanguageChooser {
                 "Urdu"
         );
         myChooser = new ComboBox(languages);
+        myChooser.setPromptText(PROMPT_TEXT);
+        myChooser.setLayoutX(xPos);
+        myChooser.setLayoutY(yPos);
+    }
 
+    public ComboBox getMyChooser() {
+        return this.myChooser;
     }
 }
