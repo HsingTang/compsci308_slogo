@@ -10,6 +10,8 @@ public class Window extends Scene {
     public static final String STYLE_SHEET = "StyleWindow.css";
     public static final double CONSOLE_WIDTH = 700;
     public static final double CONSOLE_HEIGHT = 300;
+    public static final double CONSOLE_X_POS = 325;
+    public static final double CONSOLE_Y_POS = 570;
     public static final double EXECUTE_X_POS = 757;
     public static final double EXECUTE_Y_POS = 755;
     public static final double CLEAR_X_POS = 660;
@@ -44,27 +46,18 @@ public class Window extends Scene {
     }
 
     private void displayConsole() {
-        myConsole = new Console(CONSOLE_WIDTH, CONSOLE_HEIGHT);
-        TextArea consoleTextArea = myConsole.getMyTextArea();
-        consoleTextArea.getStyleClass().add("console-text-area");
+        myConsole = new Console(CONSOLE_WIDTH, CONSOLE_HEIGHT, CONSOLE_X_POS, CONSOLE_Y_POS);
         root.getChildren().add(myConsole.getMyTextArea());
     }
 
     private void displayExecuteButton() {
-        myExecuteButton = new ExecuteButton();
-        myExecuteButton.getStyleClass().add("execute-button");
-        myExecuteButton.setLayoutX(EXECUTE_X_POS);
-        myExecuteButton.setLayoutY(EXECUTE_Y_POS);
+        myExecuteButton = new ExecuteButton(EXECUTE_X_POS, EXECUTE_Y_POS);
         root.getChildren().add(myExecuteButton);
     }
 
     private void displayClearButton() {
-        myClearButton = new ClearButton();
-        myClearButton.getStyleClass().add("clear-button");
-        myClearButton.setLayoutX(CLEAR_X_POS);
-        myClearButton.setLayoutY(CLEAR_Y_POS);
+        myClearButton = new ClearButton(CLEAR_X_POS, CLEAR_Y_POS);
         root.getChildren().add(myClearButton);
-
     }
 
     private void initializeButton(Button button) {

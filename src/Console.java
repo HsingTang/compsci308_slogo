@@ -2,19 +2,18 @@ import javafx.scene.control.TextArea;
 import java.util.List;
 
 public class Console {
-    public static final double CONSOLE_X_POS = 325;
-    public static final double CONSOLE_Y_POS = 570;
 
     private TextArea myTextArea;
     private List<String> myCommands;
 
-    public Console(double width, double height) {
+    public Console(double width, double height, double xPos, double yPos) {
         myTextArea = new TextArea();
         myTextArea.setMaxWidth(width);
         myTextArea.setMaxHeight(height);
-        myTextArea.setLayoutX(CONSOLE_X_POS);
-        myTextArea.setLayoutY(CONSOLE_Y_POS);
+        myTextArea.setLayoutX(xPos);
+        myTextArea.setLayoutY(yPos);
         myTextArea.setWrapText(true);
+        myTextArea.getStyleClass().add("console-text-area");
     }
 
     public void clearText() {
