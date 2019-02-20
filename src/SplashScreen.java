@@ -1,7 +1,7 @@
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -24,13 +24,13 @@ public class SplashScreen extends Scene {
     private double width;
     private double height;
     private Button startButton;
-    private Group root;
+    private Pane root;
     private Image startImage;
     private ImageView startImageView;
     private Text startText;
 
-    public SplashScreen(Group root, double width, double height, Color background) {
-        super(root, width, height, background);
+    public SplashScreen(Pane root, double width, double height) {
+        super(root, width, height);
         this.root = root;
         this.width = width;
         this.height = height;
