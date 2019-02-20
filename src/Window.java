@@ -7,13 +7,15 @@ public class Window extends Scene {
 
     public static final String STYLE_SHEET = "StyleWindow.css";
     public static final double CONSOLE_WIDTH = 700;
-    public static final double CONSOLE_HEIGHT = 300;
+    public static final double CONSOLE_HEIGHT = 150;
     public static final double CONSOLE_X_POS = 325;
-    public static final double CONSOLE_Y_POS = 570;
+    public static final double CONSOLE_Y_POS = 600;
     public static final double EXECUTE_X_POS = 757;
     public static final double EXECUTE_Y_POS = 755;
     public static final double CLEAR_X_POS = 660;
     public static final double CLEAR_Y_POS = 755;
+    public static final double CHOOSER_X_POS = 1035;
+    public static final double CHOOSER_Y_POS = 10;
 
     private double width;
     private double height;
@@ -21,6 +23,7 @@ public class Window extends Scene {
     private Console myConsole;
     private Button myExecuteButton;
     private Button myClearButton;
+    private LanguageChooser myLanguageChooser;
 
     public Window(Pane root, double width, double height) {
         super(root, width, height);
@@ -36,6 +39,7 @@ public class Window extends Scene {
         displayConsole();
         displayExecuteButton();
         displayClearButton();
+        displayChooser();
     }
 
     private void initializeNodes() {
@@ -56,6 +60,11 @@ public class Window extends Scene {
     private void displayClearButton() {
         myClearButton = new ClearButton(CLEAR_X_POS, CLEAR_Y_POS);
         root.getChildren().add(myClearButton);
+    }
+
+    private void displayChooser() {
+        myLanguageChooser = new LanguageChooser(CHOOSER_X_POS, CHOOSER_Y_POS);
+        root.getChildren().add(myLanguageChooser.getMyChooser());
     }
 
     private void initializeButton(Button button) {
