@@ -1,0 +1,11 @@
+.console-text-area {
+    -fx-background-color: black;
+    -fx-font-family: Consolas;
+    -fx-text-fill: yellowgreen;
+    -fx-font-weight: bold;
+
+}
+
+.console-text-area .content {
+    -fx-background-color: black;
+}
