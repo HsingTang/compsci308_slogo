@@ -3,10 +3,14 @@ package GUIFeatures;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Color;
 
+/**
+ * @author Hsingchih Tang
+ * Region where the TurtleView moves and draws down its path
+ * Extends Javafx.Canvas to enable drawing feature
+ */
 public class SlogoCanvas extends Canvas {
 
     public static final Color DEFAULT_COLOR = Color.BLACK;
-
 
     public SlogoCanvas(double w, double h) {
         super(w,h);

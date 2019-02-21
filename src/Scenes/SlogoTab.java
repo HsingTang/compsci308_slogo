@@ -5,16 +5,20 @@ import GUIFeatures.*;
 import Turtles.TurtleView;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Tab;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
 import java.lang.reflect.Field;
 
+
+/**
+ * @author Hsingchih Tang
+ * An independent tab managing its own Turtle, commands and variables
+ */
 public class SlogoTab extends Tab {
-    static final String STYLE_SHEET = "stylesheets/StyleWindow.css";
     static final Double CONSOLE_RATIO = (4.0/5.0);
     static final Double CANVAS_RATIO = (3.0/5.0);
 
@@ -23,6 +27,8 @@ public class SlogoTab extends Tab {
     private StackPane myBottomPane;
     private StackPane myTopPane;
     private StackPane myCanvasPane;
+    private StackPane myLeftPane;
+    private StackPane myRightPane;
     private Double myWidth;
     private Double myHeight;
     private Console myConsole;
@@ -32,6 +38,7 @@ public class SlogoTab extends Tab {
     private SlogoCanvas myCanvas;
     private CanvasColorChooser myCanvasColorChooser;
     private TurtleView myTurtle;
+    private TableView myVarPane;
 
     public SlogoTab(int id, double width, double height, TurtleView t){
         this.myID = id;
@@ -58,11 +65,7 @@ public class SlogoTab extends Tab {
         initCanvasColorChooser();
         initCanvas();
         initTurtleView();
-    }
-
-    private void initTurtleView(){
-        myTurtle.setCanvas(myCanvas);
-        myCanvasPane.getChildren().add(myTurtle.getImgView());
+        // initVarPane();
     }
 
 
@@ -84,6 +87,17 @@ public class SlogoTab extends Tab {
         myClearButton.setOnAction(e -> this.myConsole.clearText());
         StackPane.setAlignment(myClearButton,Pos.TOP_RIGHT);
         this.myBottomPane.getChildren().add(myClearButton);
+    }
+
+    private void initVarPane(){
+        myVarPane = new VariablePane();
+        myLeftPane.getChildren().add(myVarPane);
+        myPane.setLeft(myLeftPane);
+    }
+
+    private void initTurtleView(){
+        myTurtle.setCanvas(myCanvas);
+        myCanvasPane.getChildren().add(myTurtle.getImgView());
     }
 
     private void initCanvas() {
@@ -120,7 +134,6 @@ public class SlogoTab extends Tab {
     private void setLanguage(){
 
     }
-
 
 
     private void transferCommands(){
