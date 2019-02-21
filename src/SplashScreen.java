@@ -37,7 +37,6 @@ public class SplashScreen extends Scene {
         this.height = height;
         this.getStylesheets().add(STYLE_SHEET);
         displayNodes();
-        initializeButton();
     }
 
     private void displayNodes() {
@@ -76,19 +75,5 @@ public class SplashScreen extends Scene {
        startImageView.setPreserveRatio(true);
        root.getChildren().add(startImageView);
     }
-
-    private void initializeButton() {
-        startButton.addEventHandler(MouseEvent.MOUSE_ENTERED, e-> handleHover());
-        startButton.addEventHandler(MouseEvent.MOUSE_EXITED, e-> handleLeave());
-    }
-
-    private void handleHover() {
-        startButton.setStyle("-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );");
-    }
-
-    private void handleLeave() {
-        startButton.setStyle("-fx-effect: none");
-    }
-
 
 }

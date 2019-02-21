@@ -68,17 +68,7 @@ public class Window extends Scene {
     }
 
     private void initializeButton(Button button) {
-        button.addEventHandler(MouseEvent.MOUSE_ENTERED, e-> handleHover(button));
-        button.addEventHandler(MouseEvent.MOUSE_EXITED, e-> handleLeave(button));
         button.setOnAction(e -> handlePress(button));
-    }
-
-    private void handleHover(Button button) {
-        button.setStyle("-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );");
-    }
-
-    private void handleLeave(Button button) {
-        button.setStyle("-fx-effect: none");
     }
 
     private void handlePress(Button button) {
