@@ -1,6 +1,5 @@
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
 public class Window extends Scene {
