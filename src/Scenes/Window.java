@@ -35,6 +35,8 @@ public class Window extends Scene {
     private double windowHeight;
     TurtleFactory myTurtleFactory;
     private TabPane root;
+    private int turtleId = 0;
+    private int tabCount = 1;
 
 
     public Window(TabPane root, double width, double height) {
@@ -48,8 +50,8 @@ public class Window extends Scene {
     }
 
     private void initializeTab(){
-        TurtleView newTurtle = this.myTurtleFactory.makeTurtle(0);
-        this.root.getTabs().add(new SlogoTab(0,windowWidth,windowHeight,newTurtle));
+        TurtleView newTurtle = this.myTurtleFactory.makeTurtle(turtleId);
+        this.root.getTabs().add(new SlogoTab(tabCount,windowWidth,windowHeight,newTurtle));
     }
 
 
