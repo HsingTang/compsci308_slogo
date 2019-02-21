@@ -1,6 +1,7 @@
 package GUIFeatures;
 import javafx.scene.control.ComboBox;
 import java.util.ResourceBundle;
+import java.util.Set;
 import java.util.TreeSet;
 
 public class CanvasColorChooser extends ComboBox {
@@ -11,7 +12,7 @@ public class CanvasColorChooser extends ComboBox {
 
     public CanvasColorChooser() {
         super();
-        TreeSet<String> colors = new TreeSet<>();
+        Set<String> colors = new TreeSet<>();
         for (String key : colorsBundle.keySet()) {
             String value = colorsBundle.getString(key);
             colors.add(value);

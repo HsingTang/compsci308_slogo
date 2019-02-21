@@ -39,6 +39,7 @@ public class SlogoTab extends Tab {
     private Button myExecuteButton;
     private Button myClearButton;
     private LanguageChooser myLanguageChooser;
+    private VariablePane myVarPane;
     private SlogoCanvas myCanvas;
     private CanvasColorChooser myCanvasColorChooser;
     private TurtleView myTurtle;
