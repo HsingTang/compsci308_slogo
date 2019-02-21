@@ -56,7 +56,6 @@ public class SlogoTab extends Tab {
         this.setContent(myPane);
     }
 
-
     private void initNodes() {
         initConsole();
         initExecuteButton();
@@ -67,7 +66,6 @@ public class SlogoTab extends Tab {
         initTurtleView();
         // initVarPane();
     }
-
 
     private void initConsole() {
         myConsole = new Console(this.myWidth* CONSOLE_RATIO,this.myBottomPane.getPrefHeight());
@@ -134,7 +132,6 @@ public class SlogoTab extends Tab {
     private void setLanguage(){
 
     }
-
 
     private void transferCommands(){
 
