@@ -5,6 +5,11 @@ import Turtles.TurtleView;
 import javafx.scene.Scene;
 import javafx.scene.control.TabPane;
 
+/**
+ * @author Hsingchih Tang, Eric Lin
+ * Major front end class
+ * Might be able to upport multiple tabs where Turtle, commands and variables are managed separately
+ */
 public class Window extends Scene {
 
     public static final String STYLE_SHEET = "stylesheets/StyleWindow.css";
