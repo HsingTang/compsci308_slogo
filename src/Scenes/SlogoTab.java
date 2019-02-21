@@ -8,12 +8,18 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
 import java.lang.reflect.Field;
 
+
+/**
+ * @author Hsingchih Tang
+ * An independent tab managing its own Turtle, commands and variables
+ */
 public class SlogoTab extends Tab {
     static final String STYLE_SHEET = "stylesheets/StyleWindow.css";
     static final String TAB_STRING = "Tab ";
@@ -25,6 +31,8 @@ public class SlogoTab extends Tab {
     private StackPane myBottomPane;
     private StackPane myTopPane;
     private StackPane myCanvasPane;
+    private StackPane myLeftPane;
+    private StackPane myRightPane;
     private Double myWidth;
     private Double myHeight;
     private Console myConsole;
@@ -62,11 +70,7 @@ public class SlogoTab extends Tab {
         initCanvasColorChooser();
         initCanvas();
         initTurtleView();
-    }
-
-    private void initTurtleView(){
-        myTurtle.setCanvas(myCanvas);
-        myCanvasPane.getChildren().add(myTurtle.getImgView());
+        // initVarPane();
     }
 
     private void initConsole() {
@@ -87,6 +91,17 @@ public class SlogoTab extends Tab {
         myClearButton.setOnAction(e -> this.myConsole.clearText());
         StackPane.setAlignment(myClearButton,Pos.TOP_RIGHT);
         this.myBottomPane.getChildren().add(myClearButton);
+    }
+
+    private void initVarPane(){
+        myVarPane = new VariablePane();
+        myLeftPane.getChildren().add(myVarPane);
+        myPane.setLeft(myLeftPane);
+    }
+
+    private void initTurtleView(){
+        myTurtle.setCanvas(myCanvas);
+        myCanvasPane.getChildren().add(myTurtle.getImgView());
     }
 
     private void initCanvas() {
