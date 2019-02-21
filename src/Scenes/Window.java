@@ -3,7 +3,11 @@ package Scenes;
 import GUIFeatures.*;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+
+import java.lang.reflect.Field;
 
 public class Window extends Scene {
 
@@ -22,6 +26,7 @@ public class Window extends Scene {
     public static final double CANVAS_HEIGHT = 545;
     public static final double CANVAS_X_POS = 325;
     public static final double CANVAS_Y_POS = 50;
+    public static final double CANVAS_CHOOSER_X_POS = CANVAS_X_POS;
 
     private double width;
     private double height;
@@ -55,6 +60,7 @@ public class Window extends Scene {
     private void initializeNodes() {
         initializeButton(myExecuteButton);
         initializeButton(myClearButton);
+        initializeChooser(myCanvasColorChooser);
     }
 
     private void displayConsole() {
@@ -83,7 +89,7 @@ public class Window extends Scene {
     }
 
     private void displayCanvasColorChooser() {
-        myCanvasColorChooser = new CanvasColorChooser();
+        myCanvasColorChooser = new CanvasColorChooser(CANVAS_CHOOSER_X_POS, CHOOSER_Y_POS);
         root.getChildren().add(myCanvasColorChooser);
     }
 
@@ -91,9 +97,26 @@ public class Window extends Scene {
         button.setOnAction(e -> handlePress(button));
     }
 
+    private void initializeChooser(ComboBox chooser) {
+        chooser.setOnAction(e -> handleSelection(chooser));
+    }
+
     private void handlePress(Button button) {
         if (button instanceof ClearButton) {
             myConsole.clearText();
+        }
+    }
+
+    private void handleSelection(ComboBox chooser) {
+        if (chooser instanceof CanvasColorChooser) {
+           Color color;
+           try {
+               Field field = Class.forName("javafx.scene.paint.Color").getField(myCanvasColorChooser.getValue().toString());
+               color = (Color)field.get(null);
+           } catch (Exception e){
+               color = null;
+           }
+            myCanvas.setFill(color);
         }
     }
 

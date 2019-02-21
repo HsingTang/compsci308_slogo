@@ -22,7 +22,6 @@ public class LanguageChooser extends ComboBox {
                 "Urdu"
         );
         this.getItems().addAll(languages);
-        this.getStyleClass().add("combo-box");
         this.setPromptText(PROMPT_TEXT);
         this.setLayoutX(xPos);
         this.setLayoutY(yPos);
