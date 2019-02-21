@@ -11,7 +11,7 @@ import java.lang.reflect.Field;
 
 public class Window extends Scene {
 
-    public static final String STYLE_SHEET = "StyleWindow.css";
+    public static final String STYLE_SHEET = "stylesheets/StyleWindow.css";
     public static final double CONSOLE_WIDTH = 700;
     public static final double CONSOLE_HEIGHT = 150;
     public static final double CONSOLE_X_POS = 325;

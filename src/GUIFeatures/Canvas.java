@@ -10,7 +10,7 @@ public class Canvas extends Rectangle {
     public Canvas(double width, double height, double xPos, double yPos) {
         super(xPos, yPos, width, height);
         this.setFill(DEFAULT_COLOR);
-
+        this.getStyleClass().add("canvas");
     }
 
 }

@@ -14,7 +14,7 @@ import javafx.scene.text.TextAlignment;
 
 public class SplashScreen extends Scene {
 
-    public static final String STYLE_SHEET = "StyleStartScreen.css";
+    public static final String STYLE_SHEET = "stylesheets/StyleStartScreen.css";
     public static final double BUTTON_X_OFFSET = 530;
     public static final double BUTTON_Y_OFFSET = 710;
     public static final double IMAGE_Y_OFFSET = 150;
