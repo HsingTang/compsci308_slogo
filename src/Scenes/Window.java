@@ -1,5 +1,7 @@
 package Scenes;
 
+import Turtles.TurtleFactory;
+import Turtles.TurtleView;
 import javafx.scene.Scene;
 import javafx.scene.control.TabPane;
 
@@ -26,6 +28,7 @@ public class Window extends Scene {
 
     private double windowWidth;
     private double windowHeight;
+    TurtleFactory myTurtleFactory;
     private TabPane root;
 
 
@@ -34,12 +37,14 @@ public class Window extends Scene {
         this.root = root;
         this.windowWidth = width;
         this.windowHeight = height;
-        initializeTab();
         this.getStylesheets().add(STYLE_SHEET);
+        myTurtleFactory = new TurtleFactory();
+        initializeTab();
     }
 
     private void initializeTab(){
-        this.root.getTabs().add(new SlogoTab(windowWidth,windowHeight));
+        TurtleView newTurtle = this.myTurtleFactory.makeTurtle(0);
+        this.root.getTabs().add(new SlogoTab(0,windowWidth,windowHeight,newTurtle));
     }
 
 

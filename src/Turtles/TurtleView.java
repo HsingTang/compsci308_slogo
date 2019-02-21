@@ -1,9 +1,12 @@
 package Turtles;
 
 import GUIFeatures.SlogoCanvas;
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+
+import java.awt.*;
 
 /**
  * @author Hsingchih Tang
@@ -18,18 +21,19 @@ public class TurtleView {
     private Double myXDir;
     private Double myYDir;
     private SlogoCanvas myCanvas;
+    private Double canvasWidth;
+    private Double canvasHeight;
     private Color myPenColor;
     private boolean penDown;
 
 
-    public TurtleView(int id, Image img, SlogoCanvas c, Color color){
+    public TurtleView(int id, Image img, Color color){
+        this.myImgView = new ImageView(img);
         this.myID = id;
         this.myX = 0.0;
         this.myY = 0.0;
         this.myXDir = 0.0;
         this.myYDir = 0.0;
-        this.myImgView = new ImageView(img);
-        this.myCanvas = c;
         this.myPenColor = color;
         this.penDown = true;
     }
@@ -39,11 +43,11 @@ public class TurtleView {
     }
 
     public Double getX() {
-        return myX;
+        return myImgView.getX();
     }
 
     public Double getY() {
-        return myY;
+        return myImgView.getY();
     }
 
     public Double getXDir() {
@@ -52,6 +56,10 @@ public class TurtleView {
 
     public Double getYDir() {
         return myYDir;
+    }
+
+    public ImageView getImgView(){
+        return myImgView;
     }
 
     public void setImgView(Image newImg) {
@@ -72,6 +80,12 @@ public class TurtleView {
 
     public void setYDir(Double newYDir) {
         this.myYDir = newYDir;
+    }
+
+    public void setCanvas(SlogoCanvas c){
+        this.myCanvas = c;
+        this.canvasWidth = c.getWidth();
+        this.canvasHeight = c.getHeight();
     }
 
     public void setPenUp(){
