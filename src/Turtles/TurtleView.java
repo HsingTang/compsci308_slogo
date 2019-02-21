@@ -1,6 +1,6 @@
 package Turtles;
 
-import GUIFeatures.Canvas;
+import GUIFeatures.SlogoCanvas;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -17,12 +17,12 @@ public class TurtleView {
     private Double myY;
     private Double myXDir;
     private Double myYDir;
-    private Canvas myCanvas;
+    private SlogoCanvas myCanvas;
     private Color myPenColor;
     private boolean penDown;
 
 
-    public TurtleView(int id, Image img, Canvas c, Color color){
+    public TurtleView(int id, Image img, SlogoCanvas c, Color color){
         this.myID = id;
         this.myX = 0.0;
         this.myY = 0.0;

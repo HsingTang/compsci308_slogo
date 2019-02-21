@@ -1,6 +1,6 @@
 package Turtles;
 
-import GUIFeatures.Canvas;
+import GUIFeatures.SlogoCanvas;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
@@ -21,13 +21,13 @@ public class TurtleFactory {
         this.myTurtles = new HashMap<>();
     }
 
-    public TurtleView makeTurtle(int id, Canvas c){
+    public TurtleView makeTurtle(int id, SlogoCanvas c){
         TurtleView newTurtle = new TurtleView(id, DEFAULT_TURTLE_IMG,c,DEFAULT_PEN_COLOR);
         myTurtles.put(id,newTurtle);
         return newTurtle;
     }
 
-    public TurtleView makeTurtle(int id, Canvas c, String imgSrc){
+    public TurtleView makeTurtle(int id, SlogoCanvas c, String imgSrc){
         TurtleView newTurtle = new TurtleView(id, new Image(this.getClass().getClassLoader().getResourceAsStream(imgSrc)),c,DEFAULT_PEN_COLOR);
         myTurtles.put(id,newTurtle);
         return newTurtle;

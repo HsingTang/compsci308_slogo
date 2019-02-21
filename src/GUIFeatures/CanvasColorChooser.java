@@ -5,11 +5,11 @@ import java.util.TreeSet;
 
 public class CanvasColorChooser extends ComboBox {
 
-    public static final String PROMPT_TEXT = "Choose Canvas Color";
+    public static final String PROMPT_TEXT = "Choose SlogoCanvas Color";
 
     private ResourceBundle colorsBundle = ResourceBundle.getBundle("colors/Colors");
 
-    public CanvasColorChooser(double xPos, double yPos) {
+    public CanvasColorChooser() {
         super();
         TreeSet<String> colors = new TreeSet<>();
         for (String key : colorsBundle.keySet()) {
@@ -18,8 +18,6 @@ public class CanvasColorChooser extends ComboBox {
         }
         this.getItems().addAll(colors);
         this.setPromptText(PROMPT_TEXT);
-        this.setLayoutX(xPos);
-        this.setLayoutY(yPos);
     }
 
 
