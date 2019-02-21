@@ -1,7 +1,6 @@
 import Scenes.SplashScreen;
 import Scenes.Window;
 import javafx.application.Application;
-import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -13,13 +12,11 @@ public class Master extends Application {
 
     private Pane root;
     private Stage myStage;
-    private Scene mainWindow;
-    private SplashScreen startScreen;
 
     public void start(Stage myStage) {
         root = new Pane();
         this.myStage = myStage;
-        startScreen = new SplashScreen(root, WIDTH, HEIGHT);
+        SplashScreen startScreen = new SplashScreen(root, WIDTH, HEIGHT);
         myStage.setTitle(PROJECT_NAME);
         myStage.setScene(startScreen);
         myStage.show();
@@ -28,7 +25,7 @@ public class Master extends Application {
 
     private void handleTransition() {
         root = new Pane();
-        mainWindow = new Window(root, WIDTH, HEIGHT);
+        Window mainWindow = new Window(root, WIDTH, HEIGHT);
         myStage.setScene(mainWindow);
     }
 

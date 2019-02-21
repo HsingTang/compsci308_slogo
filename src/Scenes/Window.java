@@ -1,12 +1,9 @@
 package Scenes;
 
+import GUIFeatures.*;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
-import GUIFeatures.ClearButton;
-import GUIFeatures.ExecuteButton;
-import GUIFeatures.Console;
-import GUIFeatures.LanguageChooser;
 
 public class Window extends Scene {
 
@@ -21,6 +18,10 @@ public class Window extends Scene {
     public static final double CLEAR_Y_POS = 755;
     public static final double CHOOSER_X_POS = 1035;
     public static final double CHOOSER_Y_POS = 10;
+    public static final double CANVAS_WIDTH = 537;
+    public static final double CANVAS_HEIGHT = 545;
+    public static final double CANVAS_X_POS = 325;
+    public static final double CANVAS_Y_POS = 50;
 
     private double width;
     private double height;
@@ -29,6 +30,8 @@ public class Window extends Scene {
     private Button myExecuteButton;
     private Button myClearButton;
     private LanguageChooser myLanguageChooser;
+    private Canvas myCanvas;
+    private CanvasColorChooser myCanvasColorChooser;
 
     public Window(Pane root, double width, double height) {
         super(root, width, height);
@@ -45,6 +48,8 @@ public class Window extends Scene {
         displayExecuteButton();
         displayClearButton();
         displayChooser();
+        displayCanvas();
+        displayCanvasColorChooser();
     }
 
     private void initializeNodes() {
@@ -69,7 +74,17 @@ public class Window extends Scene {
 
     private void displayChooser() {
         myLanguageChooser = new LanguageChooser(CHOOSER_X_POS, CHOOSER_Y_POS);
-        root.getChildren().add(myLanguageChooser.getMyChooser());
+        root.getChildren().add(myLanguageChooser);
+    }
+
+    private void displayCanvas() {
+        myCanvas = new Canvas(CANVAS_WIDTH, CANVAS_HEIGHT, CANVAS_X_POS, CANVAS_Y_POS);
+        root.getChildren().add(myCanvas);
+    }
+
+    private void displayCanvasColorChooser() {
+        myCanvasColorChooser = new CanvasColorChooser();
+        root.getChildren().add(myCanvasColorChooser);
     }
 
     private void initializeButton(Button button) {
