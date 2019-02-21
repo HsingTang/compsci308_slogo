@@ -111,7 +111,7 @@ public class Window extends Scene {
         if (chooser instanceof CanvasColorChooser) {
            Color color;
            try {
-               Field field = Class.forName("javafx.scene.paint.Color").getField(myCanvasColorChooser.getValue().toString());
+               Field field = Class.forName("javafx.scene.paint.Color").getField(myCanvasColorChooser.getValue().toString().replaceAll("\\s+", ""));
                color = (Color)field.get(null);
            } catch (Exception e){
                color = null;
