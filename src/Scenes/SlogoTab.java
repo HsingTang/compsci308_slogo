@@ -43,6 +43,7 @@ public class SlogoTab extends Tab {
     private CanvasColorChooser myCanvasColorChooser;
     private TurtleView myTurtle;
     private Label tabTitle;
+    private VariablePane myVarPane;
 
     public SlogoTab(int id, double width, double height, TurtleView t){
         this.myID = id;
