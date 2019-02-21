@@ -1,25 +1,27 @@
 package GUIFeatures;
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
-import javafx.scene.paint.Color;
-
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
-import java.util.Locale;
+import java.util.TreeSet;
 
 public class CanvasColorChooser extends ComboBox {
 
+    public static final String PROMPT_TEXT = "Choose Canvas Color";
+
     private ResourceBundle colorsBundle = ResourceBundle.getBundle("colors/Colors");
 
-    public CanvasColorChooser() {
+    public CanvasColorChooser(double xPos, double yPos) {
         super();
-        for (String s : colorsBundle.keySet()) {
-            System.out.println(colorsBundle.getString(s));
+        TreeSet<String> colors = new TreeSet<>();
+        for (String key : colorsBundle.keySet()) {
+            String value = colorsBundle.getString(key);
+            colors.add(value);
         }
+        this.getItems().addAll(colors);
+        this.setPromptText(PROMPT_TEXT);
+        this.setLayoutX(xPos);
+        this.setLayoutY(yPos);
     }
+
+
 }
 
