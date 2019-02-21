@@ -10,8 +10,8 @@ Some of the main goals include developing a nearly closed front end and backend 
 
 # Design Overview
 * **View**  
-    * Window
-    Main class of the front end. Holds all different front end components (Canvas, Console , etc.), arrange them on the UI and communicate with Model classes on the back end for displaying user command execution results.
+    * Scenes.Window
+    Main class of the front end. Holds all different front end components (GUIFeatures.Canvas, GUIFeatures.Console , etc.), arrange them on the UI and communicate with Model classes on the back end for displaying user command execution results.
         * Variables:
         myTurtleView
         myCanvas
@@ -58,14 +58,14 @@ Some of the main goals include developing a nearly closed front end and backend 
         setTrailColor(color)
         setTrailSize(size)
         
-    * Canvas
+    * GUIFeatures.Canvas
     Where the object view (i.e. Turtle) resides and draws trails.
         * Variables:
         myColor
         * Methods:
         draw()
         clear()
-    * Console
+    * GUIFeatures.Console
     Command prompt component where user can type in commands and hit ENTER to confirm executing the commands, as well as where responses to user commands (queries about Turtle position, math calculation, etc.) are displayed to user after execution.
         * Variables:
         myEnterButton
@@ -85,7 +85,7 @@ Some of the main goals include developing a nearly closed front end and backend 
         myCommands
         * Methods:
         addCommand(String)
-    * LanguageChooser
+    * GUIFeatures.LanguageChooser
     Allows user to set language.
         * Variables:
         myLanguage
@@ -160,7 +160,7 @@ Some of the main goals include developing a nearly closed front end and backend 
 ![GUI Design](https://i.imgur.com/zBtXCOj.png)
 
 The GUI will consist of the following visualizaiton components:
-* Console
+* GUIFeatures.Console
 Place where the user can type in Slogo commands in lines or blocks. The input command will not be transferred to back end and get processed until user hit ENTER on the keyboard or press a 'Excute' button in the console component.
 * Language chooser
 Place where the user can make choice of the command language. The chooser will be in the form of a dropdown menu, with which the user can click on one of the selections.
@@ -203,14 +203,14 @@ If any erroneous situation occurs with invalid user input commands, the Master c
         setTrailColor(color)
         setTrailSize(size)
         
-    * Canvas
+    * GUIFeatures.Canvas
     Where the object view (i.e. Turtle) resides and draws trails.
         * Variables:
         myColor
         * Methods:
         draw()
         clear()
-    * Console
+    * GUIFeatures.Console
     Command prompt component where user can type in commands and hit ENTER to confirm executing the commands, as well as where responses to user commands (queries about Turtle position, math calculation, etc.) are displayed to user after execution.
         * Variables:
         myEnterButton
@@ -259,9 +259,9 @@ that represent new features to add on internally.
 * Extension: For any additional math, movement, and boolean operation those can be added as additional methods. For more complex commands, new Controller classes might have to be created.
 
 ### View External API
-The Window class holds all the front-end components except for Alert dialogues, and will be the only channel for View to communicate with Model. After receiving arguments through the external API, Window will distribute the tasks internally to corresponding front-end components.
+The Scenes.Window class holds all the front-end components except for Alert dialogues, and will be the only channel for View to communicate with Model. After receiving arguments through the external API, Scenes.Window will distribute the tasks internally to corresponding front-end components.
 * Supported Features
-    * Window
+    * Scenes.Window
         * updateVariables(name,value)
         * updateTurtleView(xpos,ypos,heading,image)
         * resetTurtleView()
@@ -283,7 +283,7 @@ The Window class holds all the front-end components except for Alert dialogues, 
 Language properties files are be required for the language choosing feature. After the user has selected a command language, corresponding .properties file will beloaded by the program.  
 Additionally, AlertPopper will receive SlogoAlert objects from Master if any errorneous situation occurs, after which the showAlert() call will be invoked for displaying alert dialogues to user on the front end. The Alert messages are expected to read from a source file for avoiding hard-coding.
 * Extension
-For new features/components to be added, the corresponding front-end component will need to be added as a field to the Window class, where specific functions will also be developed in order for corresponding back-end classes to acquire control of the new feature and affect its front-end display.
+For new features/components to be added, the corresponding front-end component will need to be added as a field to the Scenes.Window class, where specific functions will also be developed in order for corresponding back-end classes to acquire control of the new feature and affect its front-end display.
 
 ### Model External API
 The model's external API will consist of methods from a series of controllers used in the model/backend. These controllers, EnvironmentController, ObjectController, MathController, LogicController, QueryController, UserCommandController, and VariableControlller, hold values and methods updated and called upon by commands. These values drive updates in the View/frontend.
