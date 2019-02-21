@@ -1,3 +1,5 @@
+import Scenes.SplashScreen;
+import Scenes.Window;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;

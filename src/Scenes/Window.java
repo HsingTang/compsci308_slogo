@@ -1,6 +1,12 @@
+package Scenes;
+
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
+import GUIFeatures.ClearButton;
+import GUIFeatures.ExecuteButton;
+import GUIFeatures.Console;
+import GUIFeatures.LanguageChooser;
 
 public class Window extends Scene {
 
