@@ -21,6 +21,7 @@ public class LanguageChooser {
                 "Urdu"
         );
         myChooser = new ComboBox(languages);
+        myChooser.getStyleClass().add("combo-box");
         myChooser.setPromptText(PROMPT_TEXT);
         myChooser.setLayoutX(xPos);
         myChooser.setLayoutY(yPos);
