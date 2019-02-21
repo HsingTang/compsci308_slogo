@@ -1,6 +1,5 @@
 package GUIFeatures;
 
-import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import java.util.List;
 
@@ -11,12 +10,9 @@ public class Console {
     private TextArea myTextArea;
     private List<String> myCommands;
 
-    public Console(double width, double height, double xPos, double yPos) {
+    public Console(double w, double h) {
         myTextArea = new TextArea();
-        myTextArea.setMaxWidth(width);
-        myTextArea.setMaxHeight(height);
-        myTextArea.setLayoutX(xPos);
-        myTextArea.setLayoutY(yPos);
+        myTextArea.setMaxSize(w,h);
         myTextArea.setPromptText(PROMPT_TEXT);
         myTextArea.setFocusTraversable(false);
         myTextArea.setWrapText(true);

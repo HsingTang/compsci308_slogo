@@ -11,7 +11,7 @@ Some of the main goals include developing a nearly closed front end and backend 
 # Design Overview
 * **View**  
     * Scenes.Window
-    Main class of the front end. Holds all different front end components (GUIFeatures.Canvas, GUIFeatures.Console , etc.), arrange them on the UI and communicate with Model classes on the back end for displaying user command execution results.
+    Main class of the front end. Holds all different front end components (GUIFeatures.SlogoCanvas, GUIFeatures.Console , etc.), arrange them on the UI and communicate with Model classes on the back end for displaying user command execution results.
         * Variables:
         myTurtleView
         myCanvas
@@ -58,7 +58,7 @@ Some of the main goals include developing a nearly closed front end and backend 
         setTrailColor(color)
         setTrailSize(size)
         
-    * GUIFeatures.Canvas
+    * GUIFeatures.SlogoCanvas
     Where the object view (i.e. Turtle) resides and draws trails.
         * Variables:
         myColor
@@ -203,7 +203,7 @@ If any erroneous situation occurs with invalid user input commands, the Master c
         setTrailColor(color)
         setTrailSize(size)
         
-    * GUIFeatures.Canvas
+    * GUIFeatures.SlogoCanvas
     Where the object view (i.e. Turtle) resides and draws trails.
         * Variables:
         myColor

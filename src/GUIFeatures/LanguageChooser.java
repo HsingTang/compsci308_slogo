@@ -8,7 +8,7 @@ public class LanguageChooser extends ComboBox {
 
     public static final String PROMPT_TEXT = "Choose Language";
 
-    public LanguageChooser(double xPos, double yPos) {
+    public LanguageChooser() {
         super();
         ObservableList<String> languages = FXCollections.observableArrayList(
                 "English",
@@ -23,7 +23,5 @@ public class LanguageChooser extends ComboBox {
         );
         this.getItems().addAll(languages);
         this.setPromptText(PROMPT_TEXT);
-        this.setLayoutX(xPos);
-        this.setLayoutY(yPos);
     }
 }
