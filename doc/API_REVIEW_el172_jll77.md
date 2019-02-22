@@ -24,4 +24,4 @@ but the front-end can depend on back-end.
 4. turtle moves forward 50, should be able to generate on screen, or any sort of directional change.
  - parsing multiple nested commands
  - figuring out communication between updating the backend and front end
- - changing colors. 
+ - changing colors.
