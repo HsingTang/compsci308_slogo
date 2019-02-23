@@ -1,4 +1,4 @@
-package GUIFeatures;
+package GUIFeatures.Choosers;
 import javafx.scene.control.ComboBox;
 import java.util.ResourceBundle;
 import java.util.Set;

@@ -1,7 +1,14 @@
 package Scenes;
 
 
-import GUIFeatures.*;
+import GUIFeatures.Buttons.ClearButton;
+import GUIFeatures.Buttons.ExecuteButton;
+import GUIFeatures.Choosers.CanvasColorChooser;
+import GUIFeatures.Choosers.LanguageChooser;
+import GUIFeatures.Panels.CommandHistoryPane;
+import GUIFeatures.Panels.Console;
+import GUIFeatures.Panels.SlogoCanvas;
+import GUIFeatures.Panels.VariablePane;
 import Turtles.TurtleView;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -115,14 +122,14 @@ public class SlogoTab extends Tab {
     private void initExecuteButton() {
         myExecuteButton = new ExecuteButton();
         myExecuteButton.setOnAction(e -> this.transferCommands());
-        StackPane.setAlignment(myExecuteButton,Pos.BOTTOM_RIGHT);
+        StackPane.setAlignment(myExecuteButton, Pos.BOTTOM_RIGHT);
         myBottomPane.getChildren().add(myExecuteButton);
     }
 
     private void initClearButton() {
         myClearButton = new ClearButton();
         myClearButton.setOnAction(e -> this.myConsole.clearText());
-        StackPane.setAlignment(myClearButton,Pos.TOP_RIGHT);
+        StackPane.setAlignment(myClearButton, Pos.TOP_RIGHT);
         myBottomPane.getChildren().add(myClearButton);
     }
 
