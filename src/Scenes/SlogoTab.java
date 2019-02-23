@@ -115,8 +115,8 @@ public class SlogoTab extends Tab {
 
     private void initConsole() {
         myConsole = new Console(myHeight* CONSOLE_RATIO,myBottomPane.getMaxHeight());
-        StackPane.setAlignment(myConsole.getMyTextArea(), Pos.CENTER);
-        myBottomPane.getChildren().add(myConsole.getMyTextArea());
+        StackPane.setAlignment(myConsole, Pos.CENTER);
+        myBottomPane.getChildren().add(myConsole);
     }
 
     private void initExecuteButton() {

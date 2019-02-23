@@ -2,7 +2,7 @@ package Commands;
 
 import java.util.List;
 
-public class ObjectCommand extends Command{
+public class ObjectCommand extends Command {
    int changeSteps;
    public ObjectCommand(ObjectCommandTypes type, int steps){
       super("");
