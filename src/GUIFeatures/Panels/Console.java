@@ -1,4 +1,4 @@
-package GUIFeatures;
+package GUIFeatures.Panels;
 
 import javafx.scene.control.TextArea;
 import java.util.List;
