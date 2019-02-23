@@ -3,12 +3,11 @@ package Scenes;
 
 import GUIFeatures.*;
 import Turtles.TurtleView;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
-import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -21,10 +20,11 @@ import java.lang.reflect.Field;
  * An independent tab managing its own Turtle, commands and variables
  */
 public class SlogoTab extends Tab {
-    static final String STYLE_SHEET = "stylesheets/StyleWindow.css";
+    // static final String STYLE_SHEET = "stylesheets/StyleWindow.css";
     static final String TAB_STRING = "Tab ";
-    static final Double CONSOLE_RATIO = (4.0/5.0);
+    static final Double CONSOLE_RATIO = (3.0/5.0);
     static final Double CANVAS_RATIO = (3.0/5.0);
+    static final Double DEFAULT_PADDING = 30.0;
 
     private Integer myID;
     private BorderPane myPane;
@@ -40,64 +40,102 @@ public class SlogoTab extends Tab {
     private Button myClearButton;
     private LanguageChooser myLanguageChooser;
     private VariablePane myVarPane;
+    private CommandHistoryPane myCommandPane;
     private SlogoCanvas myCanvas;
     private CanvasColorChooser myCanvasColorChooser;
     private TurtleView myTurtle;
     private Label tabTitle;
 
     public SlogoTab(int id, double width, double height, TurtleView t){
-        this.myID = id;
-        this.myWidth = width;
-        this.myHeight = height;
-        this.myPane = new BorderPane();
-        this.myBottomPane = new StackPane();
-        this.myTopPane = new StackPane();
-        this.myCanvasPane = new StackPane();
-        this.myPane.setBottom(myBottomPane);
-        this.myPane.setTop(myTopPane);
-        this.myPane.setCenter(myCanvasPane);
-        this.myTurtle = t;
-        this.tabTitle = new Label(TAB_STRING + id);
-        initNodes();
-        this.setContent(myPane);
-        this.setGraphic(tabTitle);
+        myID = id;
+        myWidth = width;
+        myHeight = height;
+        myTurtle = t;
+        tabTitle = new Label(TAB_STRING + id);
+        initPanes();
+        setContent(myPane);
+        setGraphic(tabTitle);
     }
 
-    private void initNodes() {
+    private void initPanes(){
+        myPane = new BorderPane();
+        myPane.setMaxSize(myWidth,myHeight);
+        myPane.setPadding(new Insets(DEFAULT_PADDING));
+        initCanvasPane();
+        initTopPane();
+        initBottomPane();
+        initLeftPane();
+        initRightPane();
+    }
+
+    private void initTopPane(){
+        myTopPane = new StackPane();
+        myPane.setTop(myTopPane);
+        initLanguageChooser();
+        initCanvasColorChooser();
+    }
+
+    private void initCanvasPane(){
+        myCanvasPane = new StackPane();
+        myCanvasPane.setMaxSize(myHeight*CANVAS_RATIO,myHeight*CANVAS_RATIO);
+        myPane.setCenter(myCanvasPane);
+        initCanvas();
+        initTurtleView();
+    }
+
+    private void initBottomPane(){
+        myBottomPane = new StackPane();
+        myBottomPane.setMaxSize(myCanvasPane.getPrefWidth(),myHeight-myCanvasPane.getPrefHeight()/2);
+        myPane.setBottom(myBottomPane);
         initConsole();
         initExecuteButton();
         initClearButton();
-        initLanguageChooser();
-        initCanvasColorChooser();
-        initCanvas();
-        initTurtleView();
-        // initVarPane();
+    }
+
+    private void initLeftPane(){
+        myLeftPane = new StackPane();
+        myLeftPane.setMaxSize(myWidth-myCanvasPane.getPrefWidth(),myHeight);
+        myPane.setLeft(myLeftPane);
+        initVarPane();
+    }
+
+    private void initRightPane(){
+        myRightPane = new StackPane();
+        myRightPane.setMaxSize(myWidth-myCanvasPane.getPrefWidth(),myHeight);
+        myPane.setRight(myRightPane);
+        initCommandPane();
     }
 
     private void initConsole() {
-        myConsole = new Console(this.myWidth* CONSOLE_RATIO,this.myBottomPane.getPrefHeight());
+        myConsole = new Console(myHeight* CONSOLE_RATIO,myBottomPane.getMaxHeight());
         StackPane.setAlignment(myConsole.getMyTextArea(), Pos.CENTER);
-        this.myBottomPane.getChildren().add(myConsole.getMyTextArea());
+        myBottomPane.getChildren().add(myConsole.getMyTextArea());
     }
 
     private void initExecuteButton() {
         myExecuteButton = new ExecuteButton();
         myExecuteButton.setOnAction(e -> this.transferCommands());
         StackPane.setAlignment(myExecuteButton,Pos.BOTTOM_RIGHT);
-        this.myBottomPane.getChildren().add(myExecuteButton);
+        myBottomPane.getChildren().add(myExecuteButton);
     }
 
     private void initClearButton() {
         myClearButton = new ClearButton();
         myClearButton.setOnAction(e -> this.myConsole.clearText());
         StackPane.setAlignment(myClearButton,Pos.TOP_RIGHT);
-        this.myBottomPane.getChildren().add(myClearButton);
+        myBottomPane.getChildren().add(myClearButton);
     }
 
     private void initVarPane(){
-        myVarPane = new VariablePane();
+        myVarPane = new VariablePane(myWidth/2-myCanvas.getWidth()/2,myHeight);
         myLeftPane.getChildren().add(myVarPane);
         myPane.setLeft(myLeftPane);
+    }
+
+    private void initCommandPane(){
+        myCommandPane = new CommandHistoryPane(myWidth/2-myCanvas.getWidth()/2,myHeight);
+        myRightPane.getChildren().add(myCommandPane);
+        myPane.setRight(myRightPane);
     }
 
     private void initTurtleView(){
@@ -108,21 +146,21 @@ public class SlogoTab extends Tab {
     private void initCanvas() {
         myCanvas = new SlogoCanvas(myHeight*CANVAS_RATIO,myHeight*CANVAS_RATIO);
         StackPane.setAlignment(myCanvas,Pos.CENTER);
-        this.myCanvasPane.getChildren().add(myCanvas);
+        myCanvasPane.getChildren().add(myCanvas);
     }
 
     private void initCanvasColorChooser() {
         myCanvasColorChooser = new CanvasColorChooser();
         myCanvasColorChooser.setOnAction(e -> setCanvasBackground());
         StackPane.setAlignment(myCanvasColorChooser,Pos.CENTER_LEFT);
-        this.myTopPane.getChildren().add(myCanvasColorChooser);
+        myTopPane.getChildren().add(myCanvasColorChooser);
     }
 
     private void initLanguageChooser() {
         myLanguageChooser = new LanguageChooser();
         myLanguageChooser.setOnAction(e -> setLanguage());
         StackPane.setAlignment(myLanguageChooser,Pos.CENTER_RIGHT);
-        this.myTopPane.getChildren().add(myLanguageChooser);
+        myTopPane.getChildren().add(myLanguageChooser);
     }
 
     private void setCanvasBackground(){

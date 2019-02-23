@@ -6,7 +6,7 @@ import java.util.TreeSet;
 
 public class CanvasColorChooser extends ComboBox {
 
-    public static final String PROMPT_TEXT = "Choose SlogoCanvas Color";
+    public static final String PROMPT_TEXT = "Choose Canvas Color";
 
     private ResourceBundle colorsBundle = ResourceBundle.getBundle("colors/Colors");
 
