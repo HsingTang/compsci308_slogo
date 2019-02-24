@@ -1,2 +1,3 @@
-public class TurtleModel implements TurtleModelInterface {
+public class TurtleModel implements ObjectModelInterface {
+
 }
