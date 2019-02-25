@@ -1,4 +1,4 @@
-package GUIFeatures.Panels;
+package View.GUIFeatures.Panels;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Color;

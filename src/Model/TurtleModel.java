@@ -1,15 +1,17 @@
 package Model;
 
-import CommandTree.CommandNode;
 import CommandTree.TurtleCommandNode;
-import Turtles.TurtleView;
+import ModelInterfaces.TurtleModelInterface;
+import View.ObserverInterfaces.TurtleObserver;
+import View.Turtles.TurtleView;
 import javafx.scene.paint.Color;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
-public class TurtleModel extends Model{
+public class TurtleModel  extends Model implements TurtleModelInterface{
    private static int VISIBLE = 1;
    private static int INVISIBLE = 0;
    private static Double INITIAL_POSITION = 0.0;
@@ -22,10 +24,13 @@ public class TurtleModel extends Model{
    private Color myPenColor;
    private boolean penDown;
    private TurtleView myView;
+   private List<TurtleObserver> turtleObservers;
+
 
    public TurtleModel(){
       super();
       //this.myView = myView;
+      turtleObservers = new ArrayList<>();
       this.myX = INITIAL_POSITION;
       this.myY = INITIAL_POSITION;
       this.myXDir = INITIAL_POSITION;
@@ -91,6 +96,15 @@ public class TurtleModel extends Model{
       return INVISIBLE;
    }
 
+   public void setX(double x) {
+      this.myX = x;
+      notifyX();
+   }
+
+   public double getX() {
+      return this.myX;
+   }
+
    private Double home(){
       Double distance = 0.0;
       return distance;
@@ -98,5 +112,19 @@ public class TurtleModel extends Model{
 
    private Double clearScreen(){
       return this.home();
+   }
+
+   public void registerTurtleObserver(TurtleObserver o) {
+      turtleObservers.add(o);
+   }
+
+   public void removeTurtleObserver(TurtleObserver o) {
+      turtleObservers.remove(o);
+   }
+
+   public void notifyX() {
+      for (TurtleObserver o : turtleObservers) {
+         o.updateX();
+      }
    }
 }
