@@ -1,6 +1,6 @@
 package ModelInterfaces;
 
-import ObserverInterfaces.TurtleObserver;
+import View.ObserverInterfaces.TurtleObserver;
 
 public interface TurtleModelInterface {
 
