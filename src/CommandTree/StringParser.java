@@ -44,7 +44,7 @@ public class StringParser {
       var parsedCommand = new String[size];
       for(int i = 0; i < size; i++){
          if(!myFilter.contains(getSymbol(commandWords[i]))){
-            parsedCommand[i] = getSymbol(commandWords[i]);
+            parsedCommand[i] = getSymbol(commandWords[i]).toLowerCase();
          }else {
             parsedCommand[i] = commandWords[i];
          }
