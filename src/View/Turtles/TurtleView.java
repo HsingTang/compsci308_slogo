@@ -1,7 +1,9 @@
-package Turtles;
+package View.Turtles;
 
-import GUIFeatures.Panels.SlogoCanvas;
-import ObserverInterfaces.TurtleObserver;
+import ModelInterfaces.TurtleModelInterface;
+import View.GUIFeatures.Panels.SlogoCanvas;
+
+import View.ObserverInterfaces.TurtleObserver;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -13,6 +15,7 @@ import javafx.scene.paint.Color;
  */
 public class TurtleView implements TurtleObserver {
 
+    private TurtleModelInterface model;
     private ImageView myImgView;
     private Integer myID;
     private Double myX;
@@ -26,7 +29,9 @@ public class TurtleView implements TurtleObserver {
     private boolean penDown;
 
 
-    public TurtleView(int id, Image img, Color color){
+    public TurtleView(int id, Image img, Color color, TurtleModelInterface model){
+        this.model = model;
+        model.registerTurtleObserver(this);
         this.myImgView = new ImageView(img);
         this.myID = id;
         this.myX = 0.0;
@@ -65,11 +70,11 @@ public class TurtleView implements TurtleObserver {
         this.myImgView = new ImageView(newImg);
     }
 
-    public void setX(Double newX) {
+    private void setX(Double newX) {
         this.myX = newX;
     }
 
-    public void setY(Double newY) {
+    private void setY(Double newY) {
         this.myY = newY;
     }
 
@@ -99,6 +104,15 @@ public class TurtleView implements TurtleObserver {
         if (this.penDown){
 
         }
+    }
+
+    public void updateX() {
+        double newX = model.getX();
+        this.setX(newX);
+    }
+
+    public void updateY() {
+
     }
 
 }

@@ -1,15 +1,15 @@
-package Scenes;
+package View;
 
 
-import GUIFeatures.Buttons.ClearButton;
-import GUIFeatures.Buttons.ExecuteButton;
-import GUIFeatures.Choosers.CanvasColorChooser;
-import GUIFeatures.Choosers.LanguageChooser;
-import GUIFeatures.Panels.CommandHistoryPane;
-import GUIFeatures.Panels.Console;
-import GUIFeatures.Panels.SlogoCanvas;
-import GUIFeatures.Panels.VariablePane;
-import Turtles.TurtleView;
+import View.GUIFeatures.Buttons.ClearButton;
+import View.GUIFeatures.Buttons.ExecuteButton;
+import View.GUIFeatures.Choosers.CanvasColorChooser;
+import View.GUIFeatures.Choosers.LanguageChooser;
+import View.GUIFeatures.Panels.CommandHistoryPane;
+import View.GUIFeatures.Panels.Console;
+import View.GUIFeatures.Panels.SlogoCanvas;
+import View.GUIFeatures.Panels.VariablePane;
+import View.Turtles.TurtleView;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;

@@ -1,6 +1,7 @@
 package CommandTree;
 
-import Model.Model;
+import Model.MainModel;
+
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,10 +19,10 @@ public class TreeTester {
          System.out.println(e);
       }
       String[] commands = {"forward", "5", "repeat", "3", "[", "forward", "2", "forward", "3", "repeat", "2", "[", "forward", "5", "]", "]", "forward", "2"};
-//      CommandRoot root = new CommandRoot(commands);
-//      Model model = new Model();
-//      model.setCurrentRoot(root);
-//      model.execute();
+      CommandRoot root = new CommandRoot(commands);
+      MainModel model = new MainModel();
+      model.setCurrentRoot(root);
+      model.execute();
    }
 
 

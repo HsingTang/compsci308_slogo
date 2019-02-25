@@ -1,10 +1,9 @@
-package Models;
+package Model;
 
-import CommandTree.CommandNode;
 import CommandTree.TurtleCommandNode;
 import ModelInterfaces.TurtleModelInterface;
-import ObserverInterfaces.TurtleObserver;
-import Turtles.TurtleView;
+import View.ObserverInterfaces.TurtleObserver;
+import View.Turtles.TurtleView;
 import javafx.scene.paint.Color;
 
 import java.lang.reflect.Method;
@@ -12,12 +11,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class TurtleModel implements TurtleModelInterface{
+public class TurtleModel  extends Model implements TurtleModelInterface{
    private static int VISIBLE = 1;
    private static int INVISIBLE = 0;
    private static Double INITIAL_POSITION = 0.0;
 
-   private HashMap<String, Method> methodMap;
 
    private Double myX;
    private Double myY;
@@ -29,19 +27,19 @@ public class TurtleModel implements TurtleModelInterface{
    private TurtleView myView;
    private List<TurtleObserver> turtleObservers;
 
-   public TurtleModel() {
+
+   public TurtleModel(){
+      super();
       //this.myView = myView;
       turtleObservers = new ArrayList<>();
       this.myX = INITIAL_POSITION;
       this.myY = INITIAL_POSITION;
       this.myXDir = INITIAL_POSITION;
       this.myYDir = INITIAL_POSITION;
-      this.methodMap = new HashMap<>();
-      this.setMethodMap();
    }
 
    public void execute(TurtleCommandNode command){
-      Method method = methodMap.get(command.getType());
+      Method method = this.getMethodMap().get(command.getType());
       ArrayList<Double> parameters = command.getParsedParameters();
       try {
          method.invoke(this, parameters);
@@ -55,8 +53,7 @@ public class TurtleModel implements TurtleModelInterface{
       Method [] methods = this.getClass().getDeclaredMethods();
       for(Method m: methods){
          m.setAccessible(true);
-         this.methodMap.put(m.getName(), m);
-         System.out.println(m.getName());
+         this.getMethodMap().put(m.getName(), m);
       }
    }
 
@@ -64,7 +61,6 @@ public class TurtleModel implements TurtleModelInterface{
       System.out.println("forward" + params.get(0));
       return params.get(0);
    }
-
    private Double backward(ArrayList<Double> params){
       return params.get(0);
    }
@@ -101,6 +97,15 @@ public class TurtleModel implements TurtleModelInterface{
       return INVISIBLE;
    }
 
+   public void setX(double x) {
+      this.myX = x;
+      notifyX();
+   }
+
+   public double getX() {
+      return this.myX;
+   }
+
    private Double home(){
       Double distance = 0.0;
       return distance;
@@ -110,11 +115,17 @@ public class TurtleModel implements TurtleModelInterface{
       return this.home();
    }
 
-   public void addTurtleObserver(TurtleObserver o) {
+   public void registerTurtleObserver(TurtleObserver o) {
       turtleObservers.add(o);
    }
 
    public void removeTurtleObserver(TurtleObserver o) {
       turtleObservers.remove(o);
+   }
+
+   public void notifyX() {
+      for (TurtleObserver o : turtleObservers) {
+         o.updateX();
+      }
    }
 }

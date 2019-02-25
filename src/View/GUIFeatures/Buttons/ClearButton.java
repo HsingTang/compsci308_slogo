@@ -1,4 +1,4 @@
-package GUIFeatures.Buttons;
+package View.GUIFeatures.Buttons;
 
 import javafx.scene.control.Button;
 
