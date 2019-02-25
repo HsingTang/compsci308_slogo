@@ -100,7 +100,7 @@ public class TurtleModel implements TurtleModelInterface{
       return INVISIBLE;
    }
 
-   public void setX(double x) {
+   public void setX(double x) { // Must be called by controller!!!!
       this.myX = x;
       notifyX();
    }
