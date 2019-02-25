@@ -1,5 +1,6 @@
-package Turtles;
+package View.Turtles;
 
+import Models.TurtleModel;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
@@ -20,14 +21,14 @@ public class TurtleFactory {
         this.myTurtles = new HashMap<>();
     }
 
-    public TurtleView makeTurtle(int id){
-        TurtleView newTurtle = new TurtleView(id, DEFAULT_TURTLE_IMG,DEFAULT_PEN_COLOR);
+    public TurtleView makeTurtle(int id, TurtleModel m){
+        TurtleView newTurtle = new TurtleView(id, DEFAULT_TURTLE_IMG,DEFAULT_PEN_COLOR,m);
         myTurtles.put(id,newTurtle);
         return newTurtle;
     }
 
-    public TurtleView makeTurtle(int id, String imgSrc){
-        TurtleView newTurtle = new TurtleView(id, new Image(this.getClass().getClassLoader().getResourceAsStream(imgSrc)),DEFAULT_PEN_COLOR);
+    public TurtleView makeTurtle(int id, String imgSrc, TurtleModel m){
+        TurtleView newTurtle = new TurtleView(id, new Image(this.getClass().getClassLoader().getResourceAsStream(imgSrc)),DEFAULT_PEN_COLOR,m);
         myTurtles.put(id,newTurtle);
         return newTurtle;
     }

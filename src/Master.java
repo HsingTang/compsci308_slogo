@@ -1,5 +1,5 @@
-import Scenes.SplashScreen;
-import Scenes.Window;
+import View.SplashScreen;
+import View.Window;
 import javafx.application.Application;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Pane;

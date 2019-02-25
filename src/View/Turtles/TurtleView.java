@@ -1,8 +1,9 @@
-package Turtles;
+package View.Turtles;
 
-import GUIFeatures.Panels.SlogoCanvas;
 import ModelInterfaces.TurtleModelInterface;
-import ObserverInterfaces.TurtleObserver;
+import View.GUIFeatures.Panels.SlogoCanvas;
+
+import View.ObserverInterfaces.TurtleObserver;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
