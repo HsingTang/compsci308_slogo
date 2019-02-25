@@ -1,6 +1,6 @@
 package View;
 
-import Models.TurtleModel;
+import Model.TurtleModel;
 import View.Turtles.TurtleFactory;
 import View.Turtles.TurtleView;
 import javafx.scene.Scene;

@@ -1,6 +1,6 @@
 package View.Turtles;
 
-import Models.TurtleModel;
+import Model.TurtleModel;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
