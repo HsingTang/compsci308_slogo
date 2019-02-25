@@ -1,6 +1,6 @@
 package View.Turtles;
 
-import ModelInterfaces.TurtleModelInterface;
+import Model.ModelInterfaces.TurtleModelInterface;
 import View.GUIFeatures.Panels.SlogoCanvas;
 
 import View.ObserverInterfaces.TurtleObserver;
