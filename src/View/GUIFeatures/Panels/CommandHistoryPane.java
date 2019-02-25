@@ -1,4 +1,4 @@
-package GUIFeatures.Panels;
+package View.GUIFeatures.Panels;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.TableColumn;

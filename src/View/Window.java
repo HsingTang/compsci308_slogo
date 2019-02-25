@@ -1,7 +1,8 @@
-package Scenes;
+package View;
 
-import Turtles.TurtleFactory;
-import Turtles.TurtleView;
+import Model.TurtleModel;
+import View.Turtles.TurtleFactory;
+import View.Turtles.TurtleView;
 import javafx.scene.Scene;
 import javafx.scene.control.TabPane;
 
@@ -50,7 +51,9 @@ public class Window extends Scene {
     }
 
     private void initializeTab(){
-        TurtleView newTurtle = this.myTurtleFactory.makeTurtle(turtleId);
+        TurtleModel newTurtleModel = new TurtleModel();
+        TurtleView newTurtle = this.myTurtleFactory.makeTurtle(turtleId,newTurtleModel);
+        newTurtleModel.registerTurtleObserver(newTurtle);
         this.root.getTabs().add(new SlogoTab(tabCount,windowWidth,windowHeight,newTurtle));
     }
 

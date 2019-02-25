@@ -1,39 +1,34 @@
 package Model;
 
 import CommandTree.CommandNode;
-import CommandTree.CommandRoot;
-import CommandTree.LoopNode;
-import CommandTree.TurtleCommandNode;
-import Models.TurtleModel;
+
+import java.lang.reflect.Method;
+import java.util.HashMap;
 
 public class Model {
-   private CommandRoot currentRoot;
-   private TurtleModel turtleModel;
+
+   private HashMap<String, Method> methodMap;
 
    public Model(){
-      this.turtleModel = new TurtleModel();
+      this.methodMap = new HashMap<>();
+      this.setMethodMap();
    }
 
-   public void setCurrentRoot(CommandRoot newRoot){
-      this.currentRoot = newRoot;
+   public HashMap<String, Method> getMethodMap() {
+      return this.methodMap;
    }
 
-   public void execute(){
-      this.executeNode(this.currentRoot.getParent());
-   }
-
-   private void executeNode(CommandNode parent){
-      for(CommandNode c: parent.getChildren()){
-         this.executeNode(c);
-      }
-      if(parent instanceof LoopNode){
-         for(int i = 1; i < ((LoopNode) parent).getNumTimes(); i++){
-            for(CommandNode c: parent.getChildren())
-               this.executeNode(c);
-            }
-         }
-      else if(parent instanceof TurtleCommandNode){
-         turtleModel.execute((TurtleCommandNode) (parent));
+   private void setMethodMap(){
+      Method [] methods = this.getClass().getDeclaredMethods();
+      for(Method m: methods){
+         m.setAccessible(true);
+         this.methodMap.put(m.getName(), m);
       }
    }
+
+
+   public boolean isCommand(CommandNode inNode){
+      return this.methodMap.containsKey(inNode.getType());
+   }
+
 }

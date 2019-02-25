@@ -1,4 +1,4 @@
-package ObserverInterfaces;
+package View.ObserverInterfaces;
 
 public interface TurtleObserver {
 
