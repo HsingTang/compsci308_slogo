@@ -100,6 +100,15 @@ public class TurtleModel implements TurtleModelInterface{
       return INVISIBLE;
    }
 
+   public void setX(double x) {
+      this.myX = x;
+      notifyX();
+   }
+
+   public double getX() {
+      return this.myX;
+   }
+
    private Double home(){
       Double distance = 0.0;
       return distance;
@@ -109,11 +118,17 @@ public class TurtleModel implements TurtleModelInterface{
       return this.home();
    }
 
-   public void addTurtleObserver(TurtleObserver o) {
+   public void registerTurtleObserver(TurtleObserver o) {
       turtleObservers.add(o);
    }
 
    public void removeTurtleObserver(TurtleObserver o) {
       turtleObservers.remove(o);
+   }
+
+   public void notifyX() {
+      for (TurtleObserver o : turtleObservers) {
+         o.updateX();
+      }
    }
 }
