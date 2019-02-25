@@ -1,6 +1,7 @@
 package Turtles;
 
 import GUIFeatures.Panels.SlogoCanvas;
+import ObserverInterfaces.TurtleObserver;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -10,7 +11,7 @@ import javafx.scene.paint.Color;
  * @author Hsingchih Tang
  * Front-end visualization of the Turtle
  */
-public class TurtleView {
+public class TurtleView implements TurtleObserver {
 
     private ImageView myImgView;
     private Integer myID;

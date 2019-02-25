@@ -2,14 +2,17 @@ package Models;
 
 import CommandTree.CommandNode;
 import CommandTree.TurtleCommandNode;
+import ModelInterfaces.TurtleModelInterface;
+import ObserverInterfaces.TurtleObserver;
 import Turtles.TurtleView;
 import javafx.scene.paint.Color;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
-public class TurtleModel {
+public class TurtleModel implements TurtleModelInterface{
    private static int VISIBLE = 1;
    private static int INVISIBLE = 0;
    private static Double INITIAL_POSITION = 0.0;
@@ -23,9 +26,11 @@ public class TurtleModel {
    private Color myPenColor;
    private boolean penDown;
    private TurtleView myView;
+   private List<TurtleObserver> turtleObservers;
 
-   public TurtleModel(){
+   public TurtleModel() {
       //this.myView = myView;
+      turtleObservers = new ArrayList<>();
       this.myX = INITIAL_POSITION;
       this.myY = INITIAL_POSITION;
       this.myXDir = INITIAL_POSITION;
@@ -102,5 +107,13 @@ public class TurtleModel {
 
    private Double clearScreen(){
       return this.home();
+   }
+
+   public void addTurtleObserver(TurtleObserver o) {
+      turtleObservers.add(o);
+   }
+
+   public void removeTurtleObserver(TurtleObserver o) {
+      turtleObservers.remove(o);
    }
 }
