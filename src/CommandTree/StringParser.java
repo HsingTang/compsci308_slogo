@@ -11,10 +11,14 @@ import java.util.regex.Pattern;
 public class StringParser {
    private static String WHITESPACE_TRIM = "\\s+";
    private List<Entry<String, Pattern>> mySymbols;
+   private List<String> myFilter = new ArrayList<>();
 
    public StringParser(){
       mySymbols = new ArrayList<>();
-      addPatterns("languages/Syntax");
+      var syntax = ResourceBundle.getBundle("languages/Syntax");
+      for (var key : Collections.list(syntax.getKeys())){
+         myFilter.add(key);
+      }
    }
 
    /**
@@ -39,8 +43,10 @@ public class StringParser {
       }
       var parsedCommand = new String[size];
       for(int i = 0; i < size; i++){
-         if(commandWords[i].equals("Constant") || commandWords[i].equals("Command")){
-
+         if(!myFilter.contains(getSymbol(commandWords[i]))){
+            parsedCommand[i] = getSymbol(commandWords[i]).toLowerCase();
+         }else {
+            parsedCommand[i] = commandWords[i];
          }
       }
       return parsedCommand;

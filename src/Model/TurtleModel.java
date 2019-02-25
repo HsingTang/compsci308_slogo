@@ -21,6 +21,7 @@ public class TurtleModel  extends Model implements TurtleModelInterface{
    private Double myY;
    private Double myXDir;
    private Double myYDir;
+   private double myAngle;
    private Color myPenColor;
    private boolean penDown;
    private TurtleView myView;
