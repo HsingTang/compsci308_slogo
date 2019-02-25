@@ -4,8 +4,14 @@ import ObserverInterfaces.TurtleObserver;
 
 public interface TurtleModelInterface {
 
-    public void addTurtleObserver(TurtleObserver o);
+    void registerTurtleObserver(TurtleObserver o);
 
-    public void removeTurtleObserver(TurtleObserver o);
+    void removeTurtleObserver(TurtleObserver o);
+
+    void setX(double x);
+
+    double getX();
+
+    void notifyX();
 
 }
