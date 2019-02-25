@@ -1,4 +1,4 @@
-package ModelInterfaces;
+package Model.ModelInterfaces;
 
 import View.ObserverInterfaces.TurtleObserver;
 

@@ -1,14 +1,13 @@
 package Model;
 
 import CommandTree.TurtleCommandNode;
-import ModelInterfaces.TurtleModelInterface;
+import Model.ModelInterfaces.TurtleModelInterface;
 import View.ObserverInterfaces.TurtleObserver;
 import View.Turtles.TurtleView;
 import javafx.scene.paint.Color;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class TurtleModel  extends Model implements TurtleModelInterface{
@@ -97,7 +96,7 @@ public class TurtleModel  extends Model implements TurtleModelInterface{
       return INVISIBLE;
    }
 
-   public void setX(double x) {
+   public void setX(double x) { // Must be called by controller!!!!
       this.myX = x;
       notifyX();
    }
