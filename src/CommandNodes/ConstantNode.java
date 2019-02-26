@@ -32,6 +32,10 @@ public class ConstantNode extends CommandNode {
       return this.myValue;
    }
 
+   protected void setMyValue(Double value){
+      this.myValue = value;
+   }
+
    protected void execute(){
       this.parseParameters();
    }

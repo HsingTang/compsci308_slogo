@@ -5,24 +5,29 @@ import Controller.ControllerInterfaces.CommandControllerInterface;
 import java.util.ArrayList;
 
 public abstract class CommandNode {
-   private static int INIT_PARAMS = 0;
+   private static int INIT = 0;
+
 
    protected CommandControllerInterface myController;
    private ArrayList<CommandNode> myChildren;
    private CommandNode myParent;
    private int myNumParams;
+   private Double myReturnValue;
+   private int myChildrenIndex;
 
    public CommandNode(CommandControllerInterface inController) {
       this.myChildren = new ArrayList<CommandNode>();
       this.myController = inController;
-      this.myNumParams = INIT_PARAMS;
+      this.myNumParams = INIT;
+      this.myChildrenIndex = 0;
    }
 
    public CommandNode(CommandControllerInterface inController, CommandNode inParent){
       this.myChildren = new ArrayList<CommandNode>();
       this.myController = inController;
-      this.myNumParams = INIT_PARAMS;
+      this.myNumParams = INIT;
       this.myParent = inParent;
+      this.myChildrenIndex = 0;
 
 }
 
@@ -50,11 +55,57 @@ public abstract class CommandNode {
       return this.myParent;
    }
 
+   public int getMyChildrenIndex(){
+      return this.myChildrenIndex;
+   }
+
+   protected CommandNode getNextNode(){
+      CommandNode nextNode = null;
+      try{
+         nextNode = (ConstantNode)(this.getMyChildren().get(this.myChildrenIndex));
+         this.myChildrenIndex++;
+      }
+      catch(Exception e){
+         /**
+          * Error regarding incorrect node type
+          */
+      }
+      return nextNode;
+   }
+
+   protected double getNextDouble(){
+      double value = 0;
+      try{
+         ConstantNode nextNode = (ConstantNode)(this.getNextNode());
+         value = nextNode.getMyValue();
+      }
+      catch(Exception e){
+         /**
+          * Error regarding incorrect parameter
+          */
+      }
+      return value;
+   }
+
+  /* public CommandNode getNewNode(){
+      ConstantNode newNode = new ConstantNode(this.myController, this.myParent);
+      newNode.setMyValue(this.myReturnValue);
+      return newNode;
+   }
+
+   private Double getMyReturnValue(){
+      return this.myReturnValue;
+   }*/
+
    protected void setMyNumParams(int num){
       this.myNumParams = num;
    }
 
-   protected abstract void execute();
+  /* protected void setReturnValue(Double returnValue){
+      this.myReturnValue = returnValue;
+   }*/
+
+   public abstract void execute();
 
    protected abstract void parseParameters();
 
