@@ -1,12 +1,11 @@
 package Model;
 
-import CommandTree.TurtleCommandNode;
+import CommandNodes.TurtleCommandNodes.TurtleCommandNode;
 import Model.ModelInterfaces.TurtleModelInterface;
 import View.ObserverInterfaces.TurtleObserver;
 import View.Turtles.TurtleView;
 import javafx.scene.paint.Color;
 
-import java.awt.*;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,8 +40,8 @@ public class TurtleModel  extends Model implements TurtleModelInterface{
       this.myHeading = INITIAL_HEADING;
    }
 
-   public void execute(TurtleCommandNode command){
-      Method method = this.getMethodMap().get(command.getType());
+   /*public void execute(TurtleCommandNode command){
+      /*Method method = this.getMethodMap().get(command.getType());
       ArrayList<Double> parameters = command.getParsedParameters();
       try {
          method.invoke(this, parameters);
@@ -50,7 +49,7 @@ public class TurtleModel  extends Model implements TurtleModelInterface{
       catch(Exception e){
          System.out.println("not valid!");
       }
-   }
+   }*/
 
    private Double forward(ArrayList<Double> params){
       System.out.println("forward" + params.get(0));

@@ -2,7 +2,6 @@ package Model;
 
 import CommandTree.CommandRoot;
 import CommandTree.LoopNode;
-import CommandTree.TurtleCommandNode;
 
 
 public class MainModel {
