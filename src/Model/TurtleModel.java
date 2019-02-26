@@ -6,6 +6,7 @@ import View.ObserverInterfaces.TurtleObserver;
 import View.Turtles.TurtleView;
 import javafx.scene.paint.Color;
 
+import java.awt.*;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,12 +16,14 @@ public class TurtleModel  extends Model implements TurtleModelInterface{
    private static int INVISIBLE = 0;
    private static Double INITIAL_POSITION = 0.0;
 
+   public static final double INITIAL_HEADING = 90;
+
 
    private Double myX;
    private Double myY;
    private Double myXDir;
    private Double myYDir;
-   private double myAngle;
+   private double myHeading;
    private Color myPenColor;
    private boolean penDown;
    private TurtleView myView;
@@ -35,6 +38,7 @@ public class TurtleModel  extends Model implements TurtleModelInterface{
       this.myY = INITIAL_POSITION;
       this.myXDir = INITIAL_POSITION;
       this.myYDir = INITIAL_POSITION;
+      this.myHeading = INITIAL_HEADING;
    }
 
    public void execute(TurtleCommandNode command){
@@ -96,18 +100,50 @@ public class TurtleModel  extends Model implements TurtleModelInterface{
       return INVISIBLE;
    }
 
-   public void setX(double x) { // Must be called by controller!!!!
+   public void hasMoved() {
+      notifyMove();
+   }
+
+   public void setX(double x) {
       this.myX = x;
       notifyX();
+   }
+
+   public void setY(double y) {
+      this.myY = y;
+      notifyY();
+   }
+
+   public void setLeftRotate(double deg) {
+      this.myHeading += deg;
+      notifyLeftRotate();
+   }
+
+   public void setRightRotate(double deg) {
+      this.myHeading -= deg;
+      notifyRightRotate();
+   }
+
+   public void setHeading(double deg) {
+      this.myHeading = deg;
+      notifyHeading();
    }
 
    public double getX() {
       return this.myX;
    }
 
+   public double getY() {
+      return this.myY;
+   }
+
    private Double home(){
       Double distance = 0.0;
       return distance;
+   }
+
+   public double getHeading() {
+      return this.myHeading;
    }
 
    private Double clearScreen(){
@@ -122,9 +158,39 @@ public class TurtleModel  extends Model implements TurtleModelInterface{
       turtleObservers.remove(o);
    }
 
-   public void notifyX() {
+   private void notifyMove() {
+      for (TurtleObserver o : turtleObservers) {
+         o.updateMove();
+      }
+   }
+
+   private void notifyX() {
       for (TurtleObserver o : turtleObservers) {
          o.updateX();
+      }
+   }
+
+   private void notifyY() {
+      for (TurtleObserver o : turtleObservers) {
+         o.updateY();
+      }
+   }
+
+   private void notifyLeftRotate() {
+      for (TurtleObserver o : turtleObservers) {
+         o.updateLeftRotate();
+      }
+   }
+
+   private void notifyRightRotate() {
+      for (TurtleObserver o : turtleObservers) {
+         o.updateRightRotate();
+      }
+   }
+
+   private void notifyHeading() {
+      for (TurtleObserver o : turtleObservers) {
+         o.updateHeading();
       }
    }
 }
