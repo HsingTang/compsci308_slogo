@@ -186,6 +186,11 @@ public class SlogoTab extends Tab {
     }
 
     private void transferCommands(){
+        String commands = myConsole.getText();
+        addToHistory(commands);
+    }
+
+    private void addToHistory(String commands) {
 
     }
 
