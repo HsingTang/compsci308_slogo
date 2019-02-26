@@ -10,8 +10,20 @@ public interface TurtleModelInterface {
 
     void setX(double x);
 
+    void setY(double y);
+
+    void hasMoved();
+
+    void setLeftRotate(double deg);
+
+    void setRightRotate(double deg);
+
+    void setHeading(double deg);
+
     double getX();
 
-    void notifyX();
+    double getY();
+
+    double getHeading();
 
 }
