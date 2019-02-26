@@ -1,6 +1,5 @@
 package Model;
 
-import CommandTree.CommandNode;
 import CommandTree.CommandRoot;
 import CommandTree.LoopNode;
 import CommandTree.TurtleCommandNode;

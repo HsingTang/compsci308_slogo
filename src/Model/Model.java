@@ -1,6 +1,6 @@
 package Model;
 
-import CommandTree.CommandNode;
+import CommandNodes.CommandNode;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -27,8 +27,8 @@ public class Model {
    }
 
 
-   public boolean isCommand(CommandNode inNode){
+  /* public boolean isCommand(CommandNode inNode){
       return this.methodMap.containsKey(inNode.getType());
-   }
+   }*/
 
 }
