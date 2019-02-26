@@ -1,6 +1,7 @@
 package CommandTree;
 
 import CommandNodes.CommandNode;
+import CommandNodes.RepeatNode;
 import CommandNodes.TreeParentNode;
 import Controller.ControllerInterfaces.CommandControllerInterface;
 
@@ -32,7 +33,7 @@ public class CommandRoot {
    private void makeTree() {
       while (this.currentIndex < this.numCommands) {
          this.currentString = this.commandStrings[this.currentIndex];
-         CommandNode newNode = this.myCommandNodeFactory.newNode(this.currentString, this.currentParent);
+         CommandNode newNode = this.myCommandNodeFactory.newNode(this.currentString, this.currentParent, this);
          while(this.currentParent.childrenFilled()){
             this.currentParent = this.currentParent.getParent();
          }
@@ -46,10 +47,23 @@ public class CommandRoot {
       this.executeNode(this.parent);
    }
 
-   private void executeNode(CommandNode parent){
+   public void executeNode(CommandNode parent){
       for(CommandNode c: parent.getMyChildren()){
-         c.execute();
+         this.executeNode(c);
       }
-      parent.execute();
-   }
+      parent.fullExecute();
+      if(parent instanceof RepeatNode){
+         this.executeLoopNode((RepeatNode)(parent));
+      }
+      }
+
+      private void executeLoopNode(RepeatNode parent){
+         for(int i = 1; i < parent.getNumRepeat(); i++) {
+            for (CommandNode c : parent.getMyChildren()) {
+               this.executeNode(c);
+            }
+         }
+      }
+
+
 }

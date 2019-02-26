@@ -1,27 +1,26 @@
-package CommandNodes.TurtleCommandNodes;
+package CommandNodes;
 
-import CommandNodes.CommandNode;
 import Controller.ControllerInterfaces.CommandControllerInterface;
 
-public class SetpositionNode extends TurtleCommandNode{
-   private static int SET_POSITION_PARAMS = 2;
+public class TowardsNode extends TurtleCommandNode{
+   private static int TOWARDS_PARAMS = 2;
 
    private double myX;
    private double myY;
 
-   public SetpositionNode(CommandControllerInterface inController){
+   public TowardsNode(CommandControllerInterface inController){
       super(inController);
-      this.setMyNumParams(SET_POSITION_PARAMS);
+      this.setMyNumParams(TOWARDS_PARAMS);
    }
 
-   public SetpositionNode(CommandControllerInterface inController, CommandNode inParent){
+   public TowardsNode(CommandControllerInterface inController, CommandNode inParent){
       super(inController, inParent);
-      this.setMyNumParams(SET_POSITION_PARAMS);
+      this.setMyNumParams(TOWARDS_PARAMS);
    }
 
    public void execute(){
       this.parseParameters();
-      this.myController.goTo(this.myX, this.myY);
+      this.myController.turnTowards(this.myX, this.myY);
    }
 
    protected void parseParameters(){

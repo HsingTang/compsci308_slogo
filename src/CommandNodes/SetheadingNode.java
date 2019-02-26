@@ -1,6 +1,5 @@
-package CommandNodes.TurtleCommandNodes;
+package CommandNodes;
 
-import CommandNodes.CommandNode;
 import Controller.ControllerInterfaces.CommandControllerInterface;
 
 public class SetheadingNode extends TurtleCommandNode{

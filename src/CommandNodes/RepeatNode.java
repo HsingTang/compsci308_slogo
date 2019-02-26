@@ -1,6 +1,6 @@
-package CommandNodes.StructureNodes;
+package CommandNodes;
 
-import CommandNodes.CommandNode;
+import CommandTree.CommandRoot;
 import Controller.ControllerInterfaces.CommandControllerInterface;
 
 public class RepeatNode extends CommandNode {
@@ -17,10 +17,6 @@ public class RepeatNode extends CommandNode {
 
    public void execute(){
       this.parseParameters();
-      for(int i = 1; i < numRepeat; i++){
-         CommandNode currentNode = this.getNextNode();
-         currentNode.execute();
-      }
    }
 
    public boolean childrenFilled(){
@@ -34,5 +30,8 @@ public class RepeatNode extends CommandNode {
 
    public void parseParameters(){
       this.numRepeat = this.getNextDouble();
+   }
+   public double getNumRepeat(){
+      return this.numRepeat;
    }
 }

@@ -22,6 +22,7 @@ public class CommandController implements CommandControllerInterface {
         model.setX(-px*Math.cos(heading));
         model.setY(-px*Math.sin(heading));
         model.moveWithAnimation();
+
     }
 
     public void turnLeft(double deg) {

@@ -1,4 +1,4 @@
-package CommandNodes.StructureNodes;
+package CommandNodes;
 
 import CommandNodes.CommandNode;
 import Controller.ControllerInterfaces.CommandControllerInterface;

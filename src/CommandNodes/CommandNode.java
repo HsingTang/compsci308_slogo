@@ -63,7 +63,7 @@ public abstract class CommandNode {
    protected CommandNode getNextNode(){
       CommandNode nextNode = null;
       try{
-         nextNode = (ConstantNode)(this.getMyChildren().get(this.myChildrenIndex));
+         nextNode = (CommandNode)(this.getMyChildren().get(this.myChildrenIndex));
          this.myChildrenIndex++;
       }
       catch(Exception e){
@@ -71,6 +71,7 @@ public abstract class CommandNode {
           * Error regarding incorrect node type
           */
       }
+
       return nextNode;
    }
 
@@ -106,12 +107,22 @@ public abstract class CommandNode {
       this.myNumParams = num;
    }
 
+   protected void resetIndex(){
+      this.myChildrenIndex = 0;
+   }
+
   /* protected void setReturnValue(Double returnValue){
       this.myReturnValue = returnValue;
    }*/
 
+   public void fullExecute(){
+      this.execute();
+      this.resetIndex();
+   }
+
    public abstract void execute();
 
    protected abstract void parseParameters();
+
 
 }

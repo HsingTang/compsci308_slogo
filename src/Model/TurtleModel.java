@@ -1,12 +1,10 @@
 package Model;
 
-import CommandNodes.TurtleCommandNodes.TurtleCommandNode;
 import Model.ModelInterfaces.TurtleModelInterface;
 import View.ObserverInterfaces.TurtleObserver;
 import View.Turtles.TurtleView;
 import javafx.scene.paint.Color;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 

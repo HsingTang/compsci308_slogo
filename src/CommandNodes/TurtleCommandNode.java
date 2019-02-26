@@ -1,4 +1,4 @@
-package CommandNodes.TurtleCommandNodes;
+package CommandNodes;
 
 import CommandNodes.CommandNode;
 import CommandNodes.ConstantNode;
@@ -37,5 +37,5 @@ public abstract class TurtleCommandNode extends CommandNode {
 
    protected abstract void parseParameters();
 
-   protected abstract void execute();
+   public abstract void execute();
 }

@@ -1,4 +1,4 @@
-package CommandNodes.StructureNodes;
+package CommandNodes;
 
 import CommandNodes.CommandNode;
 import Controller.ControllerInterfaces.CommandControllerInterface;
@@ -13,9 +13,7 @@ public class RightBracketNode extends CommandNode {
       super(inController, inParent);
    }
 
-   public void execute(){
-      this.parseParameters();
-   }
+   public void execute(){ }
 
    protected void parseParameters(){}
 }

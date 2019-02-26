@@ -1,30 +1,26 @@
-package CommandNodes.TurtleCommandNodes;
+package CommandNodes;
 
-import CommandNodes.CommandNode;
 import Controller.ControllerInterfaces.CommandControllerInterface;
 
-public class ClearscreenNode extends TurtleCommandNode{
+public class HomeNode extends TurtleCommandNode{
    private static int SCREEN_PARAMS = 0;
 
-   private double distanceMoved;
-
-   public ClearscreenNode(CommandControllerInterface inController){
+   public HomeNode(CommandControllerInterface inController){
       super(inController);
       this.setMyNumParams(SCREEN_PARAMS);
    }
 
-   public ClearscreenNode(CommandControllerInterface inController, CommandNode inParent){
+   public HomeNode(CommandControllerInterface inController, CommandNode inParent){
       super(inController, inParent);
       this.setMyNumParams(SCREEN_PARAMS);
    }
 
    public void execute(){
       this.parseParameters();
-      this.myController.clearScreen();
+      this.myController.goHome();
    }
 
    protected void parseParameters(){
 
    }
-
 }
