@@ -25,7 +25,7 @@ public class TurtleModel  extends Model implements TurtleModelInterface{
    private Double myYDir;
    private double myHeading;
    private Color myPenColor;
-   private boolean penDown;
+   private boolean penDown = true;
    private TurtleView myView;
    private List<TurtleObserver> turtleObservers;
 
@@ -100,8 +100,8 @@ public class TurtleModel  extends Model implements TurtleModelInterface{
       return INVISIBLE;
    }
 
-   public void hasMoved() {
-      notifyMove();
+   public void moveWithAnimation() {
+      notifyMoveWithAnimation();
    }
 
    public void setX(double x) {
@@ -129,6 +129,16 @@ public class TurtleModel  extends Model implements TurtleModelInterface{
       notifyHeading();
    }
 
+   public void setPenDown() {
+      this.penDown = true;
+      notifyPenDown();
+   }
+
+   public void setPenUp() {
+      this.penDown = false;
+      notifyPenDown();
+   }
+
    public double getX() {
       return this.myX;
    }
@@ -146,6 +156,10 @@ public class TurtleModel  extends Model implements TurtleModelInterface{
       return this.myHeading;
    }
 
+   public boolean getPenDown() {
+      return this.getPenDown();
+   }
+
    private Double clearScreen(){
       return this.home();
    }
@@ -158,12 +172,6 @@ public class TurtleModel  extends Model implements TurtleModelInterface{
       turtleObservers.remove(o);
    }
 
-   private void notifyMove() {
-      for (TurtleObserver o : turtleObservers) {
-         o.updateMove();
-      }
-   }
-
    private void notifyX() {
       for (TurtleObserver o : turtleObservers) {
          o.updateX();
@@ -173,6 +181,12 @@ public class TurtleModel  extends Model implements TurtleModelInterface{
    private void notifyY() {
       for (TurtleObserver o : turtleObservers) {
          o.updateY();
+      }
+   }
+
+   private void notifyMoveWithAnimation() {
+      for (TurtleObserver o : turtleObservers) {
+         o.updateMove();
       }
    }
 
@@ -191,6 +205,12 @@ public class TurtleModel  extends Model implements TurtleModelInterface{
    private void notifyHeading() {
       for (TurtleObserver o : turtleObservers) {
          o.updateHeading();
+      }
+   }
+
+   private void notifyPenDown() {
+      for (TurtleObserver o : turtleObservers) {
+         o.updatePenDown();
       }
    }
 }

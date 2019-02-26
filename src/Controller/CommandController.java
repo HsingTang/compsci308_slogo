@@ -12,16 +12,16 @@ public class CommandController implements CommandControllerInterface {
 
     public void moveForward(double px) {
         double heading = Math.toRadians(model.getHeading());
-        model.hasMoved();
         model.setX(px*Math.cos(heading));
         model.setY(px*Math.sin(heading));
+        model.moveWithAnimation();
     }
 
     public void moveBackwards(double px) {
         double heading = Math.toRadians(model.getHeading());
         model.setX(-px*Math.cos(heading));
         model.setY(-px*Math.sin(heading));
-
+        model.moveWithAnimation();
     }
 
     public void turnLeft(double deg) {
@@ -47,11 +47,11 @@ public class CommandController implements CommandControllerInterface {
     }
 
     public void penDown() {
-
+        model.setPenDown();
     }
 
     public void penUp() {
-
+        model.setPenUp();
     }
 
     public void showTurtle() {

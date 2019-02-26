@@ -31,4 +31,5 @@ public class CommandHistoryPane extends VBox {
         commandTable.setEditable(false);
         commandTable.getColumns().addAll(commandCol);
     }
+
 }

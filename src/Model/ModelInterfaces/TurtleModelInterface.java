@@ -12,7 +12,7 @@ public interface TurtleModelInterface {
 
     void setY(double y);
 
-    void hasMoved();
+    void moveWithAnimation();
 
     void setLeftRotate(double deg);
 
@@ -20,10 +20,16 @@ public interface TurtleModelInterface {
 
     void setHeading(double deg);
 
+    void setPenDown();
+
+    void setPenUp();
+
     double getX();
 
     double getY();
 
     double getHeading();
+
+    boolean getPenDown();
 
 }

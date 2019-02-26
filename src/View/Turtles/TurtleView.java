@@ -26,14 +26,14 @@ public class TurtleView implements TurtleObserver {
     private Integer myID;
     private double previousX;
     private double previousY;
-    private Double myX;
-    private Double myY;
-    private Double myXDir;
-    private Double myYDir;
+    private double myX;
+    private double myY;
+    private double myXDir;
+    private double myYDir;
     private double myHeading;
     private SlogoCanvas myCanvas;
-    private Double canvasWidth;
-    private Double canvasHeight;
+    private double canvasWidth;
+    private double canvasHeight;
     private Color myPenColor;
     private boolean penDown;
 
@@ -56,19 +56,19 @@ public class TurtleView implements TurtleObserver {
         return myID;
     }
 
-    public Double getX() {
+    public double getX() {
         return myImgView.getX();
     }
 
-    public Double getY() {
+    public double getY() {
         return myImgView.getY();
     }
 
-    public Double getXDir() {
+    public double getXDir() {
         return myXDir;
     }
 
-    public Double getYDir() {
+    public double getYDir() {
         return myYDir;
     }
 
@@ -92,30 +92,26 @@ public class TurtleView implements TurtleObserver {
         tt.setFromY(previousY);
         tt.setToX(xFinal);
         tt.setToY(yFinal);
+        tt.play();
     }
 
-    private void setX(Double newX) {
+    private void setX(double newX) {
         this.previousX = myX;
         this.myX = newX;
-        this.myImgView.setX(newX);
-
     }
 
-    private void setY(Double newY) {
+    private void setY(double newY) {
         this.previousY = myY;
         this.myY = newY;
-        this.myImgView.setY(newY);
     }
 
     private void rotateLeft(double newDegrees) {
         this.myHeading += newDegrees;
-        this.myImgView.setRotate(newDegrees);
         animateRotation(newDegrees);
     }
 
     private void rotateRight(double newDegrees) {
         this.myHeading -= newDegrees;
-        this.myImgView.setRotate(-newDegrees);
         animateRotation(-newDegrees);
     }
 
@@ -124,36 +120,16 @@ public class TurtleView implements TurtleObserver {
         this.myHeading = newHeading;
     }
 
-    public void setXDir(Double newXDir) {
-        this.myXDir = newXDir;
-    }
-
-    public void setYDir(Double newYDir) {
-        this.myYDir = newYDir;
-    }
-
     public void setCanvas(SlogoCanvas c){
         this.myCanvas = c;
         this.canvasWidth = c.getWidth();
         this.canvasHeight = c.getHeight();
     }
 
-    public void setPenUp(){
-        this.penDown = false;
-    }
-
-    public void setPenDown(){
-        this.penDown = true;
-    }
-
     public void drawTrail(){
         if (this.penDown){
-
+            //draw animation
         }
-    }
-
-    public void updateMove() {
-        animateTranslation(model.getX(), model.getY());
     }
 
     public void updateX() {
@@ -164,6 +140,10 @@ public class TurtleView implements TurtleObserver {
     public void updateY() {
         double newY = model.getY();
         this.setY(newY);
+    }
+
+    public void updateMove() {
+        animateTranslation(model.getX(), model.getY());
     }
 
 
@@ -180,6 +160,10 @@ public class TurtleView implements TurtleObserver {
     public void updateHeading() {
         double newHeading = model.getHeading();
         this.setHeading(newHeading);
+    }
+
+    public void updatePenDown() {
+        this.penDown = model.getPenDown();
     }
 
 }
