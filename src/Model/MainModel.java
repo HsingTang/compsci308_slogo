@@ -26,6 +26,8 @@ public class MainModel {
       for(CommandNode c: parent.getChildren()){
          this.executeNode(c);
       }
+
+
       if(parent instanceof LoopNode){
          this.executeLoop(parent);
       }

@@ -6,7 +6,9 @@ import java.util.Set;
 
 public class CommandRoot {
    private static String END_EXPRESSION = "]";
+   private static String START_EXPRESSION = "[";
    private static String LOOP_EXPRESSION = "repeat";
+
 
    private CommandNode parent;
    private CommandNode current;

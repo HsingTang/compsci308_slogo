@@ -48,14 +48,6 @@ public class TurtleModel  extends Model implements TurtleModelInterface{
       }
    }
 
-   private void setMethodMap(){
-      Method [] methods = this.getClass().getDeclaredMethods();
-      for(Method m: methods){
-         m.setAccessible(true);
-         this.getMethodMap().put(m.getName(), m);
-      }
-   }
-
    private Double forward(ArrayList<Double> params){
       System.out.println("forward" + params.get(0));
       return params.get(0);
