@@ -1,82 +1,58 @@
 package CommandTree;
 
 import CommandNodes.CommandNode;
-import CommandNodes.TurtleCommandNodes.TurtleCommandNode;
-
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
+import CommandNodes.StructureNodes.RepeatNode;
+import CommandNodes.StructureNodes.RightBracketNode;
+import CommandNodes.TreeParentNode;
+import Controller.ControllerInterfaces.CommandControllerInterface;
 
 public class CommandRoot {
-   private static String END_EXPRESSION = "]";
-   private static String START_EXPRESSION = "[";
-   private static String LOOP_EXPRESSION = "repeat";
-   private static String EXPRESSION_MAP_FILE = "/resources/expressionToString.txt";
-   private static String MAP_SPLIT = ":";
-   private static int MAP_LIMIT = 2;
-   private static String NODE_BUILDER = "Node";
+   private static int INIT = 0;
 
-
-   private CommandNode parent;
-
-   private CommandNode currentParent;
-   private int currentIndex;
-   private String currentString;
-   private String currentNodeString;
-
-   private HashMap<String, String> expressionStringMap;
+   private CommandNodeFactory myCommandNodeFactory;
 
    private String[] commandStrings;
    private int numCommands;
 
-   public CommandRoot(String[] commandStrings){
+   private CommandControllerInterface myController;
+   private CommandNode parent;
+   private CommandNode currentParent;
+   private int currentIndex;
+   private String currentString;
+
+   public CommandRoot(String[] commandStrings, CommandControllerInterface controller) {
       this.commandStrings = commandStrings;
       this.numCommands = commandStrings.length;
+      this.myController = controller;
+      this.parent = new TreeParentNode(this.myController);
       this.currentParent = this.parent;
-      this.currentIndex = 0;
-      this.setExpressionMap();
+      this.currentIndex = INIT;
+      this.myCommandNodeFactory = new CommandNodeFactory(this.myController);
       this.makeTree();
    }
 
-   private void makeTree(){
-      this.currentString = this.commandStrings[this.currentIndex];
-      this.setCurrentNodeString();
-
-   }
-
-   private void setExpressionMap(){
-      HashMap<String, String> map = new HashMap<>();
-      try{
-         String line;
-         BufferedReader reader = new BufferedReader(new FileReader(EXPRESSION_MAP_FILE));
-         while((line = reader.readLine()) != null){
-            String[] parts = line.split(MAP_SPLIT, MAP_LIMIT);
-            String key = parts[0];
-            String value = parts[1];
-            map.put(key, value);
+   private void makeTree() {
+      while (this.currentIndex < this.numCommands) {
+         this.currentString = this.commandStrings[this.currentIndex];
+         CommandNode newNode = this.myCommandNodeFactory.newNode(this.currentString, this.currentParent);
+         this.currentParent.addChild(newNode);
+         if (newNode instanceof RepeatNode) {
+            this.currentParent = newNode;
+         } else if (newNode instanceof RightBracketNode) {
+            this.currentParent = newNode.getParent().getParent();
          }
-         reader.close();
-         this.expressionStringMap = map;
-      }
-      catch(Exception e){
-         /**
-          * Error about internal expression file not found
-          */
+         this.currentIndex++;
       }
    }
 
-   private void setCurrentNodeString(){
-      StringBuilder nodeString = new StringBuilder();
-      if(this.expressionStringMap.containsKey(this.currentString)){
-         nodeString.append(this.expressionStringMap.get(this.currentString));
+   public void execute(){
+      this.executeNode(this.parent);
+   }
+
+   private void executeNode(CommandNode parent){
+      for(CommandNode c: parent.getMyChildren()){
+         c.execute();
       }
-      else{
-         nodeString.append(this.currentString.substring(0,1).toUpperCase()).append(this.currentString.substring(1).toLowerCase());
-      }
-      nodeString.append(NODE_BUILDER);
-      this.currentNodeString = nodeString.toString();
+      parent.execute();
    }
 }

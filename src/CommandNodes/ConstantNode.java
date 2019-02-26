@@ -6,7 +6,6 @@ public class ConstantNode extends CommandNode {
    private static int CONSTANT_PARAMS = 0;
    private static int INIT_VAL = 0;
 
-   private String stringValue;
    private double myValue;
 
    public ConstantNode(CommandControllerInterface inController){
@@ -22,10 +21,10 @@ public class ConstantNode extends CommandNode {
       this.myValue = INIT_VAL;
    }
 
-   public ConstantNode(CommandControllerInterface inController, CommandNode inParent, String inValue){
+   public ConstantNode(CommandControllerInterface inController, CommandNode inParent, double inValue){
       super(inController);
       this.setMyNumParams(CONSTANT_PARAMS);
-      this.stringValue = inValue;
+      this.myValue = inValue;
    }
 
    public double getMyValue(){
@@ -41,13 +40,5 @@ public class ConstantNode extends CommandNode {
    }
 
    protected void parseParameters(){
-      try{
-         this.myValue = Double.parseDouble(this.stringValue);
-      }
-      catch(Exception e){
-         /**
-          * Error regarding incorrect constant value
-          */
-      }
    }
 }
