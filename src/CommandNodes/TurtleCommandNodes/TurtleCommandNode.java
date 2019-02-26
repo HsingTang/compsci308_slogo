@@ -42,6 +42,10 @@ public abstract class TurtleCommandNode extends CommandNode {
       return pixels;
    }
 
+   protected double getDegrees(){
+      return this.getPixels();
+   }
+
 
    protected abstract void parseParameters();
 
