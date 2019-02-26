@@ -23,6 +23,15 @@ public class RepeatNode extends CommandNode {
       }
    }
 
+   public boolean childrenFilled(){
+      for(CommandNode c: this.getMyChildren()){
+         if(c instanceof RightBracketNode){
+            return true;
+         }
+      }
+      return false;
+   }
+
    public void parseParameters(){
       this.numRepeat = this.getNextDouble();
    }

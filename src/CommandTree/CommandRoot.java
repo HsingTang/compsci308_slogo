@@ -1,8 +1,6 @@
 package CommandTree;
 
 import CommandNodes.CommandNode;
-import CommandNodes.StructureNodes.RepeatNode;
-import CommandNodes.StructureNodes.RightBracketNode;
 import CommandNodes.TreeParentNode;
 import Controller.ControllerInterfaces.CommandControllerInterface;
 
@@ -35,12 +33,11 @@ public class CommandRoot {
       while (this.currentIndex < this.numCommands) {
          this.currentString = this.commandStrings[this.currentIndex];
          CommandNode newNode = this.myCommandNodeFactory.newNode(this.currentString, this.currentParent);
-         this.currentParent.addChild(newNode);
-         if (newNode instanceof RepeatNode) {
-            this.currentParent = newNode;
-         } else if (newNode instanceof RightBracketNode) {
-            this.currentParent = newNode.getParent().getParent();
+         while(this.currentParent.childrenFilled()){
+            this.currentParent = this.currentParent.getParent();
          }
+         this.currentParent.addChild(newNode);
+         this.currentParent = newNode;
          this.currentIndex++;
       }
    }

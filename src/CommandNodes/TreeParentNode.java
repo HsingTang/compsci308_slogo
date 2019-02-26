@@ -12,4 +12,8 @@ public class TreeParentNode extends CommandNode{
    public void execute(){}
 
    public void parseParameters(){}
+
+   public boolean childrenFilled(){
+      return false;
+   }
 }

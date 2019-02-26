@@ -41,6 +41,7 @@ public abstract class CommandNode {
    public void addChild(CommandNode newChild){
       newChild.setParent(this);
       this.myChildren.add(newChild);
+      this.myNumParams--;
    }
 
    public ArrayList<CommandNode> getMyChildren(){
@@ -87,7 +88,11 @@ public abstract class CommandNode {
       return value;
    }
 
-  /* public CommandNode getNewNode(){
+   public boolean childrenFilled() {
+      return this.myNumParams == 0;
+   }
+
+   /* public CommandNode getNewNode(){
       ConstantNode newNode = new ConstantNode(this.myController, this.myParent);
       newNode.setMyValue(this.myReturnValue);
       return newNode;
