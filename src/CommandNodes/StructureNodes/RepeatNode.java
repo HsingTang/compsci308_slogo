@@ -11,6 +11,10 @@ public class RepeatNode extends CommandNode {
       super(inController);
    }
 
+   public RepeatNode(CommandControllerInterface inController, CommandNode inParent){
+      super(inController, inParent);
+   }
+
    public void execute(){
       this.parseParameters();
       for(int i = 1; i < numRepeat; i++){

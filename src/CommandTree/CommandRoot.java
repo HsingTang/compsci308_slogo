@@ -1,6 +1,12 @@
 package CommandTree;
 
+import CommandNodes.CommandNode;
+import CommandNodes.TurtleCommandNodes.TurtleCommandNode;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -8,81 +14,69 @@ public class CommandRoot {
    private static String END_EXPRESSION = "]";
    private static String START_EXPRESSION = "[";
    private static String LOOP_EXPRESSION = "repeat";
+   private static String EXPRESSION_MAP_FILE = "/resources/expressionToString.txt";
+   private static String MAP_SPLIT = ":";
+   private static int MAP_LIMIT = 2;
+   private static String NODE_BUILDER = "Node";
 
 
    private CommandNode parent;
+
    private CommandNode current;
+   private int currentIndex;
+   private String currentString;
+   private String currentNodeString;
+
+   private HashMap<String, String> expressionStringMap;
+
    private String[] commandStrings;
    private int numCommands;
-   private int commandIndex;
-   private Set<String> turtlecommands;
 
    public CommandRoot(String[] commandStrings){
       this.commandStrings = commandStrings;
       this.numCommands = commandStrings.length;
-      this.parent = new CommandNode();
       this.current = this.parent;
-      this.commandIndex = 0;
-      this.setCommands();
+      this.currentIndex = 0;
+      this.setExpressionMap();
       this.makeTree();
    }
 
    private void makeTree(){
-      while(this.commandIndex < this.numCommands){
-         String s = this.commandStrings[this.commandIndex];
-         if(turtlecommands.contains(s)){
-            CommandNode newNode = new TurtleCommandNode(s);
-            this.addParameters(newNode);
-            current.addChild(newNode);
+      this.currentString = this.commandStrings[this.currentIndex];
+      this.setCurrentNodeString();
+
+   }
+
+   private void setExpressionMap(){
+      HashMap<String, String> map = new HashMap<>();
+      try{
+         String line;
+         BufferedReader reader = new BufferedReader(new FileReader(EXPRESSION_MAP_FILE));
+         while((line = reader.readLine()) != null){
+            String[] parts = line.split(MAP_SPLIT, MAP_LIMIT);
+            String key = parts[0];
+            String value = parts[1];
+            map.put(key, value);
          }
-         else if(s.equals(LOOP_EXPRESSION)){
-            LoopNode newNode = new LoopNode(s);
-            this.addParameters(newNode);
-            current.addChild(newNode);
-            current = newNode;
-         }
-         else if(s.equals(END_EXPRESSION)){
-            current = current.getParent();
-         }
-         this.commandIndex++;
+         reader.close();
+         this.expressionStringMap = map;
+      }
+      catch(Exception e){
+         /**
+          * Error about internal expression file not found
+          */
       }
    }
 
-   private void addParameters(CommandNode newNode){
-      if(newNode instanceof TurtleCommandNode){
-         while(!this.endParam()){
-            this.commandIndex++;
-            newNode.addParameter(commandStrings[this.commandIndex]);
-         }
+   private void setCurrentNodeString(){
+      StringBuilder nodeString = new StringBuilder();
+      if(this.expressionStringMap.containsKey(this.currentString)){
+         nodeString.append(this.expressionStringMap.get(this.currentString));
       }
-      else {
-         this.addLoopParameters(newNode);
+      else{
+         nodeString.append(this.currentString.substring(0,1).toUpperCase()).append(this.currentString.substring(1).toLowerCase());
       }
-
-
-
-   }
-
-   private boolean endParam(){
-      return this.commandIndex+1 >= numCommands || this.turtlecommands.contains(commandStrings[this.commandIndex+1]) || this.commandStrings[this.commandIndex+1].equals("repeat") || this.commandStrings[this.commandIndex+1].equals("[") || this.commandStrings[this.commandIndex+1].equals("]");
-   }
-
-   private void addLoopParameters(CommandNode newNode){
-      while(!this.endParam()){
-         this.commandIndex++;
-         newNode.addParameter(commandStrings[this.commandIndex]);
-      }
-   }
-
-   public void setCommands(){
-      this.turtlecommands = new HashSet<>();
-      this.turtlecommands.add("forward");
-      this.turtlecommands.add("left");
-      this.turtlecommands.add("backward");
-      this.turtlecommands.add("right");
-   }
-
-   public CommandNode getParent(){
-      return this.parent;
+      nodeString.append(NODE_BUILDER);
+      this.currentNodeString = nodeString.toString();
    }
 }
