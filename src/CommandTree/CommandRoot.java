@@ -22,7 +22,7 @@ public class CommandRoot {
 
    private CommandNode parent;
 
-   private CommandNode current;
+   private CommandNode currentParent;
    private int currentIndex;
    private String currentString;
    private String currentNodeString;
@@ -35,7 +35,7 @@ public class CommandRoot {
    public CommandRoot(String[] commandStrings){
       this.commandStrings = commandStrings;
       this.numCommands = commandStrings.length;
-      this.current = this.parent;
+      this.currentParent = this.parent;
       this.currentIndex = 0;
       this.setExpressionMap();
       this.makeTree();
