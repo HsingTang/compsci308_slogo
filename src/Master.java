@@ -15,6 +15,10 @@ public class Master extends Application {
     private TabPane windowRoot;
     private Stage myStage;
 
+    public Master(){
+        super();
+    }
+
     public void start(Stage myStage) {
         splashRoot = new Pane();
         this.myStage = myStage;
@@ -31,7 +35,9 @@ public class Master extends Application {
         myStage.setScene(mainWindow);
     }
 
+    /*
     public static void main(String[] args) {
         launch(args);
     }
+    */
 }
