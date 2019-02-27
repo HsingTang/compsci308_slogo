@@ -2,30 +2,30 @@ package Controller.ControllerInterfaces;
 
 public interface CommandControllerInterface {
 
-    void moveForward(double px);
+    double moveForward(double px);
 
-    void moveBackwards(double px);
+    double moveBackwards(double px);
 
-    void turnLeft(double deg);
+    double turnLeft(double deg);
 
-    void turnRight(double deg);
+    double turnRight(double deg);
 
-    void setHeading(double deg);
+    double setHeading(double deg);
 
-    void turnTowards(double x, double y);
+    double turnTowards(double x, double y);
 
-    void goTo(double x, double y);
+    double goTo(double x, double y);
 
-    void penDown();
+    double penDown();
 
-    void penUp();
+    double penUp();
 
-    void showTurtle();
+    double showTurtle();
 
-    void hideTurtle();
+    double hideTurtle();
 
-    void goHome();
+    double goHome();
 
-    void clearScreen();
+    double clearScreen();
 
 }

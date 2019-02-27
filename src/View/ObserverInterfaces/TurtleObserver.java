@@ -16,4 +16,8 @@ public interface TurtleObserver {
 
     void updatePenDown();
 
+    void updateHome();
+
+    void updateVisibility();
+
 }
