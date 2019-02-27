@@ -4,7 +4,7 @@ import Model.TurtleModel;
 import View.Turtles.TurtleView;
 
 public class Controller implements CommandControllerInterface{
-    Master myMaster;
+    Window myMaster;
     TurtleModelInterface model;
     TurtleView turtleView;
 
@@ -99,7 +99,7 @@ public class Controller implements CommandControllerInterface{
     public static void main(String[] args){
         TurtleModel model = new TurtleModel();
         Controller c = new Controller(model);
-        c.myMaster = new Master();
+        c.myMaster = new Window();
         c.myMaster.launchMaster(args);
 
     }
