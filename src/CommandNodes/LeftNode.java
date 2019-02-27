@@ -1,25 +1,25 @@
 package CommandNodes;
 
-import Controller.ControllerInterfaces.CommandControllerInterface;
+import Handlers.HandlerInterfaces.CommandHandlerInterface;
 
 public class LeftNode extends TurtleCommandNode{
    private static int LEFT_PARAMS = 1;
 
    private double myDegrees;
 
-   public LeftNode(CommandControllerInterface inController){
-      super(inController);
+   public LeftNode(CommandHandlerInterface inHandler){
+      super(inHandler);
       this.setMyNumParams(LEFT_PARAMS);
    }
 
-   public LeftNode(CommandControllerInterface inController, CommandNode inParent){
-      super(inController, inParent);
+   public LeftNode(CommandHandlerInterface inHandler, CommandNode inParent){
+      super(inHandler, inParent);
       this.setMyNumParams(LEFT_PARAMS);
    }
 
    public void execute(){
       this.parseParameters();
-      this.myController.turnLeft(this.myDegrees);
+      this.myHandler.turnLeft(this.myDegrees);
    }
 
    protected void parseParameters(){

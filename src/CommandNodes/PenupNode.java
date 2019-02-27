@@ -1,23 +1,23 @@
 package CommandNodes;
 
-import Controller.ControllerInterfaces.CommandControllerInterface;
+import Handlers.HandlerInterfaces.CommandHandlerInterface;
 
 public class PenupNode extends TurtleCommandNode{
    private static int PEN_PARAMS = 0;
 
-   public PenupNode(CommandControllerInterface inController){
-      super(inController);
+   public PenupNode(CommandHandlerInterface inHandler){
+      super(inHandler);
       this.setMyNumParams(PEN_PARAMS);
    }
 
-   public PenupNode(CommandControllerInterface inController, CommandNode inParent){
-      super(inController, inParent);
+   public PenupNode(CommandHandlerInterface inHandler, CommandNode inParent){
+      super(inHandler, inParent);
       this.setMyNumParams(PEN_PARAMS);
    }
 
    public void execute(){
       this.parseParameters();
-      this.myController.penUp();
+      this.myHandler.penUp();
    }
 
    protected void parseParameters(){

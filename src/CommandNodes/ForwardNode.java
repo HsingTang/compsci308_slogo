@@ -1,25 +1,25 @@
 package CommandNodes;
 
-import Controller.ControllerInterfaces.CommandControllerInterface;
+import Handlers.HandlerInterfaces.CommandHandlerInterface;
 
 public class ForwardNode extends TurtleCommandNode {
    private static int FORWARD_PARAMS = 1;
 
    private double myPixels;
 
-   public ForwardNode(CommandControllerInterface inController){
-      super(inController);
+   public ForwardNode(CommandHandlerInterface inHandler){
+      super(inHandler);
       this.setMyNumParams(FORWARD_PARAMS);
    }
 
-   public ForwardNode(CommandControllerInterface inController, CommandNode inParent){
-      super(inController, inParent);
+   public ForwardNode(CommandHandlerInterface inHandler, CommandNode inParent){
+      super(inHandler, inParent);
       this.setMyNumParams(FORWARD_PARAMS);
    }
 
    public void execute(){
       this.parseParameters();
-      this.myController.moveForward(this.myPixels);
+      this.myHandler.moveForward(this.myPixels);
    }
 
    protected void parseParameters(){

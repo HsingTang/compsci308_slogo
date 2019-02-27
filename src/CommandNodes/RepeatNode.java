@@ -1,19 +1,16 @@
 package CommandNodes;
 
-import CommandTree.CommandRoot;
-import Controller.ControllerInterfaces.CommandControllerInterface;
-
-import java.util.ArrayList;
+import Handlers.HandlerInterfaces.CommandHandlerInterface;
 
 public class RepeatNode extends CommandNode {
 
 
-   public RepeatNode(CommandControllerInterface inController){
-      super(inController);
+   public RepeatNode(CommandHandlerInterface inHandler){
+      super(inHandler);
    }
 
-   public RepeatNode(CommandControllerInterface inController, CommandNode inParent){
-      super(inController, inParent);
+   public RepeatNode(CommandHandlerInterface inHandler, CommandNode inParent){
+      super(inHandler, inParent);
    }
 
    public void execute(){

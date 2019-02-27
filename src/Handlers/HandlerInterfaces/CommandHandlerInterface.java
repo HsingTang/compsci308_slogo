@@ -1,6 +1,6 @@
-package Controller.ControllerInterfaces;
+package Handlers.HandlerInterfaces;
 
-public interface CommandControllerInterface {
+public interface CommandHandlerInterface {
 
     double moveForward(double px);
 

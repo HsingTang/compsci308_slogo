@@ -1,6 +1,6 @@
 package View.Turtles;
 
-import Model.ModelInterfaces.TurtleModelInterface;
+import Model.ModelInterfaces.ModelInterface;
 import View.GUIFeatures.Panels.SlogoCanvas;
 
 import View.ObserverInterfaces.TurtleObserver;
@@ -9,6 +9,8 @@ import javafx.animation.TranslateTransition;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.FillRule;
+import javafx.scene.shape.Path;
 import javafx.util.Duration;
 
 
@@ -22,7 +24,7 @@ public class TurtleView implements TurtleObserver {
     public static final double TRANSLATION_SPEED = 3000;
     public static final double INITIAL_POSITION = 0.0;
 
-    private TurtleModelInterface model;
+    private ModelInterface model;
     private ImageView myImgView;
     private Integer myID;
     private double previousX;
@@ -37,9 +39,10 @@ public class TurtleView implements TurtleObserver {
     private double canvasHeight;
     private Color myPenColor;
     private boolean penDown;
+    private Path pen;
 
 
-    public TurtleView(int id, Image img, Color color, TurtleModelInterface model){
+    public TurtleView(int id, Image img, Color color, ModelInterface model){
         this.model = model;
         model.registerTurtleObserver(this);
         this.myImgView = new ImageView(img);
@@ -51,6 +54,9 @@ public class TurtleView implements TurtleObserver {
         this.myHeading = INITIAL_HEADING;
         this.myPenColor = color;
         this.penDown = true;
+        this.pen = new Path();
+        pen.setFill(myPenColor);
+        pen.setFillRule(FillRule.EVEN_ODD);
     }
 
     public Integer getMyID() {
@@ -93,6 +99,7 @@ public class TurtleView implements TurtleObserver {
         tt.setFromY(previousY);
         tt.setToX(xFinal);
         tt.setToY(yFinal);
+
         tt.play();
     }
 
@@ -150,6 +157,11 @@ public class TurtleView implements TurtleObserver {
 
     public void updatePenDown() {
         this.penDown = model.getPenDown();
+        if (penDown) {
+            pen.setVisible(true);
+        } else {
+            pen.setVisible(false);
+        }
     }
 
     public void updateHome() { this.goHome(); }

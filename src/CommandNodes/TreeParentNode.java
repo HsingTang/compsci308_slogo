@@ -1,12 +1,12 @@
 package CommandNodes;
 
 
-import Controller.ControllerInterfaces.CommandControllerInterface;
+import Handlers.HandlerInterfaces.CommandHandlerInterface;
 
 public class TreeParentNode extends CommandNode{
 
-   public TreeParentNode(CommandControllerInterface controller){
-      super(controller);
+   public TreeParentNode(CommandHandlerInterface Handler){
+      super(Handler);
    }
 
    public void execute(){}
