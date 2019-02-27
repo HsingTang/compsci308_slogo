@@ -1,6 +1,7 @@
 import Model.ModelInterfaces.ModelInterface;
 import Model.TurtleModel;
 import View.Turtles.TurtleView;
+import View.Window;
 
 public class Controller {
     Window myMaster;

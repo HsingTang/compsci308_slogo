@@ -1,3 +1,5 @@
+package View;
+
 import Model.TurtleModel;
 import View.SlogoTab;
 import View.SplashScreen;
