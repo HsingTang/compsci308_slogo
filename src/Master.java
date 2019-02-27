@@ -35,6 +35,10 @@ public class Master extends Application {
         myStage.setScene(mainWindow);
     }
 
+    public void launchMaster(String[] args){
+        launch(args);
+    }
+
     /*
     public static void main(String[] args) {
         launch(args);
