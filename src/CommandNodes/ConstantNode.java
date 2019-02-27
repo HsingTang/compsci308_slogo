@@ -40,5 +40,6 @@ public class ConstantNode extends CommandNode {
    }
 
    protected void parseParameters(){
+      this.setMyReturnValue(this.myValue);
    }
 }

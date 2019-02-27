@@ -68,12 +68,12 @@ public abstract class CommandNode {
    protected CommandNode getNextNode(){
       CommandNode nextNode = null;
       try{
-         nextNode = (CommandNode)(this.getMyChildren().get(this.myChildrenIndex));
+         nextNode = this.getMyChildren().get(this.myChildrenIndex);
          this.myChildrenIndex++;
       }
       catch(Exception e){
          /**
-          * Error regarding incorrect node type
+          * Error regarding no child
           */
       }
 
@@ -82,16 +82,8 @@ public abstract class CommandNode {
 
    protected double getNextDouble(){
       double value = 0;
-      try{
-         ConstantNode nextNode = (ConstantNode)(this.getNextNode());
-         value = nextNode.getMyValue();
-      }
-      catch(Exception e){
-         /**
-          * Error regarding incorrect parameter
-          */
-      }
-      return value;
+      CommandNode nextNode = (this.getNextNode());
+      return nextNode.getMyReturnValue();
    }
 
    public boolean childrenFilled() {
@@ -100,15 +92,16 @@ public abstract class CommandNode {
 
    public double getMyNumRepeat() { return this.myNumRepeat; }
 
+
    /* public CommandNode getNewNode(){
       ConstantNode newNode = new ConstantNode(this.myController, this.myParent);
       newNode.setMyValue(this.myReturnValue)
       return newNode;
-   }
+   }*/
 
    private Double getMyReturnValue(){
       return this.myReturnValue;
-   }*/
+   }
 
    protected void setMyNumParams(int num){
       this.myNumParams = num;
@@ -134,5 +127,9 @@ public abstract class CommandNode {
 
    protected abstract void parseParameters();
 
+   protected void setMyReturnValue(Double returnValue)
+   {
+      this.myReturnValue = returnValue;
+   }
 
 }
