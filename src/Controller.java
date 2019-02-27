@@ -2,6 +2,7 @@ import Controller.ControllerInterfaces.CommandControllerInterface;
 import Model.ModelInterfaces.TurtleModelInterface;
 import Model.TurtleModel;
 import View.Turtles.TurtleView;
+import View.Window;
 
 public class Controller implements CommandControllerInterface{
     Window myMaster;
