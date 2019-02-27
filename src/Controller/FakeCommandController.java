@@ -1,3 +1,4 @@
+/*
 package Controller;
 
 import Controller.ControllerInterfaces.CommandControllerInterface;
@@ -54,3 +55,4 @@ public class FakeCommandController implements CommandControllerInterface {
    }
 
 }
+*/

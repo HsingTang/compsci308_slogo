@@ -23,6 +23,7 @@ public class TurtleModel  extends Model implements TurtleModelInterface{
    private double myHeading;
    private Color myPenColor;
    private boolean penDown = true;
+   private boolean isInvisible = false;
    private TurtleView myView;
    private List<TurtleObserver> turtleObservers;
 
@@ -103,6 +104,12 @@ public class TurtleModel  extends Model implements TurtleModelInterface{
       notifyY();
    }
 
+   public void setHome() {
+      this.myX = INITIAL_POSITION;
+      this.myY = INITIAL_POSITION;
+      notifyHome();
+   }
+
    public void setLeftRotate(double deg) {
       this.myHeading += deg;
       notifyLeftRotate();
@@ -128,6 +135,15 @@ public class TurtleModel  extends Model implements TurtleModelInterface{
       notifyPenDown();
    }
 
+   public void setInvisible() {
+      this.isInvisible = true;
+      notifyVisibilityChange();
+   }
+
+   public void setVisible() {
+      this.isInvisible = false;
+   }
+
    public double getX() {
       return this.myX;
    }
@@ -149,8 +165,8 @@ public class TurtleModel  extends Model implements TurtleModelInterface{
       return this.getPenDown();
    }
 
-   private Double clearScreen(){
-      return this.home();
+   public boolean isInvisible() {
+      return this.isInvisible;
    }
 
    public void registerTurtleObserver(TurtleObserver o) {
@@ -200,6 +216,18 @@ public class TurtleModel  extends Model implements TurtleModelInterface{
    private void notifyPenDown() {
       for (TurtleObserver o : turtleObservers) {
          o.updatePenDown();
+      }
+   }
+
+   private void notifyHome() {
+      for (TurtleObserver o : turtleObservers) {
+         o.updateHome();
+      }
+   }
+
+   private void notifyVisibilityChange() {
+      for (TurtleObserver o : turtleObservers) {
+         o.updateVisibility();
       }
    }
 }

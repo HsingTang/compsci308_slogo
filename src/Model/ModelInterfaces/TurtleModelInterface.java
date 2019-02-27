@@ -12,6 +12,8 @@ public interface TurtleModelInterface {
 
     void setY(double y);
 
+    void setHome();
+
     void moveWithAnimation();
 
     void setLeftRotate(double deg);
@@ -24,6 +26,10 @@ public interface TurtleModelInterface {
 
     void setPenUp();
 
+    void setInvisible();
+
+    void setVisible();
+
     double getX();
 
     double getY();
@@ -31,5 +37,7 @@ public interface TurtleModelInterface {
     double getHeading();
 
     boolean getPenDown();
+
+    boolean isInvisible();
 
 }
