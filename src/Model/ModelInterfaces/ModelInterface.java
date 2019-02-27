@@ -2,7 +2,7 @@ package Model.ModelInterfaces;
 
 import View.ObserverInterfaces.TurtleObserver;
 
-public interface TurtleModelInterface {
+public interface ModelInterface {
 
     void registerTurtleObserver(TurtleObserver o);
 

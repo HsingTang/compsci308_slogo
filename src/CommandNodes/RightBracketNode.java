@@ -1,16 +1,15 @@
 package CommandNodes;
 
-import CommandNodes.CommandNode;
-import Controller.ControllerInterfaces.CommandControllerInterface;
+import Handlers.HandlerInterfaces.CommandHandlerInterface;
 
 public class RightBracketNode extends CommandNode {
 
-   public RightBracketNode(CommandControllerInterface inController){
-      super(inController);
+   public RightBracketNode(CommandHandlerInterface inHandler){
+      super(inHandler);
    }
 
-   public RightBracketNode(CommandControllerInterface inController, CommandNode inParent){
-      super(inController, inParent);
+   public RightBracketNode(CommandHandlerInterface inHandler, CommandNode inParent){
+      super(inHandler, inParent);
    }
 
    public void execute(){ }

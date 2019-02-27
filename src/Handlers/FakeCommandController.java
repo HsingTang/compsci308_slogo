@@ -1,7 +1,7 @@
 /*
-package Controller;
+package Handlers;
 
-import Controller.ControllerInterfaces.CommandControllerInterface;
+import Handlers.HandlerInterfaces.CommandControllerInterface;
 import Model.ModelInterfaces.TurtleModelInterface;
 
 public class FakeCommandController implements CommandControllerInterface {

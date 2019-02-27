@@ -1,6 +1,6 @@
 package CommandNodes;
 
-import Controller.ControllerInterfaces.CommandControllerInterface;
+import Handlers.HandlerInterfaces.CommandHandlerInterface;
 
 import java.util.ArrayList;
 
@@ -9,7 +9,7 @@ public abstract class CommandNode {
 
 
 
-   protected CommandControllerInterface myController;
+   protected CommandHandlerInterface myHandler;
    private ArrayList<CommandNode> myChildren;
    private CommandNode myParent;
    private int myNumParams;
@@ -18,17 +18,17 @@ public abstract class CommandNode {
    private double myNumRepeat;
 
 
-   public CommandNode(CommandControllerInterface inController) {
+   public CommandNode(CommandHandlerInterface inHandler) {
       this.myChildren = new ArrayList<CommandNode>();
-      this.myController = inController;
+      this.myHandler = inHandler;
       this.myNumParams = INIT;
       this.myChildrenIndex = 0;
       this.myNumRepeat = 1;
    }
 
-   public CommandNode(CommandControllerInterface inController, CommandNode inParent){
+   public CommandNode(CommandHandlerInterface inHandler, CommandNode inParent){
       this.myChildren = new ArrayList<CommandNode>();
-      this.myController = inController;
+      this.myHandler = inHandler;
       this.myNumParams = INIT;
       this.myParent = inParent;
       this.myChildrenIndex = 0;
@@ -94,7 +94,7 @@ public abstract class CommandNode {
 
 
    /* public CommandNode getNewNode(){
-      ConstantNode newNode = new ConstantNode(this.myController, this.myParent);
+      ConstantNode newNode = new ConstantNode(this.myHandler, this.myParent);
       newNode.setMyValue(this.myReturnValue)
       return newNode;
    }*/

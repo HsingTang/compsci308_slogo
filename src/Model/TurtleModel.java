@@ -1,6 +1,6 @@
 package Model;
 
-import Model.ModelInterfaces.TurtleModelInterface;
+import Model.ModelInterfaces.ModelInterface;
 import View.ObserverInterfaces.TurtleObserver;
 import View.Turtles.TurtleView;
 import javafx.scene.paint.Color;
@@ -8,7 +8,7 @@ import javafx.scene.paint.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TurtleModel  extends Model implements TurtleModelInterface{
+public class TurtleModel implements ModelInterface {
    private static int VISIBLE = 1;
    private static int INVISIBLE = 0;
    private static Double INITIAL_POSITION = 0.0;

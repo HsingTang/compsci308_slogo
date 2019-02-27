@@ -1,6 +1,6 @@
 package CommandNodes;
 
-import Controller.ControllerInterfaces.CommandControllerInterface;
+import Handlers.HandlerInterfaces.CommandHandlerInterface;
 
 public class ConstantNode extends CommandNode {
    private static int CONSTANT_PARAMS = 0;
@@ -8,21 +8,21 @@ public class ConstantNode extends CommandNode {
 
    private double myValue;
 
-   public ConstantNode(CommandControllerInterface inController){
-      super(inController);
+   public ConstantNode(CommandHandlerInterface inHandler){
+      super(inHandler);
       this.setMyNumParams(CONSTANT_PARAMS);
       this.myValue = INIT_VAL;
    }
 
-   public ConstantNode(CommandControllerInterface inController, CommandNode inParent){
-      super(inController);
+   public ConstantNode(CommandHandlerInterface inHandler, CommandNode inParent){
+      super(inHandler);
       this.setMyNumParams(CONSTANT_PARAMS);
       this.setParent(inParent);
       this.myValue = INIT_VAL;
    }
 
-   public ConstantNode(CommandControllerInterface inController, CommandNode inParent, double inValue){
-      super(inController);
+   public ConstantNode(CommandHandlerInterface inHandler, CommandNode inParent, double inValue){
+      super(inHandler);
       this.setMyNumParams(CONSTANT_PARAMS);
       this.myValue = inValue;
    }
