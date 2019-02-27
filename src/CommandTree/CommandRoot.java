@@ -47,23 +47,13 @@ public class CommandRoot {
       this.executeNode(this.parent);
    }
 
-   public void executeNode(CommandNode parent){
-      for(CommandNode c: parent.getMyChildren()){
-         this.executeNode(c);
-      }
-      parent.fullExecute();
-      if(parent instanceof RepeatNode){
-         this.executeLoopNode((RepeatNode)(parent));
-      }
-      }
-
-      private void executeLoopNode(RepeatNode parent){
-         for(int i = 1; i < parent.getNumRepeat(); i++) {
-            for (CommandNode c : parent.getMyChildren()) {
-               this.executeNode(c);
-            }
+   public void executeNode(CommandNode parent) {
+      for (CommandNode c : parent.getMyChildren()) {
+         for(int i = 0; i < c.getMyNumRepeat(); i++) {
+            this.executeNode(c);
          }
       }
-
+      parent.fullExecute();
+   }
 
 }

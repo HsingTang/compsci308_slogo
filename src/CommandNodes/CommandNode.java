@@ -8,18 +8,22 @@ public abstract class CommandNode {
    private static int INIT = 0;
 
 
+
    protected CommandControllerInterface myController;
    private ArrayList<CommandNode> myChildren;
    private CommandNode myParent;
    private int myNumParams;
    private Double myReturnValue;
    private int myChildrenIndex;
+   private double myNumRepeat;
+
 
    public CommandNode(CommandControllerInterface inController) {
       this.myChildren = new ArrayList<CommandNode>();
       this.myController = inController;
       this.myNumParams = INIT;
       this.myChildrenIndex = 0;
+      this.myNumRepeat = 1;
    }
 
    public CommandNode(CommandControllerInterface inController, CommandNode inParent){
@@ -28,6 +32,7 @@ public abstract class CommandNode {
       this.myNumParams = INIT;
       this.myParent = inParent;
       this.myChildrenIndex = 0;
+      this.myNumRepeat = 1;
 
 }
 
@@ -93,9 +98,11 @@ public abstract class CommandNode {
       return this.myNumParams == 0;
    }
 
+   public double getMyNumRepeat() { return this.myNumRepeat; }
+
    /* public CommandNode getNewNode(){
       ConstantNode newNode = new ConstantNode(this.myController, this.myParent);
-      newNode.setMyValue(this.myReturnValue);
+      newNode.setMyValue(this.myReturnValue)
       return newNode;
    }
 
@@ -106,6 +113,8 @@ public abstract class CommandNode {
    protected void setMyNumParams(int num){
       this.myNumParams = num;
    }
+
+   protected void setMyNumRepeat(double num) { this.myNumRepeat = num; }
 
    protected void resetIndex(){
       this.myChildrenIndex = 0;
@@ -119,6 +128,7 @@ public abstract class CommandNode {
       this.execute();
       this.resetIndex();
    }
+
 
    public abstract void execute();
 

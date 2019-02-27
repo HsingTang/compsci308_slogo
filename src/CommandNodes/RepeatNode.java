@@ -3,9 +3,10 @@ package CommandNodes;
 import CommandTree.CommandRoot;
 import Controller.ControllerInterfaces.CommandControllerInterface;
 
+import java.util.ArrayList;
+
 public class RepeatNode extends CommandNode {
 
-   private double numRepeat;
 
    public RepeatNode(CommandControllerInterface inController){
       super(inController);
@@ -16,12 +17,12 @@ public class RepeatNode extends CommandNode {
    }
 
    public void execute(){
-      this.parseParameters();
    }
 
    public boolean childrenFilled(){
       for(CommandNode c: this.getMyChildren()){
          if(c instanceof RightBracketNode){
+            this.parseParameters();
             return true;
          }
       }
@@ -29,9 +30,7 @@ public class RepeatNode extends CommandNode {
    }
 
    public void parseParameters(){
-      this.numRepeat = this.getNextDouble();
+      this.setMyNumRepeat(this.getNextDouble());
    }
-   public double getNumRepeat(){
-      return this.numRepeat;
-   }
+
 }
