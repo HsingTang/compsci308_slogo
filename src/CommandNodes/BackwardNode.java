@@ -1,25 +1,25 @@
 package CommandNodes;
 
-import Controller.ControllerInterfaces.CommandControllerInterface;
+import Handlers.HandlerInterfaces.CommandHandlerInterface;
 
 public class BackwardNode extends TurtleCommandNode {
    private static int BACKWARD_PARAMS = 1;
 
    private double myPixels;
 
-   public BackwardNode(CommandControllerInterface inController){
-      super(inController);
+   public BackwardNode(CommandHandlerInterface inHandler){
+      super(inHandler);
       this.setMyNumParams(BACKWARD_PARAMS);
    }
 
-   public BackwardNode(CommandControllerInterface inController, CommandNode inParent){
-      super(inController, inParent);
+   public BackwardNode(CommandHandlerInterface inHandler, CommandNode inParent){
+      super(inHandler, inParent);
       this.setMyNumParams(BACKWARD_PARAMS);
    }
 
    public void execute(){
       this.parseParameters();
-      this.myController.moveBackwards(this.myPixels);
+      this.setMyReturnValue(this.myHandler.moveBackwards(this.myPixels));
    }
 
    protected void parseParameters(){

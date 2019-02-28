@@ -256,7 +256,7 @@ that represent new features to add on internally.
 
 * Resource Requirement: We will need the Java.Math api and potentially the ImageView class or whatever class the ObjectController uses to display itself.
 
-* Extension: For any additional math, movement, and boolean operation those can be added as additional methods. For more complex commands, new Controller classes might have to be created.
+* Extension: For any additional math, movement, and boolean operation those can be added as additional methods. For more complex commands, new Handlers classes might have to be created.
 
 ### View External API
 The View.View.Window class holds all the front-end components except for Alert dialogues, and will be the only channel for View to communicate with Model. After receiving arguments through the external API, View.View.Window will distribute the tasks internally to corresponding front-end components.

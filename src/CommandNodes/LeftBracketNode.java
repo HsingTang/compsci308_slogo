@@ -1,20 +1,21 @@
 package CommandNodes;
 
-import CommandNodes.CommandNode;
-import Controller.ControllerInterfaces.CommandControllerInterface;
+import Handlers.HandlerInterfaces.CommandHandlerInterface;
 
 public class LeftBracketNode extends CommandNode {
+   private static double INIT = 0.0;
 
-   public LeftBracketNode(CommandControllerInterface inController){
-      super(inController);
+   public LeftBracketNode(CommandHandlerInterface inHandler){
+      super(inHandler);
    }
 
-   public LeftBracketNode(CommandControllerInterface inController, CommandNode inParent){
-      super(inController, inParent);
+   public LeftBracketNode(CommandHandlerInterface inHandler, CommandNode inParent){
+      super(inHandler, inParent);
    }
 
    public void execute(){
       this.parseParameters();
+      this.setMyReturnValue(INIT);
    }
 
    protected void parseParameters(){}

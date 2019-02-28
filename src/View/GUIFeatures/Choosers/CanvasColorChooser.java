@@ -1,26 +1,14 @@
 package View.GUIFeatures.Choosers;
-import javafx.scene.control.ComboBox;
-import java.util.ResourceBundle;
-import java.util.Set;
-import java.util.TreeSet;
+import javafx.scene.control.ColorPicker;
+import javafx.scene.paint.Color;
 
-public class CanvasColorChooser extends ComboBox {
+public class CanvasColorChooser extends ColorPicker {
 
-    public static final String PROMPT_TEXT = "Choose Canvas Color";
-
-    private ResourceBundle colorsBundle = ResourceBundle.getBundle("colors/Colors");
+    public static final Color DEFAULT_COLOR = Color.BLACK;
 
     public CanvasColorChooser() {
         super();
-        Set<String> colors = new TreeSet<>();
-        for (String key : colorsBundle.keySet()) {
-            String value = colorsBundle.getString(key);
-            colors.add(value);
-        }
-        this.getItems().addAll(colors);
-        this.setPromptText(PROMPT_TEXT);
+        this.setValue(DEFAULT_COLOR);
     }
-
-
 }
 

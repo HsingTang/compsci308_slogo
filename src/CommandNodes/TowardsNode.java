@@ -1,6 +1,6 @@
 package CommandNodes;
 
-import Controller.ControllerInterfaces.CommandControllerInterface;
+import Handlers.HandlerInterfaces.CommandHandlerInterface;
 
 public class TowardsNode extends TurtleCommandNode{
    private static int TOWARDS_PARAMS = 2;
@@ -8,19 +8,19 @@ public class TowardsNode extends TurtleCommandNode{
    private double myX;
    private double myY;
 
-   public TowardsNode(CommandControllerInterface inController){
-      super(inController);
+   public TowardsNode(CommandHandlerInterface inHandler){
+      super(inHandler);
       this.setMyNumParams(TOWARDS_PARAMS);
    }
 
-   public TowardsNode(CommandControllerInterface inController, CommandNode inParent){
-      super(inController, inParent);
+   public TowardsNode(CommandHandlerInterface inHandler, CommandNode inParent){
+      super(inHandler, inParent);
       this.setMyNumParams(TOWARDS_PARAMS);
    }
 
    public void execute(){
       this.parseParameters();
-      this.myController.turnTowards(this.myX, this.myY);
+      this.setMyReturnValue(this.myHandler.turnTowards(this.myX, this.myY));
    }
 
    protected void parseParameters(){

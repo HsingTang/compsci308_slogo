@@ -1,6 +1,6 @@
 package Model;
 
-import Model.ModelInterfaces.TurtleModelInterface;
+import Model.ModelInterfaces.ModelInterface;
 import View.ObserverInterfaces.TurtleObserver;
 import View.Turtles.TurtleView;
 import javafx.scene.paint.Color;
@@ -8,7 +8,7 @@ import javafx.scene.paint.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TurtleModel  extends Model implements TurtleModelInterface{
+public class TurtleModel implements ModelInterface {
    private static int VISIBLE = 1;
    private static int INVISIBLE = 0;
    private static Double INITIAL_POSITION = 0.0;
@@ -49,46 +49,6 @@ public class TurtleModel  extends Model implements TurtleModelInterface{
          System.out.println("not valid!");
       }
    }*/
-
-   private Double forward(ArrayList<Double> params){
-      System.out.println("forward" + params.get(0));
-      return params.get(0);
-   }
-   private Double backward(ArrayList<Double> params){
-      return params.get(0);
-   }
-
-   private Double left(ArrayList<Double> params){
-      return params.get(0);
-   }
-
-   private Double right(ArrayList<Double> params){
-      return params.get(0);
-   }
-
-   private Double setHeading(ArrayList<Double> params){
-      return params.get(0);
-   }
-
-   private Double towards(ArrayList<Double> params){
-      return params.get(0);
-   }
-
-   private int penUp(){
-      return VISIBLE;
-   }
-
-   private int penDown(){
-      return VISIBLE;
-   }
-
-   private int showTurtle(){
-      return VISIBLE;
-   }
-
-   private int hideTurtle(){
-      return INVISIBLE;
-   }
 
    public void moveWithAnimation() {
       notifyMoveWithAnimation();
