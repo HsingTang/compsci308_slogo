@@ -19,7 +19,6 @@ public class Window extends Application {
     public static final double DEFAULT_HEIGHT = 800;
     public static final double DEFAULT_WIDTH = 1200;
 
-
     private Stage myStage;
     private Pane splashRoot;
     private TabPane windowRoot;
@@ -65,8 +64,8 @@ public class Window extends Application {
         myStage.setScene(mainWindow);
         addSlogoTab();
     }
-
-    public static void main(String[] args) {
+    public void launchMaster(String[] args){
         launch(args);
     }
+
 }
