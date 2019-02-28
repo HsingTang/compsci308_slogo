@@ -21,7 +21,7 @@ import javafx.util.Duration;
 public class TurtleView implements TurtleObserver {
 
     public static final double INITIAL_HEADING = 90;
-    public static final double TRANSLATION_SPEED = 3000;
+    public static final double TRANSLATION_SPEED = 5000;
     public static final double INITIAL_POSITION = 0.0;
 
     private ModelInterface model;
@@ -89,25 +89,24 @@ public class TurtleView implements TurtleObserver {
 
     private void animateRotation(double rotationDegrees) {
         RotateTransition rt = new RotateTransition(Duration.millis(TRANSLATION_SPEED), this.myImgView);
-        rt.setByAngle(rotationDegrees);
-        rt.setCycleCount(4);
+        rt.setByAngle(-rotationDegrees);
         rt.play();
     }
 
     private void animateTranslation(double xFinal, double yFinal) {
         TranslateTransition tt = new TranslateTransition(Duration.millis(TRANSLATION_SPEED), this.myImgView);
-        tt.setFromX(previousX);
-        tt.setFromY(previousY);
         tt.setToX(xFinal);
         tt.setToY(yFinal);
         tt.play();
+        this.myImgView.setX(xFinal);
+        this.myImgView.setY(yFinal);
     }
 
     private void goHome() {
         this.myX = INITIAL_POSITION;
         this.myY = INITIAL_POSITION;
-        this.myImgView.setX(INITIAL_POSITION);
-        this.myImgView.setY(INITIAL_POSITION);
+        this.myImgView.setX(this.myX);
+        this.myImgView.setY(this.myY);
     }
 
     public void setCanvas(SlogoCanvas c){

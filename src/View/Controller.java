@@ -23,7 +23,6 @@ public class Controller {
         this.myTurtleFactory = new TurtleFactory();
         this.model = new TurtleModel();
         this.turtleView = this.myTurtleFactory.makeTurtle(turtleNumber,this.model);
-        this.model.registerTurtleObserver(this.turtleView);
         this.commandHandler = new CommandHandler(model);
         this.myParser = new StringParser();
     }
