@@ -12,6 +12,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+
 public class Window extends Application {
 
     public static final String PROJECT_NAME = "SLogo IDE";
@@ -51,6 +52,7 @@ public class Window extends Application {
         TurtleModel newTurtleModel = new TurtleModel();
         TurtleView newTurtleView = this.myTurtleFactory.makeTurtle(tabCount,newTurtleModel);
         newTurtleModel.registerTurtleObserver(newTurtleView);
+        Controller controller = new Controller(newTurtleModel, newTurtleView);
         SlogoTab tab = myViewFactory.getSlogoTab(tabCount,DEFAULT_WIDTH,DEFAULT_HEIGHT);
         tab.setTurtleView(newTurtleView);
         windowRoot.getTabs().add(tab);
@@ -64,13 +66,7 @@ public class Window extends Application {
         addSlogoTab();
     }
 
-    public void launchMaster(String[] args){
-        launch(args);
-    }
-
-    /*
     public static void main(String[] args) {
         launch(args);
     }
-    */
 }
