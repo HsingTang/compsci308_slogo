@@ -10,26 +10,34 @@ import java.util.regex.Pattern;
 
 public class StringParser {
    private static String WHITESPACE_TRIM = "\\s+";
+   private String myLanguage;
    private List<Entry<String, Pattern>> mySymbols;
    private List<String> myFilter = new ArrayList<>();
 
    public StringParser(){
       mySymbols = new ArrayList<>();
-      var syntax = ResourceBundle.getBundle("languages/Syntax");
-      for (var key : Collections.list(syntax.getKeys())){
+      var filterList = ResourceBundle.getBundle("languages/Filter");
+      for (var key : Collections.list(filterList.getKeys())){
          myFilter.add(key);
       }
+      addPatterns("languages/Syntax");
+      addPatterns("languages/English");
+      myLanguage = "languages/English";
    }
 
    /**
     * Adds the given resource file to this language's recognized types
     */
-   public void addPatterns (String syntax) {
+   private void addPatterns (String syntax) {
       var resources = ResourceBundle.getBundle(syntax);
       for (var key : Collections.list(resources.getKeys())) {
          var regex = resources.getString(key);
-         mySymbols.add(new SimpleEntry<>(key, Pattern.compile(regex, Pattern.CASE_INSENSITIVE)));
+         mySymbols.add(0, new SimpleEntry<>(key, Pattern.compile(regex, Pattern.CASE_INSENSITIVE)));
       }
+   }
+
+   public void setLanguage(String language){
+       addPatterns("languages/" + language);
    }
 
    public String[] parseCommand(String command){
@@ -43,7 +51,6 @@ public class StringParser {
       }
       var parsedCommand = new String[size];
       for(int i = 0; i < size; i++){
-
          if(!myFilter.contains(getSymbol(commandWords[i]))){
             parsedCommand[i] = getSymbol(commandWords[i]).toLowerCase();
 

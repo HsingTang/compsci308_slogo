@@ -5,9 +5,8 @@ import Handlers.HandlerInterfaces.CommandHandlerInterface;
 import java.util.ArrayList;
 
 public abstract class CommandNode {
+
    private static int INIT = 0;
-
-
 
    protected CommandHandlerInterface myHandler;
    private ArrayList<CommandNode> myChildren;
