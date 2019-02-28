@@ -5,6 +5,7 @@ import java.util.HashMap;
 public class ViewFactory {
     private HashMap<Integer, ViewInterface> myViews;
     private int productCount;
+    private SlogoTab newViewProduct;
 
     public ViewFactory(){
         productCount = 0;
@@ -12,7 +13,7 @@ public class ViewFactory {
     }
 
     public SlogoTab getSlogoTab(int id, double w, double h){
-        SlogoTab newViewProduct = new SlogoTab(id, w, h);
+        newViewProduct = new SlogoTab(id, w, h);
         myViews.put(productCount,newViewProduct);
         productCount++;
         return newViewProduct;

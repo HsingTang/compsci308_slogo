@@ -8,13 +8,12 @@ public class Controller {
     ModelInterface model;
     TurtleView turtleView;
 
-    public Controller(ModelInterface model) {
-        this.model = model;
+    public Controller() {
     }
 
     public static void main(String[] args){
         TurtleModel model = new TurtleModel();
-        Controller c = new Controller(model);
+        Controller c = new Controller();
         c.myMaster = new Window();
         c.myMaster.launchMaster(args);
 

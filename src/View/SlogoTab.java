@@ -27,7 +27,7 @@ import java.lang.reflect.Field;
  * An independent tab managing its own Turtle, commands and variables
  */
 public class SlogoTab extends Tab implements ViewInterface {
-    // static final String STYLE_SHEET = "stylesheets/StyleWindow.css";
+    static final String STYLE_SHEET = "stylesheets/StyleWindow.css";
     static final String TAB_STRING = "Tab ";
     static final Double CONSOLE_RATIO = (3.0/5.0);
     static final Double CANVAS_RATIO = (3.0/5.0);
@@ -61,6 +61,8 @@ public class SlogoTab extends Tab implements ViewInterface {
         initPanes();
         setContent(myPane);
         setGraphic(tabTitle);
+        this.myPane.getStylesheets().add(STYLE_SHEET);
+        this.myPane.getStyleClass().add("this");
     }
 
     @Override
@@ -199,13 +201,7 @@ public class SlogoTab extends Tab implements ViewInterface {
     }
 
     private void setCanvasBackground(){
-        Color color;
-        try {
-            Field field = Class.forName("javafx.scene.paint.Color").getField(myCanvasColorChooser.getValue().toString().replaceAll("\\s+", ""));
-            color = (Color)field.get(null);
-        } catch (Exception e){
-            color = null;
-        }
+        Color color = myCanvasColorChooser.getValue();
         myCanvas.setBackgroundColor(color);
     }
 
