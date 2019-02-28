@@ -31,7 +31,6 @@ public class Window extends Application {
 
     public Window(){
         super();
-        myTurtleFactory = new TurtleFactory();
         myViewFactory = new ViewFactory();
         tabCount = 0;
     }
@@ -51,20 +50,16 @@ public class Window extends Application {
     }
 
     public void addSlogoTab(){
-        TurtleModel newTurtleModel = new TurtleModel();
-        TurtleView newTurtleView = this.myTurtleFactory.makeTurtle(tabCount,newTurtleModel);
-        newTurtleModel.registerTurtleObserver(newTurtleView);
-        this.myController = new Controller(newTurtleModel, newTurtleView);
+        Controller tabController = new Controller();
         SlogoTab tab = myViewFactory.getSlogoTab(tabCount,DEFAULT_WIDTH,DEFAULT_HEIGHT);
-        tab.setTurtleView(newTurtleView);
+        tab.setTurtleView(tabController.getTurtleView());
         windowRoot.getTabs().add(tab);
-
-       tab.getButton().setOnAction(e -> executeCommand(tab.getMyConsole().getText()));
+        tab.getButton().setOnAction(e -> execute(tab.getMyConsole().getTextClear(), tabController));
         tabCount++;
     }
 
-    private void executeCommand(String command){
-       myController.execute(command);
+    private void execute(String command, Controller tabController){
+       tabController.execute(command);
     }
     private void handleTransition() {
         windowRoot = new TabPane();
