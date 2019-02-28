@@ -52,6 +52,7 @@ public class SlogoTab extends Tab implements ViewInterface {
     private CanvasColorChooser myCanvasColorChooser;
     private TurtleView myTurtle;
     private Label tabTitle;
+    private Controller myController;
 
     public SlogoTab(int id, double width, double height){
         myID = id;
@@ -63,6 +64,8 @@ public class SlogoTab extends Tab implements ViewInterface {
         setGraphic(tabTitle);
         this.myPane.getStylesheets().add(STYLE_SHEET);
         this.myPane.getStyleClass().add("this");
+        this.myController = new Controller();
+        this.setTurtleView(this.myController.getTurtleView());
     }
 
     @Override
@@ -211,11 +214,21 @@ public class SlogoTab extends Tab implements ViewInterface {
 
     private void transferCommands(){
         String commands = myConsole.getText();
+        this.myController.execute(commands);
         addToHistory(commands);
+        this.myConsole.clearText();
     }
 
     private void addToHistory(String commands) {
 
+    }
+
+    public Button getButton(){
+        return this.myExecuteButton;
+    }
+
+    public Console getMyConsole(){
+        return myConsole;
     }
 
 }

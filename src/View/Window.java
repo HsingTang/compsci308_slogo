@@ -1,5 +1,6 @@
 package View;
 
+import CommandTree.CommandRoot;
 import Model.TurtleModel;
 import View.SlogoTab;
 import View.SplashScreen;
@@ -28,7 +29,6 @@ public class Window extends Application {
 
    public Window(){
         super();
-        myTurtleFactory = new TurtleFactory();
         myViewFactory = new ViewFactory();
         tabCount = 0;
     }
@@ -48,12 +48,7 @@ public class Window extends Application {
     }
 
     public void addSlogoTab(){
-        TurtleModel newTurtleModel = new TurtleModel();
-        TurtleView newTurtleView = this.myTurtleFactory.makeTurtle(tabCount,newTurtleModel);
-        newTurtleModel.registerTurtleObserver(newTurtleView);
-        Controller controller = new Controller(newTurtleModel, newTurtleView);
         SlogoTab tab = myViewFactory.getSlogoTab(tabCount,DEFAULT_WIDTH,DEFAULT_HEIGHT);
-        tab.setTurtleView(newTurtleView);
         windowRoot.getTabs().add(tab);
         tabCount++;
     }
@@ -64,8 +59,8 @@ public class Window extends Application {
         myStage.setScene(mainWindow);
         addSlogoTab();
     }
+    
     public void launchMaster(String[] args){
         launch(args);
     }
-
 }
