@@ -19,7 +19,7 @@ public class LeftNode extends TurtleCommandNode{
 
    public void execute(){
       this.parseParameters();
-      this.myHandler.turnLeft(this.myDegrees);
+      this.setMyReturnValue(this.myHandler.turnLeft(this.myDegrees));
    }
 
    protected void parseParameters(){

@@ -15,6 +15,7 @@ public class CommandHandler implements CommandHandlerInterface {
         model.setX(px*Math.cos(heading));
         model.setY(px*Math.sin(heading));
         model.moveWithAnimation();
+        System.out.println("forward " + px);
         return px;
     }
 
@@ -23,11 +24,15 @@ public class CommandHandler implements CommandHandlerInterface {
         model.setX(-px*Math.cos(heading));
         model.setY(-px*Math.sin(heading));
         model.moveWithAnimation();
+
+        System.out.println("backward " + px);
         return px;
     }
 
     public double turnLeft(double deg) {
         model.setLeftRotate(deg);
+
+        System.out.println("left " + deg);
         return deg;
     }
 

@@ -19,7 +19,7 @@ public class ForwardNode extends TurtleCommandNode {
 
    public void execute(){
       this.parseParameters();
-      this.myHandler.moveForward(this.myPixels);
+      this.setMyReturnValue(this.myHandler.moveForward(this.myPixels));
    }
 
    protected void parseParameters(){

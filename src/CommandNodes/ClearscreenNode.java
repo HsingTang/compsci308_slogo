@@ -19,7 +19,7 @@ public class ClearscreenNode extends TurtleCommandNode{
 
    public void execute(){
       this.parseParameters();
-      this.myHandler.clearScreen();
+      this.setMyReturnValue(this.myHandler.clearScreen());
    }
 
    protected void parseParameters(){

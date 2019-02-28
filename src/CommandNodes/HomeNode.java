@@ -17,7 +17,7 @@ public class HomeNode extends TurtleCommandNode{
 
    public void execute(){
       this.parseParameters();
-      this.myHandler.goHome();
+      this.setMyReturnValue(this.myHandler.goHome());
    }
 
    protected void parseParameters(){

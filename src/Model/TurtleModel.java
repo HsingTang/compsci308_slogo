@@ -50,46 +50,6 @@ public class TurtleModel implements ModelInterface {
       }
    }*/
 
-   private Double forward(ArrayList<Double> params){
-      System.out.println("forward" + params.get(0));
-      return params.get(0);
-   }
-   private Double backward(ArrayList<Double> params){
-      return params.get(0);
-   }
-
-   private Double left(ArrayList<Double> params){
-      return params.get(0);
-   }
-
-   private Double right(ArrayList<Double> params){
-      return params.get(0);
-   }
-
-   private Double setHeading(ArrayList<Double> params){
-      return params.get(0);
-   }
-
-   private Double towards(ArrayList<Double> params){
-      return params.get(0);
-   }
-
-   private int penUp(){
-      return VISIBLE;
-   }
-
-   private int penDown(){
-      return VISIBLE;
-   }
-
-   private int showTurtle(){
-      return VISIBLE;
-   }
-
-   private int hideTurtle(){
-      return INVISIBLE;
-   }
-
    public void moveWithAnimation() {
       notifyMoveWithAnimation();
    }

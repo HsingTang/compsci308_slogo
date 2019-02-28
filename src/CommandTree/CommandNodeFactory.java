@@ -2,7 +2,7 @@ package CommandTree;
 
 import CommandNodes.CommandNode;
 import CommandNodes.ConstantNode;
-import Handlers.HandlerInterfaces.CommandControllerInterface;
+import Handlers.HandlerInterfaces.CommandHandlerInterface;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -15,11 +15,11 @@ public class CommandNodeFactory {
    private static int MAP_LIMIT = 2;
    private static String NODE_BUILDER = "Node";
 
-   private CommandControllerInterface myController;
+   private CommandHandlerInterface myHandler;
    private HashMap<String, String> expressionStringMap;
 
-   public CommandNodeFactory(CommandControllerInterface controller) {
-      this.myController = controller;
+   public CommandNodeFactory(CommandHandlerInterface controller) {
+      this.myHandler = controller;
       this.setExpressionMap();
    }
 
@@ -47,8 +47,8 @@ public class CommandNodeFactory {
 
    private CommandNode newNode(Class<?> nodeClass, CommandNode parent){
       try{
-            Constructor<?> cons = nodeClass.getConstructor(CommandControllerInterface.class, CommandNode.class);
-            return (CommandNode)(cons.newInstance(myController, parent));
+            Constructor<?> cons = nodeClass.getConstructor(CommandHandlerInterface.class, CommandNode.class);
+            return (CommandNode)(cons.newInstance(myHandler, parent));
       }
       catch(Exception e){
          /**
@@ -58,7 +58,7 @@ public class CommandNodeFactory {
       }
    }
    private ConstantNode newConstantNode(CommandNode parent, Double value){
-      return new ConstantNode(myController, parent, value);
+      return new ConstantNode(myHandler, parent, value);
    }
 
    private void setExpressionMap(){

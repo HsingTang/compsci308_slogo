@@ -19,7 +19,7 @@ public class RightNode extends TurtleCommandNode {
 
    public void execute(){
       this.parseParameters();
-      this.myHandler.turnRight(this.myDegrees);
+      this.setMyReturnValue(this.myHandler.turnRight(this.myDegrees));
    }
 
    protected void parseParameters(){
