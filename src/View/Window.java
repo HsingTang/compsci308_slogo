@@ -27,12 +27,12 @@ public class Window extends Application {
     ViewFactory myViewFactory;
     private int tabCount;
 
-    public Window(){
+   /* public Window(){
         super();
         myTurtleFactory = new TurtleFactory();
         myViewFactory = new ViewFactory();
         tabCount = 0;
-    }
+    }*/
 
     public void start(Stage myStage) {
         this.myStage = myStage;
