@@ -54,7 +54,7 @@ public class Window extends Application {
         SlogoTab tab = myViewFactory.getSlogoTab(tabCount,DEFAULT_WIDTH,DEFAULT_HEIGHT);
         tab.setTurtleView(tabController.getTurtleView());
         windowRoot.getTabs().add(tab);
-        tab.getButton().setOnAction(e -> execute(tab.getMyConsole().getTextClear(), tabController));
+        //tab.getButton().setOnAction(e -> execute(tab.getMyConsole().getTextClear(), tabController));
         tabCount++;
     }
 

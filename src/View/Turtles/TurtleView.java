@@ -90,6 +90,7 @@ public class TurtleView implements TurtleObserver {
     private void animateRotation(double rotationDegrees) {
         RotateTransition rt = new RotateTransition(Duration.millis(TRANSLATION_SPEED), this.myImgView);
         rt.setByAngle(rotationDegrees);
+        rt.setCycleCount(4);
         rt.play();
     }
 
@@ -99,7 +100,6 @@ public class TurtleView implements TurtleObserver {
         tt.setFromY(previousY);
         tt.setToX(xFinal);
         tt.setToY(yFinal);
-
         tt.play();
     }
 

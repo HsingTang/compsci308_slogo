@@ -33,6 +33,10 @@ public class Controller {
         root.execute();
     }
 
+    public void setLanguage(String language) {
+        this.myParser.setLanguage(language);
+    }
+
     public TurtleView getTurtleView(){
         return this.turtleView;
     }
