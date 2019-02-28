@@ -2,7 +2,7 @@ package Model.ModelInterfaces;
 
 import View.ObserverInterfaces.TurtleObserver;
 
-public interface TurtleModelInterface {
+public interface ModelInterface {
 
     void registerTurtleObserver(TurtleObserver o);
 
@@ -11,6 +11,8 @@ public interface TurtleModelInterface {
     void setX(double x);
 
     void setY(double y);
+
+    void setHome();
 
     void moveWithAnimation();
 
@@ -24,6 +26,10 @@ public interface TurtleModelInterface {
 
     void setPenUp();
 
+    void setInvisible();
+
+    void setVisible();
+
     double getX();
 
     double getY();
@@ -31,5 +37,7 @@ public interface TurtleModelInterface {
     double getHeading();
 
     boolean getPenDown();
+
+    boolean isInvisible();
 
 }

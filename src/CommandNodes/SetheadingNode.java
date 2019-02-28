@@ -1,26 +1,25 @@
-package CommandNodes.TurtleCommandNodes;
+package CommandNodes;
 
-import CommandNodes.CommandNode;
-import Controller.ControllerInterfaces.CommandControllerInterface;
+import Handlers.HandlerInterfaces.CommandHandlerInterface;
 
 public class SetheadingNode extends TurtleCommandNode{
    private static int SET_HEADING_PARAMS = 1;
 
    private double myDegrees;
 
-   public SetheadingNode(CommandControllerInterface inController){
-      super(inController);
+   public SetheadingNode(CommandHandlerInterface inHandler){
+      super(inHandler);
       this.setMyNumParams(SET_HEADING_PARAMS);
    }
 
-   public SetheadingNode(CommandControllerInterface inController, CommandNode inParent){
-      super(inController, inParent);
+   public SetheadingNode(CommandHandlerInterface inHandler, CommandNode inParent){
+      super(inHandler, inParent);
       this.setMyNumParams(SET_HEADING_PARAMS);
    }
 
    public void execute(){
       this.parseParameters();
-      this.myController.setHeading(this.myDegrees);
+      this.setMyReturnValue(this.myHandler.setHeading(this.myDegrees));
    }
 
    protected void parseParameters(){

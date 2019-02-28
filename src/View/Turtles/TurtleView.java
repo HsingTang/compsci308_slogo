@@ -1,6 +1,6 @@
 package View.Turtles;
 
-import Model.ModelInterfaces.TurtleModelInterface;
+import Model.ModelInterfaces.ModelInterface;
 import View.GUIFeatures.Panels.SlogoCanvas;
 
 import View.ObserverInterfaces.TurtleObserver;
@@ -9,6 +9,8 @@ import javafx.animation.TranslateTransition;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.FillRule;
+import javafx.scene.shape.Path;
 import javafx.util.Duration;
 
 
@@ -20,8 +22,9 @@ public class TurtleView implements TurtleObserver {
 
     public static final double INITIAL_HEADING = 90;
     public static final double TRANSLATION_SPEED = 3000;
+    public static final double INITIAL_POSITION = 0.0;
 
-    private TurtleModelInterface model;
+    private ModelInterface model;
     private ImageView myImgView;
     private Integer myID;
     private double previousX;
@@ -36,20 +39,24 @@ public class TurtleView implements TurtleObserver {
     private double canvasHeight;
     private Color myPenColor;
     private boolean penDown;
+    private Path pen;
 
 
-    public TurtleView(int id, Image img, Color color, TurtleModelInterface model){
+    public TurtleView(int id, Image img, Color color, ModelInterface model){
         this.model = model;
         model.registerTurtleObserver(this);
         this.myImgView = new ImageView(img);
         this.myID = id;
-        this.myX = 0.0;
-        this.myY = 0.0;
+        this.myX = INITIAL_POSITION;
+        this.myY = INITIAL_POSITION;
         this.myXDir = 0.0;
         this.myYDir = 0.0;
         this.myHeading = INITIAL_HEADING;
         this.myPenColor = color;
         this.penDown = true;
+        this.pen = new Path();
+        pen.setFill(myPenColor);
+        pen.setFillRule(FillRule.EVEN_ODD);
     }
 
     public Integer getMyID() {
@@ -92,32 +99,15 @@ public class TurtleView implements TurtleObserver {
         tt.setFromY(previousY);
         tt.setToX(xFinal);
         tt.setToY(yFinal);
+
         tt.play();
     }
 
-    private void setX(double newX) {
-        this.previousX = myX;
-        this.myX = newX;
-    }
-
-    private void setY(double newY) {
-        this.previousY = myY;
-        this.myY = newY;
-    }
-
-    private void rotateLeft(double newDegrees) {
-        this.myHeading += newDegrees;
-        animateRotation(newDegrees);
-    }
-
-    private void rotateRight(double newDegrees) {
-        this.myHeading -= newDegrees;
-        animateRotation(-newDegrees);
-    }
-
-    private void setHeading(double newHeading) {
-        this.myImgView.setRotate(newHeading - this.myHeading);
-        this.myHeading = newHeading;
+    private void goHome() {
+        this.myX = INITIAL_POSITION;
+        this.myY = INITIAL_POSITION;
+        this.myImgView.setX(INITIAL_POSITION);
+        this.myImgView.setY(INITIAL_POSITION);
     }
 
     public void setCanvas(SlogoCanvas c){
@@ -133,13 +123,13 @@ public class TurtleView implements TurtleObserver {
     }
 
     public void updateX() {
-        double newX = model.getX();
-        this.setX(newX);
+        this.previousX = myX;
+        this.myX = model.getX();
     }
 
     public void updateY() {
-        double newY = model.getY();
-        this.setY(newY);
+        this.previousY = myY;
+        this.myY = model.getY();
     }
 
     public void updateMove() {
@@ -149,21 +139,40 @@ public class TurtleView implements TurtleObserver {
 
     public void updateLeftRotate() {
         double newLeftRotateDegs = model.getHeading() - this.myHeading;
-        this.rotateLeft(newLeftRotateDegs);
+        this.myHeading += newLeftRotateDegs;
+        animateRotation(newLeftRotateDegs);
     }
 
     public void updateRightRotate() {
         double newRightRotateDegs = this.myHeading - model.getHeading();
-        this.rotateRight(newRightRotateDegs);
+        this.myHeading -= newRightRotateDegs;
+        animateRotation(newRightRotateDegs);
     }
 
     public void updateHeading() {
         double newHeading = model.getHeading();
-        this.setHeading(newHeading);
+        this.myImgView.setRotate(newHeading - this.myHeading);
+        this.myHeading = newHeading;
     }
 
     public void updatePenDown() {
         this.penDown = model.getPenDown();
+        if (penDown) {
+            pen.setVisible(true);
+        } else {
+            pen.setVisible(false);
+        }
+    }
+
+    public void updateHome() { this.goHome(); }
+
+    public void updateVisibility() {
+        boolean isInvisible = model.isInvisible();
+        if (!isInvisible) {
+            this.myImgView.setVisible(false);
+        } else {
+            this.myImgView.setVisible(true);
+        }
     }
 
 }

@@ -2,7 +2,7 @@ package CommandTree;
 
 import CommandNodes.CommandNode;
 import CommandNodes.TreeParentNode;
-import Controller.ControllerInterfaces.CommandControllerInterface;
+import Handlers.HandlerInterfaces.CommandHandlerInterface;
 
 public class CommandRoot {
    private static int INIT = 0;
@@ -12,27 +12,27 @@ public class CommandRoot {
    private String[] commandStrings;
    private int numCommands;
 
-   private CommandControllerInterface myController;
+   private CommandHandlerInterface myHandler;
    private CommandNode parent;
    private CommandNode currentParent;
    private int currentIndex;
    private String currentString;
 
-   public CommandRoot(String[] commandStrings, CommandControllerInterface controller) {
+   public CommandRoot(String[] commandStrings, CommandHandlerInterface controller) {
       this.commandStrings = commandStrings;
       this.numCommands = commandStrings.length;
-      this.myController = controller;
-      this.parent = new TreeParentNode(this.myController);
+      this.myHandler = controller;
+      this.parent = new TreeParentNode(this.myHandler);
       this.currentParent = this.parent;
       this.currentIndex = INIT;
-      this.myCommandNodeFactory = new CommandNodeFactory(this.myController);
+      this.myCommandNodeFactory = new CommandNodeFactory(this.myHandler);
       this.makeTree();
    }
 
    private void makeTree() {
       while (this.currentIndex < this.numCommands) {
          this.currentString = this.commandStrings[this.currentIndex];
-         CommandNode newNode = this.myCommandNodeFactory.newNode(this.currentString, this.currentParent);
+         CommandNode newNode = this.myCommandNodeFactory.newNode(this.currentString, this.currentParent, this);
          while(this.currentParent.childrenFilled()){
             this.currentParent = this.currentParent.getParent();
          }
@@ -46,10 +46,13 @@ public class CommandRoot {
       this.executeNode(this.parent);
    }
 
-   private void executeNode(CommandNode parent){
-      for(CommandNode c: parent.getMyChildren()){
-         c.execute();
+   public void executeNode(CommandNode parent) {
+      for (CommandNode c : parent.getMyChildren()) {
+         for(int i = 0; i < c.getMyNumRepeat(); i++) {
+            this.executeNode(c);
+         }
       }
-      parent.execute();
+      parent.fullExecute();
    }
+
 }

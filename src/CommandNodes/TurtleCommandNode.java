@@ -1,21 +1,18 @@
-package CommandNodes.TurtleCommandNodes;
+package CommandNodes;
 
-import CommandNodes.CommandNode;
-import CommandNodes.ConstantNode;
-
-import Controller.ControllerInterfaces.CommandControllerInterface;
+import Handlers.HandlerInterfaces.CommandHandlerInterface;
 
 public abstract class TurtleCommandNode extends CommandNode {
 
 
    private int myChildrenIndex;
 
-   public TurtleCommandNode(CommandControllerInterface inController){
-      super(inController);
+   public TurtleCommandNode(CommandHandlerInterface inHandler){
+      super(inHandler);
    }
 
-   public TurtleCommandNode(CommandControllerInterface inController, CommandNode inParent){
-      super(inController, inParent);
+   public TurtleCommandNode(CommandHandlerInterface inHandler, CommandNode inParent){
+      super(inHandler, inParent);
    }
 
    protected double getPixels(){
@@ -37,5 +34,5 @@ public abstract class TurtleCommandNode extends CommandNode {
 
    protected abstract void parseParameters();
 
-   protected abstract void execute();
+   public abstract void execute();
 }

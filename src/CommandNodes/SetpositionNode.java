@@ -1,7 +1,6 @@
-package CommandNodes.TurtleCommandNodes;
+package CommandNodes;
 
-import CommandNodes.CommandNode;
-import Controller.ControllerInterfaces.CommandControllerInterface;
+import Handlers.HandlerInterfaces.CommandHandlerInterface;
 
 public class SetpositionNode extends TurtleCommandNode{
    private static int SET_POSITION_PARAMS = 2;
@@ -9,19 +8,19 @@ public class SetpositionNode extends TurtleCommandNode{
    private double myX;
    private double myY;
 
-   public SetpositionNode(CommandControllerInterface inController){
-      super(inController);
+   public SetpositionNode(CommandHandlerInterface inHandler){
+      super(inHandler);
       this.setMyNumParams(SET_POSITION_PARAMS);
    }
 
-   public SetpositionNode(CommandControllerInterface inController, CommandNode inParent){
-      super(inController, inParent);
+   public SetpositionNode(CommandHandlerInterface inHandler, CommandNode inParent){
+      super(inHandler, inParent);
       this.setMyNumParams(SET_POSITION_PARAMS);
    }
 
    public void execute(){
       this.parseParameters();
-      this.myController.goTo(this.myX, this.myY);
+      this.setMyReturnValue(this.myHandler.goTo(this.myX, this.myY));
    }
 
    protected void parseParameters(){

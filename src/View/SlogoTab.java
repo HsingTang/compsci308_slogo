@@ -26,8 +26,8 @@ import java.lang.reflect.Field;
  * @author Hsingchih Tang
  * An independent tab managing its own Turtle, commands and variables
  */
-public class SlogoTab extends Tab {
-    // static final String STYLE_SHEET = "stylesheets/StyleWindow.css";
+public class SlogoTab extends Tab implements ViewInterface {
+    static final String STYLE_SHEET = "stylesheets/StyleWindow.css";
     static final String TAB_STRING = "Tab ";
     static final Double CONSOLE_RATIO = (3.0/5.0);
     static final Double CANVAS_RATIO = (3.0/5.0);
@@ -53,15 +53,46 @@ public class SlogoTab extends Tab {
     private TurtleView myTurtle;
     private Label tabTitle;
 
-    public SlogoTab(int id, double width, double height, TurtleView t){
+    public SlogoTab(int id, double width, double height){
         myID = id;
         myWidth = width;
         myHeight = height;
-        myTurtle = t;
         tabTitle = new Label(TAB_STRING + id);
         initPanes();
         setContent(myPane);
         setGraphic(tabTitle);
+        this.myPane.getStylesheets().add(STYLE_SHEET);
+        this.myPane.getStyleClass().add("this");
+    }
+
+    @Override
+    public void notifyConsole() {
+
+    }
+
+    @Override
+    public void notifyVariablePane() {
+
+    }
+
+    @Override
+    public void notifyCommandHistory() {
+
+    }
+
+    @Override
+    public void notifyEnvironment() {
+
+    }
+
+    @Override
+    public void notifyTurtleView() {
+
+    }
+
+    public void setTurtleView(TurtleView t){
+        this.myTurtle = t;
+        initTurtleView();
     }
 
     private void initPanes(){
@@ -87,7 +118,6 @@ public class SlogoTab extends Tab {
         myCanvasPane.setMaxSize(myHeight*CANVAS_RATIO,myHeight*CANVAS_RATIO);
         myPane.setCenter(myCanvasPane);
         initCanvas();
-        initTurtleView();
     }
 
     private void initBottomPane(){
@@ -171,13 +201,7 @@ public class SlogoTab extends Tab {
     }
 
     private void setCanvasBackground(){
-        Color color;
-        try {
-            Field field = Class.forName("javafx.scene.paint.Color").getField(myCanvasColorChooser.getValue().toString().replaceAll("\\s+", ""));
-            color = (Color)field.get(null);
-        } catch (Exception e){
-            color = null;
-        }
+        Color color = myCanvasColorChooser.getValue();
         myCanvas.setBackgroundColor(color);
     }
 

@@ -1,33 +1,37 @@
 package CommandNodes;
 
-import Controller.ControllerInterfaces.CommandControllerInterface;
+import Handlers.HandlerInterfaces.CommandHandlerInterface;
 
 import java.util.ArrayList;
 
 public abstract class CommandNode {
+
    private static int INIT = 0;
 
-
-   protected CommandControllerInterface myController;
+   protected CommandHandlerInterface myHandler;
    private ArrayList<CommandNode> myChildren;
    private CommandNode myParent;
    private int myNumParams;
    private Double myReturnValue;
    private int myChildrenIndex;
+   private double myNumRepeat;
 
-   public CommandNode(CommandControllerInterface inController) {
+
+   public CommandNode(CommandHandlerInterface inHandler) {
       this.myChildren = new ArrayList<CommandNode>();
-      this.myController = inController;
+      this.myHandler = inHandler;
       this.myNumParams = INIT;
       this.myChildrenIndex = 0;
+      this.myNumRepeat = 1;
    }
 
-   public CommandNode(CommandControllerInterface inController, CommandNode inParent){
+   public CommandNode(CommandHandlerInterface inHandler, CommandNode inParent){
       this.myChildren = new ArrayList<CommandNode>();
-      this.myController = inController;
+      this.myHandler = inHandler;
       this.myNumParams = INIT;
       this.myParent = inParent;
       this.myChildrenIndex = 0;
+      this.myNumRepeat = 1;
 
 }
 
@@ -63,55 +67,68 @@ public abstract class CommandNode {
    protected CommandNode getNextNode(){
       CommandNode nextNode = null;
       try{
-         nextNode = (ConstantNode)(this.getMyChildren().get(this.myChildrenIndex));
+         nextNode = this.getMyChildren().get(this.myChildrenIndex);
          this.myChildrenIndex++;
       }
       catch(Exception e){
          /**
-          * Error regarding incorrect node type
+          * Error regarding no child
           */
       }
+
       return nextNode;
    }
 
    protected double getNextDouble(){
       double value = 0;
-      try{
-         ConstantNode nextNode = (ConstantNode)(this.getNextNode());
-         value = nextNode.getMyValue();
-      }
-      catch(Exception e){
-         /**
-          * Error regarding incorrect parameter
-          */
-      }
-      return value;
+      CommandNode nextNode = (this.getNextNode());
+      return nextNode.getMyReturnValue();
    }
 
    public boolean childrenFilled() {
       return this.myNumParams == 0;
    }
 
-   /* public CommandNode getNewNode(){
-      ConstantNode newNode = new ConstantNode(this.myController, this.myParent);
-      newNode.setMyValue(this.myReturnValue);
-      return newNode;
-   }
+   public double getMyNumRepeat() { return this.myNumRepeat; }
 
-   private Double getMyReturnValue(){
-      return this.myReturnValue;
+
+   /* public CommandNode getNewNode(){
+      ConstantNode newNode = new ConstantNode(this.myHandler, this.myParent);
+      newNode.setMyValue(this.myReturnValue)
+      return newNode;
    }*/
+
+   public Double getMyReturnValue(){
+      return this.myReturnValue;
+   }
 
    protected void setMyNumParams(int num){
       this.myNumParams = num;
+   }
+
+   protected void setMyNumRepeat(double num) { this.myNumRepeat = num; }
+
+   protected void resetIndex(){
+      this.myChildrenIndex = 0;
    }
 
   /* protected void setReturnValue(Double returnValue){
       this.myReturnValue = returnValue;
    }*/
 
+   public void fullExecute(){
+      this.execute();
+      this.resetIndex();
+   }
+
+
    public abstract void execute();
 
    protected abstract void parseParameters();
+
+   protected void setMyReturnValue(Double returnValue)
+   {
+      this.myReturnValue = returnValue;
+   }
 
 }
