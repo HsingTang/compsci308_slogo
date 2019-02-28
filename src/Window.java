@@ -1,5 +1,3 @@
-package View;
-
 import CommandTree.CommandRoot;
 import Model.TurtleModel;
 import View.SlogoTab;
@@ -60,7 +58,7 @@ public class Window extends Application {
         addSlogoTab();
     }
 
-    public void launchMaster(String[] args){
+    public static void main(String[] args){
         launch(args);
     }
 }

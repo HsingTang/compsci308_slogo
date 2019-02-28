@@ -1,6 +1,8 @@
 package View;
 
 
+import Controller.Controller;
+import Controller.ControllerInterface;
 import View.GUIFeatures.Buttons.ClearButton;
 import View.GUIFeatures.Buttons.ExecuteButton;
 import View.GUIFeatures.Choosers.CanvasColorChooser;
@@ -18,8 +20,6 @@ import javafx.scene.control.Tab;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-
-import java.lang.reflect.Field;
 
 
 /**
@@ -52,7 +52,7 @@ public class SlogoTab extends Tab implements ViewInterface {
     private CanvasColorChooser myCanvasColorChooser;
     private TurtleView myTurtle;
     private Label tabTitle;
-    private Controller myController;
+    private ControllerInterface myController;
 
     public SlogoTab(int id, double width, double height){
         myID = id;
@@ -209,7 +209,7 @@ public class SlogoTab extends Tab implements ViewInterface {
     }
 
     private void setLanguage(){
-
+        this.myController.setLanguage(myLanguageChooser.getValue().toString());
     }
 
     private void transferCommands(){
@@ -222,13 +222,4 @@ public class SlogoTab extends Tab implements ViewInterface {
     private void addToHistory(String commands) {
 
     }
-
-    public Button getButton(){
-        return this.myExecuteButton;
-    }
-
-    public Console getMyConsole(){
-        return myConsole;
-    }
-
 }
