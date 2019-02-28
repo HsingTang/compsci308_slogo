@@ -10,10 +10,7 @@ import javafx.animation.TranslateTransition;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.FillRule;
-import javafx.scene.shape.LineTo;
-import javafx.scene.shape.MoveTo;
-import javafx.scene.shape.Path;
+import javafx.scene.shape.*;
 import javafx.util.Duration;
 
 
@@ -41,8 +38,8 @@ public class TurtleView implements TurtleObserver {
     private double canvasWidth;
     private double canvasHeight;
     private Color myPenColor;
-    private boolean penDown;
-    private Path pen;
+    private boolean penDown = true;
+    private Rectangle pen;
 
 
     public TurtleView(int id, Image img, Color color, ModelInterface model){
@@ -57,9 +54,10 @@ public class TurtleView implements TurtleObserver {
         this.myHeading = INITIAL_HEADING;
         this.myPenColor = color;
         this.penDown = true;
-        this.pen = new Path();
+        this.pen = new Rectangle();
+        pen.setArcWidth(50);
+        pen.setArcHeight(50);
         pen.setFill(myPenColor);
-        pen.setFillRule(FillRule.EVEN_ODD);
     }
 
     public Integer getMyID() {
@@ -108,13 +106,14 @@ public class TurtleView implements TurtleObserver {
     private void animatePen(double xFinal, double yFinal) {
         drawTrail();
         Path path = new Path();
-        MoveTo moveTo = new MoveTo(previousX, previousY);
+        MoveTo moveTo = new MoveTo(xFinal, yFinal);
         LineTo lineTo = new LineTo(xFinal, yFinal);
         path.getElements().addAll(moveTo, lineTo);
         PathTransition pathTransition = new PathTransition();
         pathTransition.setDuration(Duration.millis(TRANSLATION_SPEED));
         pathTransition.setNode(pen);
         pathTransition.setPath(path);
+        pathTransition.play();
     }
 
     private void goHome() {
@@ -130,7 +129,7 @@ public class TurtleView implements TurtleObserver {
         this.canvasHeight = c.getHeight();
     }
 
-    public void drawTrail(){
+    private void drawTrail(){
         if (this.penDown){
             pen.setVisible(true);
         } else {
@@ -152,7 +151,6 @@ public class TurtleView implements TurtleObserver {
         animateTranslation(model.getX(), model.getY());
         animatePen(model.getX(), model.getY());
     }
-
 
     public void updateLeftRotate() {
         double newLeftRotateDegs = model.getHeading() - this.myHeading;
@@ -181,9 +179,9 @@ public class TurtleView implements TurtleObserver {
     public void updateVisibility() {
         boolean isInvisible = model.isInvisible();
         if (!isInvisible) {
-            this.myImgView.setVisible(false);
-        } else {
             this.myImgView.setVisible(true);
+        } else {
+            this.myImgView.setVisible(false);
         }
     }
 
