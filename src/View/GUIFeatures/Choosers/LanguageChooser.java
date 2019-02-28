@@ -8,7 +8,7 @@ public class LanguageChooser extends ComboBox {
 
     public static final String PROMPT_TEXT = "Choose Language";
 
-    private ResourceBundle languageListBundle = ResourceBundle.getBundle("languages/LanguageList");
+    private final ResourceBundle languageListBundle = ResourceBundle.getBundle("languages/LanguageList");
 
     public LanguageChooser() {
         super();

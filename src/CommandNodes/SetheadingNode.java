@@ -3,7 +3,7 @@ package CommandNodes;
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
 
 public class SetheadingNode extends TurtleCommandNode{
-   private static int SET_HEADING_PARAMS = 1;
+   private static final int SET_HEADING_PARAMS = 1;
 
    private double myDegrees;
 

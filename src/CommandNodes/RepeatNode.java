@@ -31,7 +31,7 @@ public class RepeatNode extends CommandNode {
       return this.getMyChildren().get(index).getMyReturnValue();
    }
 
-   public void parseParameters(){
+   protected void parseParameters(){
       this.setMyNumRepeat(this.getNextDouble());
    }
 

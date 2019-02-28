@@ -4,7 +4,7 @@ import Handlers.HandlerInterfaces.CommandHandlerInterface;
 import Model.ModelInterfaces.ModelInterface;
 
 public class CommandHandler implements CommandHandlerInterface {
-    ModelInterface model;
+    final ModelInterface model;
 
     public CommandHandler(ModelInterface model) {
         this.model = model;
