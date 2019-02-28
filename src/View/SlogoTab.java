@@ -218,4 +218,12 @@ public class SlogoTab extends Tab implements ViewInterface {
 
     }
 
+    public Button getButton(){
+        return this.myExecuteButton;
+    }
+
+    public Console getMyConsole(){
+        return myConsole;
+    }
+
 }
