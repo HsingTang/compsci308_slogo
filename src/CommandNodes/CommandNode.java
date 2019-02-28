@@ -5,13 +5,8 @@ import Handlers.HandlerInterfaces.CommandHandlerInterface;
 import java.util.ArrayList;
 
 public abstract class CommandNode {
-<<<<<<< HEAD
+
    private static final int INIT = 0;
-
-=======
->>>>>>> 0ca4dcd3b0c3b6ffeef60ea5712080ebdb918158
-
-   private static int INIT = 0;
 
    protected final CommandHandlerInterface myHandler;
    private ArrayList<CommandNode> myChildren;
