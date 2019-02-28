@@ -3,7 +3,7 @@ package CommandNodes;
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
 
 public class LeftNode extends TurtleCommandNode{
-   private static int LEFT_PARAMS = 1;
+   private static final int LEFT_PARAMS = 1;
 
    private double myDegrees;
 

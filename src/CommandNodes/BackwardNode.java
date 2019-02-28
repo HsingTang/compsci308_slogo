@@ -3,7 +3,7 @@ package CommandNodes;
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
 
 public class BackwardNode extends TurtleCommandNode {
-   private static int BACKWARD_PARAMS = 1;
+   private static final int BACKWARD_PARAMS = 1;
 
    private double myPixels;
 

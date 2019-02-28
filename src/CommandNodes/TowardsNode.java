@@ -3,7 +3,7 @@ package CommandNodes;
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
 
 public class TowardsNode extends TurtleCommandNode{
-   private static int TOWARDS_PARAMS = 2;
+   private static final int TOWARDS_PARAMS = 2;
 
    private double myX;
    private double myY;

@@ -4,7 +4,7 @@ import View.Turtles.TurtleView;
 import View.Window;
 
 public class Controller {
-    Window myMaster;
+    Window myWindow;
     ModelInterface model;
     TurtleView turtleView;
 
@@ -14,8 +14,8 @@ public class Controller {
     public static void main(String[] args){
         TurtleModel model = new TurtleModel();
         Controller c = new Controller();
-        c.myMaster = new Window();
-        c.myMaster.launchMaster(args);
+        c.myWindow = new Window();
+        c.myWindow.launchMaster(args);
 
     }
 }
