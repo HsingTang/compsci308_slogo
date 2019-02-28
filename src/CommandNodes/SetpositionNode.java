@@ -20,7 +20,7 @@ public class SetpositionNode extends TurtleCommandNode{
 
    public void execute(){
       this.parseParameters();
-      this.myHandler.goTo(this.myX, this.myY);
+      this.setMyReturnValue(this.myHandler.goTo(this.myX, this.myY));
    }
 
    protected void parseParameters(){

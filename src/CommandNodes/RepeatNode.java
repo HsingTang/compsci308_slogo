@@ -26,6 +26,11 @@ public class RepeatNode extends CommandNode {
       return false;
    }
 
+   private Double getLastReturnValue(){
+      int index = this.getMyChildren().size()-2;
+      return this.getMyChildren().get(index).getMyReturnValue();
+   }
+
    public void parseParameters(){
       this.setMyNumRepeat(this.getNextDouble());
    }

@@ -18,8 +18,8 @@ public class CommandNodeFactory {
    private CommandHandlerInterface myHandler;
    private HashMap<String, String> expressionStringMap;
 
-   public CommandNodeFactory(CommandHandlerInterface Handler) {
-      this.myHandler = Handler;
+   public CommandNodeFactory(CommandHandlerInterface controller) {
+      this.myHandler = controller;
       this.setExpressionMap();
    }
 

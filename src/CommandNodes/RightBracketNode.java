@@ -3,6 +3,7 @@ package CommandNodes;
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
 
 public class RightBracketNode extends CommandNode {
+   private static Double INIT = 0.0;
 
    public RightBracketNode(CommandHandlerInterface inHandler){
       super(inHandler);
@@ -12,7 +13,9 @@ public class RightBracketNode extends CommandNode {
       super(inHandler, inParent);
    }
 
-   public void execute(){ }
+   public void execute(){
+      this.setMyReturnValue(INIT);
+   }
 
    protected void parseParameters(){}
 }

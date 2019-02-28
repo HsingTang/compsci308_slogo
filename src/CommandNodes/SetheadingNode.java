@@ -19,7 +19,7 @@ public class SetheadingNode extends TurtleCommandNode{
 
    public void execute(){
       this.parseParameters();
-      this.myHandler.setHeading(this.myDegrees);
+      this.setMyReturnValue(this.myHandler.setHeading(this.myDegrees));
    }
 
    protected void parseParameters(){

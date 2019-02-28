@@ -20,7 +20,7 @@ public class TowardsNode extends TurtleCommandNode{
 
    public void execute(){
       this.parseParameters();
-      this.myHandler.turnTowards(this.myX, this.myY);
+      this.setMyReturnValue(this.myHandler.turnTowards(this.myX, this.myY));
    }
 
    protected void parseParameters(){

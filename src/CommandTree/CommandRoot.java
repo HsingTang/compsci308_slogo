@@ -18,10 +18,10 @@ public class CommandRoot {
    private int currentIndex;
    private String currentString;
 
-   public CommandRoot(String[] commandStrings, CommandHandlerInterface Handler) {
+   public CommandRoot(String[] commandStrings, CommandHandlerInterface controller) {
       this.commandStrings = commandStrings;
       this.numCommands = commandStrings.length;
-      this.myHandler = Handler;
+      this.myHandler = controller;
       this.parent = new TreeParentNode(this.myHandler);
       this.currentParent = this.parent;
       this.currentIndex = INIT;

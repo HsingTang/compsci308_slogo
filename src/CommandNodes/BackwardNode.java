@@ -19,7 +19,7 @@ public class BackwardNode extends TurtleCommandNode {
 
    public void execute(){
       this.parseParameters();
-      this.myHandler.moveBackwards(this.myPixels);
+      this.setMyReturnValue(this.myHandler.moveBackwards(this.myPixels));
    }
 
    protected void parseParameters(){

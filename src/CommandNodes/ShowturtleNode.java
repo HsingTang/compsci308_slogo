@@ -17,7 +17,7 @@ public class ShowturtleNode extends TurtleCommandNode{
 
    public void execute(){
       this.parseParameters();
-      this.myHandler.showTurtle();
+      this.setMyReturnValue(this.myHandler.showTurtle());
    }
 
    protected void parseParameters(){

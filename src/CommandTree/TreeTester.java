@@ -1,15 +1,20 @@
 package CommandTree;
 
+import Handlers.CommandHandler;
+import Handlers.HandlerInterfaces.CommandHandlerInterface;
+import Model.TurtleModel;
+import Model.ModelInterfaces.ModelInterface;
+
 public class TreeTester {
 
    public static void main(String[] args){
-      String[] commands = {"forward", "5", "repeat", "5", "[", "forward", "2", "forward", "3", "repeat", "2", "[", "left", "5", "]", "]", "backward", "2"};
-      //CommandControllerInterface control = new Handlers();
+      String[] commands = {"forward", "forward", "5"};
+
       //CommandRoot root = new CommandRoot(commands, control);
-      /*MainModel model = new MainModel();
-      model.setCurrentRoot(root);
-      model.execute();*/
-      //root.execute();
+      ModelInterface model = new TurtleModel();
+      CommandHandlerInterface handler = new CommandHandler(model);
+      CommandRoot root = new CommandRoot(commands, handler);
+      root.execute();
    }
 
 

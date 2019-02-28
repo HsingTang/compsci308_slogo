@@ -17,7 +17,7 @@ public class PendownNode extends TurtleCommandNode{
 
    public void execute(){
       this.parseParameters();
-      this.myHandler.penDown();
+      this.setMyReturnValue(this.myHandler.penDown());
    }
 
    protected void parseParameters(){

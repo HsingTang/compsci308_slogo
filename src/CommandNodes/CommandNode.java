@@ -99,7 +99,7 @@ public abstract class CommandNode {
       return newNode;
    }*/
 
-   private Double getMyReturnValue(){
+   public Double getMyReturnValue(){
       return this.myReturnValue;
    }
 
