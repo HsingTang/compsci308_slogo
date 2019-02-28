@@ -1,17 +1,14 @@
-package View;
+package Controller;
 
 import CommandTree.CommandRoot;
 import CommandTree.StringParser;
 import Handlers.CommandHandler;
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
-import Model.ModelInterfaces.ModelInterface;
 import Model.TurtleModel;
 import View.Turtles.TurtleFactory;
 import View.Turtles.TurtleView;
-import View.Window;
 
-public class Controller {
-    Window myMaster;
+public class Controller implements ControllerInterface {
     TurtleModel model;
     TurtleView turtleView;
     CommandHandlerInterface commandHandler;

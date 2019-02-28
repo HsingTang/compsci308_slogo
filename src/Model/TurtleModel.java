@@ -122,7 +122,7 @@ public class TurtleModel implements ModelInterface {
    }
 
    public boolean getPenDown() {
-      return this.getPenDown();
+      return this.penDown;
    }
 
    public boolean isInvisible() {

@@ -10,7 +10,7 @@ Some of the main goals include developing a nearly closed front end and backend 
 
 # Design Overview
 * **View**  
-    * View.View.Window
+    * View.Window
     Main class of the front end. Holds all different front end components (View.GUIFeatures.Panels.SlogoCanvas, View.GUIFeatures.Panels.Console , etc.), arrange them on the UI and communicate with Model classes on the back end for displaying user command execution results.
         * Variables:
         myTurtleView
@@ -99,7 +99,7 @@ Some of the main goals include developing a nearly closed front end and backend 
         showAlert()
 
 * **Model**  
-    * View.Window
+    * Window
     Main class of the back end as well as of the program. Takes in command from View component (front end), passes commands to Parser, receives parsed commands, passes them to executioner classes, who will be responsible for executing the commands and communicating with front-end components respectively.
     * History
     Stores commands that have been executed.
@@ -135,9 +135,9 @@ Some of the main goals include developing a nearly closed front end and backend 
     * UserCommands
     Stores user-defined commands to be executed later.
     * SlogoAlert
-    Extends Alert class. Specifically designed to display Alert dialogues to users when invalid commands are input through console. Alert messages should be read in and stored by View.Window, who will initialize the SlogoAlert objects and pass them to AlertPopper on the front end when necessary.
+    Extends Alert class. Specifically designed to display Alert dialogues to users when invalid commands are input through console. Alert messages should be read in and stored by Window, who will initialize the SlogoAlert objects and pass them to AlertPopper on the front end when necessary.
     * SlogoException
-    Extens RuntimeException class. Specifically designed such that Exceptions can be thrown through layers of callers till they reach View.Window class, who would trigger corresponding SlogoAlerts.
+    Extens RuntimeException class. Specifically designed such that Exceptions can be thrown through layers of callers till they reach Window class, who would trigger corresponding SlogoAlerts.
 
 ### API Design
 * **Internal APIs**
@@ -150,7 +150,7 @@ Some of the main goals include developing a nearly closed front end and backend 
     
 * **External APIs**
     * View  
-    *The external View API is responsible for notifying View.Window on the back end about any user input action, and receiving command execution result from backend executioner classes. The API will includes public methods that allow back-end classes to retrieve or modify fields held in front-end classes.*
+    *The external View API is responsible for notifying Window on the back end about any user input action, and receiving command execution result from backend executioner classes. The API will includes public methods that allow back-end classes to retrieve or modify fields held in front-end classes.*
     * Model  
     *The external model API will be responsible to communicate the changes made to the backend by the command line back to the front end in the form of updated properties of nodes of the GUI. This API will be in the form of getter methods of controllers. These getter methods access the properties continously changed by the API. This serves the functionality of the program with limited dependencies as the frontend can only access what must be changed about the display of the JavaFX nodes*
 
@@ -172,7 +172,7 @@ Place where past commands that have been input and executed by the user will be 
 If the user clicks on the button, the program shall display the URL link to the 308 course website's "Slogo Basic Commands" page, or trigger the user's browser to directly open the webpage (final implementation choice depends on the technical difficulty).
 
 ### Expected Erroneous Situations
-If any erroneous situation occurs with invalid user input commands, the View.Window class on the back end will trigger the AlertPopper on the front end by passing in the appropriate SlogoAlert object, with which AlertPopper will be able to display an Alert dialogue to user with messages such as "Undefined variable", "Command not found", etc.
+If any erroneous situation occurs with invalid user input commands, the Window class on the back end will trigger the AlertPopper on the front end by passing in the appropriate SlogoAlert object, with which AlertPopper will be able to display an Alert dialogue to user with messages such as "Undefined variable", "Command not found", etc.
 
 
 # API Details 
@@ -259,9 +259,9 @@ that represent new features to add on internally.
 * Extension: For any additional math, movement, and boolean operation those can be added as additional methods. For more complex commands, new Handlers classes might have to be created.
 
 ### View External API
-The View.View.Window class holds all the front-end components except for Alert dialogues, and will be the only channel for View to communicate with Model. After receiving arguments through the external API, View.View.Window will distribute the tasks internally to corresponding front-end components.
+The View.Window class holds all the front-end components except for Alert dialogues, and will be the only channel for View to communicate with Model. After receiving arguments through the external API, View.Window will distribute the tasks internally to corresponding front-end components.
 * Supported Features
-    * View.View.Window
+    * View.Window
         * updateVariables(name,value)
         * updateTurtleView(xpos,ypos,heading,image)
         * resetTurtleView()
@@ -281,9 +281,9 @@ The View.View.Window class holds all the front-end components except for Alert d
         * getCommands();
 * Resource Requirement
 Language properties files are be required for the language choosing feature. After the user has selected a command language, corresponding .properties file will beloaded by the program.  
-Additionally, AlertPopper will receive SlogoAlert objects from View.Window if any errorneous situation occurs, after which the showAlert() call will be invoked for displaying alert dialogues to user on the front end. The Alert messages are expected to read from a source file for avoiding hard-coding.
+Additionally, AlertPopper will receive SlogoAlert objects from Window if any errorneous situation occurs, after which the showAlert() call will be invoked for displaying alert dialogues to user on the front end. The Alert messages are expected to read from a source file for avoiding hard-coding.
 * Extension
-For new features/components to be added, the corresponding front-end component will need to be added as a field to the View.View.Window class, where specific functions will also be developed in order for corresponding back-end classes to acquire control of the new feature and affect its front-end display.
+For new features/components to be added, the corresponding front-end component will need to be added as a field to the View.Window class, where specific functions will also be developed in order for corresponding back-end classes to acquire control of the new feature and affect its front-end display.
 
 ### Model External API
 The model's external API will consist of methods from a series of controllers used in the model/backend. These controllers, EnvironmentController, ObjectController, MathController, LogicController, QueryController, UserCommandController, and VariableControlller, hold values and methods updated and called upon by commands. These values drive updates in the View/frontend.
@@ -331,7 +331,7 @@ classes don't get bogged down with too much responsibility when they can handle 
 Main abstractions would be how the back-end handles the commands that are packaged up for it by the front-end. 
 
 ### Throwing Exceptions
-If the user inputs some invalid commands, View will be unable to detect the error and will simply pass the commands to View.Window, who make an elementary scan on the command type (i.e. math, logic, object control, etc.) and transfers the commands to the corresponding concrete Parser class for further parsing. A SlogoException could either occur at View.Window (unidentifiable command type) or at a Parser class (invalid data, undefined variable, etc.), and will ultimately be thrown back to View.Window, who then invokes AlertPopper in the View component with appropriate SlogoAlert. AlertPopper will then be able to display the corresponding alert message to user on the front end.
+If the user inputs some invalid commands, View will be unable to detect the error and will simply pass the commands to Window, who make an elementary scan on the command type (i.e. math, logic, object control, etc.) and transfers the commands to the corresponding concrete Parser class for further parsing. A SlogoException could either occur at Window (unidentifiable command type) or at a Parser class (invalid data, undefined variable, etc.), and will ultimately be thrown back to Window, who then invokes AlertPopper in the View component with appropriate SlogoAlert. AlertPopper will then be able to display the corresponding alert message to user on the front end.
 
 
 # API Example Code
@@ -365,9 +365,9 @@ This design decision functions on the assumption that the data structures provid
 ### Design Decision 2: Having "executioner" classes communicate directlly with front-end components
 As described in previous sections, after a series of user commands have been successfully parsed by Parsers, transformed into concrete Command objects and organized in a tree structure in CommandController, each Command will be passed to its corresponding executioner class (e.g. a MathCommand goes to the MathCalculator), where the executioner reads the label variable stored in Command to figure out which specific operation to perform, and directly pass the output to appropriate "client" classes.
 * **Pros**
-Each "executioner" class handles a special type of Command and interacts directly with its client classes who'll eventually show the execution results to user (modifying object properties, displaying operation results, updating variables, etc.) on the front end. Therefore if new commands or front-end components are to be added in the future, the change can be accomplished by creating new executioner and client classes with their own logics withouth having to touch the core classes such as View.Window and CommandController.
+Each "executioner" class handles a special type of Command and interacts directly with its client classes who'll eventually show the execution results to user (modifying object properties, displaying operation results, updating variables, etc.) on the front end. Therefore if new commands or front-end components are to be added in the future, the change can be accomplished by creating new executioner and client classes with their own logics withouth having to touch the core classes such as Window and CommandController.
 * **Cons**
-An alternate approach is to let the executioner classes return all the results to View.Window, who will serves as the only communication channel between View and Model. In comparison to this approach, our design choice will result in a lot more dependencies since communications for different types of commands are established separately, which will probably make the structuret less neat.
+An alternate approach is to let the executioner classes return all the results to Window, who will serves as the only communication channel between View and Model. In comparison to this approach, our design choice will result in a lot more dependencies since communications for different types of commands are established separately, which will probably make the structuret less neat.
 * **Ambiguities, Assumptions, Dependencies**
 The design decision is made based on the assumptions that all types of commands can be categorized and get mapped to a certain executioner class, and that any command has a recepient (client) class for displaying the execution result. Additionally, dependencies will need to be established between each pair of executioner and client classes across Model and View.
 
