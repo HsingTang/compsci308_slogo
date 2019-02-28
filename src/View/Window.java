@@ -18,7 +18,6 @@ public class Window extends Application {
     public static final double DEFAULT_HEIGHT = 800;
     public static final double DEFAULT_WIDTH = 1200;
 
-
     private Stage myStage;
     private Pane splashRoot;
     private TabPane windowRoot;
@@ -68,9 +67,4 @@ public class Window extends Application {
         launch(args);
     }
 
-    /*
-    public static void main(String[] args) {
-        launch(args);
-    }
-    */
 }
