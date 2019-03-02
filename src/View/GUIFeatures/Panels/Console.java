@@ -37,4 +37,10 @@ public class Console extends TextArea {
         this.setText(myDisplay);
     }
 
+    public String getTextClear() {
+        String text = this.getText();
+        this.clearText();
+        return text;
+    }
+
 }

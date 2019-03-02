@@ -3,7 +3,7 @@ package CommandNodes;
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
 
 public class PendownNode extends TurtleCommandNode{
-   private static int PEN_PARAMS = 0;
+   private static final int PEN_PARAMS = 0;
 
    public PendownNode(CommandHandlerInterface inHandler){
       super(inHandler);

@@ -3,7 +3,7 @@ package CommandNodes;
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
 
 public class HideturtleNode extends TurtleCommandNode{
-   private static int TOGGLE_TURTLE_PARAMS = 0;
+   private static final int TOGGLE_TURTLE_PARAMS = 0;
 
    public HideturtleNode(CommandHandlerInterface inHandler){
       super(inHandler);
@@ -17,7 +17,7 @@ public class HideturtleNode extends TurtleCommandNode{
 
    public void execute(){
       this.parseParameters();
-      this.setMyReturnValue(this.myHandler.showTurtle());
+      this.setMyReturnValue(this.myHandler.hideTurtle());
    }
 
    protected void parseParameters(){

@@ -4,13 +4,13 @@ import Model.ModelInterfaces.ModelInterface;
 import View.GUIFeatures.Panels.SlogoCanvas;
 
 import View.ObserverInterfaces.TurtleObserver;
+import javafx.animation.PathTransition;
 import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.FillRule;
-import javafx.scene.shape.Path;
+import javafx.scene.shape.*;
 import javafx.util.Duration;
 
 
@@ -21,7 +21,7 @@ import javafx.util.Duration;
 public class TurtleView implements TurtleObserver {
 
     public static final double INITIAL_HEADING = 90;
-    public static final double TRANSLATION_SPEED = 3000;
+    public static final double TRANSLATION_SPEED = 1000;
     public static final double INITIAL_POSITION = 0.0;
 
     private ModelInterface model;
@@ -38,8 +38,8 @@ public class TurtleView implements TurtleObserver {
     private double canvasWidth;
     private double canvasHeight;
     private Color myPenColor;
-    private boolean penDown;
-    private Path pen;
+    private boolean penDown = true;
+    private Rectangle pen;
 
 
     public TurtleView(int id, Image img, Color color, ModelInterface model){
@@ -54,9 +54,10 @@ public class TurtleView implements TurtleObserver {
         this.myHeading = INITIAL_HEADING;
         this.myPenColor = color;
         this.penDown = true;
-        this.pen = new Path();
+        this.pen = new Rectangle();
+        pen.setArcWidth(50);
+        pen.setArcHeight(50);
         pen.setFill(myPenColor);
-        pen.setFillRule(FillRule.EVEN_ODD);
     }
 
     public Integer getMyID() {
@@ -95,19 +96,31 @@ public class TurtleView implements TurtleObserver {
 
     private void animateTranslation(double xFinal, double yFinal) {
         TranslateTransition tt = new TranslateTransition(Duration.millis(TRANSLATION_SPEED), this.myImgView);
-        tt.setFromX(previousX);
-        tt.setFromY(previousY);
         tt.setToX(xFinal);
         tt.setToY(yFinal);
-
         tt.play();
+        this.myImgView.setX(xFinal);
+        this.myImgView.setY(yFinal);
+    }
+
+    private void animatePen(double xFinal, double yFinal) {
+        drawTrail();
+        Path path = new Path();
+        MoveTo moveTo = new MoveTo(xFinal, yFinal);
+        LineTo lineTo = new LineTo(xFinal, yFinal);
+        path.getElements().addAll(moveTo, lineTo);
+        PathTransition pathTransition = new PathTransition();
+        pathTransition.setDuration(Duration.millis(TRANSLATION_SPEED));
+        pathTransition.setNode(pen);
+        pathTransition.setPath(path);
+        pathTransition.play();
     }
 
     private void goHome() {
         this.myX = INITIAL_POSITION;
         this.myY = INITIAL_POSITION;
-        this.myImgView.setX(INITIAL_POSITION);
-        this.myImgView.setY(INITIAL_POSITION);
+        this.myImgView.setX(this.myX);
+        this.myImgView.setY(this.myY);
     }
 
     public void setCanvas(SlogoCanvas c){
@@ -116,9 +129,11 @@ public class TurtleView implements TurtleObserver {
         this.canvasHeight = c.getHeight();
     }
 
-    public void drawTrail(){
+    private void drawTrail(){
         if (this.penDown){
-            //draw animation
+            pen.setVisible(true);
+        } else {
+            pen.setVisible(false);
         }
     }
 
@@ -134,13 +149,13 @@ public class TurtleView implements TurtleObserver {
 
     public void updateMove() {
         animateTranslation(model.getX(), model.getY());
+        animatePen(model.getX(), model.getY());
     }
-
 
     public void updateLeftRotate() {
         double newLeftRotateDegs = model.getHeading() - this.myHeading;
         this.myHeading += newLeftRotateDegs;
-        animateRotation(newLeftRotateDegs);
+        animateRotation(-newLeftRotateDegs);
     }
 
     public void updateRightRotate() {
@@ -157,11 +172,6 @@ public class TurtleView implements TurtleObserver {
 
     public void updatePenDown() {
         this.penDown = model.getPenDown();
-        if (penDown) {
-            pen.setVisible(true);
-        } else {
-            pen.setVisible(false);
-        }
     }
 
     public void updateHome() { this.goHome(); }
@@ -169,9 +179,9 @@ public class TurtleView implements TurtleObserver {
     public void updateVisibility() {
         boolean isInvisible = model.isInvisible();
         if (!isInvisible) {
-            this.myImgView.setVisible(false);
-        } else {
             this.myImgView.setVisible(true);
+        } else {
+            this.myImgView.setVisible(false);
         }
     }
 

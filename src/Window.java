@@ -1,5 +1,4 @@
-package View;
-
+import CommandTree.CommandRoot;
 import Model.TurtleModel;
 import View.SlogoTab;
 import View.SplashScreen;
@@ -11,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+
 
 public class Window extends Application {
 
@@ -27,7 +27,6 @@ public class Window extends Application {
 
     public Window(){
         super();
-        myTurtleFactory = new TurtleFactory();
         myViewFactory = new ViewFactory();
         tabCount = 0;
     }
@@ -47,11 +46,7 @@ public class Window extends Application {
     }
 
     public void addSlogoTab(){
-        TurtleModel newTurtleModel = new TurtleModel();
-        TurtleView newTurtleView = this.myTurtleFactory.makeTurtle(tabCount,newTurtleModel);
-        newTurtleModel.registerTurtleObserver(newTurtleView);
         SlogoTab tab = myViewFactory.getSlogoTab(tabCount,DEFAULT_WIDTH,DEFAULT_HEIGHT);
-        tab.setTurtleView(newTurtleView);
         windowRoot.getTabs().add(tab);
         tabCount++;
     }
@@ -63,8 +58,7 @@ public class Window extends Application {
         addSlogoTab();
     }
 
-    public void launchMaster(String[] args){
+    public static void main(String[] args){
         launch(args);
     }
-
 }

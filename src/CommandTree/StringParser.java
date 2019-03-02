@@ -37,7 +37,9 @@ public class StringParser {
    }
 
    public void setLanguage(String language){
-       addPatterns("languages/" + language);
+      mySymbols.clear();
+      addPatterns("languages/Syntax");
+      addPatterns("languages/" + language);
    }
 
    public String[] parseCommand(String command){

@@ -14,12 +14,12 @@ public class RepeatNode extends CommandNode {
    }
 
    public void execute(){
+      this.parseParameters();
    }
 
    public boolean childrenFilled(){
       for(CommandNode c: this.getMyChildren()){
          if(c instanceof RightBracketNode){
-            this.parseParameters();
             return true;
          }
       }
@@ -31,7 +31,7 @@ public class RepeatNode extends CommandNode {
       return this.getMyChildren().get(index).getMyReturnValue();
    }
 
-   public void parseParameters(){
+   protected void parseParameters(){
       this.setMyNumRepeat(this.getNextDouble());
    }
 

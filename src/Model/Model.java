@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 public class Model {
 
-   private HashMap<String, Method> methodMap;
+   private final HashMap<String, Method> methodMap;
 
    public Model(){
       this.methodMap = new HashMap<>();

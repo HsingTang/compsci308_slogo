@@ -3,7 +3,7 @@ package CommandNodes;
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
 
 public class HomeNode extends TurtleCommandNode{
-   private static int SCREEN_PARAMS = 0;
+   private static final int SCREEN_PARAMS = 0;
 
    public HomeNode(CommandHandlerInterface inHandler){
       super(inHandler);
