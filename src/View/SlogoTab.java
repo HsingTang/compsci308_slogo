@@ -52,6 +52,7 @@ public class SlogoTab extends Tab implements ViewInterface {
     private ControllerInterface myController;
 
     public SlogoTab(int id, double width, double height, Controller controller){
+        myController = controller;
         myID = id;
         myWidth = width;
         myHeight = height;
@@ -61,7 +62,6 @@ public class SlogoTab extends Tab implements ViewInterface {
         setGraphic(tabTitle);
         this.myPane.getStylesheets().add(STYLE_SHEET);
         this.myPane.getStyleClass().add("this");
-        this.myController = controller;
         this.setTurtleView(this.myController.getTurtleView(id));
     }
 
@@ -166,12 +166,14 @@ public class SlogoTab extends Tab implements ViewInterface {
 
     private void initVarPane(){
         myVarPane = new VariablePane(myWidth/2-myCanvas.getWidth()/2,myHeight);
+        myVarPane.setupModel(myController.getVarModel(myID));
         myLeftPane.getChildren().add(myVarPane);
         myPane.setLeft(myLeftPane);
     }
 
     private void initCommandPane(){
         myCommandPane = new CommandHistoryPane(myWidth/2-myCanvas.getWidth()/2,myHeight);
+        myCommandPane.setupModel(myController.getCommandModel(myID));
         myRightPane.getChildren().add(myCommandPane);
         myPane.setRight(myRightPane);
     }

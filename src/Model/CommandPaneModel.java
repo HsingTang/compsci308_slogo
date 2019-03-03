@@ -5,6 +5,7 @@ import View.GUIFeatures.Panels.HistoricalCommand;
 import View.ObserverInterfaces.ObserverInterface;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class CommandPaneModel implements ModelInterface {
@@ -35,7 +36,8 @@ public class CommandPaneModel implements ModelInterface {
         }
     }
 
-    public List<HistoricalCommand> getCommandHistory(){
-        return myCommandHistory;
+    @Override
+    public List<HistoricalCommand> getData(){
+        return Collections.unmodifiableList(myCommandHistory);
     }
 }

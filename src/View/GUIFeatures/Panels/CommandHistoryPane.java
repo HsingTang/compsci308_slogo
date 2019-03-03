@@ -1,6 +1,8 @@
 package View.GUIFeatures.Panels;
 
 import Model.CommandPaneModel;
+import Model.ModelInterfaces.ModelInterface;
+import Model.VariablePaneModel;
 import View.ObserverInterfaces.ObserverInterface;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,7 +21,7 @@ public class CommandHistoryPane extends VBox implements ObserverInterface {
     private final String COMMAND_CONTENT_FIELD = "myContent";
     private TableView commandTable;
     private TableColumn commandCol;
-    private CommandPaneModel myCommandPaneModel;
+    private ModelInterface myCommandPaneModel;
     private ObservableList<HistoricalCommand> myCommands = FXCollections.observableArrayList(new HistoricalCommand("Placeholder Command"));
 
     public CommandHistoryPane(double w, double h){
@@ -43,8 +45,14 @@ public class CommandHistoryPane extends VBox implements ObserverInterface {
     }
 
     @Override
+    public void setupModel(ModelInterface model){
+        myCommandPaneModel = model;
+        model.registerObserver(this);
+    }
+
+    @Override
     public void updateData() {
         this.myCommands.clear();
-        this.myCommands.addAll(myCommandPaneModel.getCommandHistory());
+        this.myCommands.addAll(myCommandPaneModel.getData());
     }
 }

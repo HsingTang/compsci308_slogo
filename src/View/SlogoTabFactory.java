@@ -4,12 +4,12 @@ import Controller.Controller;
 
 import java.util.HashMap;
 
-public class ViewFactory {
+public class SlogoTabFactory {
     private HashMap<Integer, ViewInterface> myViews;
     private int productCount;
     private SlogoTab newViewProduct;
 
-    public ViewFactory(){
+    public SlogoTabFactory(){
         productCount = 0;
         myViews = new HashMap<>();
     }
