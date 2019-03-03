@@ -1,10 +1,5 @@
 package CommandTree;
 
-import Handlers.CommandHandler;
-import Handlers.HandlerInterfaces.CommandHandlerInterface;
-import Model.ModelInterfaces.ModelInterface;
-import Model.TurtleModel;
-
 public class TreeTester {
 
    public static void main(String[] args){
@@ -13,7 +8,7 @@ public class TreeTester {
       parser.addPatterns("languages/French");
       parser.addPatterns("languages/Syntax");
       //CommandRoot root = new CommandRoot(commands, control);
-      ModelInterface model = new TurtleModel();
+      TurtleModelInterface model = new TurtleModel();
       CommandHandlerInterface handler = new CommandHandler(model);
       CommandRoot root = new CommandRoot(parser.parseCommand(commands), handler);
       root.execute();*/

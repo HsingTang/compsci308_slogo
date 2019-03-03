@@ -1,7 +1,6 @@
 package View.GUIFeatures.Panels;
 
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 
 public class Variable {
     private SimpleStringProperty varName;
