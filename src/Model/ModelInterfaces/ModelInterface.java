@@ -4,6 +4,7 @@ import View.ObserverInterfaces.ObserverInterface;
 import View.ObserverInterfaces.TurtleObserver;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface ModelInterface {
 
@@ -12,5 +13,7 @@ public interface ModelInterface {
     void removeObserver(ObserverInterface o);
 
     void notifyObserver();
+
+    List getData();
 
 }

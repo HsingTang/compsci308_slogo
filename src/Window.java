@@ -1,11 +1,7 @@
-import CommandTree.CommandRoot;
 import Controller.Controller;
-import Model.TurtleModel;
 import View.SlogoTab;
 import View.SplashScreen;
-import View.Turtles.TurtleFactory;
-import View.Turtles.TurtleView;
-import View.ViewFactory;
+import View.SlogoTabFactory;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.TabPane;
@@ -22,13 +18,13 @@ public class Window extends Application {
     private Stage myStage;
     private Pane splashRoot;
     private TabPane windowRoot;
-    private ViewFactory myViewFactory;
+    private SlogoTabFactory myViewFactory;
     private Controller myController;
     private int tabCount;
 
     public Window(){
         super();
-        myViewFactory = new ViewFactory();
+        myViewFactory = new SlogoTabFactory();
         myController = new Controller();
         tabCount = 0;
     }

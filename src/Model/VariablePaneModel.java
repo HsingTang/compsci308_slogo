@@ -37,7 +37,8 @@ public class VariablePaneModel implements ModelInterface {
         }
     }
 
-    public List<Variable> getVariables(){
+    @Override
+    public List<Variable> getData(){
         return Collections.unmodifiableList(myVariables);
     }
 }

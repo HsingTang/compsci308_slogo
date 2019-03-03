@@ -1,6 +1,7 @@
 package View.GUIFeatures.Panels;
 
 
+import Model.ModelInterfaces.ModelInterface;
 import Model.VariablePaneModel;
 import View.ObserverInterfaces.ObserverInterface;
 import javafx.collections.FXCollections;
@@ -27,7 +28,7 @@ public class VariablePane extends VBox implements ObserverInterface {
     private TableView<Variable> varTable;
     private TableColumn varName;
     private TableColumn varVal;
-    private VariablePaneModel myVarPaneModel;
+    private ModelInterface myVarPaneModel;
     private ObservableList<Variable> myVars = FXCollections.observableArrayList(new Variable("name0","val0"));
 
 
@@ -39,7 +40,6 @@ public class VariablePane extends VBox implements ObserverInterface {
         this.getChildren().addAll(varTable);
         this.setAlignment(Pos.CENTER);
         // this.myVars = FXCollections.observableArrayList(new Variable("name0","val0"));
-
     }
 
     private void initTable(){
@@ -56,19 +56,15 @@ public class VariablePane extends VBox implements ObserverInterface {
         varTable.getColumns().addAll(varName,varVal);
     }
 
-//    public void updateVar(String name, String val){
-//        for(Variable v:myVars){
-//            if (v.getVarName()==name){
-//                v.setVarVal(val);
-//                return;
-//            }
-//        }
-//        Variable addVariable = new Variable(name,val);
-//        myVars.add(addVariable);
-//    }
-
+    @Override
     public void updateData(){
         myVars.clear();
-        myVars.addAll(myVarPaneModel.getVariables());
+        myVars.addAll(myVarPaneModel.getData());
+    }
+
+    @Override
+    public void setupModel(ModelInterface model) {
+        myVarPaneModel = model;
+        model.registerObserver(this);
     }
 }
