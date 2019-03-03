@@ -1,16 +1,13 @@
 package View.Turtles;
 
-import Model.ModelInterfaces.ModelInterface;
+import Model.ModelInterfaces.TurtleModelInterface;
 import View.GUIFeatures.Panels.SlogoCanvas;
 
 import View.GUIFeatures.Panels.SlogoPen;
 import View.ObserverInterfaces.TurtleObserver;
 import javafx.animation.*;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.*;
 import javafx.util.Duration;
 
 
@@ -25,7 +22,7 @@ public class TurtleView implements TurtleObserver {
     public static final double ANIMATION_SPEED = 10;
     public static final double INITIAL_POSITION = 0.0;
 
-    private ModelInterface myTurtleModel;
+    private TurtleModelInterface myTurtleModel;
     private ImageView myImgView;
     private Integer myID;
     private double previousX;
@@ -40,7 +37,7 @@ public class TurtleView implements TurtleObserver {
     private SlogoPen myPen;
 
 
-    public TurtleView(int id, Image img, ModelInterface model){
+    public TurtleView(int id, Image img, TurtleModelInterface model){
         this.myTurtleModel = model;
         model.registerTurtleObserver(this);
         this.myImgView = new ImageView(img);

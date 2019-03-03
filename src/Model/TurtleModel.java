@@ -1,14 +1,12 @@
 package Model;
 
-import Model.ModelInterfaces.ModelInterface;
+import Model.ModelInterfaces.TurtleModelInterface;
 import View.ObserverInterfaces.TurtleObserver;
-import View.Turtles.TurtleView;
-import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TurtleModel implements ModelInterface {
+public class TurtleModel implements TurtleModelInterface {
    private static double INITIAL_POSITION = 0.0;
 
    public static final double INITIAL_HEADING = 90;
