@@ -24,7 +24,7 @@ public class TurtleView implements TurtleObserver {
     public static final double TRANSLATION_SPEED = 1000;
     public static final double INITIAL_POSITION = 0.0;
 
-    private ModelInterface model;
+    private ModelInterface myTurtleModel;
     private ImageView myImgView;
     private Integer myID;
     private double previousX;
@@ -43,7 +43,7 @@ public class TurtleView implements TurtleObserver {
 
 
     public TurtleView(int id, Image img, Color color, ModelInterface model){
-        this.model = model;
+        this.myTurtleModel = model;
         model.registerTurtleObserver(this);
         this.myImgView = new ImageView(img);
         this.myID = id;
@@ -139,45 +139,45 @@ public class TurtleView implements TurtleObserver {
 
     public void updateX() {
         this.previousX = myX;
-        this.myX = model.getX();
+        this.myX = myTurtleModel.getX();
     }
 
     public void updateY() {
         this.previousY = myY;
-        this.myY = model.getY();
+        this.myY = myTurtleModel.getY();
     }
 
     public void updateMove() {
-        animateTranslation(model.getX(), model.getY());
-        animatePen(model.getX(), model.getY());
+        animateTranslation(myTurtleModel.getX(), myTurtleModel.getY());
+        animatePen(myTurtleModel.getX(), myTurtleModel.getY());
     }
 
     public void updateLeftRotate() {
-        double newLeftRotateDegs = model.getHeading() - this.myHeading;
+        double newLeftRotateDegs = myTurtleModel.getHeading() - this.myHeading;
         this.myHeading += newLeftRotateDegs;
         animateRotation(-newLeftRotateDegs);
     }
 
     public void updateRightRotate() {
-        double newRightRotateDegs = this.myHeading - model.getHeading();
+        double newRightRotateDegs = this.myHeading - myTurtleModel.getHeading();
         this.myHeading -= newRightRotateDegs;
         animateRotation(newRightRotateDegs);
     }
 
     public void updateHeading() {
-        double newHeading = model.getHeading();
+        double newHeading = myTurtleModel.getHeading();
         this.myImgView.setRotate(newHeading - this.myHeading);
         this.myHeading = newHeading;
     }
 
     public void updatePenDown() {
-        this.penDown = model.getPenDown();
+        this.penDown = myTurtleModel.getPenDown();
     }
 
     public void updateHome() { this.goHome(); }
 
     public void updateVisibility() {
-        boolean isInvisible = model.isInvisible();
+        boolean isInvisible = myTurtleModel.isInvisible();
         if (!isInvisible) {
             this.myImgView.setVisible(true);
         } else {

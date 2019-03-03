@@ -1,6 +1,6 @@
 package View;
 
-import View.GUIFeatures.Buttons.StartButton;
+import View.GUIFeatures.Buttons.*;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
@@ -52,6 +52,7 @@ public class SplashScreen extends Scene {
     }
 
     private void displayButton() {
+        System.out.println("here");
         startButton = new StartButton(BUTTON_X_OFFSET, BUTTON_Y_OFFSET);
         root.getChildren().add(startButton);
     }

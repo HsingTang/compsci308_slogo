@@ -1,5 +1,7 @@
 package View;
 
+import Controller.Controller;
+
 import java.util.HashMap;
 
 public class ViewFactory {
@@ -12,8 +14,8 @@ public class ViewFactory {
         myViews = new HashMap<>();
     }
 
-    public SlogoTab getSlogoTab(int id, double w, double h){
-        newViewProduct = new SlogoTab(id, w, h);
+    public SlogoTab getSlogoTab(int id, double w, double h, Controller controller){
+        newViewProduct = new SlogoTab(id, w, h,controller);
         myViews.put(productCount,newViewProduct);
         productCount++;
         return newViewProduct;

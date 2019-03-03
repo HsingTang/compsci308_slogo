@@ -54,7 +54,7 @@ public class SlogoTab extends Tab implements ViewInterface {
     private Label tabTitle;
     private ControllerInterface myController;
 
-    public SlogoTab(int id, double width, double height){
+    public SlogoTab(int id, double width, double height, Controller controller){
         myID = id;
         myWidth = width;
         myHeight = height;
@@ -64,8 +64,8 @@ public class SlogoTab extends Tab implements ViewInterface {
         setGraphic(tabTitle);
         this.myPane.getStylesheets().add(STYLE_SHEET);
         this.myPane.getStyleClass().add("this");
-        this.myController = new Controller();
-        this.setTurtleView(this.myController.getTurtleView());
+        this.myController = controller;
+        this.setTurtleView(this.myController.getTurtleView(id));
     }
 
     @Override
