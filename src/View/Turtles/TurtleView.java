@@ -3,10 +3,10 @@ package View.Turtles;
 import Model.ModelInterfaces.ModelInterface;
 import View.GUIFeatures.Panels.SlogoCanvas;
 
+import View.GUIFeatures.Panels.SlogoPen;
 import View.ObserverInterfaces.TurtleObserver;
-import javafx.animation.PathTransition;
-import javafx.animation.RotateTransition;
-import javafx.animation.TranslateTransition;
+import javafx.animation.*;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -22,6 +22,7 @@ public class TurtleView implements TurtleObserver {
 
     public static final double INITIAL_HEADING = 90;
     public static final double TRANSLATION_SPEED = 1000;
+    public static final double ANIMATION_SPEED = 10;
     public static final double INITIAL_POSITION = 0.0;
 
     private ModelInterface myTurtleModel;
@@ -35,14 +36,11 @@ public class TurtleView implements TurtleObserver {
     private double myYDir;
     private double myHeading;
     private SlogoCanvas myCanvas;
-    private double canvasWidth;
-    private double canvasHeight;
-    private Color myPenColor;
     private boolean penDown = true;
-    private Rectangle pen;
+    private SlogoPen myPen;
 
 
-    public TurtleView(int id, Image img, Color color, ModelInterface model){
+    public TurtleView(int id, Image img, ModelInterface model){
         this.myTurtleModel = model;
         model.registerTurtleObserver(this);
         this.myImgView = new ImageView(img);
@@ -52,12 +50,7 @@ public class TurtleView implements TurtleObserver {
         this.myXDir = 0.0;
         this.myYDir = 0.0;
         this.myHeading = INITIAL_HEADING;
-        this.myPenColor = color;
         this.penDown = true;
-        this.pen = new Rectangle();
-        pen.setArcWidth(50);
-        pen.setArcHeight(50);
-        pen.setFill(myPenColor);
     }
 
     public Integer getMyID() {
@@ -80,33 +73,56 @@ public class TurtleView implements TurtleObserver {
         this.myImgView = new ImageView(newImg);
     }
 
+    public void setPen(SlogoPen pen){
+        myPen = pen;
+    }
+
     private void animateRotation(double rotationDegrees) {
         RotateTransition rt = new RotateTransition(Duration.millis(TRANSLATION_SPEED), this.myImgView);
         rt.setByAngle(rotationDegrees);
         rt.play();
     }
 
-    private void animateTranslation(double xFinal, double yFinal) {
-        TranslateTransition tt = new TranslateTransition(Duration.millis(TRANSLATION_SPEED), this.myImgView);
-        tt.setToX(xFinal);
-        tt.setToY(yFinal);
-        tt.play();
-        this.myImgView.setTranslateX(xFinal);
-        this.myImgView.setTranslateY(yFinal);
+
+    private boolean movementComplete(double xAdjust, double yAdjust, double xFinal, double yFinal){
+        return (xAdjust<0&&this.myImgView.getTranslateX()<=xFinal&&yAdjust<0&&this.myImgView.getTranslateY()<=yFinal)||
+                (xAdjust>0&&this.myImgView.getTranslateX()>=xFinal&&yAdjust>0&&this.myImgView.getTranslateY()>=yFinal)||
+                (xAdjust<0&&this.myImgView.getTranslateX()<=xFinal&&yAdjust>0&&this.myImgView.getTranslateY()>=yFinal)||
+                (xAdjust>0&&this.myImgView.getTranslateX()>=xFinal&&yAdjust<0&&this.myImgView.getTranslateY()<=yFinal);
     }
 
-    private void animatePen(double xFinal, double yFinal) {
-        drawTrail();
-        Path path = new Path();
-        MoveTo moveTo = new MoveTo(xFinal, yFinal);
-        LineTo lineTo = new LineTo(xFinal, yFinal);
-        path.getElements().addAll(moveTo, lineTo);
-        PathTransition pathTransition = new PathTransition();
-        pathTransition.setDuration(Duration.millis(TRANSLATION_SPEED));
-        pathTransition.setNode(pen);
-        pathTransition.setPath(path);
-        pathTransition.play();
+
+    private void animateTranslation(double xFinal, double yFinal) {
+        Timeline timeline = new Timeline();
+        Double deltaX = xFinal-myImgView.getTranslateX();
+        Double deltaY = yFinal-myImgView.getTranslateY();
+        Double deltaDist = Math.sqrt(Math.pow(deltaX,2)+Math.pow(deltaY,2));
+        final Double xAdjust;
+        final Double yAdjust;
+        if(deltaDist!=INITIAL_POSITION){
+            xAdjust = deltaX/deltaDist;
+            yAdjust = deltaY/deltaDist;
+        }else{
+            xAdjust = INITIAL_POSITION;
+            yAdjust = INITIAL_POSITION;
+        }
+
+        var frame = new KeyFrame(Duration.millis(ANIMATION_SPEED), e -> {
+            if(movementComplete(xAdjust,yAdjust,xFinal,yFinal)){
+                timeline.stop();
+            }
+            this.myImgView.setTranslateX(this.myImgView.getTranslateX()+xAdjust);
+            this.myImgView.setTranslateY(this.myImgView.getTranslateY()+yAdjust);
+            if(this.penDown){
+                this.myPen.drawPath(this.myImgView.getTranslateX()-xAdjust,this.myImgView.getTranslateY()-yAdjust,this.myImgView.getTranslateX(),this.myImgView.getTranslateY());
+
+            }
+        });
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.getKeyFrames().add(frame);
+        timeline.play();
     }
+
 
     private void goHome() {
         this.myX = INITIAL_POSITION;
@@ -117,17 +133,8 @@ public class TurtleView implements TurtleObserver {
 
     public void setCanvas(SlogoCanvas c){
         this.myCanvas = c;
-        this.canvasWidth = c.getWidth();
-        this.canvasHeight = c.getHeight();
     }
 
-    private void drawTrail(){
-        if (this.penDown){
-            pen.setVisible(true);
-        } else {
-            pen.setVisible(false);
-        }
-    }
 
     public void updateX() {
         this.previousX = myX;
@@ -141,7 +148,7 @@ public class TurtleView implements TurtleObserver {
 
     public void updateMove() {
         animateTranslation(myTurtleModel.getX(), myTurtleModel.getY());
-        animatePen(myTurtleModel.getX(), myTurtleModel.getY());
+        // animatePen(myTurtleModel.getX(), myTurtleModel.getY());
     }
 
     public void updateLeftRotate() {

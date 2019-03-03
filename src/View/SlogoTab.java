@@ -7,10 +7,7 @@ import View.GUIFeatures.Buttons.ClearButton;
 import View.GUIFeatures.Buttons.ExecuteButton;
 import View.GUIFeatures.Choosers.CanvasColorChooser;
 import View.GUIFeatures.Choosers.LanguageChooser;
-import View.GUIFeatures.Panels.CommandHistoryPane;
-import View.GUIFeatures.Panels.Console;
-import View.GUIFeatures.Panels.SlogoCanvas;
-import View.GUIFeatures.Panels.VariablePane;
+import View.GUIFeatures.Panels.*;
 import View.Turtles.TurtleView;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -98,6 +95,7 @@ public class SlogoTab extends Tab implements ViewInterface {
         initTurtleView();
     }
 
+
     private void initPanes(){
         myPane = new BorderPane();
         myPane.setMaxSize(myWidth,myHeight);
@@ -181,6 +179,7 @@ public class SlogoTab extends Tab implements ViewInterface {
     private void initTurtleView(){
         myTurtle.setCanvas(myCanvas);
         myCanvasPane.getChildren().add(myTurtle.getImgView());
+        myTurtle.setPen(new SlogoPen(myCanvas));
     }
 
     private void initCanvas() {
