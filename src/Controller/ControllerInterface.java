@@ -5,7 +5,7 @@ import View.Turtles.TurtleView;
 
 public interface ControllerInterface {
 
-    void execute(String command);
+    void execute(String command, int id);
 
     void setLanguage(String language);
 

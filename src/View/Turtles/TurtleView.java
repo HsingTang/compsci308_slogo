@@ -72,14 +72,6 @@ public class TurtleView implements TurtleObserver {
         return myImgView.getY();
     }
 
-    public double getXDir() {
-        return myXDir;
-    }
-
-    public double getYDir() {
-        return myYDir;
-    }
-
     public ImageView getImgView(){
         return myImgView;
     }
@@ -99,8 +91,8 @@ public class TurtleView implements TurtleObserver {
         tt.setToX(xFinal);
         tt.setToY(yFinal);
         tt.play();
-        this.myImgView.setX(xFinal);
-        this.myImgView.setY(yFinal);
+        this.myImgView.setTranslateX(xFinal);
+        this.myImgView.setTranslateY(yFinal);
     }
 
     private void animatePen(double xFinal, double yFinal) {
@@ -119,8 +111,8 @@ public class TurtleView implements TurtleObserver {
     private void goHome() {
         this.myX = INITIAL_POSITION;
         this.myY = INITIAL_POSITION;
-        this.myImgView.setX(this.myX);
-        this.myImgView.setY(this.myY);
+        this.myImgView.setTranslateX(this.myX);
+        this.myImgView.setTranslateY(this.myY);
     }
 
     public void setCanvas(SlogoCanvas c){
