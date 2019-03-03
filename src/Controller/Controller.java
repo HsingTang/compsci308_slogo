@@ -12,12 +12,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Controller implements ControllerInterface {
-    TurtleModel model;
     HashMap<Integer,TurtleView> myTurtleViews;
     HashMap<Integer,TurtleModel>myTurtleModels;
-    TurtleView turtleView;
     ArrayList<CommandHandlerInterface> myCommandHandlers;
-    CommandHandlerInterface commandHandler;
     StringParser myParser;
     TurtleFactory myTurtleFactory;
     private int turtleNumber = 0;
@@ -34,15 +31,14 @@ public class Controller implements ControllerInterface {
     public void initNewTab(){
         TurtleModel addTurtleModel = new TurtleModel();
         TurtleView addTurtleView = myTurtleFactory.makeTurtle(turtleNumber,addTurtleModel);
-        CommandHandlerInterface addCommandHandler = new CommandHandler(addTurtleModel);
         myTurtleViews.put(turtleNumber,addTurtleView);
         myTurtleModels.put(turtleNumber,addTurtleModel);
-        myCommandHandlers.add(addCommandHandler);
         turtleNumber++;
     }
 
-    public void execute(String command) {
-        CommandRoot root = new CommandRoot(this.myParser.parseCommand(command), commandHandler);
+    public void execute(String command, int id) {
+        CommandHandlerInterface addCommandHandler = new CommandHandler(myTurtleModels.get(id));
+        CommandRoot root = new CommandRoot(this.myParser.parseCommand(command), addCommandHandler);
         root.execute();
     }
 

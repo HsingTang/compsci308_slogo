@@ -52,7 +52,6 @@ public class SplashScreen extends Scene {
     }
 
     private void displayButton() {
-        System.out.println("here");
         startButton = new StartButton(BUTTON_X_OFFSET, BUTTON_Y_OFFSET);
         root.getChildren().add(startButton);
     }
