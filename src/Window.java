@@ -1,4 +1,5 @@
 import CommandTree.CommandRoot;
+import Controller.Controller;
 import Model.TurtleModel;
 import View.SlogoTab;
 import View.SplashScreen;
@@ -21,13 +22,14 @@ public class Window extends Application {
     private Stage myStage;
     private Pane splashRoot;
     private TabPane windowRoot;
-    TurtleFactory myTurtleFactory;
-    ViewFactory myViewFactory;
+    private ViewFactory myViewFactory;
+    private Controller myController;
     private int tabCount;
 
     public Window(){
         super();
         myViewFactory = new ViewFactory();
+        myController = new Controller();
         tabCount = 0;
     }
 
@@ -46,8 +48,9 @@ public class Window extends Application {
     }
 
     public void addSlogoTab(){
-        SlogoTab tab = myViewFactory.getSlogoTab(tabCount,DEFAULT_WIDTH,DEFAULT_HEIGHT);
-        windowRoot.getTabs().add(tab);
+        myController.initNewTab();
+        SlogoTab addTab = myViewFactory.getSlogoTab(tabCount,DEFAULT_WIDTH,DEFAULT_HEIGHT,myController);
+        windowRoot.getTabs().add(addTab);
         tabCount++;
     }
 

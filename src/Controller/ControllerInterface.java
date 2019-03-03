@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.TurtleModel;
 import View.Turtles.TurtleView;
 
 public interface ControllerInterface {
@@ -8,5 +9,7 @@ public interface ControllerInterface {
 
     void setLanguage(String language);
 
-    TurtleView getTurtleView();
+    TurtleView getTurtleView(int id);
+
+    TurtleModel getTurtleModel(int id);
 }
