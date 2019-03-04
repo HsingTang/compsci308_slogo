@@ -1,14 +1,13 @@
 package View;
 
 
+import Controller.Controller;
+import Controller.ControllerInterface;
 import View.GUIFeatures.Buttons.ClearButton;
 import View.GUIFeatures.Buttons.ExecuteButton;
 import View.GUIFeatures.Choosers.CanvasColorChooser;
 import View.GUIFeatures.Choosers.LanguageChooser;
-import View.GUIFeatures.Panels.CommandHistoryPane;
-import View.GUIFeatures.Panels.Console;
-import View.GUIFeatures.Panels.SlogoCanvas;
-import View.GUIFeatures.Panels.VariablePane;
+import View.GUIFeatures.Panels.*;
 import View.Turtles.TurtleView;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -18,8 +17,6 @@ import javafx.scene.control.Tab;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-
-import java.lang.reflect.Field;
 
 
 /**
@@ -52,8 +49,10 @@ public class SlogoTab extends Tab implements ViewInterface {
     private CanvasColorChooser myCanvasColorChooser;
     private TurtleView myTurtle;
     private Label tabTitle;
+    private ControllerInterface myController;
 
-    public SlogoTab(int id, double width, double height){
+    public SlogoTab(int id, double width, double height, Controller controller){
+        myController = controller;
         myID = id;
         myWidth = width;
         myHeight = height;
@@ -63,6 +62,7 @@ public class SlogoTab extends Tab implements ViewInterface {
         setGraphic(tabTitle);
         this.myPane.getStylesheets().add(STYLE_SHEET);
         this.myPane.getStyleClass().add("this");
+        this.setTurtleView(this.myController.getTurtleView(id));
     }
 
     @Override
@@ -94,6 +94,7 @@ public class SlogoTab extends Tab implements ViewInterface {
         this.myTurtle = t;
         initTurtleView();
     }
+
 
     private void initPanes(){
         myPane = new BorderPane();
@@ -165,12 +166,14 @@ public class SlogoTab extends Tab implements ViewInterface {
 
     private void initVarPane(){
         myVarPane = new VariablePane(myWidth/2-myCanvas.getWidth()/2,myHeight);
+        myVarPane.setupModel(myController.getVarModel(myID));
         myLeftPane.getChildren().add(myVarPane);
         myPane.setLeft(myLeftPane);
     }
 
     private void initCommandPane(){
         myCommandPane = new CommandHistoryPane(myWidth/2-myCanvas.getWidth()/2,myHeight);
+        myCommandPane.setupModel(myController.getCommandModel(myID));
         myRightPane.getChildren().add(myCommandPane);
         myPane.setRight(myRightPane);
     }
@@ -178,6 +181,7 @@ public class SlogoTab extends Tab implements ViewInterface {
     private void initTurtleView(){
         myTurtle.setCanvas(myCanvas);
         myCanvasPane.getChildren().add(myTurtle.getImgView());
+        myTurtle.setPen(new SlogoPen(myCanvas));
     }
 
     private void initCanvas() {
@@ -206,16 +210,17 @@ public class SlogoTab extends Tab implements ViewInterface {
     }
 
     private void setLanguage(){
-
+        this.myController.setLanguage(myLanguageChooser.getValue().toString());
     }
 
     private void transferCommands(){
         String commands = myConsole.getText();
+        this.myController.execute(commands,myID);
         addToHistory(commands);
+        this.myConsole.clearText();
     }
 
     private void addToHistory(String commands) {
 
     }
-
 }

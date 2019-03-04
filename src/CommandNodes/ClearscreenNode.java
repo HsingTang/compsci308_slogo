@@ -3,7 +3,7 @@ package CommandNodes;
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
 
 public class ClearscreenNode extends TurtleCommandNode{
-   private static int SCREEN_PARAMS = 0;
+   private static final int SCREEN_PARAMS = 0;
 
    private double distanceMoved;
 

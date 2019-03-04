@@ -1,19 +1,19 @@
 package Handlers;
 
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
-import Model.ModelInterfaces.ModelInterface;
+import Model.ModelInterfaces.TurtleModelInterface;
 
 public class CommandHandler implements CommandHandlerInterface {
-    ModelInterface model;
+    final TurtleModelInterface model;
 
-    public CommandHandler(ModelInterface model) {
+    public CommandHandler(TurtleModelInterface model) {
         this.model = model;
     }
 
     public double moveForward(double px) {
         double heading = Math.toRadians(model.getHeading());
-        model.setX(px*Math.cos(heading));
-        model.setY(px*Math.sin(heading));
+        model.setX(model.getX() + px*Math.cos(heading));
+        model.setY(model.getY() - px*Math.sin(heading));
         model.moveWithAnimation();
         System.out.println("forward " + px);
         return px;
@@ -21,8 +21,8 @@ public class CommandHandler implements CommandHandlerInterface {
 
     public double moveBackwards(double px) {
         double heading = Math.toRadians(model.getHeading());
-        model.setX(-px*Math.cos(heading));
-        model.setY(-px*Math.sin(heading));
+        model.setX(model.getX() - px*Math.cos(heading));
+        model.setY(model.getY() + px*Math.sin(heading));
         model.moveWithAnimation();
 
         System.out.println("backward " + px);
@@ -31,8 +31,6 @@ public class CommandHandler implements CommandHandlerInterface {
 
     public double turnLeft(double deg) {
         model.setLeftRotate(deg);
-
-        System.out.println("left " + deg);
         return deg;
     }
 

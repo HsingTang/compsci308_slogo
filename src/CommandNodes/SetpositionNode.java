@@ -3,7 +3,7 @@ package CommandNodes;
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
 
 public class SetpositionNode extends TurtleCommandNode{
-   private static int SET_POSITION_PARAMS = 2;
+   private static final int SET_POSITION_PARAMS = 2;
 
    private double myX;
    private double myY;

@@ -10,12 +10,12 @@ import java.lang.reflect.Constructor;
 import java.util.HashMap;
 
 public class CommandNodeFactory {
-   private static String EXPRESSION_MAP_FILE = "resources/expressionToString.txt";
-   private static String MAP_SPLIT = ":";
-   private static int MAP_LIMIT = 2;
-   private static String NODE_BUILDER = "Node";
+   private static final String EXPRESSION_MAP_FILE = "resources/expressionToString.txt";
+   private static final String MAP_SPLIT = ":";
+   private static final int MAP_LIMIT = 2;
+   private static final String NODE_BUILDER = "Node";
 
-   private CommandHandlerInterface myHandler;
+   private final CommandHandlerInterface myHandler;
    private HashMap<String, String> expressionStringMap;
 
    public CommandNodeFactory(CommandHandlerInterface controller) {

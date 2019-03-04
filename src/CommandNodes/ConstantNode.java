@@ -3,8 +3,8 @@ package CommandNodes;
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
 
 public class ConstantNode extends CommandNode {
-   private static int CONSTANT_PARAMS = 0;
-   private static Double INIT_VAL = 0.0;
+   private static final int CONSTANT_PARAMS = 0;
+   private static final Double INIT_VAL = 0.0;
 
    private double myValue;
 

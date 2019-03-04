@@ -1,16 +1,13 @@
-package View;
-
-import Model.TurtleModel;
+import Controller.Controller;
 import View.SlogoTab;
 import View.SplashScreen;
-import View.Turtles.TurtleFactory;
-import View.Turtles.TurtleView;
-import View.ViewFactory;
+import View.SlogoTabFactory;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+
 
 public class Window extends Application {
 
@@ -18,18 +15,17 @@ public class Window extends Application {
     public static final double DEFAULT_HEIGHT = 800;
     public static final double DEFAULT_WIDTH = 1200;
 
-
     private Stage myStage;
     private Pane splashRoot;
     private TabPane windowRoot;
-    TurtleFactory myTurtleFactory;
-    ViewFactory myViewFactory;
+    private SlogoTabFactory myViewFactory;
+    private Controller myController;
     private int tabCount;
 
     public Window(){
         super();
-        myTurtleFactory = new TurtleFactory();
-        myViewFactory = new ViewFactory();
+        myViewFactory = new SlogoTabFactory();
+        myController = new Controller();
         tabCount = 0;
     }
 
@@ -48,12 +44,9 @@ public class Window extends Application {
     }
 
     public void addSlogoTab(){
-        TurtleModel newTurtleModel = new TurtleModel();
-        TurtleView newTurtleView = this.myTurtleFactory.makeTurtle(tabCount,newTurtleModel);
-        newTurtleModel.registerTurtleObserver(newTurtleView);
-        SlogoTab tab = myViewFactory.getSlogoTab(tabCount,DEFAULT_WIDTH,DEFAULT_HEIGHT);
-        tab.setTurtleView(newTurtleView);
-        windowRoot.getTabs().add(tab);
+        myController.initNewTab();
+        SlogoTab addTab = myViewFactory.getSlogoTab(tabCount,DEFAULT_WIDTH,DEFAULT_HEIGHT,myController);
+        windowRoot.getTabs().add(addTab);
         tabCount++;
     }
 
@@ -64,13 +57,7 @@ public class Window extends Application {
         addSlogoTab();
     }
 
-    public void launchMaster(String[] args){
+    public static void main(String[] args){
         launch(args);
     }
-
-    /*
-    public static void main(String[] args) {
-        launch(args);
-    }
-    */
 }

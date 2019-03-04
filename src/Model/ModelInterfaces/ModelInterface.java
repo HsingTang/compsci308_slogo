@@ -1,43 +1,19 @@
 package Model.ModelInterfaces;
 
+import View.ObserverInterfaces.ObserverInterface;
 import View.ObserverInterfaces.TurtleObserver;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public interface ModelInterface {
 
-    void registerTurtleObserver(TurtleObserver o);
+    void registerObserver(ObserverInterface o);
 
-    void removeTurtleObserver(TurtleObserver o);
+    void removeObserver(ObserverInterface o);
 
-    void setX(double x);
+    void notifyObserver();
 
-    void setY(double y);
-
-    void setHome();
-
-    void moveWithAnimation();
-
-    void setLeftRotate(double deg);
-
-    void setRightRotate(double deg);
-
-    void setHeading(double deg);
-
-    void setPenDown();
-
-    void setPenUp();
-
-    void setInvisible();
-
-    void setVisible();
-
-    double getX();
-
-    double getY();
-
-    double getHeading();
-
-    boolean getPenDown();
-
-    boolean isInvisible();
+    List getData();
 
 }

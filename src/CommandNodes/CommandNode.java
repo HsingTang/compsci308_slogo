@@ -6,9 +6,9 @@ import java.util.ArrayList;
 
 public abstract class CommandNode {
 
-   private static int INIT = 0;
+   private static final int INIT = 0;
 
-   protected CommandHandlerInterface myHandler;
+   protected final CommandHandlerInterface myHandler;
    private ArrayList<CommandNode> myChildren;
    private CommandNode myParent;
    private int myNumParams;
