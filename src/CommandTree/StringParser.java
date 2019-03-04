@@ -53,7 +53,6 @@ public class StringParser {
       for(int i = 0; i < size; i++){
          if(!myFilter.contains(getSymbol(commandWords[i]))){
             parsedCommand[i] = getSymbol(commandWords[i]).toLowerCase();
-
          }else {
             parsedCommand[i] = commandWords[i];
 
@@ -65,7 +64,7 @@ public class StringParser {
    /**
     * Returns language's type associated with the given text if one exists
     */
-   public String getSymbol (String text) {
+   private String getSymbol (String text) {
       final var ERROR = "NO MATCH";
       for (var e : mySymbols) {
          if (match(text, e.getValue())) {

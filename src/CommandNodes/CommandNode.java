@@ -120,8 +120,7 @@ public abstract class CommandNode {
       this.execute();
       this.resetIndex();
    }
-
-
+   
    public abstract void execute();
 
    protected abstract void parseParameters();
