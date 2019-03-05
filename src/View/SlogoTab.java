@@ -11,9 +11,6 @@ import View.GUIFeatures.Choosers.LanguageChooser;
 import View.GUIFeatures.Choosers.PenColorChooser;
 import View.GUIFeatures.Panels.*;
 import View.Turtles.TurtleView;
-import com.sun.javafx.application.HostServicesDelegate;
-import javafx.application.Application;
-import javafx.application.HostServices;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -24,12 +21,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 
 
 /**
