@@ -12,6 +12,7 @@ public class LanguageChooser extends ComboBox {
 
     public LanguageChooser() {
         super();
+        this.getStyleClass().add("language-chooser");
         Set<String> languages = new TreeSet<>();
         for (String key : languageListBundle.keySet()) {
             String value = languageListBundle.getString(key);
