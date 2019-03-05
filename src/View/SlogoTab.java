@@ -7,6 +7,7 @@ import View.GUIFeatures.Buttons.ClearButton;
 import View.GUIFeatures.Buttons.ExecuteButton;
 import View.GUIFeatures.Choosers.CanvasColorChooser;
 import View.GUIFeatures.Choosers.LanguageChooser;
+import View.GUIFeatures.Choosers.PenColorChooser;
 import View.GUIFeatures.Panels.*;
 import View.Turtles.TurtleView;
 import javafx.geometry.Insets;
@@ -47,6 +48,7 @@ public class SlogoTab extends Tab implements ViewInterface {
     private CommandHistoryPane myCommandPane;
     private SlogoCanvas myCanvas;
     private CanvasColorChooser myCanvasColorChooser;
+    private PenColorChooser myPenColorChooser;
     private TurtleView myTurtle;
     private Label tabTitle;
     private ControllerInterface myController;
@@ -112,6 +114,7 @@ public class SlogoTab extends Tab implements ViewInterface {
         myPane.setTop(myTopPane);
         initLanguageChooser();
         initCanvasColorChooser();
+        initPenColorChooser();
     }
 
     private void initCanvasPane(){
@@ -193,8 +196,16 @@ public class SlogoTab extends Tab implements ViewInterface {
     private void initCanvasColorChooser() {
         myCanvasColorChooser = new CanvasColorChooser();
         myCanvasColorChooser.setOnAction(e -> setCanvasBackground());
-        StackPane.setAlignment(myCanvasColorChooser,Pos.CENTER_LEFT);
+        StackPane.setAlignment(myCanvasColorChooser,Pos.BOTTOM_LEFT);
         myTopPane.getChildren().add(myCanvasColorChooser);
+    }
+
+    private void initPenColorChooser() {
+        myPenColorChooser = new PenColorChooser();
+        myPenColorChooser.setOnAction(e -> setPenColor());
+        StackPane.setAlignment(myPenColorChooser, Pos.CENTER);
+        myTopPane.getChildren().add(myPenColorChooser);
+
     }
 
     private void initLanguageChooser() {
@@ -207,6 +218,11 @@ public class SlogoTab extends Tab implements ViewInterface {
     private void setCanvasBackground(){
         Color color = myCanvasColorChooser.getValue();
         myCanvas.setBackgroundColor(color);
+    }
+
+    private void setPenColor() {
+        Color color = myPenColorChooser.getValue();
+        myTurtle.getPen().setColor(color);
     }
 
     private void setLanguage(){
