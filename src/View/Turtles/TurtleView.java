@@ -74,6 +74,10 @@ public class TurtleView implements TurtleObserver {
         myPen = pen;
     }
 
+    public SlogoPen getPen() {
+        return this.myPen;
+    }
+
     private void animateRotation(double rotationDegrees) {
         RotateTransition rt = new RotateTransition(Duration.millis(TRANSLATION_SPEED), this.myImgView);
         rt.setByAngle(rotationDegrees);
