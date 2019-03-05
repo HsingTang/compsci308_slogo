@@ -37,25 +37,21 @@ public class StringParser {
 
    public void setLanguage(String language){
       mySymbols.clear();
-      System.out.println(mySymbols.size());
       addPatterns("languages/Syntax");
       addPatterns("languages/" + language);
    }
 
    public String[] parseCommand(String command){
-      var commandWords = command.split(WHITESPACE_TRIM);
-      int size = 0;
-      for(var s : commandWords){
-         if(getSymbol(s).equals("Comment")){
-            break;
-         }
-         size++;
+      try{
+         command = command.substring(0, command.indexOf("#"));
+      }catch (StringIndexOutOfBoundsException e){
+         command = command;
       }
-      var parsedCommand = new String[size];
-      for(int i = 0; i < size; i++){
+      var commandWords = command.split(WHITESPACE_TRIM);
+      var parsedCommand = new String[commandWords.length];
+      for(int i = 0; i < commandWords.length; i++){
          if(!myFilter.contains(getSymbol(commandWords[i]))){
             parsedCommand[i] = getSymbol(commandWords[i]).toLowerCase();
-
          }else {
             parsedCommand[i] = commandWords[i];
 
@@ -67,7 +63,7 @@ public class StringParser {
    /**
     * Returns language's type associated with the given text if one exists
     */
-   public String getSymbol (String text) {
+   private String getSymbol (String text) {
       final var ERROR = "NO MATCH";
       for (var e : mySymbols) {
          if (match(text, e.getValue())) {
