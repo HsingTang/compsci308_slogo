@@ -47,6 +47,20 @@
     -fx-font-size: 12px;
 }
 
+/* Help Button */
+.help-button {
+    -fx-background-color:
+            #000000,
+            linear-gradient(lightgreen, green),
+            linear-gradient(green, darkgreen),
+            linear-gradient(green, darkgreen);
+    -fx-background-insets: 0,1,2,3;
+    -fx-background-radius: 3,2,2,2;
+    -fx-padding: 12 30 12 30;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+}
+
 /* Language Chooser */
 .combo-box {
     -fx-background-color: darkgray;
