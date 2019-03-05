@@ -16,12 +16,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 
 
 /**
  * @author Hsingchih Tang
+ * @author Eric Lin
  * An independent tab managing its own Turtle, commands and variables
  */
 public class SlogoTab extends Tab implements ViewInterface {
@@ -29,7 +32,15 @@ public class SlogoTab extends Tab implements ViewInterface {
     static final String TAB_STRING = "Tab ";
     static final Double CONSOLE_RATIO = (3.0/5.0);
     static final Double CANVAS_RATIO = (3.0/5.0);
-    static final Double DEFAULT_PADDING = 30.0;
+    static final Double DEFAULT_PADDING_Y = 15.0;
+    static final Double DEFAULT_PADDING_X = 30.0;
+    static final Double CHOOSER_SPACING = 5.0;
+    static final Double CHOOSER_VBOX_WIDTH = 400.0;
+    static final int ROW_0 = 0;
+    static final int ROW_1 = 1;
+    static final int COL_0 = 0;
+    static final int COL_1 = 1;
+
 
     private Integer myID;
     private BorderPane myPane;
@@ -43,6 +54,7 @@ public class SlogoTab extends Tab implements ViewInterface {
     private Console myConsole;
     private Button myExecuteButton;
     private Button myClearButton;
+    private GridPane chooserBox;
     private LanguageChooser myLanguageChooser;
     private VariablePane myVarPane;
     private CommandHistoryPane myCommandPane;
@@ -101,7 +113,7 @@ public class SlogoTab extends Tab implements ViewInterface {
     private void initPanes(){
         myPane = new BorderPane();
         myPane.setMaxSize(myWidth,myHeight);
-        myPane.setPadding(new Insets(DEFAULT_PADDING));
+        myPane.setPadding(new Insets(DEFAULT_PADDING_Y, DEFAULT_PADDING_X, DEFAULT_PADDING_Y, DEFAULT_PADDING_X));
         initCanvasPane();
         initTopPane();
         initBottomPane();
@@ -115,6 +127,7 @@ public class SlogoTab extends Tab implements ViewInterface {
         initLanguageChooser();
         initCanvasColorChooser();
         initPenColorChooser();
+        initChooserBox();
     }
 
     private void initCanvasPane(){
@@ -196,16 +209,29 @@ public class SlogoTab extends Tab implements ViewInterface {
     private void initCanvasColorChooser() {
         myCanvasColorChooser = new CanvasColorChooser();
         myCanvasColorChooser.setOnAction(e -> setCanvasBackground());
-        StackPane.setAlignment(myCanvasColorChooser,Pos.BOTTOM_LEFT);
-        myTopPane.getChildren().add(myCanvasColorChooser);
     }
 
     private void initPenColorChooser() {
         myPenColorChooser = new PenColorChooser();
         myPenColorChooser.setOnAction(e -> setPenColor());
-        StackPane.setAlignment(myPenColorChooser, Pos.CENTER);
-        myTopPane.getChildren().add(myPenColorChooser);
 
+    }
+
+    private void initChooserBox() {
+        chooserBox = new GridPane();
+        chooserBox.setMaxWidth(CHOOSER_VBOX_WIDTH);
+        StackPane.setAlignment(chooserBox, Pos.TOP_LEFT);
+        Text canvasText = new Text("Choose Canvas Color");
+        Text penText = new Text("Choose Pen Color");
+        StackPane.setAlignment(canvasText, Pos.TOP_RIGHT);
+        StackPane.setAlignment(penText, Pos.BOTTOM_RIGHT);
+        chooserBox.add(myCanvasColorChooser, COL_0, ROW_0);
+        chooserBox.add(myPenColorChooser, COL_0, ROW_1);
+        chooserBox.add(canvasText, COL_1, ROW_0);
+        chooserBox.add(penText, COL_1, ROW_1);
+        chooserBox.setHgap(CHOOSER_SPACING);
+        chooserBox.setVgap(CHOOSER_SPACING);
+        myTopPane.getChildren().add(chooserBox);
     }
 
     private void initLanguageChooser() {

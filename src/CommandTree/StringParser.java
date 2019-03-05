@@ -22,7 +22,6 @@ public class StringParser {
       }
       addPatterns("languages/Syntax");
       addPatterns("languages/English");
-      myLanguage = "languages/English";
    }
 
    /**
@@ -38,6 +37,7 @@ public class StringParser {
 
    public void setLanguage(String language){
       mySymbols.clear();
+      System.out.println(mySymbols.size());
       addPatterns("languages/Syntax");
       addPatterns("languages/" + language);
    }
