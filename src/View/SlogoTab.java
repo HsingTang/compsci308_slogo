@@ -18,13 +18,13 @@ import javafx.scene.control.Tab;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 
 /**
  * @author Hsingchih Tang
+ * @author Eric Lin
  * An independent tab managing its own Turtle, commands and variables
  */
 public class SlogoTab extends Tab implements ViewInterface {

@@ -6,7 +6,7 @@ import java.util.TreeSet;
 
 public class LanguageChooser extends ComboBox {
 
-    public static final String PROMPT_TEXT = "Choose Language";
+    public static final String PROMPT_TEXT = "English";
 
     private final ResourceBundle languageListBundle = ResourceBundle.getBundle("languages/LanguageList");
 
