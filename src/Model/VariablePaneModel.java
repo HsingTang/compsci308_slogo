@@ -22,6 +22,7 @@ public class VariablePaneModel implements ModelInterface {
 
     public void makeVariable(String name, Double value){
         this.myVariables.put(name, value);
+        notifyObserver();
     }
 
     public Double getVariable(String name){
@@ -59,6 +60,7 @@ public class VariablePaneModel implements ModelInterface {
         ArrayList<Variable> data = new ArrayList<>();
         for(String var: this.myVariables.keySet()){
             Variable variable = new Variable(var, Double.toString(this.myVariables.get(var)));
+            // System.out.println("add to returning datalist "+var+" = "+this.myVariables.get(var));
             data.add(variable);
         }
         return data;

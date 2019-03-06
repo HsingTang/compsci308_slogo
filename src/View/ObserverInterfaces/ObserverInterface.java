@@ -7,4 +7,6 @@ public interface ObserverInterface {
 
     void setupModel(ModelInterface model);
 
+    ModelInterface getModel();
+
 }

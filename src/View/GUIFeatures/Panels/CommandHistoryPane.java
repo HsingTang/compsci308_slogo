@@ -51,6 +51,11 @@ public class CommandHistoryPane extends VBox implements ObserverInterface {
     }
 
     @Override
+    public ModelInterface getModel() {
+        return myCommandPaneModel;
+    }
+
+    @Override
     public void updateData() {
         this.myCommands.clear();
         this.myCommands.addAll(myCommandPaneModel.getData());

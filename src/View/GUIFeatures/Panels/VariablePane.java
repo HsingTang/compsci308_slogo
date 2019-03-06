@@ -58,6 +58,7 @@ public class VariablePane extends VBox implements ObserverInterface {
 
     @Override
     public void updateData(){
+        // System.out.println("varPane updating data");
         myVars.clear();
         myVars.addAll(myVarPaneModel.getData());
     }
@@ -66,5 +67,10 @@ public class VariablePane extends VBox implements ObserverInterface {
     public void setupModel(ModelInterface model) {
         myVarPaneModel = model;
         model.registerObserver(this);
+    }
+
+    @Override
+    public ModelInterface getModel() {
+        return myVarPaneModel;
     }
 }
