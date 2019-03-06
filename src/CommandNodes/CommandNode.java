@@ -75,7 +75,6 @@ public abstract class CommandNode {
           * Error regarding no child
           */
       }
-
       return nextNode;
    }
 
@@ -120,8 +119,7 @@ public abstract class CommandNode {
       this.execute();
       this.resetIndex();
    }
-
-
+   
    public abstract void execute();
 
    protected abstract void parseParameters();

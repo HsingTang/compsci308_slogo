@@ -20,4 +20,6 @@ public interface TurtleObserver {
 
     void updateVisibility();
 
+    void updateClear();
+
 }

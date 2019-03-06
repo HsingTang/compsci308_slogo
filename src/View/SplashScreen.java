@@ -1,6 +1,6 @@
 package View;
 
-import View.GUIFeatures.Buttons.StartButton;
+import View.GUIFeatures.Buttons.*;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;

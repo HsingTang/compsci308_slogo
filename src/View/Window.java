@@ -1,12 +1,9 @@
 package View;
 
-import CommandTree.CommandRoot;
-import Model.TurtleModel;
+import Controller.Controller;
 import View.SlogoTab;
 import View.SplashScreen;
-import View.Turtles.TurtleFactory;
-import View.Turtles.TurtleView;
-import View.ViewFactory;
+import View.SlogoTabFactory;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.TabPane;
@@ -23,13 +20,14 @@ public class Window extends Application {
     private Stage myStage;
     private Pane splashRoot;
     private TabPane windowRoot;
-    TurtleFactory myTurtleFactory;
-    ViewFactory myViewFactory;
+    private SlogoTabFactory myViewFactory;
+    private Controller myController;
     private int tabCount;
 
    public Window(){
         super();
-        myViewFactory = new ViewFactory();
+        myViewFactory = new SlogoTabFactory();
+        myController = new Controller();
         tabCount = 0;
     }
 
@@ -48,8 +46,9 @@ public class Window extends Application {
     }
 
     public void addSlogoTab(){
-        SlogoTab tab = myViewFactory.getSlogoTab(tabCount,DEFAULT_WIDTH,DEFAULT_HEIGHT);
-        windowRoot.getTabs().add(tab);
+        myController.initNewTab();
+        SlogoTab addTab = myViewFactory.getSlogoTab(tabCount,DEFAULT_WIDTH,DEFAULT_HEIGHT,myController, myStage,this);
+        windowRoot.getTabs().add(addTab);
         tabCount++;
     }
 
@@ -59,8 +58,13 @@ public class Window extends Application {
         myStage.setScene(mainWindow);
         addSlogoTab();
     }
+<<<<<<< HEAD
     
     public void launchMaster(String[] args){
+=======
+
+    public static void main(String[] args){
+>>>>>>> 7a33745a86b9d0bf5f425db6b2eda62b315c8b0f
         launch(args);
     }
 }

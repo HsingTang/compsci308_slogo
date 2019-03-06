@@ -1,54 +1,31 @@
 package Model;
 
-import Model.ModelInterfaces.ModelInterface;
+import Model.ModelInterfaces.TurtleModelInterface;
 import View.ObserverInterfaces.TurtleObserver;
-import View.Turtles.TurtleView;
-import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TurtleModel implements ModelInterface {
-   private static int VISIBLE = 1;
-   private static int INVISIBLE = 0;
-   private static Double INITIAL_POSITION = 0.0;
+public class TurtleModel implements TurtleModelInterface {
+   private static double INITIAL_POSITION = 0.0;
 
    public static final double INITIAL_HEADING = 90;
 
-
-   private Double myX;
-   private Double myY;
-   private Double myXDir;
-   private Double myYDir;
+   private double myX;
+   private double myY;
    private double myHeading;
-   private Color myPenColor;
    private boolean penDown = true;
    private boolean isInvisible = false;
-   private TurtleView myView;
    private List<TurtleObserver> turtleObservers;
 
 
    public TurtleModel(){
       super();
-      //this.myView = myView;
       turtleObservers = new ArrayList<>();
       this.myX = INITIAL_POSITION;
       this.myY = INITIAL_POSITION;
-      this.myXDir = INITIAL_POSITION;
-      this.myYDir = INITIAL_POSITION;
       this.myHeading = INITIAL_HEADING;
    }
-
-   /*public void execute(TurtleCommandNode command){
-      /*Method method = this.getMethodMap().get(command.getType());
-      ArrayList<Double> parameters = command.getParsedParameters();
-      try {
-         method.invoke(this, parameters);
-      }
-      catch(Exception e){
-         System.out.println("not valid!");
-      }
-   }*/
 
    public void moveWithAnimation() {
       notifyMoveWithAnimation();
@@ -102,6 +79,11 @@ public class TurtleModel implements ModelInterface {
 
    public void setVisible() {
       this.isInvisible = false;
+      notifyVisibilityChange();
+   }
+
+   public void clearPen() {
+      notifyClear();
    }
 
    public double getX() {
@@ -112,17 +94,12 @@ public class TurtleModel implements ModelInterface {
       return this.myY;
    }
 
-   private Double home(){
-      Double distance = 0.0;
-      return distance;
-   }
-
    public double getHeading() {
       return this.myHeading;
    }
 
    public boolean getPenDown() {
-      return this.getPenDown();
+      return this.penDown;
    }
 
    public boolean isInvisible() {
@@ -189,6 +166,12 @@ public class TurtleModel implements ModelInterface {
    private void notifyVisibilityChange() {
       for (TurtleObserver o : turtleObservers) {
          o.updateVisibility();
+      }
+   }
+
+   private void notifyClear() {
+      for (TurtleObserver o : turtleObservers) {
+         o.updateClear();
       }
    }
 }

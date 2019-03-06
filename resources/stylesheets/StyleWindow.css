@@ -14,11 +14,6 @@
     -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
 }
 
-.button:pressed {
-    -fx-padding: 14 30 10 30;
-    -fx-background-insets: 2 0 0 0,2 0 3 0, 2 0 4 0, 2 0 5 0;
-}
-
 /* Execute Button */
 .execute-button {
     -fx-background-color:
@@ -33,6 +28,11 @@
     -fx-font-size: 12px;
 }
 
+.execute-button:pressed {
+    -fx-padding: 14 30 10 30;
+    -fx-background-insets: 2 0 0 0,2 0 3 0, 2 0 4 0, 2 0 5 0;
+}
+
 /* Clear Button */
 .clear-button {
     -fx-background-color:
@@ -45,6 +45,30 @@
     -fx-padding: 12 30 12 30;
     -fx-text-fill: white;
     -fx-font-size: 12px;
+}
+
+.clear-button:pressed {
+    -fx-padding: 14 30 10 30;
+    -fx-background-insets: 2 0 0 0,2 0 3 0, 2 0 4 0, 2 0 5 0;
+}
+
+/* Help Button */
+.help-button {
+    -fx-background-color:
+            #000000,
+            linear-gradient(lightgreen, green),
+            linear-gradient(green, darkgreen),
+            linear-gradient(green, darkgreen);
+    -fx-background-insets: 0,1,2,3;
+    -fx-background-radius: 3,2,2,2;
+    -fx-padding: 12 30 12 30;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+}
+
+.help-button:pressed {
+    -fx-padding: 14 30 10 30;
+    -fx-background-insets: 2 0 0 0,2 0 3 0, 2 0 4 0, 2 0 5 0;
 }
 
 /* Language Chooser */
@@ -68,6 +92,15 @@
 .combo-box:hover {
     -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
 }
+
+/* Image Chooser */
+.round-red {
+    -fx-background-color: linear-gradient(#ff5400, #be1d00);
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-text-fill: white;
+}
+
 
 /* Background */
 .this {

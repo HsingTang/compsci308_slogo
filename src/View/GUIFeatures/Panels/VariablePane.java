@@ -1,6 +1,9 @@
 package View.GUIFeatures.Panels;
 
 
+import Model.ModelInterfaces.ModelInterface;
+import Model.VariablePaneModel;
+import View.ObserverInterfaces.ObserverInterface;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -16,7 +19,7 @@ import java.util.HashMap;
  * @author Hsingchih Tang
  * Displays variables and associated values
  */
-public class VariablePane extends VBox {
+public class VariablePane extends VBox implements ObserverInterface {
 
     private final String VAR_NAME_COL = "Variable Name";
     private final String VAR_VAL_COL = "Value";
@@ -25,7 +28,8 @@ public class VariablePane extends VBox {
     private TableView<Variable> varTable;
     private TableColumn varName;
     private TableColumn varVal;
-    ObservableList<Variable> myVars = FXCollections.observableArrayList(new Variable("name0","val0"));
+    private ModelInterface myVarPaneModel;
+    private ObservableList<Variable> myVars = FXCollections.observableArrayList(new Variable("name0","val0"));
 
 
     public VariablePane(double w, double h){
@@ -36,7 +40,6 @@ public class VariablePane extends VBox {
         this.getChildren().addAll(varTable);
         this.setAlignment(Pos.CENTER);
         // this.myVars = FXCollections.observableArrayList(new Variable("name0","val0"));
-
     }
 
     private void initTable(){
@@ -53,14 +56,15 @@ public class VariablePane extends VBox {
         varTable.getColumns().addAll(varName,varVal);
     }
 
-    public void updateVar(String name, String val){
-        for(Variable v:myVars){
-            if (v.getVarName()==name){
-                v.setVarVal(val);
-                return;
-            }
-        }
-        Variable addVariable = new Variable(name,val);
-        myVars.add(addVariable);
+    @Override
+    public void updateData(){
+        myVars.clear();
+        myVars.addAll(myVarPaneModel.getData());
+    }
+
+    @Override
+    public void setupModel(ModelInterface model) {
+        myVarPaneModel = model;
+        model.registerObserver(this);
     }
 }

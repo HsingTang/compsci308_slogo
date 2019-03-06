@@ -1,12 +1,12 @@
 package Handlers;
 
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
-import Model.ModelInterfaces.ModelInterface;
+import Model.ModelInterfaces.TurtleModelInterface;
 
 public class CommandHandler implements CommandHandlerInterface {
-    final ModelInterface model;
+    final TurtleModelInterface model;
 
-    public CommandHandler(ModelInterface model) {
+    public CommandHandler(TurtleModelInterface model) {
         this.model = model;
     }
 
@@ -89,7 +89,7 @@ public class CommandHandler implements CommandHandlerInterface {
     }
 
     public double clearScreen() {
-        // Clear the trail.
+        model.clearPen();
         return goHome();
     }
 
