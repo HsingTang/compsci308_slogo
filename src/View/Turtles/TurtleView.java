@@ -8,6 +8,7 @@ import View.ObserverInterfaces.TurtleObserver;
 import javafx.animation.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 
 
@@ -168,7 +169,7 @@ public class TurtleView implements TurtleObserver {
 
     public void updateHeading() {
         double newHeading = myTurtleModel.getHeading();
-        this.myImgView.setRotate(newHeading - this.myHeading);
+        animateRotation(this.myHeading - newHeading);
         this.myHeading = newHeading;
     }
 

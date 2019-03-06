@@ -7,6 +7,6 @@ public class AddTabButton extends Button {
 
     public AddTabButton() {
         super(ADD_TAB_STRING);
-        this.getStyleClass().add("clear-button");
+        this.getStyleClass().add("add-button");
     }
 }
