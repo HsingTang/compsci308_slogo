@@ -2,8 +2,10 @@ package Handlers;
 
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
 import Model.ModelInterfaces.TurtleModelInterface;
+import Model.TurtleModel;
 
 public class CommandHandler implements CommandHandlerInterface {
+    public static final double INITIAL_HEADING = 90.0;
     final TurtleModelInterface model;
 
     public CommandHandler(TurtleModelInterface model) {
@@ -90,6 +92,7 @@ public class CommandHandler implements CommandHandlerInterface {
 
     public double clearScreen() {
         model.clearPen();
+        this.setHeading(INITIAL_HEADING);
         return goHome();
     }
 
