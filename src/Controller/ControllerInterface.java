@@ -11,11 +11,15 @@ public interface ControllerInterface {
 
     void setLanguage(String language);
 
+    void initNewTab();
+
     TurtleView getTurtleView(int id);
 
     TurtleModel getTurtleModel(int id);
 
-    public VariablePaneModel getVarModel(int id);
+    VariablePaneModel getVarModel(int id);
 
-    public CommandPaneModel getCommandModel(int id);
+    CommandPaneModel getCommandModel(int id);
+
+
 }

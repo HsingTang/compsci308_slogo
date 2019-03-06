@@ -1,3 +1,5 @@
+package View;
+
 import Controller.Controller;
 import View.SlogoTab;
 import View.SplashScreen;
@@ -45,7 +47,7 @@ public class Window extends Application {
 
     public void addSlogoTab(){
         myController.initNewTab();
-        SlogoTab addTab = myViewFactory.getSlogoTab(tabCount,DEFAULT_WIDTH,DEFAULT_HEIGHT,myController, myStage);
+        SlogoTab addTab = myViewFactory.getSlogoTab(tabCount,DEFAULT_WIDTH,DEFAULT_HEIGHT,myController, myStage,this);
         windowRoot.getTabs().add(addTab);
         tabCount++;
     }
