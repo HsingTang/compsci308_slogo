@@ -49,10 +49,15 @@ public class SlogoTab extends Tab implements ViewInterface {
     static final Double BUTTON_GRID_WIDTH = 250.0;
     static final int ROW_0 = 0;
     static final int ROW_1 = 1;
+    static final int ROW_2 = 2;
+    static final int ROW_3 = 3;
+    static final int ROW_4 = 4;
     static final int HELP_BUTTON_ROW = 11;
     static final int COL_0 = 0;
     static final int COL_1 = 1;
     static final int COL_2 = 2;
+    static final int COL_3 = 3;
+    static final int COL_4 = 4;
 
 
     private Stage myStage;
@@ -74,6 +79,8 @@ public class SlogoTab extends Tab implements ViewInterface {
     private Button moveBackwardsButton;
     private Button turnLeftButton;
     private Button turnRightButton;
+    private Button penUp;
+    private Button penDown;
     private GridPane topLeftGrid;
     private GridPane topRightGrid;
     private GridPane buttonGrid;
@@ -281,10 +288,14 @@ public class SlogoTab extends Tab implements ViewInterface {
         moveBackwardsButton = new BackwardsButton();
         turnLeftButton = new LeftRotateButton();
         turnRightButton = new RightRotateButton();
+        penDown = new PenDownButton();
+        penUp = new PenUpButton();
         moveForwardButton.setOnAction(e -> buttonTransferCommands(moveForwardButton));
         moveBackwardsButton.setOnAction(e -> buttonTransferCommands(moveBackwardsButton));
         turnLeftButton.setOnAction(e -> buttonTransferCommands(turnLeftButton));
         turnRightButton.setOnAction(e -> buttonTransferCommands(turnRightButton));
+        penDown.setOnAction(e -> buttonTransferCommands(penDown));
+        penUp.setOnAction(e -> buttonTransferCommands(penUp));
     }
 
     private void initTopLeftGrid() {
@@ -324,10 +335,12 @@ public class SlogoTab extends Tab implements ViewInterface {
         bottomLeftGrid.setVgap(BUTTON_BOTTOM_GAP);
         bottomLeftGrid.setHgap(BUTTON_BOTTOM_GAP);
         bottomLeftGrid.setMaxWidth(CHOOSER_GRID_WIDTH);
-        bottomLeftGrid.add(turnRightButton, COL_2, ROW_1);
-        bottomLeftGrid.add(moveForwardButton, COL_1, ROW_0);
-        bottomLeftGrid.add(turnLeftButton, COL_0, ROW_1);
-        bottomLeftGrid.add(moveBackwardsButton, COL_1, ROW_1);
+        bottomLeftGrid.add(turnRightButton, COL_3, ROW_1);
+        bottomLeftGrid.add(moveForwardButton, COL_2, ROW_0);
+        bottomLeftGrid.add(turnLeftButton, COL_1, ROW_1);
+        bottomLeftGrid.add(moveBackwardsButton, COL_2, ROW_1);
+        bottomLeftGrid.add(penDown, COL_0, ROW_0);
+        bottomLeftGrid.add(penUp, COL_0, ROW_1);
         myBottomPane.getChildren().add(bottomLeftGrid);
     }
 
