@@ -75,7 +75,6 @@ public abstract class CommandNode {
           * Error regarding no child
           */
       }
-
       return nextNode;
    }
 
