@@ -322,7 +322,7 @@ public class SlogoTab extends Tab implements ViewInterface {
 
     private void transferCommands(){
         String commands = myConsole.getText();
-        this.myController.execute(commands,myID);
+        this.myController.receiveCommand(commands,myID);
         addToHistory(commands);
         this.myConsole.clearText();
     }

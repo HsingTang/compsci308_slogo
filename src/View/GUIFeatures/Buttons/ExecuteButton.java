@@ -7,6 +7,6 @@ public class ExecuteButton extends Button {
 
     public ExecuteButton() {
         super(EXECUTE_STRING);
-        this.getStyleClass().add("execute-button");
+        this.getStyleClass().add("receiveCommand-button");
     }
 }
