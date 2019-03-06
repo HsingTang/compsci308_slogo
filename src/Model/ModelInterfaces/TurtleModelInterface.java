@@ -40,4 +40,6 @@ public interface TurtleModelInterface {
 
     boolean isInvisible();
 
+    void clearPen();
+
 }

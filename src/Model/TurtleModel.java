@@ -82,6 +82,10 @@ public class TurtleModel implements TurtleModelInterface {
       notifyVisibilityChange();
    }
 
+   public void clearPen() {
+      notifyClear();
+   }
+
    public double getX() {
       return this.myX;
    }
@@ -162,6 +166,12 @@ public class TurtleModel implements TurtleModelInterface {
    private void notifyVisibilityChange() {
       for (TurtleObserver o : turtleObservers) {
          o.updateVisibility();
+      }
+   }
+
+   private void notifyClear() {
+      for (TurtleObserver o : turtleObservers) {
+         o.updateClear();
       }
    }
 }

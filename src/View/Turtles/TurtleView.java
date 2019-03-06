@@ -136,7 +136,6 @@ public class TurtleView implements TurtleObserver {
         this.myCanvas = c;
     }
 
-
     public void updateX() {
         this.previousX = myX;
         this.myX = myTurtleModel.getX();
@@ -149,7 +148,6 @@ public class TurtleView implements TurtleObserver {
 
     public void updateMove() {
         animateTranslation(myTurtleModel.getX(), myTurtleModel.getY());
-        // animatePen(myTurtleModel.getX(), myTurtleModel.getY());
     }
 
     public void updateLeftRotate() {
@@ -183,6 +181,10 @@ public class TurtleView implements TurtleObserver {
         } else {
             this.myImgView.setVisible(false);
         }
+    }
+
+    public void updateClear() {
+        this.myPen.clear();
     }
 
 }

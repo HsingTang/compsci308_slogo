@@ -2,7 +2,6 @@ package View.Turtles;
 
 import Model.TurtleModel;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,7 +12,7 @@ import java.util.Map;
  * Produces new TurtleView objects and manages all TurtleViews that have been created in the program
  */
 public class TurtleFactory {
-    private final Image DEFAULT_TURTLE_IMG = new Image(this.getClass().getClassLoader().getResourceAsStream("Turtle.png"));
+    private final Image DEFAULT_TURTLE_IMG = new Image(this.getClass().getClassLoader().getResourceAsStream("Turtles/Turtle.png"));
     private Map<Integer,TurtleView> myTurtles;
 
     public TurtleFactory(){
