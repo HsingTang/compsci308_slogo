@@ -3,10 +3,7 @@ package View;
 
 import Controller.Controller;
 import Controller.ControllerInterface;
-import View.GUIFeatures.Buttons.AddTabButton;
-import View.GUIFeatures.Buttons.ClearButton;
-import View.GUIFeatures.Buttons.ExecuteButton;
-import View.GUIFeatures.Buttons.HelpButton;
+import View.GUIFeatures.Buttons.*;
 import View.GUIFeatures.Choosers.CanvasColorChooser;
 import View.GUIFeatures.Choosers.LanguageChooser;
 import View.GUIFeatures.Choosers.PenColorChooser;
@@ -40,6 +37,7 @@ import java.net.MalformedURLException;
  * An independent tab managing its own Turtle, commands and variables
  */
 public class SlogoTab extends Tab implements ViewInterface {
+    public static final int BUTTON_BOTTOM_GAP = 3;
     static final String STYLE_SHEET = "stylesheets/StyleWindow.css";
     static final String TAB_STRING = "Tab ";
     static final Double CONSOLE_RATIO = (3.0/5.0);
@@ -54,6 +52,7 @@ public class SlogoTab extends Tab implements ViewInterface {
     static final int HELP_BUTTON_ROW = 11;
     static final int COL_0 = 0;
     static final int COL_1 = 1;
+    static final int COL_2 = 2;
 
 
     private Stage myStage;
@@ -71,9 +70,14 @@ public class SlogoTab extends Tab implements ViewInterface {
     private Button myClearButton;
     private Button myHelpButton;
     private Button myAddTabButton;
+    private Button moveForwardButton;
+    private Button moveBackwardsButton;
+    private Button turnLeftButton;
+    private Button turnRightButton;
     private GridPane topLeftGrid;
     private GridPane topRightGrid;
     private GridPane buttonGrid;
+    private GridPane bottomLeftGrid;
     private LanguageChooser myLanguageChooser;
     private TurtleChooser myTurtleChooser;
     private VariablePane myVarPane;
@@ -171,7 +175,9 @@ public class SlogoTab extends Tab implements ViewInterface {
         initExecuteButton();
         initClearButton();
         initHelpButton();
+        initActionButtons();
         initBottomButtonGrid();
+        initBottomLeftGrid();
     }
 
     private void initLeftPane(){
@@ -219,10 +225,10 @@ public class SlogoTab extends Tab implements ViewInterface {
         buttonGrid = new GridPane();
         StackPane.setAlignment(buttonGrid, Pos.BOTTOM_RIGHT);
         buttonGrid.setMaxWidth(BUTTON_GRID_WIDTH);
+        buttonGrid.setVgap(CHOOSER_SPACING);
         buttonGrid.add(myExecuteButton, COL_0, ROW_0);
         buttonGrid.add(myClearButton, COL_0, ROW_1);
         buttonGrid.add(myHelpButton, COL_0, HELP_BUTTON_ROW);
-        buttonGrid.setVgap(CHOOSER_SPACING);
         myBottomPane.getChildren().add(buttonGrid);
 
     }
@@ -270,6 +276,17 @@ public class SlogoTab extends Tab implements ViewInterface {
         myTopPane.getChildren().add(myTurtleChooser.getButton());
     }
 
+    private void initActionButtons(){
+        moveForwardButton = new ForwardButton();
+        moveBackwardsButton = new BackwardsButton();
+        turnLeftButton = new LeftRotateButton();
+        turnRightButton = new RightRotateButton();
+        moveForwardButton.setOnAction(e -> buttonTransferCommands(moveForwardButton));
+        moveBackwardsButton.setOnAction(e -> buttonTransferCommands(moveBackwardsButton));
+        turnLeftButton.setOnAction(e -> buttonTransferCommands(turnLeftButton));
+        turnRightButton.setOnAction(e -> buttonTransferCommands(turnRightButton));
+    }
+
     private void initTopLeftGrid() {
         topLeftGrid = new GridPane();
         topLeftGrid.setMaxWidth(CHOOSER_GRID_WIDTH);
@@ -301,6 +318,19 @@ public class SlogoTab extends Tab implements ViewInterface {
         GridPane.setValignment(myLanguageChooser, VPos.BOTTOM);
     }
 
+    private void initBottomLeftGrid() {
+        bottomLeftGrid = new GridPane();
+        StackPane.setAlignment(bottomLeftGrid, Pos.TOP_LEFT);
+        bottomLeftGrid.setVgap(BUTTON_BOTTOM_GAP);
+        bottomLeftGrid.setHgap(BUTTON_BOTTOM_GAP);
+        bottomLeftGrid.setMaxWidth(CHOOSER_GRID_WIDTH);
+        bottomLeftGrid.add(turnRightButton, COL_2, ROW_1);
+        bottomLeftGrid.add(moveForwardButton, COL_1, ROW_0);
+        bottomLeftGrid.add(turnLeftButton, COL_0, ROW_1);
+        bottomLeftGrid.add(moveBackwardsButton, COL_1, ROW_1);
+        myBottomPane.getChildren().add(bottomLeftGrid);
+    }
+
     private void initLanguageChooser() {
         myLanguageChooser = new LanguageChooser();
         myLanguageChooser.setOnAction(e -> setLanguage());
@@ -318,6 +348,12 @@ public class SlogoTab extends Tab implements ViewInterface {
 
     private void setLanguage(){
         this.myController.setLanguage(myLanguageChooser.getValue().toString());
+    }
+
+    private void buttonTransferCommands(Button b) {
+        String command = b.getId();
+        this.myController.receiveCommand(command, myID);
+        addToHistory(command);
     }
 
     private void transferCommands(){
