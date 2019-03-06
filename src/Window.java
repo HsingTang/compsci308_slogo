@@ -45,7 +45,7 @@ public class Window extends Application {
 
     public void addSlogoTab(){
         myController.initNewTab();
-        SlogoTab addTab = myViewFactory.getSlogoTab(tabCount,DEFAULT_WIDTH,DEFAULT_HEIGHT,myController);
+        SlogoTab addTab = myViewFactory.getSlogoTab(tabCount,DEFAULT_WIDTH,DEFAULT_HEIGHT,myController, myStage);
         windowRoot.getTabs().add(addTab);
         tabCount++;
     }

@@ -1,6 +1,7 @@
 package View;
 
 import Controller.Controller;
+import javafx.stage.Stage;
 
 import java.util.HashMap;
 
@@ -14,8 +15,8 @@ public class SlogoTabFactory {
         myViews = new HashMap<>();
     }
 
-    public SlogoTab getSlogoTab(int id, double w, double h, Controller controller){
-        newViewProduct = new SlogoTab(id, w, h,controller);
+    public SlogoTab getSlogoTab(int id, double w, double h, Controller controller, Stage myStage){
+        newViewProduct = new SlogoTab(id, w, h,controller, myStage);
         myViews.put(productCount,newViewProduct);
         productCount++;
         return newViewProduct;
