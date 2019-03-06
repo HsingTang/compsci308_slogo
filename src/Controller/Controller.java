@@ -36,6 +36,7 @@ public class Controller implements ControllerInterface {
     }
 
     public void initNewTab(){
+        System.out.println("new Tab request received by Controller");
         VariablePaneModel addVarModel = new VariablePaneModel();
         CommandPaneModel addCommandModel = new CommandPaneModel();
         TurtleModel addTurtleModel = new TurtleModel();

@@ -3,6 +3,7 @@ package View;
 
 import Controller.Controller;
 import Controller.ControllerInterface;
+import View.GUIFeatures.Buttons.AddTabButton;
 import View.GUIFeatures.Buttons.ClearButton;
 import View.GUIFeatures.Buttons.ExecuteButton;
 import View.GUIFeatures.Buttons.HelpButton;
@@ -12,8 +13,10 @@ import View.GUIFeatures.Choosers.PenColorChooser;
 import View.GUIFeatures.Choosers.TurtleChooser;
 import View.GUIFeatures.Panels.*;
 import View.Turtles.TurtleView;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
@@ -25,7 +28,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
 
-import java.awt.*;
+import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -67,7 +70,9 @@ public class SlogoTab extends Tab implements ViewInterface {
     private Button myExecuteButton;
     private Button myClearButton;
     private Button myHelpButton;
-    private GridPane chooserGrid;
+    private Button myAddTabButton;
+    private GridPane topLeftGrid;
+    private GridPane topRightGrid;
     private GridPane buttonGrid;
     private LanguageChooser myLanguageChooser;
     private TurtleChooser myTurtleChooser;
@@ -79,10 +84,12 @@ public class SlogoTab extends Tab implements ViewInterface {
     private TurtleView myTurtle;
     private Label tabTitle;
     private ControllerInterface myController;
+    private Window myWindow;
 
-    public SlogoTab(int id, double width, double height, Controller controller, Stage myStage){
-        this.myStage = myStage;
+    public SlogoTab(int id, double width, double height, Controller controller, Stage stage, Window window){
+        myStage = stage;
         myController = controller;
+        myWindow = window;
         myID = id;
         myWidth = width;
         myHeight = height;
@@ -141,10 +148,12 @@ public class SlogoTab extends Tab implements ViewInterface {
         myTopPane = new StackPane();
         myPane.setTop(myTopPane);
         initLanguageChooser();
+        initAddTabButton();
         initCanvasColorChooser();
         initPenColorChooser();
         initTurtleChooser();
-        initChooserGrid();
+        initTopLeftGrid();
+        initTopRightGrid();
     }
 
     private void initCanvasPane(){
@@ -162,7 +171,7 @@ public class SlogoTab extends Tab implements ViewInterface {
         initExecuteButton();
         initClearButton();
         initHelpButton();
-        initButtonGrid();
+        initBottomButtonGrid();
     }
 
     private void initLeftPane(){
@@ -185,6 +194,12 @@ public class SlogoTab extends Tab implements ViewInterface {
         myBottomPane.getChildren().add(myConsole);
     }
 
+    private void initAddTabButton(){
+        myAddTabButton = new AddTabButton();
+        myAddTabButton.setOnAction(e->this.myWindow.addSlogoTab());
+        StackPane.setAlignment(myAddTabButton,Pos.TOP_RIGHT);
+    }
+
     private void initExecuteButton() {
         myExecuteButton = new ExecuteButton();
         myExecuteButton.setOnAction(e -> this.transferCommands());
@@ -200,7 +215,7 @@ public class SlogoTab extends Tab implements ViewInterface {
         myHelpButton.setOnAction(e -> this.openHelp());
     }
 
-    private void initButtonGrid() {
+    private void initBottomButtonGrid() {
         buttonGrid = new GridPane();
         StackPane.setAlignment(buttonGrid, Pos.BOTTOM_RIGHT);
         buttonGrid.setMaxWidth(BUTTON_GRID_WIDTH);
@@ -255,26 +270,40 @@ public class SlogoTab extends Tab implements ViewInterface {
         myTopPane.getChildren().add(myTurtleChooser.getButton());
     }
 
-    private void initChooserGrid() {
-        chooserGrid = new GridPane();
-        chooserGrid.setMaxWidth(CHOOSER_GRID_WIDTH);
-        StackPane.setAlignment(chooserGrid, Pos.TOP_LEFT);
+    private void initTopLeftGrid() {
+        topLeftGrid = new GridPane();
+        topLeftGrid.setMaxWidth(CHOOSER_GRID_WIDTH);
+        StackPane.setAlignment(topLeftGrid, Pos.TOP_LEFT);
         Text canvasText = new Text("Choose Canvas Color");
         Text penText = new Text("Choose Pen Color");
-        chooserGrid.add(myCanvasColorChooser, COL_0, ROW_0);
-        chooserGrid.add(myPenColorChooser, COL_0, ROW_1);
-        chooserGrid.add(canvasText, COL_1, ROW_0);
-        chooserGrid.add(penText, COL_1, ROW_1);
-        chooserGrid.setHgap(CHOOSER_SPACING);
-        chooserGrid.setVgap(CHOOSER_SPACING);
-        myTopPane.getChildren().add(chooserGrid);
+        topLeftGrid.add(myCanvasColorChooser, COL_0, ROW_0);
+        topLeftGrid.add(myPenColorChooser, COL_0, ROW_1);
+        topLeftGrid.add(canvasText, COL_1, ROW_0);
+        topLeftGrid.add(penText, COL_1, ROW_1);
+        topLeftGrid.setHgap(CHOOSER_SPACING);
+        topLeftGrid.setVgap(CHOOSER_SPACING);
+        myTopPane.getChildren().add(topLeftGrid);
+    }
+
+
+    private void initTopRightGrid(){
+        topRightGrid = new GridPane();
+        topRightGrid.setMaxWidth(CHOOSER_GRID_WIDTH);
+        StackPane.setAlignment(topRightGrid, Pos.TOP_RIGHT);
+        topRightGrid.add(myAddTabButton,COL_0,ROW_0);
+        topRightGrid.add(myLanguageChooser,COL_0,ROW_1);
+        topRightGrid.setVgap(CHOOSER_SPACING);
+        topRightGrid.setAlignment(Pos.CENTER_RIGHT);
+        myTopPane.getChildren().add(topRightGrid);
+        GridPane.setHalignment(myAddTabButton, HPos.RIGHT);
+        GridPane.setValignment(myAddTabButton, VPos.TOP);
+        GridPane.setHalignment(myLanguageChooser, HPos.RIGHT);
+        GridPane.setValignment(myLanguageChooser, VPos.BOTTOM);
     }
 
     private void initLanguageChooser() {
         myLanguageChooser = new LanguageChooser();
         myLanguageChooser.setOnAction(e -> setLanguage());
-        StackPane.setAlignment(myLanguageChooser,Pos.CENTER_RIGHT);
-        myTopPane.getChildren().add(myLanguageChooser);
     }
 
     private void setCanvasBackground(){
