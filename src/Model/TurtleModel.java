@@ -135,7 +135,6 @@ public class TurtleModel implements TurtleModelInterface {
    private void notifyLeftRotate() {
       for (TurtleObserver o : turtleObservers) {
          o.updateLeftRotate();
-         System.out.println("left rotate");
       }
    }
 

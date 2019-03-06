@@ -3,11 +3,12 @@ package Handlers;
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
 import Model.ModelInterfaces.TurtleModelInterface;
 import Model.VariablePaneModel;
-
 import java.util.HashMap;
-import java.util.HashSet;
+import Model.TurtleModel;
 
 public class CommandHandler implements CommandHandlerInterface {
+    public static final double INITIAL_HEADING = 90.0;
+
     final TurtleModelInterface turtleModel;
     final VariablePaneModel varModel;
 
@@ -96,6 +97,7 @@ public class CommandHandler implements CommandHandlerInterface {
 
     public double clearScreen() {
         turtleModel.clearPen();
+        this.setHeading(INITIAL_HEADING);
         return goHome();
     }
 

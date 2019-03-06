@@ -58,7 +58,7 @@ public class Window extends Application {
         myStage.setScene(mainWindow);
         addSlogoTab();
     }
-    public void launchMaster(String[] args){
+    public static void main(String[] args){
         launch(args);
     }
 }
