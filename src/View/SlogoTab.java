@@ -10,12 +10,15 @@ import View.GUIFeatures.Choosers.PenColorChooser;
 import View.GUIFeatures.Choosers.TurtleChooser;
 import View.GUIFeatures.Panels.*;
 import View.Turtles.TurtleView;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -81,6 +84,7 @@ public class SlogoTab extends Tab implements ViewInterface {
     private Button turnRightButton;
     private Button penUp;
     private Button penDown;
+    private ThicknessSlider penSlider;
     private GridPane topLeftGrid;
     private GridPane topRightGrid;
     private GridPane buttonGrid;
@@ -290,12 +294,19 @@ public class SlogoTab extends Tab implements ViewInterface {
         turnRightButton = new RightRotateButton();
         penDown = new PenDownButton();
         penUp = new PenUpButton();
+        penSlider = new ThicknessSlider();
         moveForwardButton.setOnAction(e -> buttonTransferCommands(moveForwardButton));
         moveBackwardsButton.setOnAction(e -> buttonTransferCommands(moveBackwardsButton));
         turnLeftButton.setOnAction(e -> buttonTransferCommands(turnLeftButton));
         turnRightButton.setOnAction(e -> buttonTransferCommands(turnRightButton));
         penDown.setOnAction(e -> buttonTransferCommands(penDown));
         penUp.setOnAction(e -> buttonTransferCommands(penUp));
+        penSlider.setOnMousePressed(e -> penSlider.changeThickness(myTurtle.getPen()));
+        penSlider.valueChangingProperty().addListener((ObservableValue<? extends Boolean> obs, Boolean wasChanging, Boolean isNowChanging) -> {
+            if (!isNowChanging) {
+                penSlider.changeThickness(myTurtle.getPen());
+            }
+        });
     }
 
     private void initTopLeftGrid() {
@@ -341,6 +352,8 @@ public class SlogoTab extends Tab implements ViewInterface {
         bottomLeftGrid.add(moveBackwardsButton, COL_2, ROW_1);
         bottomLeftGrid.add(penDown, COL_0, ROW_0);
         bottomLeftGrid.add(penUp, COL_0, ROW_1);
+        bottomLeftGrid.add(penSlider, COL_0, ROW_3);
+        bottomLeftGrid.add(penSlider.getSliderText(), COL_0, ROW_4);
         myBottomPane.getChildren().add(bottomLeftGrid);
     }
 
