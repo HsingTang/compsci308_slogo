@@ -23,7 +23,6 @@ public class SlogoPen extends Node {
         myGC.setLineWidth(DEFAULT_PEN_WIDTH);
     }
 
-
     public void setColor(Color color){
         myColor = color;
         myGC.setStroke(myColor);

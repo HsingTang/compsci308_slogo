@@ -9,6 +9,7 @@ import View.GUIFeatures.Buttons.HelpButton;
 import View.GUIFeatures.Choosers.CanvasColorChooser;
 import View.GUIFeatures.Choosers.LanguageChooser;
 import View.GUIFeatures.Choosers.PenColorChooser;
+import View.GUIFeatures.Choosers.TurtleChooser;
 import View.GUIFeatures.Panels.*;
 import View.Turtles.TurtleView;
 import javafx.geometry.Insets;
@@ -21,9 +22,13 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import javafx.scene.image.Image;
+
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 
 
 /**
@@ -48,6 +53,7 @@ public class SlogoTab extends Tab implements ViewInterface {
     static final int COL_1 = 1;
 
 
+    private Stage myStage;
     private Integer myID;
     private BorderPane myPane;
     private StackPane myBottomPane;
@@ -64,6 +70,7 @@ public class SlogoTab extends Tab implements ViewInterface {
     private GridPane chooserGrid;
     private GridPane buttonGrid;
     private LanguageChooser myLanguageChooser;
+    private TurtleChooser myTurtleChooser;
     private VariablePane myVarPane;
     private CommandHistoryPane myCommandPane;
     private SlogoCanvas myCanvas;
@@ -73,7 +80,8 @@ public class SlogoTab extends Tab implements ViewInterface {
     private Label tabTitle;
     private ControllerInterface myController;
 
-    public SlogoTab(int id, double width, double height, Controller controller){
+    public SlogoTab(int id, double width, double height, Controller controller, Stage myStage){
+        this.myStage = myStage;
         myController = controller;
         myID = id;
         myWidth = width;
@@ -135,7 +143,8 @@ public class SlogoTab extends Tab implements ViewInterface {
         initLanguageChooser();
         initCanvasColorChooser();
         initPenColorChooser();
-        initchooserGrid();
+        initTurtleChooser();
+        initChooserGrid();
     }
 
     private void initCanvasPane(){
@@ -237,10 +246,16 @@ public class SlogoTab extends Tab implements ViewInterface {
     private void initPenColorChooser() {
         myPenColorChooser = new PenColorChooser();
         myPenColorChooser.setOnAction(e -> setPenColor());
-
     }
 
-    private void initchooserGrid() {
+    private void initTurtleChooser() {
+        myTurtleChooser = new TurtleChooser();
+        myTurtleChooser.getButton().setOnAction(e -> changeTurtleImage());
+        StackPane.setAlignment(myTurtleChooser.getButton(), Pos.CENTER);
+        myTopPane.getChildren().add(myTurtleChooser.getButton());
+    }
+
+    private void initChooserGrid() {
         chooserGrid = new GridPane();
         chooserGrid.setMaxWidth(CHOOSER_GRID_WIDTH);
         StackPane.setAlignment(chooserGrid, Pos.TOP_LEFT);
@@ -289,6 +304,16 @@ public class SlogoTab extends Tab implements ViewInterface {
             Desktop.getDesktop().open(file);
         } catch (IOException e1) {
             e1.printStackTrace();
+        }
+    }
+
+    private void changeTurtleImage() {
+        File dataFile = myTurtleChooser.getTurtleChooser().showOpenDialog(myStage);
+        try {
+            Image newImage = new Image(dataFile.toURI().toURL().toExternalForm());
+            myTurtle.setImgView(newImage);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
         }
     }
 

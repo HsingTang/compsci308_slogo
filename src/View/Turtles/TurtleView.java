@@ -21,6 +21,7 @@ public class TurtleView implements TurtleObserver {
     public static final double TRANSLATION_SPEED = 1000;
     public static final double ANIMATION_SPEED = 10;
     public static final double INITIAL_POSITION = 0.0;
+    public static final double TURTLE_SIZE = 35;
 
     private TurtleModelInterface myTurtleModel;
     private ImageView myImgView;
@@ -41,6 +42,9 @@ public class TurtleView implements TurtleObserver {
         this.myTurtleModel = model;
         model.registerTurtleObserver(this);
         this.myImgView = new ImageView(img);
+        myImgView.setFitWidth(TURTLE_SIZE);
+        myImgView.setFitHeight(TURTLE_SIZE);
+        myImgView.setPreserveRatio(true);
         this.myID = id;
         this.myX = INITIAL_POSITION;
         this.myY = INITIAL_POSITION;
@@ -67,7 +71,7 @@ public class TurtleView implements TurtleObserver {
     }
 
     public void setImgView(Image newImg) {
-        this.myImgView = new ImageView(newImg);
+        this.myImgView.setImage(newImg);
     }
 
     public void setPen(SlogoPen pen){
