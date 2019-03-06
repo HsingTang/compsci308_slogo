@@ -24,7 +24,7 @@ public class Window extends Application {
     private Controller myController;
     private int tabCount;
 
-    public Window(){
+   public Window(){
         super();
         myViewFactory = new SlogoTabFactory();
         myController = new Controller();
@@ -58,8 +58,7 @@ public class Window extends Application {
         myStage.setScene(mainWindow);
         addSlogoTab();
     }
-
-    public static void main(String[] args){
+    public void launchMaster(String[] args){
         launch(args);
     }
 }
