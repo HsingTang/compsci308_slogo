@@ -52,7 +52,7 @@ public class Controller implements ControllerInterface {
     }
 
     public void receiveCommand(String command, int id) {
-        CommandHandlerInterface addCommandHandler = new CommandHandler(myTurtleModels.get(id));
+        CommandHandlerInterface addCommandHandler = new CommandHandler(myTurtleModels.get(id), new VariablePaneModel());
         myCommandHandlerMap.put(addCommandHandler,command);
         myCommandHandlers.add(addCommandHandler);
         executeCommands();

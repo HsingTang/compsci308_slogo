@@ -4,6 +4,7 @@ import View.ObserverInterfaces.ObserverInterface;
 import View.ObserverInterfaces.TurtleObserver;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public interface ModelInterface {

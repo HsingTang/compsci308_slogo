@@ -1,7 +1,6 @@
 package CommandTree;
 
-import CommandNodes.CommandNode;
-import CommandNodes.ConstantNode;
+import CommandNodes.*;
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
 
 import java.io.BufferedReader;
@@ -24,6 +23,12 @@ public class CommandNodeFactory {
    }
 
    public CommandNode newNode(String arrayString, CommandNode parent, CommandRoot root) {
+         if(arrayString.substring(0,1).equals(":")) {
+            return this.newVariableNode(parent, arrayString.substring(1));
+         }
+         if(parent instanceof MakevariableNode && parent.getMyChildren().size() == 0){
+            return this.newStringNode(parent, arrayString);
+         }
          try {
             Double constant = Double.parseDouble(arrayString);
             return this.newConstantNode(parent, constant);
@@ -59,6 +64,13 @@ public class CommandNodeFactory {
    }
    private ConstantNode newConstantNode(CommandNode parent, Double value){
       return new ConstantNode(myHandler, parent, value);
+   }
+
+   private StringNode newStringNode(CommandNode parent, String s){
+            return new StringNode(myHandler, parent, s);
+      }
+   private VariableNode newVariableNode(CommandNode parent, String s){
+      return new VariableNode(myHandler, parent, s);
    }
 
    private void setExpressionMap(){

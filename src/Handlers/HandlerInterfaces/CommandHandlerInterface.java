@@ -1,5 +1,7 @@
 package Handlers.HandlerInterfaces;
 
+import java.util.HashMap;
+
 public interface CommandHandlerInterface {
 
     double moveForward(double px);
@@ -28,4 +30,11 @@ public interface CommandHandlerInterface {
 
     double clearScreen();
 
+    void makeVariable(String name, Double value);
+
+    boolean isVariable(String name);
+
+    Double getVariable(String name);
+
+    HashMap getVars();
 }

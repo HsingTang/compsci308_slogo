@@ -7,16 +7,33 @@ import View.ObserverInterfaces.ObserverInterface;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 public class VariablePaneModel implements ModelInterface {
 
     private ArrayList<ObserverInterface> myObservers;
-    private ArrayList<Variable> myVariables;
+    private HashMap<String, Double> myVariables;
 
     public VariablePaneModel(){
-        myVariables = new ArrayList<>();
+        myVariables = new HashMap<>();
         myObservers = new ArrayList<>();
+    }
+
+    public void makeVariable(String name, Double value){
+        this.myVariables.put(name, value);
+    }
+
+    public Double getVariable(String name){
+        return this.myVariables.get(name);
+    }
+
+    public boolean isVariable(String name){
+        return myVariables.keySet().contains(name);
+    }
+
+    public HashMap getVars(){
+        return this.myVariables;
     }
 
 
@@ -38,7 +55,12 @@ public class VariablePaneModel implements ModelInterface {
     }
 
     @Override
-    public List<Variable> getData(){
-        return Collections.unmodifiableList(myVariables);
+    public List getData(){
+        ArrayList<Variable> data = new ArrayList<>();
+        for(String var: this.myVariables.keySet()){
+            Variable variable = new Variable(var, Double.toString(this.myVariables.get(var)));
+            data.add(variable);
+        }
+        return data;
     }
 }
