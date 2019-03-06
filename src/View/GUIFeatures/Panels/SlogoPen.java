@@ -4,17 +4,18 @@ import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 
 public class SlogoPen extends Node {
     private final Color DEFAULT_PEN_COLOR = Color.WHITE;
     private final double DEFAULT_PEN_WIDTH = 2.0;
 
     private GraphicsContext myGC;
-    private Canvas myCanvas;
+    private SlogoCanvas myCanvas;
     private Color myColor;
     private Double myPenWidth;
 
-    public SlogoPen(Canvas canvas){
+    public SlogoPen(SlogoCanvas canvas){
         myCanvas = canvas;
         myGC = myCanvas.getGraphicsContext2D();
         myGC.setStroke(DEFAULT_PEN_COLOR);
@@ -40,6 +41,12 @@ public class SlogoPen extends Node {
         myGC.lineTo(targetX+myCanvas.getWidth()/2,targetY+myCanvas.getHeight()/2);
         myGC.stroke();
         myGC.closePath();
+    }
+
+    public void clear() {
+        Color canvasColor = myCanvas.getColor();
+        myGC.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
+        myCanvas.setBackgroundColor(canvasColor);
     }
 
 }

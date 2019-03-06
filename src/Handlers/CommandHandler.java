@@ -89,7 +89,7 @@ public class CommandHandler implements CommandHandlerInterface {
     }
 
     public double clearScreen() {
-        // Clear the trail.
+        model.clearPen();
         return goHome();
     }
 
