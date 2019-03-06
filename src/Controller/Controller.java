@@ -5,6 +5,7 @@ import CommandTree.StringParser;
 import Handlers.CommandHandler;
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
 import Model.CommandPaneModel;
+import Model.ModelInterfaces.ModelInterface;
 import Model.TurtleModel;
 import Model.VariablePaneModel;
 import View.Turtles.TurtleFactory;
@@ -52,7 +53,13 @@ public class Controller implements ControllerInterface {
     }
 
     public void receiveCommand(String command, int id) {
-        CommandHandlerInterface addCommandHandler = new CommandHandler(myTurtleModels.get(id), new VariablePaneModel());
+        System.out.println("command received: "+command);
+        System.out.println("parsing result: ");
+        for (String s: myParser.parseCommand(command)){
+            System.out.println(s);
+        }
+
+        CommandHandlerInterface addCommandHandler = new CommandHandler(myTurtleModels.get(id), myVarModels.get(id));
         myCommandHandlerMap.put(addCommandHandler,command);
         myCommandHandlers.add(addCommandHandler);
         executeCommands();
