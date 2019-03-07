@@ -85,13 +85,25 @@ public class TurtleView implements TurtleObserver {
 
 
     private boolean movementComplete(double xAdjust, double yAdjust, double xFinal, double yFinal){
+        boolean checkXLessThanFinal = checkXLessThanFinal(xAdjust, yAdjust, xFinal, yFinal);
+        boolean checkXGreaterThanFinal = checkXGreaterThanFinal(xAdjust, yAdjust, xFinal, yFinal);
+        return (checkXLessThanFinal || checkXGreaterThanFinal);
+    }
+
+    private boolean checkXLessThanFinal(double xAdjust, double yAdjust, double xFinal, double yFinal) {
         double translateX = this.myImgView.getTranslateX();
         double translateY = this.myImgView.getTranslateY();
         boolean check1 = xAdjust<0&&translateX<=xFinal&&yAdjust<0&&translateY<=yFinal;
-        boolean check2 = xAdjust>0&&translateX>=xFinal&&yAdjust>0&&translateY>=yFinal;
-        boolean check3 = xAdjust<0&&translateX<=xFinal&&yAdjust>0&&translateY>=yFinal;
-        boolean check4 = xAdjust>0&&translateX>=xFinal&&yAdjust<0&&translateY<=yFinal;
-        return (check1 || check2 || check3 || check4);
+        boolean check2 = xAdjust<0&&translateX<=xFinal&&yAdjust>0&&translateY>=yFinal;
+        return (check1 || check2);
+    }
+
+    private boolean checkXGreaterThanFinal(double xAdjust, double yAdjust, double xFinal, double yFinal) {
+        double translateX = this.myImgView.getTranslateX();
+        double translateY = this.myImgView.getTranslateY();
+        boolean check1 =  xAdjust>0&&translateX>=xFinal&&yAdjust>0&&translateY>=yFinal;
+        boolean check2 =  xAdjust>0&&translateX>=xFinal&&yAdjust<0&&translateY<=yFinal;
+        return (check1 || check2);
     }
 
 
