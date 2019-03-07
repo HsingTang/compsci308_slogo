@@ -1,18 +1,16 @@
 package Model;
 
-import Model.ModelInterfaces.ModelInterface;
-import View.GUIFeatures.Panels.Variable;
-import View.ObserverInterfaces.ObserverInterface;
+import Model.ModelInterfaces.IModel;
+import View.GUIFeatures.Panes.Variable;
+import View.ObserverInterfaces.IObserver;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-public class VariablePaneModel implements ModelInterface {
+public class VariablePaneModel implements IModel {
 
-    private ArrayList<ObserverInterface> myObservers;
+    private ArrayList<IObserver> myObservers;
     private HashMap<String, Double> myVariables;
 
     public VariablePaneModel(){
@@ -39,18 +37,18 @@ public class VariablePaneModel implements ModelInterface {
 
 
     @Override
-    public void registerObserver(ObserverInterface o) {
+    public void registerObserver(IObserver o) {
         myObservers.add(o);
     }
 
     @Override
-    public void removeObserver(ObserverInterface o) {
+    public void removeObserver(IObserver o) {
         myObservers.remove(o);
     }
 
     @Override
     public void notifyObserver() {
-        for (ObserverInterface o:myObservers){
+        for (IObserver o:myObservers){
             o.updateData();
         }
     }

@@ -7,7 +7,7 @@ import javafx.stage.Stage;
 import java.util.HashMap;
 
 public class SlogoTabFactory {
-    private HashMap<Integer, ViewInterface> myViews;
+    private HashMap<Integer, IView> myViews;
     private int productCount;
     private SlogoTab newViewProduct;
 

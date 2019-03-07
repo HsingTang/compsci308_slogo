@@ -1,14 +1,13 @@
 package View.Turtles;
 
 import Model.ModelInterfaces.TurtleModelInterface;
-import View.GUIFeatures.Panels.SlogoCanvas;
+import View.GUIFeatures.Panes.SlogoCanvas;
 
-import View.GUIFeatures.Panels.SlogoPen;
+import View.GUIFeatures.Panes.SlogoPen;
 import View.ObserverInterfaces.TurtleObserver;
 import javafx.animation.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 
 
