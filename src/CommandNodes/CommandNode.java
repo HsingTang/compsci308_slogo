@@ -36,7 +36,7 @@ public abstract class CommandNode {
 
 }
 
-   public void setChildren(ArrayList<CommandNode> newChildren){
+   public void setChildren(List<CommandNode> newChildren){
       this.myChildren = newChildren;
       for(CommandNode child: newChildren){
          child.setParent(this);
