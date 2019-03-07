@@ -21,7 +21,7 @@ public class ThicknessSlider extends Slider {
         this.setBlockIncrement(INCREMENT);
         this.setMajorTickUnit(BASE);
         this.getStyleClass().add("slider");
-        sliderText = new Text("Set Pen Thickness");
+        sliderText = new Text("Set Pen Width");
     }
 
     public void changeThickness(SlogoPen pen) {
