@@ -83,19 +83,12 @@ public class SlogoTab extends Tab implements ViewInterface {
     private Button penUp;
     private Button penDown;
     private ThicknessSlider penSlider;
-    private GridPane topLeftGrid;
-    private GridPane topRightGrid;
-    private GridPane buttonGrid;
-    private GridPane bottomLeftGrid;
     private LanguageChooser myLanguageChooser;
     private TurtleChooser myTurtleChooser;
-    private VariablePane myVarPane;
-    private CommandHistoryPane myCommandPane;
     private SlogoCanvas myCanvas;
     private CanvasColorChooser myCanvasColorChooser;
     private PenColorChooser myPenColorChooser;
     private TurtleView myTurtle;
-    private Label tabTitle;
     private ControllerInterface myController;
     private Window myWindow;
 
@@ -106,7 +99,7 @@ public class SlogoTab extends Tab implements ViewInterface {
         myID = id;
         myWidth = width;
         myHeight = height;
-        tabTitle = new Label(TAB_STRING + id);
+        Label tabTitle = new Label(TAB_STRING + id);
         initPanes();
         setContent(myPane);
         setGraphic(tabTitle);
@@ -231,7 +224,7 @@ public class SlogoTab extends Tab implements ViewInterface {
     }
 
     private void initBottomButtonGrid() {
-        buttonGrid = new GridPane();
+        GridPane buttonGrid = new GridPane();
         StackPane.setAlignment(buttonGrid, Pos.BOTTOM_RIGHT);
         buttonGrid.setMaxWidth(BUTTON_GRID_WIDTH);
         buttonGrid.setVgap(CHOOSER_SPACING);
@@ -243,14 +236,14 @@ public class SlogoTab extends Tab implements ViewInterface {
     }
 
     private void initVarPane(){
-        myVarPane = new VariablePane(myWidth/2-myCanvas.getWidth()/2,myHeight);
+        VariablePane myVarPane = new VariablePane(myWidth/2-myCanvas.getWidth()/2,myHeight);
         myVarPane.setupModel(myController.getVarModel(myID));
         myLeftPane.getChildren().add(myVarPane);
         myPane.setLeft(myLeftPane);
     }
 
     private void initCommandPane(){
-        myCommandPane = new CommandHistoryPane(myWidth/2-myCanvas.getWidth()/2,myHeight);
+        CommandHistoryPane myCommandPane = new CommandHistoryPane(myWidth/2-myCanvas.getWidth()/2,myHeight);
         myCommandPane.setupModel(myController.getCommandModel(myID));
         myRightPane.getChildren().add(myCommandPane);
         myPane.setRight(myRightPane);
@@ -308,7 +301,7 @@ public class SlogoTab extends Tab implements ViewInterface {
     }
 
     private void initTopLeftGrid() {
-        topLeftGrid = new GridPane();
+        GridPane topLeftGrid = new GridPane();
         topLeftGrid.setMaxWidth(CHOOSER_GRID_WIDTH);
         StackPane.setAlignment(topLeftGrid, Pos.TOP_LEFT);
         Text canvasText = new Text("Choose Canvas Color");
@@ -324,7 +317,7 @@ public class SlogoTab extends Tab implements ViewInterface {
 
 
     private void initTopRightGrid(){
-        topRightGrid = new GridPane();
+        GridPane topRightGrid = new GridPane();
         topRightGrid.setMaxWidth(CHOOSER_GRID_WIDTH);
         StackPane.setAlignment(topRightGrid, Pos.TOP_RIGHT);
         topRightGrid.add(myAddTabButton,COL_0,ROW_0);
@@ -339,7 +332,7 @@ public class SlogoTab extends Tab implements ViewInterface {
     }
 
     private void initBottomLeftGrid() {
-        bottomLeftGrid = new GridPane();
+        GridPane bottomLeftGrid = new GridPane();
         StackPane.setAlignment(bottomLeftGrid, Pos.TOP_LEFT);
         bottomLeftGrid.setVgap(BUTTON_BOTTOM_GAP);
         bottomLeftGrid.setHgap(BUTTON_BOTTOM_GAP);

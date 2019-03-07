@@ -27,12 +27,8 @@ public class TurtleView implements TurtleObserver {
     private TurtleModelInterface myTurtleModel;
     private ImageView myImgView;
     private Integer myID;
-    private double previousX;
-    private double previousY;
     private double myX;
     private double myY;
-    private double myXDir;
-    private double myYDir;
     private double myHeading;
     private SlogoCanvas myCanvas;
     private boolean penDown = true;
@@ -49,8 +45,6 @@ public class TurtleView implements TurtleObserver {
         this.myID = id;
         this.myX = INITIAL_POSITION;
         this.myY = INITIAL_POSITION;
-        this.myXDir = 0.0;
-        this.myYDir = 0.0;
         this.myHeading = INITIAL_HEADING;
         this.penDown = true;
     }
@@ -142,12 +136,10 @@ public class TurtleView implements TurtleObserver {
     }
 
     public void updateX() {
-        this.previousX = myX;
         this.myX = myTurtleModel.getX();
     }
 
     public void updateY() {
-        this.previousY = myY;
         this.myY = myTurtleModel.getY();
     }
 
