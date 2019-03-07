@@ -4,6 +4,7 @@ import CommandNodes.CommandNode;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Model {
 
@@ -14,7 +15,7 @@ public class Model {
       this.setMethodMap();
    }
 
-   public HashMap<String, Method> getMethodMap() {
+   public Map<String, Method> getMethodMap() {
       return this.methodMap;
    }
 
