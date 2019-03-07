@@ -10,8 +10,6 @@ public class SlogoPen extends Node {
 
     private GraphicsContext myGC;
     private SlogoCanvas myCanvas;
-    private Color myColor;
-    private Double myPenWidth;
 
     public SlogoPen(SlogoCanvas canvas){
         myCanvas = canvas;
@@ -22,14 +20,12 @@ public class SlogoPen extends Node {
     }
 
     public void setColor(Color color){
-        myColor = color;
-        myGC.setStroke(myColor);
-        myGC.setFill(myColor);
+        myGC.setStroke(color);
+        myGC.setFill(color);
     }
 
     public void setWidth(Double width){
-        myPenWidth = width;
-        myGC.setLineWidth(myPenWidth);
+        myGC.setLineWidth(width);
     }
 
     public void drawPath(double oldX, double oldY, double targetX, double targetY){

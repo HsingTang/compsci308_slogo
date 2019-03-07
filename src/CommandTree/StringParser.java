@@ -42,10 +42,8 @@ public class StringParser {
    }
 
    public String[] parseCommand(String command){
-      try{
+      if(command.indexOf("#")!=-1) {
          command = command.substring(0, command.indexOf("#"));
-      }catch (StringIndexOutOfBoundsException e){
-         command = command;
       }
       var commandWords = command.split(WHITESPACE_TRIM);
       var parsedCommand = new String[commandWords.length];

@@ -29,8 +29,6 @@ public class SlogoTab extends Tab implements IView {
     private Stage myStage;
     private Integer myID;
     private BorderPane myPane;
-    private BottomPane myBottomPane;
-    private TopPane myTopPane;
     private CanvasPane myCanvasPane;
     private Double myWidth;
     private Double myHeight;
@@ -98,13 +96,11 @@ public class SlogoTab extends Tab implements IView {
 
 
     private void initTopPane() throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
-        myTopPane = new TopPane(myHeight, myCanvasPane, myController, myWindow, myTurtle, myStage);
-        myPane.setTop(myTopPane);
+        myPane.setTop(new TopPane(myHeight, myCanvasPane, myController, myWindow, myTurtle, myStage));
     }
 
     private void initBottomPane() throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
-        myBottomPane = new BottomPane(myHeight, myCanvasPane, myController, myID, myTurtle);
-        myPane.setBottom(myBottomPane);
+        myPane.setBottom(new BottomPane(myHeight, myCanvasPane, myController, myID, myTurtle));
     }
 
     private void initCanvasPane(){

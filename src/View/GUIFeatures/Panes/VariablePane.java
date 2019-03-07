@@ -23,8 +23,7 @@ public class VariablePane extends StackPane implements IObserver {
     private final String VAR_NAME_FIELD = "varName";
     private final String VAR_VAL_FIELD = "varVal";
     private TableView<Variable> varTable;
-    private TableColumn varName;
-    private TableColumn varVal;
+
     private IModel myVarPaneModel;
     private ObservableList<Variable> myVars = FXCollections.observableArrayList(new Variable("name0","val0"));
 
@@ -40,10 +39,10 @@ public class VariablePane extends StackPane implements IObserver {
 
     private void initTable(){
         varTable = new TableView();
-        varName = new TableColumn(VAR_NAME_COL);
+        TableColumn varName = new TableColumn(VAR_NAME_COL);
         varName.prefWidthProperty().bind(varTable.widthProperty().multiply(0.5));
         varName.setCellValueFactory(new PropertyValueFactory<Variable,String>(VAR_NAME_FIELD));
-        varVal = new TableColumn(VAR_VAL_COL);
+        TableColumn varVal = new TableColumn(VAR_VAL_COL);
         varVal.prefWidthProperty().bind(varTable.widthProperty().multiply(0.5));
         varVal.setCellValueFactory(new PropertyValueFactory<Variable,String>(VAR_VAL_FIELD));
         varTable.setItems(myVars);
