@@ -10,7 +10,6 @@ import View.GUIFeatures.Choosers.PenColorChooser;
 import View.GUIFeatures.Choosers.TurtleChooser;
 import View.GUIFeatures.Panes.*;
 import View.Turtles.TurtleView;
-import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -18,16 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.scene.image.Image;
-
-import java.awt.Desktop;
-import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
-
 
 /**
  * @author Hsingchih Tang
@@ -141,13 +131,15 @@ public class SlogoTab extends Tab implements IView {
         myPane.setMaxSize(myWidth,myHeight);
         myPane.setPadding(new Insets(DEFAULT_PADDING_Y, DEFAULT_PADDING_X, DEFAULT_PADDING_Y, DEFAULT_PADDING_X));
         initCanvasPane();
-        initTopPane();
+        //initTopPane();
         //initBottomPane();
+        myTopPane = new TopPane(myHeight, myCanvasPane, myPane, myController, myWindow, myTurtle, myStage);
         myBottomPane = new BottomPane(myHeight, myCanvasPane, myPane, myController, myID, myTurtle);
         initVarPane();
         initCommandPane();
     }
 
+    /*
     private void initTopPane(){
         // TODO: Refactor w/ reflection and lambda funcs, and migrate codes to TopPane
         myTopPane = new TopPane();
@@ -163,15 +155,16 @@ public class SlogoTab extends Tab implements IView {
         myTopPane.setHgap(GRIDPANE_PADDING_X);
         myTopPane.setVgap(GRIDPANE_PADDING_Y);
     }
+    */
 
-
+    /*
     private void initTopPaneElements(){
         initLanguageChooser();
         initAddTabButton();
         initCanvasColorChooser();
         initPenColorChooser();
         initTurtleChooser();
-    }
+    }*/
 
 
     private void initCanvasPane(){
@@ -257,21 +250,24 @@ public class SlogoTab extends Tab implements IView {
     }
 
 
+    /*
     private void initCanvasColorChooser() {
         myCanvasColorChooser = new CanvasColorChooser();
         myCanvasColorChooser.setOnAction(e -> setCanvasBackground());
-    }
+    }*/
 
+    /*
     private void initPenColorChooser() {
         myPenColorChooser = new PenColorChooser();
         myPenColorChooser.setOnAction(e -> setPenColor());
-    }
+    }*/
 
+    /*
     private void initTurtleChooser() {
         myTurtleChooser = new TurtleChooser();
         myTurtleChooser.getButton().setOnAction(e -> changeTurtleImage());
         StackPane.setAlignment(myTurtleChooser.getButton(), Pos.CENTER);
-    }
+    }*/
 
     /*
     private void initActionButtons(){
@@ -296,7 +292,7 @@ public class SlogoTab extends Tab implements IView {
         });
     }*/
 
-
+    /*
     private void initLanguageChooser() {
         myLanguageChooser = new LanguageChooser();
         myLanguageChooser.setOnAction(e -> setLanguage());
@@ -314,7 +310,7 @@ public class SlogoTab extends Tab implements IView {
 
     private void setLanguage(){
         this.myController.setLanguage(myLanguageChooser.getValue().toString());
-    }
+    }*/
 
     /*
     private void buttonTransferCommands(Button b) {
@@ -341,6 +337,7 @@ public class SlogoTab extends Tab implements IView {
         }
     }*/
 
+    /*
     private void changeTurtleImage() {
         File dataFile = myTurtleChooser.getTurtleChooser().showOpenDialog(myStage);
         try {
@@ -350,6 +347,7 @@ public class SlogoTab extends Tab implements IView {
             e.printStackTrace();
         }
     }
+    */
 
     private void addToHistory(String commands) {
 
