@@ -85,10 +85,11 @@ public class TurtleView implements TurtleObserver {
 
 
     private boolean movementComplete(double xAdjust, double yAdjust, double xFinal, double yFinal){
-        return (xAdjust<0&&this.myImgView.getTranslateX()<=xFinal&&yAdjust<0&&this.myImgView.getTranslateY()<=yFinal)||
-                (xAdjust>0&&this.myImgView.getTranslateX()>=xFinal&&yAdjust>0&&this.myImgView.getTranslateY()>=yFinal)||
-                (xAdjust<0&&this.myImgView.getTranslateX()<=xFinal&&yAdjust>0&&this.myImgView.getTranslateY()>=yFinal)||
-                (xAdjust>0&&this.myImgView.getTranslateX()>=xFinal&&yAdjust<0&&this.myImgView.getTranslateY()<=yFinal);
+        boolean check1 = xAdjust<0&&this.myImgView.getTranslateX()<=xFinal&&yAdjust<0&&this.myImgView.getTranslateY()<=yFinal;
+        boolean check2 = xAdjust>0&&this.myImgView.getTranslateX()>=xFinal&&yAdjust>0&&this.myImgView.getTranslateY()>=yFinal;
+        boolean check3 = xAdjust<0&&this.myImgView.getTranslateX()<=xFinal&&yAdjust>0&&this.myImgView.getTranslateY()>=yFinal;
+        boolean check4 = xAdjust>0&&this.myImgView.getTranslateX()>=xFinal&&yAdjust<0&&this.myImgView.getTranslateY()<=yFinal;
+        return (check1 || check2 || check3 || check4);
     }
 
 
