@@ -1,17 +1,13 @@
 package View.GUIFeatures;
 
-import com.sun.jdi.connect.Connector;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBase;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.ComboBoxBase;
 import javafx.scene.layout.Pane;
-import org.w3c.dom.events.EventTarget;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 public class ElementFactory {
