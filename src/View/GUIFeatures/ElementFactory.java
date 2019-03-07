@@ -14,7 +14,6 @@ public class ElementFactory {
     private final String ELEMENT_CLASS_PATH_RESOURCE = "elements/PaneElementClassPath";
     private final String ELEMENT_METHOD_RESOURCE = "elements/PaneElementMethod";
     private final String ELEMENT_ARGUMENT_RESOURCE = "elements/PaneElementArgument";
-    private final String ELEMENT_LAYOUT_RESOURCE = "elements/PaneElementLayout";
 
     private ResourceBundle myElementClassResources;
     private ResourceBundle myElementMethodResources;
@@ -46,44 +45,30 @@ public class ElementFactory {
 
 
     private void setInvokeMethod(String property, Node element, Method myMethod, Class b){
-        if(myElementArgResources.containsKey(property)){
-            String[] myArgs = myElementArgResources.getString(property).split(",");
-            if(element instanceof Button){
-                ((ButtonBase)element).setOnAction(e-> {
-                    try {
-                        myMethod.invoke(myHostPane,(Object[])myArgs);
-                    } catch (Exception exp) {
-                        exp.printStackTrace();
-                    }
-                });
-            }else{
-                ((ComboBoxBase<Object>)element).setOnAction(e-> {
-                    try {
-                        myMethod.invoke(myHostPane,(Object[])myArgs);
-                    } catch (Exception exp) {
-                        exp.printStackTrace();
-                    }
-                });
-            }
+        final String[] myArgs;
+        if(myElementArgResources.containsKey(property)) {
+            myArgs = myElementArgResources.getString(property).split(",");
         }else{
-            if(element instanceof Button){
-                ((ButtonBase)element).setOnAction(e-> {
-                    try {
-                        myMethod.invoke(myHostPane,null);
-                    } catch (Exception exp2) {
-                        exp2.printStackTrace();
-                    }
-                });
-            }else{
-                ((ComboBoxBase<Object>)element).setOnAction(e-> {
-                    try {
-                        myMethod.invoke(myHostPane,null);
-                    } catch (Exception exp2) {
-                        exp2.printStackTrace();
-                    }
-                });
-            }
+            myArgs = null;
         }
+        if(element instanceof Button){
+            ((ButtonBase)element).setOnAction(e-> {
+                try {
+                    myMethod.invoke(myHostPane,(Object[])myArgs);
+                } catch (Exception exp) {
+                    exp.printStackTrace();
+                }
+            });
+        }else{
+            ((ComboBoxBase<Object>)element).setOnAction(e-> {
+                try {
+                    myMethod.invoke(myHostPane,(Object[])myArgs);
+                } catch (Exception exp) {
+                    exp.printStackTrace();
+                }
+            });
+        }
+        
     }
 
 
