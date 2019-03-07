@@ -48,17 +48,17 @@ public class SlogoTab extends Tab implements IView {
     static final Double GRIDPANE_PADDING_X = 17.0;
     static final Double CHOOSER_GRID_WIDTH = 400.0;
     static final Double BUTTON_GRID_WIDTH = 250.0;
-    static final int ROW_0 = 0;
-    static final int ROW_1 = 1;
-    static final int ROW_2 = 2;
-    static final int ROW_3 = 3;
-    static final int ROW_4 = 4;
-    static final int COL_0 = 0;
-    static final int COL_1 = 1;
-    static final int COL_2 = 2;
-    static final int COL_3 = 3;
-    static final int COL_4 = 4;
-    static final int COL_5 = 5;
+    public static final int ROW_0 = 0;
+    public static final int ROW_1 = 1;
+    public static final int ROW_2 = 2;
+    public static final int ROW_3 = 3;
+    public static final int ROW_4 = 4;
+    public static final int COL_0 = 0;
+    public static final int COL_1 = 1;
+    public static final int COL_2 = 2;
+    public static final int COL_3 = 3;
+    public static final int COL_4 = 4;
+    public static final int COL_5 = 5;
 
 
     private Stage myStage;
@@ -96,13 +96,14 @@ public class SlogoTab extends Tab implements IView {
         myID = id;
         myWidth = width;
         myHeight = height;
+        myTurtle = this.myController.getTurtleView(id);
         Label tabTitle = new Label(TAB_STRING + id);
         initPanes();
         setContent(myPane);
+        setTurtleView(this.myController.getTurtleView(id));
         setGraphic(tabTitle);
         this.myPane.getStylesheets().add(STYLE_SHEET);
         this.myPane.getStyleClass().add("this");
-        this.setTurtleView(this.myController.getTurtleView(id));
     }
 
     @Override
@@ -131,7 +132,6 @@ public class SlogoTab extends Tab implements IView {
     }
 
     public void setTurtleView(TurtleView t){
-        this.myTurtle = t;
         myCanvasPane.initTurtleView(t);
     }
 
@@ -142,7 +142,8 @@ public class SlogoTab extends Tab implements IView {
         myPane.setPadding(new Insets(DEFAULT_PADDING_Y, DEFAULT_PADDING_X, DEFAULT_PADDING_Y, DEFAULT_PADDING_X));
         initCanvasPane();
         initTopPane();
-        initBottomPane();
+        //initBottomPane();
+        myBottomPane = new BottomPane(myHeight, myCanvasPane, myPane, myController, myID, myTurtle);
         initVarPane();
         initCommandPane();
     }
@@ -157,7 +158,7 @@ public class SlogoTab extends Tab implements IView {
         myTopPane.add(myPenColorChooser, COL_1, ROW_0);
         myTopPane.add(new Text(CANVAS_TEXT), COL_0, ROW_1);
         myTopPane.add(new Text(PEN_TEXT), COL_1, ROW_1);
-        myTopPane.add(myAddTabButton,COL_2,ROW_0);
+        myTopPane.add(myAddTabButton,COL_2, ROW_0);
         myTopPane.add(myLanguageChooser,COL_3,ROW_0);
         myTopPane.setHgap(GRIDPANE_PADDING_X);
         myTopPane.setVgap(GRIDPANE_PADDING_Y);
@@ -178,6 +179,7 @@ public class SlogoTab extends Tab implements IView {
         myPane.setCenter(myCanvasPane);
     }
 
+    /*
     private void initBottomPane(){
         // TODO: Refactor w/ reflection and lambda funcs, and migrate codes to BottomPane
         myBottomPane = new BottomPane();
@@ -202,21 +204,21 @@ public class SlogoTab extends Tab implements IView {
         myBottomPane.setMargin(myExecuteButton,new Insets(5));
         myBottomPane.setMargin(myClearButton,new Insets(5));
         myBottomPane.setMargin(myHelpButton,new Insets(5));
-    }
+    }*/
 
-    private void initBottomPaneElements(){
+    /*private void initBottomPaneElements(){
         initConsole();
         initExecuteButton();
         initClearButton();
         initHelpButton();
-        initActionButtons();
-    }
+        //initActionButtons();
+    }*/
 
-
+    /*
     private void initConsole() {
         myConsole = new Console(myHeight* CONSOLE_RATIO,myBottomPane.getMaxHeight());
         StackPane.setAlignment(myConsole, Pos.CENTER);
-    }
+    }*/
 
     private void initAddTabButton(){
         myAddTabButton = new AddTabButton();
@@ -224,20 +226,23 @@ public class SlogoTab extends Tab implements IView {
         StackPane.setAlignment(myAddTabButton,Pos.TOP_RIGHT);
     }
 
+    /*
     private void initExecuteButton() {
         myExecuteButton = new ExecuteButton();
         myExecuteButton.setOnAction(e -> this.transferCommands());
-    }
+    }*/
 
+    /*
     private void initClearButton() {
         myClearButton = new ClearButton();
         myClearButton.setOnAction(e -> this.myConsole.clearText());
-    }
+    }*/
 
+    /*
     private void initHelpButton() {
         myHelpButton = new HelpButton();
         myHelpButton.setOnAction(e -> this.openHelp());
-    }
+    }*/
 
     private void initVarPane(){
         VariablePane myVarPane = new VariablePane(myWidth/3-myCanvasPane.getCanvasWidth()/3,myHeight);
@@ -268,6 +273,7 @@ public class SlogoTab extends Tab implements IView {
         StackPane.setAlignment(myTurtleChooser.getButton(), Pos.CENTER);
     }
 
+    /*
     private void initActionButtons(){
         moveForwardButton = new ForwardButton();
         moveBackwardsButton = new BackwardsButton();
@@ -288,7 +294,7 @@ public class SlogoTab extends Tab implements IView {
                 penSlider.changeThickness(myTurtle.getPen());
             }
         });
-    }
+    }*/
 
 
     private void initLanguageChooser() {
@@ -310,19 +316,22 @@ public class SlogoTab extends Tab implements IView {
         this.myController.setLanguage(myLanguageChooser.getValue().toString());
     }
 
+    /*
     private void buttonTransferCommands(Button b) {
         String command = b.getId();
         this.myController.receiveCommand(command, myID);
         addToHistory(command);
-    }
+    }*/
 
+    /*
     private void transferCommands(){
         String commands = myConsole.getText();
         this.myController.receiveCommand(commands,myID);
         addToHistory(commands);
         this.myConsole.clearText();
-    }
+    }*/
 
+    /*
     private void openHelp() {
         File file = new File("resources/Help_Page.html");
         try {
@@ -330,7 +339,7 @@ public class SlogoTab extends Tab implements IView {
         } catch (IOException e1) {
             e1.printStackTrace();
         }
-    }
+    }*/
 
     private void changeTurtleImage() {
         File dataFile = myTurtleChooser.getTurtleChooser().showOpenDialog(myStage);
