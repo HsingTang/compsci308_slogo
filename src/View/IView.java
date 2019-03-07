@@ -1,6 +1,6 @@
 package View;
 
-public interface ViewInterface {
+public interface IView {
     void notifyConsole();
 
     void notifyVariablePane();

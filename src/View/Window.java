@@ -10,6 +10,8 @@ import javafx.scene.control.TabPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+import java.lang.reflect.InvocationTargetException;
+
 
 public class Window extends Application {
 
@@ -24,7 +26,7 @@ public class Window extends Application {
     private Controller myController;
     private int tabCount;
 
-    public Window(){
+   public Window(){
         super();
         myViewFactory = new SlogoTabFactory();
         myController = new Controller();
@@ -40,25 +42,31 @@ public class Window extends Application {
     public void displayStartScreen(){
         splashRoot = new Pane();
         SplashScreen startScreen = new SplashScreen(splashRoot, DEFAULT_WIDTH, DEFAULT_HEIGHT);
-        startScreen.getStartButton().setOnAction(e -> handleTransition());
+        startScreen.getStartButton().setOnAction(e -> {
+            try {
+                handleTransition();
+            } catch (Exception exp) {
+                exp.printStackTrace();
+            }
+        });
         myStage.setScene(startScreen);
         myStage.show();
     }
 
-    public void addSlogoTab(){
-        myController.initNewTab();
+    public void addSlogoTab() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+//       System.out.println("new tab init");
+       myController.initNewTab();
         SlogoTab addTab = myViewFactory.getSlogoTab(tabCount,DEFAULT_WIDTH,DEFAULT_HEIGHT,myController, myStage,this);
         windowRoot.getTabs().add(addTab);
         tabCount++;
     }
 
-    private void handleTransition() {
+    private void handleTransition() throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
         windowRoot = new TabPane();
         Scene mainWindow = new Scene(windowRoot, DEFAULT_WIDTH, DEFAULT_HEIGHT);
         myStage.setScene(mainWindow);
         addSlogoTab();
     }
-
     public static void main(String[] args){
         launch(args);
     }

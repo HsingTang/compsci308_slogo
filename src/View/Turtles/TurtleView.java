@@ -1,9 +1,9 @@
 package View.Turtles;
 
 import Model.ModelInterfaces.TurtleModelInterface;
-import View.GUIFeatures.Panels.SlogoCanvas;
+import View.GUIFeatures.Panes.SlogoCanvas;
 
-import View.GUIFeatures.Panels.SlogoPen;
+import View.GUIFeatures.Panes.SlogoPen;
 import View.ObserverInterfaces.TurtleObserver;
 import javafx.animation.*;
 import javafx.scene.image.Image;
@@ -26,12 +26,8 @@ public class TurtleView implements TurtleObserver {
     private TurtleModelInterface myTurtleModel;
     private ImageView myImgView;
     private Integer myID;
-    private double previousX;
-    private double previousY;
     private double myX;
     private double myY;
-    private double myXDir;
-    private double myYDir;
     private double myHeading;
     private SlogoCanvas myCanvas;
     private boolean penDown = true;
@@ -48,8 +44,6 @@ public class TurtleView implements TurtleObserver {
         this.myID = id;
         this.myX = INITIAL_POSITION;
         this.myY = INITIAL_POSITION;
-        this.myXDir = 0.0;
-        this.myYDir = 0.0;
         this.myHeading = INITIAL_HEADING;
         this.penDown = true;
     }
@@ -90,10 +84,25 @@ public class TurtleView implements TurtleObserver {
 
 
     private boolean movementComplete(double xAdjust, double yAdjust, double xFinal, double yFinal){
-        return (xAdjust<0&&this.myImgView.getTranslateX()<=xFinal&&yAdjust<0&&this.myImgView.getTranslateY()<=yFinal)||
-                (xAdjust>0&&this.myImgView.getTranslateX()>=xFinal&&yAdjust>0&&this.myImgView.getTranslateY()>=yFinal)||
-                (xAdjust<0&&this.myImgView.getTranslateX()<=xFinal&&yAdjust>0&&this.myImgView.getTranslateY()>=yFinal)||
-                (xAdjust>0&&this.myImgView.getTranslateX()>=xFinal&&yAdjust<0&&this.myImgView.getTranslateY()<=yFinal);
+        boolean checkXLessThanFinal = checkXLessThanFinal(xAdjust, yAdjust, xFinal, yFinal);
+        boolean checkXGreaterThanFinal = checkXGreaterThanFinal(xAdjust, yAdjust, xFinal, yFinal);
+        return (checkXLessThanFinal || checkXGreaterThanFinal);
+    }
+
+    private boolean checkXLessThanFinal(double xAdjust, double yAdjust, double xFinal, double yFinal) {
+        double translateX = this.myImgView.getTranslateX();
+        double translateY = this.myImgView.getTranslateY();
+        boolean check1 = xAdjust<0&&translateX<=xFinal&&yAdjust<0&&translateY<=yFinal;
+        boolean check2 = xAdjust<0&&translateX<=xFinal&&yAdjust>0&&translateY>=yFinal;
+        return (check1 || check2);
+    }
+
+    private boolean checkXGreaterThanFinal(double xAdjust, double yAdjust, double xFinal, double yFinal) {
+        double translateX = this.myImgView.getTranslateX();
+        double translateY = this.myImgView.getTranslateY();
+        boolean check1 =  xAdjust>0&&translateX>=xFinal&&yAdjust>0&&translateY>=yFinal;
+        boolean check2 =  xAdjust>0&&translateX>=xFinal&&yAdjust<0&&translateY<=yFinal;
+        return (check1 || check2);
     }
 
 
@@ -141,12 +150,10 @@ public class TurtleView implements TurtleObserver {
     }
 
     public void updateX() {
-        this.previousX = myX;
         this.myX = myTurtleModel.getX();
     }
 
     public void updateY() {
-        this.previousY = myY;
         this.myY = myTurtleModel.getY();
     }
 
@@ -168,7 +175,7 @@ public class TurtleView implements TurtleObserver {
 
     public void updateHeading() {
         double newHeading = myTurtleModel.getHeading();
-        this.myImgView.setRotate(newHeading - this.myHeading);
+        animateRotation(this.myHeading - newHeading);
         this.myHeading = newHeading;
     }
 

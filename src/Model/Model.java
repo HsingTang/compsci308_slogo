@@ -4,17 +4,18 @@ import CommandNodes.CommandNode;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Model {
 
-   private final HashMap<String, Method> methodMap;
+   private final Map<String, Method> methodMap;
 
    public Model(){
       this.methodMap = new HashMap<>();
       this.setMethodMap();
    }
 
-   public HashMap<String, Method> getMethodMap() {
+   public Map<String, Method> getMethodMap() {
       return this.methodMap;
    }
 
