@@ -6,10 +6,12 @@ import View.GUIFeatures.Choosers.CanvasColorChooser;
 import View.GUIFeatures.Choosers.LanguageChooser;
 import View.GUIFeatures.Choosers.PenColorChooser;
 import View.GUIFeatures.Choosers.TurtleChooser;
+import View.GUIFeatures.ElementFactory;
 import View.SlogoTab;
 import View.Turtles.TurtleView;
 import View.Window;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
@@ -20,6 +22,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 
 public class TopPane extends GridPane {
@@ -40,9 +43,11 @@ public class TopPane extends GridPane {
     private ControllerInterface myController;
     private Window myWindow;
     private TurtleView myTurtle;
+    private PaneLayoutManager myLayoutManager;
+    private ElementFactory myElementFactory;
     private Stage myStage;
 
-    public TopPane(double height, CanvasPane myCanvasPane, BorderPane myPane, ControllerInterface myController, Window myWindow, TurtleView myTurtle, Stage myStage){
+    public TopPane(double height, CanvasPane myCanvasPane, BorderPane myPane, ControllerInterface myController, Window myWindow, TurtleView myTurtle, Stage myStage) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         super();
         this.myHeight = height;
         this.myController = myController;
@@ -50,20 +55,16 @@ public class TopPane extends GridPane {
         this.myWindow = myWindow;
         this.myTurtle = myTurtle;
         this.myStage = myStage;
+        this.myLayoutManager = new PaneLayoutManager(this);
+        this.myElementFactory = new ElementFactory(this);
         myPane.setTop(this);
         setMinHeight(myHeight/10);
         initTopPaneElements();
-        add(myCanvasColorChooser, SlogoTab.COL_0, SlogoTab.ROW_0);
-        add(myPenColorChooser, SlogoTab.COL_1, SlogoTab.ROW_0);
-        add(new Text(CANVAS_TEXT), SlogoTab.COL_0, SlogoTab.ROW_1);
-        add(new Text(PEN_TEXT), SlogoTab.COL_1, SlogoTab.ROW_1);
-        add(myAddTabButton, SlogoTab.COL_2, SlogoTab.ROW_0);
-        add(myLanguageChooser, SlogoTab.COL_3, SlogoTab.ROW_0);
         setHgap(GRIDPANE_PADDING_X);
         setVgap(GRIDPANE_PADDING_Y);
     }
 
-    private void initTopPaneElements(){
+    private void initTopPaneElements() throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
         initLanguageChooser();
         initAddTabButton();
         initCanvasColorChooser();
@@ -71,25 +72,34 @@ public class TopPane extends GridPane {
         initTurtleChooser();
     }
 
-    private void initLanguageChooser() {
-        myLanguageChooser = new LanguageChooser();
-        myLanguageChooser.setOnAction(e -> setLanguage());
+    private void initLanguageChooser() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        myLanguageChooser =(LanguageChooser)myElementFactory.makeElement("LanguageChooser");
+        myLayoutManager.setLayout(myLanguageChooser);
     }
 
     private void initAddTabButton(){
         myAddTabButton = new AddTabButton();
-        myAddTabButton.setOnAction(e->this.myWindow.addSlogoTab());
+        myAddTabButton.setOnAction(e-> {
+            try {
+                this.myWindow.addSlogoTab();
+            } catch (Exception exp) {
+                exp.printStackTrace();
+            }
+        });
         StackPane.setAlignment(myAddTabButton, Pos.TOP_RIGHT);
+        myLayoutManager.setLayout(myAddTabButton);
     }
 
-    private void initCanvasColorChooser() {
-        myCanvasColorChooser = new CanvasColorChooser();
-        myCanvasColorChooser.setOnAction(e -> setCanvasBackground());
+    private void initCanvasColorChooser() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        myCanvasColorChooser =(CanvasColorChooser)myElementFactory.makeElement("CanvasColorChooser");
+        myLayoutManager.setLayout(myCanvasColorChooser);
+        myLayoutManager.setLayout(new Text(CANVAS_TEXT));
     }
 
-    private void initPenColorChooser() {
-        myPenColorChooser = new PenColorChooser();
-        myPenColorChooser.setOnAction(e -> setPenColor());
+    private void initPenColorChooser() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        myPenColorChooser =(PenColorChooser)myElementFactory.makeElement("PenColorChooser");
+        myLayoutManager.setLayout(myPenColorChooser);
+        myLayoutManager.setLayout(new Text(PEN_TEXT));
     }
 
     private void initTurtleChooser() {
@@ -98,16 +108,16 @@ public class TopPane extends GridPane {
         StackPane.setAlignment(myTurtleChooser.getButton(), Pos.CENTER);
     }
 
-    private void setLanguage(){
+    public void setLanguage(){
         this.myController.setLanguage(myLanguageChooser.getValue().toString());
     }
 
-    private void setCanvasBackground(){
+    public void setCanvasBackground(){
         Color color = myCanvasColorChooser.getValue();
         myCanvasPane.setCanvasColor(color);
     }
 
-    private void setPenColor() {
+    public void setPenColor() {
         Color color = myPenColorChooser.getValue();
         myTurtle.getPen().setColor(color);
     }

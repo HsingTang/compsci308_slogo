@@ -19,6 +19,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
+import java.lang.reflect.InvocationTargetException;
+
 /**
  * @author Hsingchih Tang
  * @author Eric Lin
@@ -81,7 +83,7 @@ public class SlogoTab extends Tab implements IView {
     private ControllerInterface myController;
     private Window myWindow;
 
-    public SlogoTab(int id, double width, double height, Controller controller, Stage stage, Window window){
+    public SlogoTab(int id, double width, double height, Controller controller, Stage stage, Window window) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         myStage = stage;
         myController = controller;
         myWindow = window;
@@ -128,7 +130,7 @@ public class SlogoTab extends Tab implements IView {
     }
 
 
-    private void initPanes(){
+    private void initPanes() throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
         myPane = new BorderPane();
         myPane.setMaxSize(myWidth,myHeight);
         myPane.setPadding(new Insets(DEFAULT_PADDING_Y, DEFAULT_PADDING_X, DEFAULT_PADDING_Y, DEFAULT_PADDING_X));
