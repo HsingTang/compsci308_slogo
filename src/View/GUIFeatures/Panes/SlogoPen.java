@@ -1,10 +1,8 @@
-package View.GUIFeatures.Panels;
+package View.GUIFeatures.Panes;
 
 import javafx.scene.Node;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 
 public class SlogoPen extends Node {
     private final Color DEFAULT_PEN_COLOR = Color.WHITE;

@@ -1,6 +1,6 @@
 package View.GUIFeatures.Buttons;
 
-import View.GUIFeatures.Panels.SlogoPen;
+import View.GUIFeatures.Panes.SlogoPen;
 import javafx.scene.control.Slider;
 import javafx.scene.text.Text;
 

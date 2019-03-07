@@ -11,7 +11,7 @@ Some of the main goals include developing a nearly closed front end and backend 
 # Design Overview
 * **View**  
     * View.View.Window
-    Main class of the front end. Holds all different front end components (View.GUIFeatures.Panels.SlogoCanvas, View.GUIFeatures.Panels.Console , etc.), arrange them on the UI and communicate with Model classes on the back end for displaying user command execution results.
+    Main class of the front end. Holds all different front end components (View.GUIFeatures.Panes.SlogoCanvas, View.GUIFeatures.Panes.Console , etc.), arrange them on the UI and communicate with Model classes on the back end for displaying user command execution results.
         * Variables:
         myTurtleView
         myCanvas
@@ -58,14 +58,14 @@ Some of the main goals include developing a nearly closed front end and backend 
         setTrailColor(color)
         setTrailSize(size)
         
-    * View.GUIFeatures.Panels.SlogoCanvas
+    * View.GUIFeatures.Panes.SlogoCanvas
     Where the object view (i.e. Turtle) resides and draws trails.
         * Variables:
         myColor
         * Methods:
         draw()
         clear()
-    * View.GUIFeatures.Panels.Console
+    * View.GUIFeatures.Panes.Console
     Command prompt component where user can type in commands and hit ENTER to confirm executing the commands, as well as where responses to user commands (queries about Turtle position, math calculation, etc.) are displayed to user after execution.
         * Variables:
         myEnterButton
@@ -160,7 +160,7 @@ Some of the main goals include developing a nearly closed front end and backend 
 ![GUI Design](https://i.imgur.com/zBtXCOj.png)
 
 The GUI will consist of the following visualizaiton components:
-* View.GUIFeatures.Panels.Console
+* View.GUIFeatures.Panes.Console
 Place where the user can type in Slogo commands in lines or blocks. The input command will not be transferred to back end and get processed until user hit ENTER on the keyboard or press a 'Excute' button in the console component.
 * Language chooser
 Place where the user can make choice of the command language. The chooser will be in the form of a dropdown menu, with which the user can click on one of the selections.
@@ -203,14 +203,14 @@ If any erroneous situation occurs with invalid user input commands, the View.Win
         setTrailColor(color)
         setTrailSize(size)
         
-    * View.GUIFeatures.Panels.SlogoCanvas
+    * View.GUIFeatures.Panes.SlogoCanvas
     Where the object view (i.e. Turtle) resides and draws trails.
         * Variables:
         myColor
         * Methods:
         draw()
         clear()
-    * View.GUIFeatures.Panels.Console
+    * View.GUIFeatures.Panes.Console
     Command prompt component where user can type in commands and hit ENTER to confirm executing the commands, as well as where responses to user commands (queries about Turtle position, math calculation, etc.) are displayed to user after execution.
         * Variables:
         myEnterButton

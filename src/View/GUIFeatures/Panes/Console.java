@@ -1,4 +1,4 @@
-package View.GUIFeatures.Panels;
+package View.GUIFeatures.Panes;
 
 import Model.Model;
 import javafx.scene.control.TextArea;

@@ -5,7 +5,6 @@ import CommandTree.StringParser;
 import Handlers.CommandHandler;
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
 import Model.CommandPaneModel;
-import Model.ModelInterfaces.ModelInterface;
 import Model.TurtleModel;
 import Model.VariablePaneModel;
 import View.Turtles.TurtleFactory;
