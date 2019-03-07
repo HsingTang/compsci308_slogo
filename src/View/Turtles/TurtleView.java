@@ -106,8 +106,7 @@ public class TurtleView implements TurtleObserver {
     }
 
 
-    private void animateTranslation(double xFinal, double yFinal) {
-        Timeline timeline = new Timeline();
+    private void calcAnimateParams(double xFinal, double yFinal) {
         Double deltaX = xFinal-myImgView.getTranslateX();
         Double deltaY = yFinal-myImgView.getTranslateY();
         Double deltaDist = Math.sqrt(Math.pow(deltaX,2)+Math.pow(deltaY,2));
@@ -120,7 +119,11 @@ public class TurtleView implements TurtleObserver {
             xAdjust = INITIAL_POSITION;
             yAdjust = INITIAL_POSITION;
         }
+        animateTranslation(xAdjust,yAdjust,xFinal,yFinal);
+    }
 
+    private void animateTranslation(double xAdjust,double yAdjust, double xFinal, double yFinal){
+        Timeline timeline = new Timeline();
         var frame = new KeyFrame(Duration.millis(ANIMATION_SPEED), e -> {
             if(movementComplete(xAdjust,yAdjust,xFinal,yFinal)){
                 timeline.stop();
@@ -129,7 +132,6 @@ public class TurtleView implements TurtleObserver {
             this.myImgView.setTranslateY(this.myImgView.getTranslateY()+yAdjust);
             if(this.penDown){
                 this.myPen.drawPath(this.myImgView.getTranslateX()-xAdjust,this.myImgView.getTranslateY()-yAdjust,this.myImgView.getTranslateX(),this.myImgView.getTranslateY());
-
             }
         });
         timeline.setCycleCount(Timeline.INDEFINITE);
@@ -158,7 +160,7 @@ public class TurtleView implements TurtleObserver {
     }
 
     public void updateMove() {
-        animateTranslation(myTurtleModel.getX(), myTurtleModel.getY());
+        calcAnimateParams(myTurtleModel.getX(), myTurtleModel.getY());
     }
 
     public void updateLeftRotate() {
