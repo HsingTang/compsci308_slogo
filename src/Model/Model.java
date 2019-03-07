@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class Model {
 
-   private final HashMap<String, Method> methodMap;
+   private final Map<String, Method> methodMap;
 
    public Model(){
       this.methodMap = new HashMap<>();
