@@ -59,6 +59,7 @@ public class SlogoTab extends Tab implements IView {
     private CanvasPane myCanvasPane;
     private Double myWidth;
     private Double myHeight;
+    /*
     private Console myConsole;
     private Button myExecuteButton;
     private Button myClearButton;
@@ -75,6 +76,7 @@ public class SlogoTab extends Tab implements IView {
     private TurtleChooser myTurtleChooser;
     private CanvasColorChooser myCanvasColorChooser;
     private PenColorChooser myPenColorChooser;
+    */
     private TurtleView myTurtle;
     private ControllerInterface myController;
     private Window myWindow;
@@ -213,11 +215,13 @@ public class SlogoTab extends Tab implements IView {
         StackPane.setAlignment(myConsole, Pos.CENTER);
     }*/
 
+    /*
     private void initAddTabButton(){
         myAddTabButton = new AddTabButton();
         myAddTabButton.setOnAction(e->this.myWindow.addSlogoTab());
         StackPane.setAlignment(myAddTabButton,Pos.TOP_RIGHT);
     }
+    */
 
     /*
     private void initExecuteButton() {
