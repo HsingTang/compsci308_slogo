@@ -2,14 +2,10 @@ package View.GUIFeatures.Panes;
 import Controller.ControllerInterface;
 import View.GUIFeatures.Buttons.*;
 import View.GUIFeatures.ElementFactory;
-import View.SlogoTab;
 import View.Turtles.TurtleView;
 import javafx.beans.value.ObservableValue;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -18,8 +14,7 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
+
 
 public class BottomPane extends GridPane {
 
@@ -47,7 +42,7 @@ public class BottomPane extends GridPane {
     private PaneLayoutManager myLayoutManager;
     private ElementFactory myElementFactory;
 
-    public BottomPane(double height, CanvasPane canvas, BorderPane myPane, ControllerInterface myController, int myID, TurtleView myTurtle) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    public BottomPane(double height, CanvasPane canvas, ControllerInterface myController, int myID, TurtleView myTurtle) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         super();
         this.myElementFactory = new ElementFactory(this);
         this.myLayoutManager = new PaneLayoutManager(this);
@@ -56,7 +51,6 @@ public class BottomPane extends GridPane {
         this.myID = myID;
         this.myTurtle = myTurtle;
         setMaxHeight(height-canvas.getPrefHeight()/2);
-        myPane.setBottom(this);
         initBottomPaneElements();
         setVgap(GRIDPANE_PADDING_Y);
         setHgap(GRIDPANE_PADDING_X);

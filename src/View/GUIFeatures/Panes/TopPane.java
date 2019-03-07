@@ -7,14 +7,11 @@ import View.GUIFeatures.Choosers.LanguageChooser;
 import View.GUIFeatures.Choosers.PenColorChooser;
 import View.GUIFeatures.Choosers.TurtleChooser;
 import View.GUIFeatures.ElementFactory;
-import View.SlogoTab;
 import View.Turtles.TurtleView;
 import View.Window;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -47,7 +44,7 @@ public class TopPane extends GridPane {
     private ElementFactory myElementFactory;
     private Stage myStage;
 
-    public TopPane(double height, CanvasPane myCanvasPane, BorderPane myPane, ControllerInterface myController, Window myWindow, TurtleView myTurtle, Stage myStage) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    public TopPane(double height, CanvasPane myCanvasPane, ControllerInterface myController, Window myWindow, TurtleView myTurtle, Stage myStage) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         super();
         this.myHeight = height;
         this.myController = myController;
@@ -57,7 +54,6 @@ public class TopPane extends GridPane {
         this.myStage = myStage;
         this.myLayoutManager = new PaneLayoutManager(this);
         this.myElementFactory = new ElementFactory(this);
-        myPane.setTop(this);
         setMinHeight(myHeight/10);
         initTopPaneElements();
         setHgap(GRIDPANE_PADDING_X);
@@ -86,8 +82,9 @@ public class TopPane extends GridPane {
                 exp.printStackTrace();
             }
         });
-        StackPane.setAlignment(myAddTabButton, Pos.TOP_RIGHT);
+        // StackPane.setAlignment(myAddTabButton, Pos.TOP_RIGHT);
         myLayoutManager.setLayout(myAddTabButton);
+        System.out.println("after laying out AddTabButton");
     }
 
     private void initCanvasColorChooser() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
