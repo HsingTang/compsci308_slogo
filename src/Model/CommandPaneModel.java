@@ -1,17 +1,17 @@
 package Model;
 
-import Model.ModelInterfaces.ModelInterface;
-import View.GUIFeatures.Panels.HistoricalCommand;
-import View.ObserverInterfaces.ObserverInterface;
+import Model.ModelInterfaces.IModel;
+import View.GUIFeatures.Panes.HistoricalCommand;
+import View.ObserverInterfaces.IObserver;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class CommandPaneModel implements ModelInterface {
+public class CommandPaneModel implements IModel {
 
 
-    private ArrayList<ObserverInterface> myObservers;
+    private ArrayList<IObserver> myObservers;
     private ArrayList<HistoricalCommand> myCommandHistory;
 
     public CommandPaneModel(){
@@ -20,18 +20,18 @@ public class CommandPaneModel implements ModelInterface {
     }
 
     @Override
-    public void registerObserver(ObserverInterface o) {
+    public void registerObserver(IObserver o) {
         myObservers.add(o);
     }
 
     @Override
-    public void removeObserver(ObserverInterface o) {
+    public void removeObserver(IObserver o) {
         myObservers.remove(o);
     }
 
     @Override
     public void notifyObserver() {
-        for (ObserverInterface o:myObservers){
+        for (IObserver o:myObservers){
             o.updateData();
         }
     }

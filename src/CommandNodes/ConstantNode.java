@@ -6,7 +6,7 @@ public class ConstantNode extends CommandNode {
    private static final int CONSTANT_PARAMS = 0;
    private static final Double INIT_VAL = 0.0;
 
-   private double myValue;
+   protected double myValue;
 
    public ConstantNode(CommandHandlerInterface inHandler){
       super(inHandler);
