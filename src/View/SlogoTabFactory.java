@@ -10,7 +10,6 @@ import java.util.HashMap;
 public class SlogoTabFactory {
     private HashMap<Integer, IView> myViews;
     private int productCount;
-    private SlogoTab newViewProduct;
 
     public SlogoTabFactory(){
         productCount = 0;
@@ -18,7 +17,7 @@ public class SlogoTabFactory {
     }
 
     public SlogoTab getSlogoTab(int id, double w, double h, Controller controller, Stage stage, Window window) throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
-        newViewProduct = new SlogoTab(id, w, h,controller, stage, window);
+        SlogoTab newViewProduct = new SlogoTab(id, w, h,controller, stage, window);
         myViews.put(productCount,newViewProduct);
         productCount++;
         return newViewProduct;

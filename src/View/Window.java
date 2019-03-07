@@ -20,7 +20,6 @@ public class Window extends Application {
     public static final double DEFAULT_WIDTH = 1200;
 
     private Stage myStage;
-    private Pane splashRoot;
     private TabPane windowRoot;
     private SlogoTabFactory myViewFactory;
     private Controller myController;
@@ -40,7 +39,7 @@ public class Window extends Application {
     }
 
     public void displayStartScreen(){
-        splashRoot = new Pane();
+        Pane splashRoot = new Pane();
         SplashScreen startScreen = new SplashScreen(splashRoot, DEFAULT_WIDTH, DEFAULT_HEIGHT);
         startScreen.getStartButton().setOnAction(e -> {
             try {

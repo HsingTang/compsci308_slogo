@@ -7,7 +7,6 @@ import javafx.scene.paint.Color;
 
 public class CanvasPane extends StackPane {
     private SlogoCanvas myCanvas;
-    private TurtleView myTurtle;
     private double myHeight;
     private double myWidth;
 
@@ -32,10 +31,9 @@ public class CanvasPane extends StackPane {
     }
 
     public void initTurtleView(TurtleView turtle){
-        myTurtle = turtle;
-        this.getChildren().add(myTurtle.getImgView());
-        myTurtle.setCanvas(myCanvas);
-        myTurtle.setPen(new SlogoPen(myCanvas));
+        this.getChildren().add(turtle.getImgView());
+        turtle.setCanvas(myCanvas);
+        turtle.setPen(new SlogoPen(myCanvas));
     }
 
     public void setCanvasColor(Color color){

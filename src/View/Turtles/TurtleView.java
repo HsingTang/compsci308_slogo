@@ -29,7 +29,6 @@ public class TurtleView implements TurtleObserver {
     private double myX;
     private double myY;
     private double myHeading;
-    private SlogoCanvas myCanvas;
     private boolean penDown = true;
     private SlogoPen myPen;
 
@@ -147,9 +146,6 @@ public class TurtleView implements TurtleObserver {
         this.myImgView.setTranslateY(this.myY);
     }
 
-    public void setCanvas(SlogoCanvas c){
-        this.myCanvas = c;
-    }
 
     public void updateX() {
         this.myX = myTurtleModel.getX();
@@ -188,8 +184,7 @@ public class TurtleView implements TurtleObserver {
     public void updateHome() { this.goHome(); }
 
     public void updateVisibility() {
-        boolean isInvisible = myTurtleModel.isInvisible();
-        if (!isInvisible) {
+        if (!myTurtleModel.isInvisible()) {
             this.myImgView.setVisible(true);
         } else {
             this.myImgView.setVisible(false);
