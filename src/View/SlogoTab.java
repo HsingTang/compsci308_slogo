@@ -54,8 +54,8 @@ public class SlogoTab extends Tab implements IView {
     private Stage myStage;
     private Integer myID;
     private BorderPane myPane;
-    private BottomPane myBottomPane;
-    private TopPane myTopPane;
+    //private BottomPane myBottomPane;
+    //private TopPane myTopPane;
     private CanvasPane myCanvasPane;
     private Double myWidth;
     private Double myHeight;
@@ -135,8 +135,8 @@ public class SlogoTab extends Tab implements IView {
         initCanvasPane();
         //initTopPane();
         //initBottomPane();
-        myTopPane = new TopPane(myHeight, myCanvasPane, myPane, myController, myWindow, myTurtle, myStage);
-        myBottomPane = new BottomPane(myHeight, myCanvasPane, myPane, myController, myID, myTurtle);
+        TopPane myTopPane = new TopPane(myHeight, myCanvasPane, myPane, myController, myWindow, myTurtle, myStage);
+        BottomPane myBottomPane = new BottomPane(myHeight, myCanvasPane, myPane, myController, myID, myTurtle);
         initVarPane();
         initCommandPane();
     }
