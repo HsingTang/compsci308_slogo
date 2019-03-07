@@ -3,13 +3,14 @@ package CommandNodes;
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public abstract class CommandNode {
 
    private static final int INIT = 0;
 
    protected final CommandHandlerInterface myHandler;
-   private ArrayList<CommandNode> myChildren;
+   private List<CommandNode> myChildren;
    private CommandNode myParent;
    private int myNumParams;
    private Double myReturnValue;
@@ -48,7 +49,7 @@ public abstract class CommandNode {
       this.myNumParams--;
    }
 
-   public ArrayList<CommandNode> getMyChildren(){
+   public List<CommandNode> getMyChildren(){
       return this.myChildren;
    }
 
