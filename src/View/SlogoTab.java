@@ -56,8 +56,8 @@ public class SlogoTab extends Tab implements IView {
     private Stage myStage;
     private Integer myID;
     private BorderPane myPane;
-    //private BottomPane myBottomPane;
-    //private TopPane myTopPane;
+    private BottomPane myBottomPane;
+    private TopPane myTopPane;
     private CanvasPane myCanvasPane;
     private Double myWidth;
     private Double myHeight;
@@ -135,113 +135,28 @@ public class SlogoTab extends Tab implements IView {
         myPane.setMaxSize(myWidth,myHeight);
         myPane.setPadding(new Insets(DEFAULT_PADDING_Y, DEFAULT_PADDING_X, DEFAULT_PADDING_Y, DEFAULT_PADDING_X));
         initCanvasPane();
-        //initTopPane();
-        //initBottomPane();
-        TopPane myTopPane = new TopPane(myHeight, myCanvasPane, myPane, myController, myWindow, myTurtle, myStage);
-        BottomPane myBottomPane = new BottomPane(myHeight, myCanvasPane, myPane, myController, myID, myTurtle);
+        initTopPane();
+        initBottomPane();
         initVarPane();
         initCommandPane();
     }
 
-    /*
-    private void initTopPane(){
-        // TODO: Refactor w/ reflection and lambda funcs, and migrate codes to TopPane
-        myTopPane = new TopPane();
+
+    private void initTopPane() throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+        myTopPane = new TopPane(myHeight, myCanvasPane, myController, myWindow, myTurtle, myStage);
         myPane.setTop(myTopPane);
-        myTopPane.setMinHeight(myHeight/10);
-        initTopPaneElements();
-        myTopPane.add(myCanvasColorChooser, COL_0, ROW_0);
-        myTopPane.add(myPenColorChooser, COL_1, ROW_0);
-        myTopPane.add(new Text(CANVAS_TEXT), COL_0, ROW_1);
-        myTopPane.add(new Text(PEN_TEXT), COL_1, ROW_1);
-        myTopPane.add(myAddTabButton,COL_2, ROW_0);
-        myTopPane.add(myLanguageChooser,COL_3,ROW_0);
-        myTopPane.setHgap(GRIDPANE_PADDING_X);
-        myTopPane.setVgap(GRIDPANE_PADDING_Y);
     }
-    */
 
-    /*
-    private void initTopPaneElements(){
-        initLanguageChooser();
-        initAddTabButton();
-        initCanvasColorChooser();
-        initPenColorChooser();
-        initTurtleChooser();
-    }*/
-
+    private void initBottomPane() throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+        myBottomPane = new BottomPane(myHeight, myCanvasPane, myController, myID, myTurtle);
+        myPane.setBottom(myBottomPane);
+    }
 
     private void initCanvasPane(){
         myCanvasPane = new CanvasPane(myHeight*CANVAS_RATIO,myHeight*CANVAS_RATIO);
         myPane.setCenter(myCanvasPane);
     }
 
-    /*
-    private void initBottomPane(){
-        // TODO: Refactor w/ reflection and lambda funcs, and migrate codes to BottomPane
-        myBottomPane = new BottomPane();
-        myBottomPane.setMaxHeight(myHeight-myCanvasPane.getPrefHeight()/2);
-        myPane.setBottom(myBottomPane);
-        initBottomPaneElements();
-        myBottomPane.setVgap(GRIDPANE_PADDING_Y);
-        myBottomPane.setHgap(GRIDPANE_PADDING_X);
-        myBottomPane.add(turnRightButton, COL_3, ROW_1);
-        myBottomPane.add(moveForwardButton, COL_2, ROW_0);
-        myBottomPane.add(turnLeftButton, COL_1, ROW_1);
-        myBottomPane.add(moveBackwardsButton, COL_2, ROW_1);
-        myBottomPane.add(penDown, COL_0, ROW_0);
-        myBottomPane.add(penUp, COL_0, ROW_1);
-        myBottomPane.add(penSlider, COL_0, ROW_2);
-        myBottomPane.add(penSlider.getSliderText(), COL_0, ROW_3);
-        myBottomPane.add(myConsole,COL_4,ROW_0, 1, 3);
-        myBottomPane.add(myExecuteButton, COL_5, ROW_0);
-        myBottomPane.add(myClearButton, COL_5, ROW_1);
-        myBottomPane.add(myHelpButton, COL_5, ROW_2);
-        myBottomPane.setMargin(myConsole,new Insets(10));
-        myBottomPane.setMargin(myExecuteButton,new Insets(5));
-        myBottomPane.setMargin(myClearButton,new Insets(5));
-        myBottomPane.setMargin(myHelpButton,new Insets(5));
-    }*/
-
-    /*private void initBottomPaneElements(){
-        initConsole();
-        initExecuteButton();
-        initClearButton();
-        initHelpButton();
-        //initActionButtons();
-    }*/
-
-    /*
-    private void initConsole() {
-        myConsole = new Console(myHeight* CONSOLE_RATIO,myBottomPane.getMaxHeight());
-        StackPane.setAlignment(myConsole, Pos.CENTER);
-    }*/
-
-    /*
-    private void initAddTabButton(){
-        myAddTabButton = new AddTabButton();
-        myAddTabButton.setOnAction(e->this.myWindow.addSlogoTab());
-        StackPane.setAlignment(myAddTabButton,Pos.TOP_RIGHT);
-    }
-    */
-
-    /*
-    private void initExecuteButton() {
-        myExecuteButton = new ExecuteButton();
-        myExecuteButton.setOnAction(e -> this.transferCommands());
-    }*/
-
-    /*
-    private void initClearButton() {
-        myClearButton = new ClearButton();
-        myClearButton.setOnAction(e -> this.myConsole.clearText());
-    }*/
-
-    /*
-    private void initHelpButton() {
-        myHelpButton = new HelpButton();
-        myHelpButton.setOnAction(e -> this.openHelp());
-    }*/
 
     private void initVarPane(){
         VariablePane myVarPane = new VariablePane(myWidth/3-myCanvasPane.getCanvasWidth()/3,myHeight);
@@ -254,106 +169,6 @@ public class SlogoTab extends Tab implements IView {
         myCommandPane.setupModel(myController.getCommandModel(myID));
         myPane.setRight(myCommandPane);
     }
-
-
-    /*
-    private void initCanvasColorChooser() {
-        myCanvasColorChooser = new CanvasColorChooser();
-        myCanvasColorChooser.setOnAction(e -> setCanvasBackground());
-    }*/
-
-    /*
-    private void initPenColorChooser() {
-        myPenColorChooser = new PenColorChooser();
-        myPenColorChooser.setOnAction(e -> setPenColor());
-    }*/
-
-    /*
-    private void initTurtleChooser() {
-        myTurtleChooser = new TurtleChooser();
-        myTurtleChooser.getButton().setOnAction(e -> changeTurtleImage());
-        StackPane.setAlignment(myTurtleChooser.getButton(), Pos.CENTER);
-    }*/
-
-    /*
-    private void initActionButtons(){
-        moveForwardButton = new ForwardButton();
-        moveBackwardsButton = new BackwardsButton();
-        turnLeftButton = new LeftRotateButton();
-        turnRightButton = new RightRotateButton();
-        penDown = new PenDownButton();
-        penUp = new PenUpButton();
-        penSlider = new ThicknessSlider();
-        moveForwardButton.setOnAction(e -> buttonTransferCommands(moveForwardButton));
-        moveBackwardsButton.setOnAction(e -> buttonTransferCommands(moveBackwardsButton));
-        turnLeftButton.setOnAction(e -> buttonTransferCommands(turnLeftButton));
-        turnRightButton.setOnAction(e -> buttonTransferCommands(turnRightButton));
-        penDown.setOnAction(e -> buttonTransferCommands(penDown));
-        penUp.setOnAction(e -> buttonTransferCommands(penUp));
-        penSlider.setOnMousePressed(e -> penSlider.changeThickness(myTurtle.getPen()));
-        penSlider.valueChangingProperty().addListener((ObservableValue<? extends Boolean> obs, Boolean wasChanging, Boolean isNowChanging) -> {
-            if (!isNowChanging) {
-                penSlider.changeThickness(myTurtle.getPen());
-            }
-        });
-    }*/
-
-    /*
-    private void initLanguageChooser() {
-        myLanguageChooser = new LanguageChooser();
-        myLanguageChooser.setOnAction(e -> setLanguage());
-    }
-
-    private void setCanvasBackground(){
-        Color color = myCanvasColorChooser.getValue();
-        myCanvasPane.setCanvasColor(color);
-    }
-
-    private void setPenColor() {
-        Color color = myPenColorChooser.getValue();
-        myTurtle.getPen().setColor(color);
-    }
-
-    private void setLanguage(){
-        this.myController.setLanguage(myLanguageChooser.getValue().toString());
-    }*/
-
-    /*
-    private void buttonTransferCommands(Button b) {
-        String command = b.getId();
-        this.myController.receiveCommand(command, myID);
-        addToHistory(command);
-    }*/
-
-    /*
-    private void transferCommands(){
-        String commands = myConsole.getText();
-        this.myController.receiveCommand(commands,myID);
-        addToHistory(commands);
-        this.myConsole.clearText();
-    }*/
-
-    /*
-    private void openHelp() {
-        File file = new File("resources/Help_Page.html");
-        try {
-            Desktop.getDesktop().open(file);
-        } catch (IOException e1) {
-            e1.printStackTrace();
-        }
-    }*/
-
-    /*
-    private void changeTurtleImage() {
-        File dataFile = myTurtleChooser.getTurtleChooser().showOpenDialog(myStage);
-        try {
-            Image newImage = new Image(dataFile.toURI().toURL().toExternalForm());
-            myTurtle.setImgView(newImage);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-    }
-    */
 
     private void addToHistory(String commands) {
 

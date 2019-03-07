@@ -54,7 +54,7 @@ public class Window extends Application {
     }
 
     public void addSlogoTab() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-       System.out.println("new tab init");
+//       System.out.println("new tab init");
        myController.initNewTab();
         SlogoTab addTab = myViewFactory.getSlogoTab(tabCount,DEFAULT_WIDTH,DEFAULT_HEIGHT,myController, myStage,this);
         windowRoot.getTabs().add(addTab);
