@@ -154,7 +154,7 @@ public class TurtleView implements TurtleObserver {
     }
 
     public void updateY() {
-        this.myY = myTurtleModel.getY();
+            this.myY = myTurtleModel.getY();
     }
 
     public void updateMove() {

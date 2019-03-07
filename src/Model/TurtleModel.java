@@ -114,7 +114,7 @@ public class TurtleModel implements TurtleModelInterface {
       turtleObservers.remove(o);
    }
 
-   private void notifyX() {
+    private void notifyX() {
       for (TurtleObserver o : turtleObservers) {
          o.updateX();
       }
