@@ -19,7 +19,6 @@ public class CommandHistoryPane extends StackPane implements IObserver {
     private final String COMMAND_COL = "Historical Commands";
     private final String COMMAND_CONTENT_FIELD = "myContent";
     private TableView commandTable;
-    private TableColumn commandCol;
     private IModel myCommandPaneModel;
     private ObservableList<HistoricalCommand> myCommands = FXCollections.observableArrayList(new HistoricalCommand("Placeholder Command"));
 
@@ -34,7 +33,7 @@ public class CommandHistoryPane extends StackPane implements IObserver {
 
     private void initTable(){
         commandTable = new TableView();
-        commandCol = new TableColumn(COMMAND_COL);
+        TableColumn commandCol = new TableColumn(COMMAND_COL);
         commandCol.prefWidthProperty().bind(commandTable.widthProperty());
         commandCol.setCellValueFactory(new PropertyValueFactory<HistoricalCommand, String>(COMMAND_CONTENT_FIELD));
         commandTable.setItems(myCommands);

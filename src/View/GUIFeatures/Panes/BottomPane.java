@@ -24,18 +24,7 @@ public class BottomPane extends GridPane {
 
 
     private double myHeight;
-    private Button turnRightButton;
-    private Button moveForwardButton;
-    private Button turnLeftButton;
-    private Button moveBackwardsButton;
-    private Button penDown;
-    private Button penUp;
-    private ThicknessSlider penSlider;
     private Console myConsole;
-    private Button myExecuteButton;
-    private Button myClearButton;
-    private Button myHelpButton;
-    private Pane mySpring;
     private TurtleView myTurtle;
     private ControllerInterface myController;
     private int myID;
@@ -67,7 +56,7 @@ public class BottomPane extends GridPane {
     }
 
     private void initSpring() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        mySpring = (Pane) myElementFactory.makeElement("Spring");
+        Pane mySpring = (Pane) myElementFactory.makeElement("Spring");
         mySpring.setMinHeight(GRIDPANE_PADDING_Y);
         myLayoutManager.setLayout(mySpring);
     }
@@ -79,12 +68,12 @@ public class BottomPane extends GridPane {
     }
 
     private void initExecuteButton() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        myExecuteButton = (ExecuteButton)myElementFactory.makeElement("ExecuteButton");
+        Button myExecuteButton = (ExecuteButton)myElementFactory.makeElement("ExecuteButton");
         myLayoutManager.setLayout(myExecuteButton);
     }
 
     private void initClearButton() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        myClearButton = (ClearButton)myElementFactory.makeElement("ClearButton");
+        Button myClearButton = (ClearButton)myElementFactory.makeElement("ClearButton");
         myLayoutManager.setLayout(myClearButton);
     }
 
@@ -93,18 +82,18 @@ public class BottomPane extends GridPane {
     }
 
     private void initHelpButton() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        myHelpButton = (HelpButton)myElementFactory.makeElement("HelpButton");
+        Button myHelpButton = (HelpButton)myElementFactory.makeElement("HelpButton");
         myLayoutManager.setLayout(myHelpButton);
     }
 
     private void initActionButtons() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        moveForwardButton = (ForwardButton)myElementFactory.makeElement("ForwardButton");
-        moveBackwardsButton = (BackwardsButton)myElementFactory.makeElement("BackwardsButton");
-        turnLeftButton = (LeftRotateButton)myElementFactory.makeElement("LeftRotateButton");
-        turnRightButton = (RightRotateButton)myElementFactory.makeElement("RightRotateButton");
-        penDown = (PenDownButton)myElementFactory.makeElement("PenDownButton");
-        penUp = (PenUpButton)myElementFactory.makeElement("PenUpButton");
-        penSlider = (ThicknessSlider)myElementFactory.makeElement("ThicknessSlider");
+        Button moveForwardButton = (ForwardButton)myElementFactory.makeElement("ForwardButton");
+        Button moveBackwardsButton = (BackwardsButton)myElementFactory.makeElement("BackwardsButton");
+        Button turnLeftButton = (LeftRotateButton)myElementFactory.makeElement("LeftRotateButton");
+        Button turnRightButton = (RightRotateButton)myElementFactory.makeElement("RightRotateButton");
+        Button penDown = (PenDownButton)myElementFactory.makeElement("PenDownButton");
+        Button penUp = (PenUpButton)myElementFactory.makeElement("PenUpButton");
+        ThicknessSlider penSlider = (ThicknessSlider)myElementFactory.makeElement("ThicknessSlider");
         penSlider.setOnMousePressed(e -> penSlider.changeThickness(myTurtle.getPen()));
         penSlider.valueChangingProperty().addListener((ObservableValue<? extends Boolean> obs, Boolean wasChanging, Boolean isNowChanging) -> {
             if (!isNowChanging) {
