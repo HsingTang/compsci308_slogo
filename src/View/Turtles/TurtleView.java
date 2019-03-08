@@ -114,8 +114,8 @@ public class TurtleView implements TurtleObserver {
 
 
     private void calcAnimateParams(double xFinal, double yFinal) {
-        Double deltaX = xFinal - this.previousX;
-        Double deltaY = yFinal - this.previousY;
+        Double deltaX = xFinal - this.myImgView.getTranslateX();
+        Double deltaY = yFinal - this.myImgView.getTranslateY();
         Double deltaDist = Math.sqrt(Math.pow(deltaX,2)+Math.pow(deltaY,2));
         final Double xAdjust;
         final Double yAdjust;
