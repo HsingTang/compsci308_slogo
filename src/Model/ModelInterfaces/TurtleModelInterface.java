@@ -1,6 +1,9 @@
 package Model.ModelInterfaces;
 
+import State.TurtleState;
 import View.ObserverInterfaces.TurtleObserver;
+
+import java.util.Queue;
 
 public interface TurtleModelInterface {
 
@@ -40,6 +43,12 @@ public interface TurtleModelInterface {
 
     boolean isInvisible();
 
+    boolean isPenInvisible();
+
+    void setPenVisible();
+
     void clearPen();
+
+    Queue<TurtleState> getModelStates();
 
 }

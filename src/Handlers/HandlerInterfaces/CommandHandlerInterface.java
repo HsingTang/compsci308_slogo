@@ -1,6 +1,7 @@
 package Handlers.HandlerInterfaces;
 
 import java.util.HashMap;
+import java.util.Queue;
 
 public interface CommandHandlerInterface {
 
@@ -29,6 +30,8 @@ public interface CommandHandlerInterface {
     double goHome();
 
     double clearScreen();
+
+    Queue getQueue();
 
     void makeVariable(String name, Double value);
 

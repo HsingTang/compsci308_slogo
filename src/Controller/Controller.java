@@ -61,13 +61,13 @@ public class Controller implements ControllerInterface {
         CommandHandlerInterface addCommandHandler = new CommandHandler(myTurtleModels.get(id), myVarModels.get(id));
         myCommandHandlerMap.put(addCommandHandler,command);
         myCommandHandlers.add(addCommandHandler);
-        executeCommands();
+        executeCommands(id);
     }
 
-    private void executeCommands(){
+    private void executeCommands(int id){
         while(!myCommandHandlers.isEmpty()){
             CommandHandlerInterface currHandler = myCommandHandlers.poll();
-            CommandRoot root = new CommandRoot(this.myParser.parseCommand(myCommandHandlerMap.get(currHandler)), currHandler);
+            CommandRoot root = new CommandRoot(this.myParser.parseCommand(myCommandHandlerMap.get(currHandler)), currHandler, myTurtleViews.get(id));
             root.execute();
         }
     }

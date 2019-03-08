@@ -4,17 +4,25 @@ import Handlers.HandlerInterfaces.CommandHandlerInterface;
 import Model.ModelInterfaces.TurtleModelInterface;
 import Model.VariablePaneModel;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
 import Model.TurtleModel;
+import State.TurtleState;
 
 public class CommandHandler implements CommandHandlerInterface {
     public static final double INITIAL_HEADING = 90.0;
 
     final TurtleModelInterface turtleModel;
     final VariablePaneModel varModel;
+    private Queue<TurtleState> states;
+
 
     public CommandHandler(TurtleModelInterface turtleModel, VariablePaneModel varModel) {
         this.turtleModel = turtleModel;
         this.varModel = varModel;
+        this.states = new LinkedList<>();
     }
 
     public double moveForward(double px) {
@@ -22,6 +30,7 @@ public class CommandHandler implements CommandHandlerInterface {
         turtleModel.setX(turtleModel.getX() + px*Math.cos(heading));
         turtleModel.setY(turtleModel.getY() - px*Math.sin(heading));
         turtleModel.moveWithAnimation();
+        addTurtleState();
         System.out.println("forward " + px);
         return px;
     }
@@ -31,24 +40,27 @@ public class CommandHandler implements CommandHandlerInterface {
         turtleModel.setX(turtleModel.getX() - px*Math.cos(heading));
         turtleModel.setY(turtleModel.getY() + px*Math.sin(heading));
         turtleModel.moveWithAnimation();
-
+        addTurtleState();
         System.out.println("backward " + px);
         return px;
     }
 
     public double turnLeft(double deg) {
         turtleModel.setLeftRotate(deg);
+        addTurtleState();
         return deg;
     }
 
     public double turnRight(double deg) {
         turtleModel.setRightRotate(deg);
+        addTurtleState();
         return deg;
     }
 
     public double setHeading(double deg) {
         double initialHeading = turtleModel.getHeading();
         turtleModel.setHeading(deg);
+        addTurtleState();
         return turtleModel.getHeading() - initialHeading;
     }
 
@@ -56,6 +68,7 @@ public class CommandHandler implements CommandHandlerInterface {
         double angle = Math.atan(y/x);
         double initialHeading = turtleModel.getHeading();
         turtleModel.setHeading(angle);
+        addTurtleState();
         return turtleModel.getHeading() - initialHeading;
     }
 
@@ -64,41 +77,47 @@ public class CommandHandler implements CommandHandlerInterface {
         double initialY = turtleModel.getY();
         turtleModel.setX(x);
         turtleModel.setY(y);
+        addTurtleState();
         return calcDistance(initialX, turtleModel.getX(), initialY, turtleModel.getY());
     }
 
     public double penDown() {
         turtleModel.setPenDown();
+        addTurtleState();
         return 1;
     }
 
     public double penUp() {
         turtleModel.setPenUp();
+        addTurtleState();
         return 0;
     }
 
     public double showTurtle() {
         turtleModel.setVisible();
+        addTurtleState();
         return 1;
     }
 
     public double hideTurtle() {
         turtleModel.setInvisible();
+        addTurtleState();
         return 0;
     }
 
     public double goHome() {
-        double initialX = turtleModel.getX();
-        double initialY = turtleModel.getY();
-        turtleModel.setHome();
-        return calcDistance(initialX, turtleModel.getX(), initialY, turtleModel.getY());
+        double distance = setHomePositioning();
+        addTurtleState();
+        return distance;
 
     }
 
     public double clearScreen() {
+        turtleModel.setHeading(INITIAL_HEADING);
+        double distance = setHomePositioning();
         turtleModel.clearPen();
-        this.setHeading(INITIAL_HEADING);
-        return goHome();
+        addTurtleState();
+        return distance;
     }
 
     private double calcDistance(double x1, double x2, double y1, double y2) {
@@ -117,7 +136,23 @@ public class CommandHandler implements CommandHandlerInterface {
         return this.varModel.getVars();
     }
 
+    public Queue getQueue() {
+        return this.states;
+    }
+
     public void makeVariable(String name, Double value){
         this.varModel.makeVariable(name, value);
+    }
+
+    private void addTurtleState() {
+        TurtleState newState = new TurtleState(turtleModel.getX(), turtleModel.getY(), turtleModel.getHeading(), turtleModel.getPenDown(), turtleModel.isInvisible());
+        turtleModel.getModelStates().add(newState);
+    }
+
+    private double setHomePositioning() {
+        double initialX = turtleModel.getX();
+        double initialY = turtleModel.getY();
+        turtleModel.setHome();
+        return calcDistance(initialX, turtleModel.getX(), initialY, turtleModel.getY());
     }
 }

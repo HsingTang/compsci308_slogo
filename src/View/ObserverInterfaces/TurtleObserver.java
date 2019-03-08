@@ -22,4 +22,6 @@ public interface TurtleObserver {
 
     void updateClear();
 
+    void updateView();
+
 }
