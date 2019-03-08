@@ -4,7 +4,6 @@ import Handlers.HandlerInterfaces.CommandHandlerInterface;
 
 public abstract class TurtleCommandNode extends CommandNode {
 
-
    private int myChildrenIndex;
 
    public TurtleCommandNode(CommandHandlerInterface inHandler){
@@ -30,7 +29,6 @@ public abstract class TurtleCommandNode extends CommandNode {
    protected double getY(){
       return this.getNextDouble();
    }
-
 
    protected abstract void parseParameters();
 
