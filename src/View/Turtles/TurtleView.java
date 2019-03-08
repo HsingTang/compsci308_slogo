@@ -148,60 +148,12 @@ public class TurtleView implements TurtleObserver {
         timeline.play();
     }
 
-
-    private void goHome() {
-        this.myX = INITIAL_POSITION;
-        this.myY = INITIAL_POSITION;
-        this.myImgView.setTranslateX(this.myX);
-        this.myImgView.setTranslateY(this.myY);
+    private  void updatePenDown() {
+        this.penDown = newState.getPenDown();
     }
 
-
-    public void updateX() {
-        this.myX = myTurtleModel.getX();
-
-    }
-
-    public void updateY() {
-        this.myY = myTurtleModel.getY();
-
-    }
-
-    public void updateMove() {
-        calcAnimateParams(myTurtleModel.getX(), myTurtleModel.getY());
-    }
-
-    public void updateLeftRotate() {
-        double newLeftRotateDegs = myTurtleModel.getHeading() - this.myHeading;
-        this.myHeading += newLeftRotateDegs;
-        animateRotation(-newLeftRotateDegs);
-
-    }
-
-    public void updateRightRotate() {
-        double newRightRotateDegs = this.myHeading - myTurtleModel.getHeading();
-        this.myHeading -= newRightRotateDegs;
-        animateRotation(newRightRotateDegs);
-    }
-
-    public void updateHeading() {
-        double newHeading = myTurtleModel.getHeading();
-        animateRotation(this.myHeading - newHeading);
-        this.myHeading = newHeading;
-    }
-
-    public void updatePenDown() {
-        this.penDown = myTurtleModel.getPenDown();
-    }
-
-    public void updateHome() { this.goHome(); }
-
-    public void updateVisibility() {
+    private void updateVisibility() {
         this.myImgView.setVisible(!myTurtleModel.isInvisible());
-    }
-
-    public void updateClear() {
-        this.myPen.clear();
     }
 
     public void updateView() {
@@ -213,12 +165,10 @@ public class TurtleView implements TurtleObserver {
         if (newState.getIsPenCleared()) {
             this.myPen.clear();
             this.penDown = false;
-            System.out.println("pen should be empty now");
         }
     }
 
     private void updateTurtle() {
-        System.out.println("entering update");
         if (!stateQueue.isEmpty()) {
             System.out.println(stateQueue.size());
             double currentHeading = this.myHeading;
