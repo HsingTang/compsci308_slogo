@@ -34,7 +34,6 @@ public class CommandHandler implements CommandHandlerInterface {
         double heading = Math.toRadians(turtleModel.getHeading());
         turtleModel.setX(turtleModel.getX() + px*Math.cos(heading));
         turtleModel.setY(turtleModel.getY() - px*Math.sin(heading));
-        turtleModel.moveWithAnimation();
         addTurtleState();
         System.out.println("forward " + px);
         return px;
@@ -44,7 +43,6 @@ public class CommandHandler implements CommandHandlerInterface {
         double heading = Math.toRadians(turtleModel.getHeading());
         turtleModel.setX(turtleModel.getX() - px*Math.cos(heading));
         turtleModel.setY(turtleModel.getY() + px*Math.sin(heading));
-        turtleModel.moveWithAnimation();
         addTurtleState();
         System.out.println("backward " + px);
         return px;
@@ -158,7 +156,7 @@ public class CommandHandler implements CommandHandlerInterface {
     public void makeCommand(CommandInfo info) { this.commandModel.makeCommand(info);}
 
     private void addTurtleState() {
-        TurtleState newState = new TurtleState(turtleModel.getX(), turtleModel.getY(), turtleModel.getHeading(), turtleModel.getPenDown(), turtleModel.isInvisible());
+        TurtleState newState = new TurtleState(turtleModel.getX(), turtleModel.getY(), turtleModel.getHeading(), turtleModel.getPenDown(), turtleModel.isInvisible(), turtleModel.isMoving(), turtleModel.isPenInvisible());
         turtleModel.getModelStates().add(newState);
     }
 

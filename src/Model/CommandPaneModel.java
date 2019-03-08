@@ -3,24 +3,20 @@ package Model;
 import CommandNodes.UserCommandNode;
 import Model.ModelInterfaces.IModel;
 import View.GUIFeatures.Panes.HistoricalCommand;
-import View.ObserverInterfaces.IObserver;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-public class CommandPaneModel implements IModel {
-
-
-    private ArrayList<IObserver> myObservers;
-    private ArrayList<HistoricalCommand> myCommandHistory;
+public class CommandPaneModel extends PaneModel {
+    private ArrayList<HistoricalCommand> commandHistory;
     private HashMap<String, CommandInfo> myCommands;
 
 
     public CommandPaneModel(){
-        myCommandHistory = new ArrayList<>();
-        myObservers = new ArrayList<>();
+        super();
+        commandHistory = new ArrayList<>();
         myCommands = new HashMap<>();
     }
 
@@ -44,25 +40,15 @@ public class CommandPaneModel implements IModel {
         return this.myCommands;
     }
 
-    @Override
-    public void registerObserver(IObserver o) {
-        myObservers.add(o);
-    }
-
-    @Override
-    public void removeObserver(IObserver o) {
-        myObservers.remove(o);
-    }
-
-    @Override
-    public void notifyObserver() {
-        for (IObserver o:myObservers){
-            o.updateData();
-        }
-    }
-
-    @Override
     public List<HistoricalCommand> getData(){
-        return Collections.unmodifiableList(myCommandHistory);
+        this.toData();
+        return Collections.unmodifiableList(commandHistory);
+    }
+
+    private void toData(){
+        for(String s: myCommands.keySet()){
+            HistoricalCommand hist = new HistoricalCommand(s);
+            commandHistory.add(hist);
+        }
     }
 }

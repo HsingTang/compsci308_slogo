@@ -9,15 +9,14 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 
 /**
  * @author Hsingchih Tang
  * Displays previously executed commands
  */
 public class CommandHistoryPane extends StackPane implements IObserver {
-    private final String COMMAND_COL = "Historical Commands";
-    private final String COMMAND_CONTENT_FIELD = "myContent";
+    static final String COMMAND_COL = "Historical Commands";
+    static final String COMMAND_CONTENT_FIELD = "myContent";
     private TableView commandTable;
     private IModel myCommandPaneModel;
     private ObservableList<HistoricalCommand> myCommands = FXCollections.observableArrayList(new HistoricalCommand("Placeholder Command"));

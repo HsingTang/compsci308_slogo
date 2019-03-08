@@ -20,6 +20,7 @@ public class TurtleModel implements TurtleModelInterface {
    private boolean penDown = true;
    private boolean isInvisible = false;
    private boolean isPenInvisible = false;
+   private boolean isMoving = false;
    private List<TurtleObserver> turtleObservers;
    private Queue<TurtleState> modelStates;
 
@@ -36,63 +37,58 @@ public class TurtleModel implements TurtleModelInterface {
       return this.modelStates;
    }
 
-   public void moveWithAnimation() {
-      //notifyMoveWithAnimation();
-   }
-
    public void setX(double x) {
       this.myX = x;
-      //notifyX();
+      this.isMoving = true;
    }
 
    public void setY(double y) {
       this.myY = y;
-      //notifyY();
+      this.isMoving = true;
    }
 
    public void setHome() {
       this.myX = INITIAL_POSITION;
       this.myY = INITIAL_POSITION;
-      //notifyHome();
+      this.isMoving = true;
    }
 
    public void setLeftRotate(double deg) {
       this.myHeading += deg;
-      //notifyLeftRotate();
+      this.isMoving = false;
    }
 
    public void setRightRotate(double deg) {
       this.myHeading -= deg;
-      //notifyRightRotate();
+      this.isMoving = false;
    }
 
    public void setHeading(double deg) {
       this.myHeading = deg;
-      //notifyHeading();
+      this.isMoving = false;
    }
 
    public void setPenDown() {
       this.penDown = true;
-      //notifyPenDown();
+      this.isMoving = false;
    }
 
    public void setPenUp() {
       this.penDown = false;
-      //notifyPenDown();
+      this.isMoving = false;
    }
 
    public void setInvisible() {
       this.isInvisible = true;
-      //notifyVisibilityChange();
+      this.isMoving = false;
    }
 
    public void setVisible() {
       this.isInvisible = false;
-      //notifyVisibilityChange();
+      this.isMoving = false;
    }
 
    public void clearPen() {
-      //notifyClear();
       this.isPenInvisible = true;
    }
 
@@ -124,6 +120,10 @@ public class TurtleModel implements TurtleModelInterface {
       this.isPenInvisible = false;
    }
 
+   public boolean isMoving() {
+      return this.isMoving;
+   }
+
    public void registerTurtleObserver(TurtleObserver o) {
       turtleObservers.add(o);
    }
@@ -132,65 +132,4 @@ public class TurtleModel implements TurtleModelInterface {
       turtleObservers.remove(o);
    }
 
-   /*
-    private void notifyX() {
-      for (TurtleObserver o : turtleObservers) {
-         o.updateX();
-      }
-   }
-
-   private void notifyY() {
-      for (TurtleObserver o : turtleObservers) {
-         o.updateY();
-      }
-   }
-
-   private void notifyMoveWithAnimation() {
-      for (TurtleObserver o : turtleObservers) {
-         o.updateMove();
-      }
-   }
-
-   private void notifyLeftRotate() {
-      for (TurtleObserver o : turtleObservers) {
-         o.updateLeftRotate();
-      }
-   }
-
-   private void notifyRightRotate() {
-      for (TurtleObserver o : turtleObservers) {
-         o.updateRightRotate();
-      }
-   }
-
-   private void notifyHeading() {
-      for (TurtleObserver o : turtleObservers) {
-         o.updateHeading();
-      }
-   }
-
-   private void notifyPenDown() {
-      for (TurtleObserver o : turtleObservers) {
-         o.updatePenDown();
-      }
-   }
-
-   private void notifyHome() {
-      for (TurtleObserver o : turtleObservers) {
-         o.updateHome();
-      }
-   }
-
-   private void notifyVisibilityChange() {
-      for (TurtleObserver o : turtleObservers) {
-         o.updateVisibility();
-      }
-   }
-
-   private void notifyClear() {
-      for (TurtleObserver o : turtleObservers) {
-         o.updateClear();
-      }
-   }
-   */
 }

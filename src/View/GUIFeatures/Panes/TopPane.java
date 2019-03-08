@@ -3,6 +3,7 @@ package View.GUIFeatures.Panes;
 import Controller.ControllerInterface;
 import Errors.MalformedTurtleImgException;
 import Errors.SlogoException;
+import Errors.SlogoTabSetupElementException;
 import View.GUIFeatures.Buttons.AddTabButton;
 import View.GUIFeatures.Choosers.CanvasColorChooser;
 import View.GUIFeatures.Choosers.LanguageChooser;
@@ -29,11 +30,11 @@ public class TopPane extends GridPane {
     static final String PEN_TEXT = "Choose Pen Color";
     static final Double GRIDPANE_PADDING_Y = 5.0;
     static final Double GRIDPANE_PADDING_X = 17.0;
+    static final Double MIN_HEIGHT_RATIO = (1/10.0);
 
 
     private double myHeight;
     private CanvasPane myCanvasPane;
-    private Button myAddTabButton;
     private LanguageChooser myLanguageChooser;
     private TurtleChooser myTurtleChooser;
     private CanvasColorChooser myCanvasColorChooser;
@@ -55,7 +56,7 @@ public class TopPane extends GridPane {
         this.myStage = myStage;
         this.myLayoutManager = new PaneLayoutManager(this);
         this.myElementFactory = new ElementFactory(this);
-        setMinHeight(myHeight/10);
+        setMinHeight(myHeight*MIN_HEIGHT_RATIO);
         initTopPaneElements();
         setHgap(GRIDPANE_PADDING_X);
         setVgap(GRIDPANE_PADDING_Y);
@@ -74,18 +75,17 @@ public class TopPane extends GridPane {
         myLayoutManager.setLayout(myLanguageChooser);
     }
 
-    private void initAddTabButton(){
-        myAddTabButton = new AddTabButton();
+    private void initAddTabButton() throws SlogoException{
+        Button myAddTabButton = new AddTabButton();
         myAddTabButton.setOnAction(e-> {
             try {
                 this.myWindow.addSlogoTab();
             } catch (Exception exp) {
-                exp.printStackTrace();
+                System.out.println("exception in AddTabButton");
+                throw new SlogoTabSetupElementException(exp);
             }
         });
-        // StackPane.setAlignment(myAddTabButton, Pos.TOP_RIGHT);
         myLayoutManager.setLayout(myAddTabButton);
-        System.out.println("after laying out AddTabButton");
     }
 
     private void initCanvasColorChooser() throws SlogoException {
