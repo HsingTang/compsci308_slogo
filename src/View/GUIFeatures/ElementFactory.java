@@ -37,12 +37,12 @@ public class ElementFactory {
             if (myElementMethodResources.containsKey(property)) {
                 String[] methodInfo = myElementMethodResources.getString(property).split(",");
                 Method myMethod;
-                if (methodInfo.length == INFO_LENGTH_WITH_ARGUMENT) {
+                if (methodInfo.length == INFO_LENGTH_WITHOUT_ARGUMENT) {
                     myMethod = myHostPane.getClass().getDeclaredMethod(methodInfo[METHOD_NAME_INDEX]);
-                    setInvokeMethod(property, (Node) newElement, myMethod, newElement.getClass());
-                } else if (methodInfo.length == INFO_LENGTH_WITHOUT_ARGUMENT) {
+                    setInvokeMethod(property, (Node) newElement, myMethod);
+                } else if (methodInfo.length == INFO_LENGTH_WITH_ARGUMENT) {
                     myMethod = myHostPane.getClass().getDeclaredMethod(methodInfo[METHOD_NAME_INDEX], Class.forName(methodInfo[METHOD_ARG_INDEX]));
-                    setInvokeMethod(property, (Node) newElement, myMethod, newElement.getClass());
+                    setInvokeMethod(property, (Node) newElement, myMethod);
                 }
             }
             return (Node) newElement;
@@ -52,7 +52,7 @@ public class ElementFactory {
     }
 
 
-    private void setInvokeMethod (String property, Node element, Method myMethod, Class b) throws SlogoTabSetupElementException {
+    private void setInvokeMethod (String property, Node element, Method myMethod) throws SlogoTabSetupElementException {
         final String[] myArgs;
         if (myElementArgResources.containsKey(property)) {
             myArgs = myElementArgResources.getString(property).split(",");
