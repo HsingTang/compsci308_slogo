@@ -2,14 +2,20 @@ package CommandNodes;
 
 
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
+import View.ObserverInterfaces.TurtleObserver;
 
 public class TreeParentNode extends CommandNode{
 
-   public TreeParentNode(CommandHandlerInterface Handler){
+   private TurtleObserver tView;
+
+   public TreeParentNode(CommandHandlerInterface Handler, TurtleObserver o){
       super(Handler);
+      tView = o;
    }
 
-   public void execute(){}
+   public void execute(){
+      tView.updateView();
+   }
 
    public void parseParameters(){}
 

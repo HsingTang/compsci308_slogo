@@ -112,6 +112,10 @@ public abstract class CommandNode {
       this.myChildrenIndex = 0;
    }
 
+   public int getMyNumParams(){
+      return myNumParams;
+   }
+
   /* protected void setReturnValue(Double returnValue){
       this.myReturnValue = returnValue;
    }*/
@@ -120,7 +124,7 @@ public abstract class CommandNode {
       this.execute();
       this.resetIndex();
    }
-   
+
    public abstract void execute();
 
    protected abstract void parseParameters();

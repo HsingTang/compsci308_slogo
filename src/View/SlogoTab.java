@@ -3,6 +3,8 @@ package View;
 
 import Controller.Controller;
 import Controller.ControllerInterface;
+import Errors.SlogoException;
+import Errors.SlogoTabSetupElementException;
 import View.GUIFeatures.Panes.*;
 import View.Turtles.TurtleView;
 import javafx.geometry.Insets;
@@ -36,7 +38,7 @@ public class SlogoTab extends Tab implements IView {
     private ControllerInterface myController;
     private Window myWindow;
 
-    public SlogoTab(int id, double width, double height, Controller controller, Stage stage, Window window) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    public SlogoTab(int id, double width, double height, Controller controller, Stage stage, Window window) throws SlogoException{
         myStage = stage;
         myController = controller;
         myWindow = window;
@@ -83,7 +85,7 @@ public class SlogoTab extends Tab implements IView {
     }
 
 
-    private void initPanes() throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+    private void initPanes() throws SlogoException{
         myPane = new BorderPane();
         myPane.setMaxSize(myWidth,myHeight);
         myPane.setPadding(new Insets(DEFAULT_PADDING_Y, DEFAULT_PADDING_X, DEFAULT_PADDING_Y, DEFAULT_PADDING_X));
@@ -95,11 +97,11 @@ public class SlogoTab extends Tab implements IView {
     }
 
 
-    private void initTopPane() throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+    private void initTopPane() throws SlogoException {
         myPane.setTop(new TopPane(myHeight, myCanvasPane, myController, myWindow, myTurtle, myStage));
     }
 
-    private void initBottomPane() throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+    private void initBottomPane() throws SlogoException{
         myPane.setBottom(new BottomPane(myHeight, myCanvasPane, myController, myID, myTurtle));
     }
 

@@ -32,7 +32,6 @@ public class CanvasPane extends StackPane {
 
     public void initTurtleView(TurtleView turtle){
         this.getChildren().add(turtle.getImgView());
-        turtle.setCanvas(myCanvas);
         turtle.setPen(new SlogoPen(myCanvas));
     }
 

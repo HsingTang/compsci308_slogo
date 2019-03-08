@@ -3,6 +3,8 @@ package CommandTree;
 import CommandNodes.CommandNode;
 import CommandNodes.TreeParentNode;
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
+import View.ObserverInterfaces.TurtleObserver;
+import View.Turtles.TurtleView;
 
 public class CommandRoot {
    private static final int INIT = 0;
@@ -16,21 +18,13 @@ public class CommandRoot {
    private final CommandNode parent;
    private CommandNode currentParent;
    private int currentIndex;
-   public CommandRoot(String[] commandStrings){
+
+
+   public CommandRoot(String[] commandStrings, CommandHandlerInterface controller, TurtleObserver o) {
       this.commandStrings = commandStrings;
       this.numCommands = commandStrings.length;
       this.myHandler = controller;
-      this.parent = new TreeParentNode(this.myHandler);
-      this.currentParent = this.parent;
-      this.currentIndex = INIT;
-      this.myCommandNodeFactory = new CommandNodeFactory(this.myHandler);
-      this.makeTree();
-   }
-   public CommandRoot(String[] commandStrings, CommandHandlerInterface controller) {
-      this.commandStrings = commandStrings;
-      this.numCommands = commandStrings.length;
-      this.myHandler = controller;
-      this.parent = new TreeParentNode(this.myHandler);
+      this.parent = new TreeParentNode(this.myHandler, o);
       this.currentParent = this.parent;
       this.currentIndex = INIT;
       this.myCommandNodeFactory = new CommandNodeFactory(this.myHandler);

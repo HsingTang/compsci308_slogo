@@ -51,23 +51,38 @@ public class Controller implements ControllerInterface {
         turtleNumber++;
     }
 
+    public void removeLastTab(){
+        myTurtleViews.remove(myTurtleViews.get(turtleNumber-1));
+        myTurtleModels.remove(myTurtleViews.get(turtleNumber-1));
+        myVarModels.remove(myTurtleViews.get(turtleNumber-1));
+        myCommandModels.remove(myTurtleViews.get(turtleNumber-1));
+        turtleNumber--;
+    }
+
+    public void removeTab(int id){
+        myTurtleViews.remove(myTurtleViews.get(id));
+        myTurtleModels.remove(myTurtleViews.get(id));
+        myVarModels.remove(myTurtleViews.get(id));
+        myCommandModels.remove(myTurtleViews.get(id));
+        turtleNumber--;
+    }
+
     public void receiveCommand(String command, int id) {
         System.out.println("command received: "+command);
         System.out.println("parsing result: ");
         for (String s: myParser.parseCommand(command)){
             System.out.println(s);
         }
-
         CommandHandlerInterface addCommandHandler = new CommandHandler(myTurtleModels.get(id), myVarModels.get(id));
         myCommandHandlerMap.put(addCommandHandler,command);
         myCommandHandlers.add(addCommandHandler);
-        executeCommands();
+        executeCommands(id);
     }
 
-    private void executeCommands(){
+    private void executeCommands(int id){
         while(!myCommandHandlers.isEmpty()){
             CommandHandlerInterface currHandler = myCommandHandlers.poll();
-            CommandRoot root = new CommandRoot(this.myParser.parseCommand(myCommandHandlerMap.get(currHandler)), currHandler);
+            CommandRoot root = new CommandRoot(this.myParser.parseCommand(myCommandHandlerMap.get(currHandler)), currHandler, myTurtleViews.get(id));
             root.execute();
         }
     }
