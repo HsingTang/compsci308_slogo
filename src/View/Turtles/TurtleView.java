@@ -10,6 +10,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
 
 /**
  * @author Hsingchih Tang
@@ -124,14 +127,14 @@ public class TurtleView implements TurtleObserver {
     private void animateTranslation(double xAdjust,double yAdjust, double xFinal, double yFinal){
         Timeline timeline = new Timeline();
         var frame = new KeyFrame(Duration.millis(ANIMATION_SPEED), e -> {
-            if(movementComplete(xAdjust,yAdjust,xFinal,yFinal)){
-                timeline.stop();
-            }
-            this.myImgView.setTranslateX(this.myImgView.getTranslateX()+xAdjust);
-            this.myImgView.setTranslateY(this.myImgView.getTranslateY()+yAdjust);
-            if(this.penDown){
-                this.myPen.drawPath(this.myImgView.getTranslateX()-xAdjust,this.myImgView.getTranslateY()-yAdjust,this.myImgView.getTranslateX(),this.myImgView.getTranslateY());
-            }
+                if (movementComplete(xAdjust, yAdjust, xFinal, yFinal)) {
+                    timeline.stop();
+                }
+                this.myImgView.setTranslateX(this.myImgView.getTranslateX() + xAdjust);
+                this.myImgView.setTranslateY(this.myImgView.getTranslateY() + yAdjust);
+                if (this.penDown) {
+                    this.myPen.drawPath(this.myImgView.getTranslateX() - xAdjust, this.myImgView.getTranslateY() - yAdjust, this.myImgView.getTranslateX(), this.myImgView.getTranslateY());
+                }
         });
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.getKeyFrames().add(frame);
@@ -149,10 +152,12 @@ public class TurtleView implements TurtleObserver {
 
     public void updateX() {
         this.myX = myTurtleModel.getX();
+
     }
 
     public void updateY() {
-            this.myY = myTurtleModel.getY();
+        this.myY = myTurtleModel.getY();
+
     }
 
     public void updateMove() {
@@ -163,6 +168,7 @@ public class TurtleView implements TurtleObserver {
         double newLeftRotateDegs = myTurtleModel.getHeading() - this.myHeading;
         this.myHeading += newLeftRotateDegs;
         animateRotation(-newLeftRotateDegs);
+
     }
 
     public void updateRightRotate() {

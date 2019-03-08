@@ -18,7 +18,6 @@ public class TurtleModel implements TurtleModelInterface {
    private boolean isInvisible = false;
    private List<TurtleObserver> turtleObservers;
 
-
    public TurtleModel(){
       super();
       turtleObservers = new ArrayList<>();
