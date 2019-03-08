@@ -2,42 +2,52 @@ package CommandNodes;
 
 import CommandTree.CommandRoot;
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
+import Model.CommandInfo;
 
 import java.util.ArrayList;
 
 public class UserCommandNode extends CommandNode {
-   private CommandRoot root;
-   private ArrayList<CommandNode> parameters;
+   private ArrayList<String> parameters;
+   private ArrayList<CommandNode> executeChildren;
    private String name;
 
    public UserCommandNode(CommandHandlerInterface inHandler){
       super(inHandler);
    }
 
-   public UserCommandNode(CommandHandlerInterface inHandler, CommandNode inParent, String s){
+   public UserCommandNode(CommandHandlerInterface inHandler, CommandNode inParent, ArrayList<String> params, ArrayList<CommandNode> executeChildren){
       super(inHandler, inParent);
-      this.name = s;
-      this.getCommand();
+      this.parameters = params;
+      this.setMyNumParams(params.size());
+      this.executeChildren = executeChildren;
    }
 
-   private void getCommand(){
-      this.myHandler.
+   public UserCommandNode(CommandHandlerInterface inHandler, CommandNode inParent, CommandInfo info){
+      super(inHandler, inParent);
+      this.parameters = info.getCommandVariables();
+      System.out.println("SIZE " + this.parameters.size());
+      this.setMyNumParams(this.parameters.size());
+      this.executeChildren = info.getCommandChildren();
    }
 
    public void execute(){
       this.parseParameters();
-      this.setMyReturnValue(this.getMyValue());
    }
 
-   public String getMyStringValue(){
-      return this.myStringValue;
+   public void parseParameters(){
+      for(int i = 0; i < this.parameters.size(); i++){
+         this.myHandler.makeVariable(this.parameters.get(i), this.getMyChildren().get(i).getMyReturnValue());
+         System.out.println(this.myHandler.isVariable("dog"));
+      }
    }
 
-   protected void parseParameters(){
-      for(CommandNode c: this.getMyChildren()){
-         if(!(c instanceof RightBracketNode) && !(c instanceof LeftBracketNode)) {
-            this.parameters.add(c);
-         }
+   public ArrayList<CommandNode> getExecuteChildren(){
+      return this.executeChildren;
+   }
+
+   private void clearVars(){
+      for(int i = 0; i < this.getMyNumParams(); i++){
+         this.myHandler.makeVariable(this.parameters.get(i), 0.0);
       }
    }
 }

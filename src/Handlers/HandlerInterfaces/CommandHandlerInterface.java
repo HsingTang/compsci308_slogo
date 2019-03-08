@@ -1,5 +1,7 @@
 package Handlers.HandlerInterfaces;
 
+import Model.CommandInfo;
+
 import java.util.HashMap;
 import java.util.Queue;
 
@@ -40,4 +42,13 @@ public interface CommandHandlerInterface {
     Double getVariable(String name);
 
     HashMap getVars();
+
+    boolean isCommand(String name);
+
+    CommandInfo getCommand(String name);
+
+    HashMap getCommands();
+
+    void makeCommand(CommandInfo info);
+
 }

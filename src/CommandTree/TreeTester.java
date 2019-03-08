@@ -14,7 +14,7 @@ public class TreeTester {
    }
 
    public static void main(String[] args){
-      StringParser parse1 = new StringParser();
+      /*StringParser parse1 = new StringParser();
       StringParser parse2 = new TestParser();
       TestParser parse3 = new TestParser();
       System.out.println(parse1.getClass().getName());
@@ -29,7 +29,7 @@ public class TreeTester {
       VariablePaneModel varModel = new VariablePaneModel();
       CommandHandler handler = new CommandHandler(model, varModel);
       //CommandRoot root = new CommandRoot(temp, handler);
-      //root.execute();
+      //root.execute();*/
    }
 
 }

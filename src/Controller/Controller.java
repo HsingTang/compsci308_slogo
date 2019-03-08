@@ -73,7 +73,7 @@ public class Controller implements ControllerInterface {
         for (String s: myParser.parseCommand(command)){
             System.out.println(s);
         }
-        CommandHandlerInterface addCommandHandler = new CommandHandler(myTurtleModels.get(id), myVarModels.get(id));
+        CommandHandlerInterface addCommandHandler = new CommandHandler(myTurtleModels.get(id), myVarModels.get(id), myCommandModels.get(id));
         myCommandHandlerMap.put(addCommandHandler,command);
         myCommandHandlers.add(addCommandHandler);
         executeCommands(id);
