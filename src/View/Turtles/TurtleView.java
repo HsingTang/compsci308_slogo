@@ -1,6 +1,5 @@
 package View.Turtles;
 
-import Handlers.HandlerInterfaces.CommandHandlerInterface;
 import Model.ModelInterfaces.TurtleModelInterface;
 import State.TurtleState;
 import View.GUIFeatures.Panes.SlogoPen;
@@ -27,11 +26,8 @@ public class TurtleView implements TurtleObserver {
     public static final double TURTLE_SIZE = 35;
 
     private TurtleModelInterface myTurtleModel;
-    private CommandHandlerInterface handler;
     private ImageView myImgView;
     private Integer myID;
-    private double previousX;
-    private double previousY;
     private double myX;
     private double myY;
     private double myHeading;
@@ -58,14 +54,6 @@ public class TurtleView implements TurtleObserver {
 
     public Integer getMyID() {
         return myID;
-    }
-
-    public double getX() {
-        return myImgView.getX();
-    }
-
-    public double getY() {
-        return myImgView.getY();
     }
 
     public ImageView getImgView(){

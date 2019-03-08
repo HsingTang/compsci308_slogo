@@ -29,7 +29,6 @@ public class CommandHandler implements CommandHandlerInterface {
         double heading = Math.toRadians(turtleModel.getHeading());
         turtleModel.setX(turtleModel.getX() + px*Math.cos(heading));
         turtleModel.setY(turtleModel.getY() - px*Math.sin(heading));
-        turtleModel.moveWithAnimation();
         addTurtleState();
         System.out.println("forward " + px);
         return px;

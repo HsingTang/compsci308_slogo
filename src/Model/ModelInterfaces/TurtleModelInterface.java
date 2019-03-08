@@ -17,8 +17,6 @@ public interface TurtleModelInterface {
 
     void setHome();
 
-    void moveWithAnimation();
-
     void setLeftRotate(double deg);
 
     void setRightRotate(double deg);

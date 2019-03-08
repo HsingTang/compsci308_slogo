@@ -37,73 +37,58 @@ public class TurtleModel implements TurtleModelInterface {
       return this.modelStates;
    }
 
-   public void moveWithAnimation() {
-      //notifyMoveWithAnimation();
-   }
-
    public void setX(double x) {
       this.myX = x;
       this.isMoving = true;
-      //notifyX();
    }
 
    public void setY(double y) {
       this.myY = y;
       this.isMoving = true;
-      //notifyY();
    }
 
    public void setHome() {
       this.myX = INITIAL_POSITION;
       this.myY = INITIAL_POSITION;
       this.isMoving = true;
-      //notifyHome();
    }
 
    public void setLeftRotate(double deg) {
       this.myHeading += deg;
       this.isMoving = false;
-      //notifyLeftRotate();
    }
 
    public void setRightRotate(double deg) {
       this.myHeading -= deg;
       this.isMoving = false;
-      //notifyRightRotate();
    }
 
    public void setHeading(double deg) {
       this.myHeading = deg;
       this.isMoving = false;
-      //notifyHeading();
    }
 
    public void setPenDown() {
       this.penDown = true;
       this.isMoving = false;
-      //notifyPenDown();
    }
 
    public void setPenUp() {
       this.penDown = false;
       this.isMoving = false;
-      //notifyPenDown();
    }
 
    public void setInvisible() {
       this.isInvisible = true;
       this.isMoving = false;
-      //notifyVisibilityChange();
    }
 
    public void setVisible() {
       this.isInvisible = false;
       this.isMoving = false;
-      //notifyVisibilityChange();
    }
 
    public void clearPen() {
-      //notifyClear();
       this.isPenInvisible = true;
    }
 
@@ -147,65 +132,4 @@ public class TurtleModel implements TurtleModelInterface {
       turtleObservers.remove(o);
    }
 
-   /*
-    private void notifyX() {
-      for (TurtleObserver o : turtleObservers) {
-         o.updateX();
-      }
-   }
-
-   private void notifyY() {
-      for (TurtleObserver o : turtleObservers) {
-         o.updateY();
-      }
-   }
-
-   private void notifyMoveWithAnimation() {
-      for (TurtleObserver o : turtleObservers) {
-         o.updateMove();
-      }
-   }
-
-   private void notifyLeftRotate() {
-      for (TurtleObserver o : turtleObservers) {
-         o.updateLeftRotate();
-      }
-   }
-
-   private void notifyRightRotate() {
-      for (TurtleObserver o : turtleObservers) {
-         o.updateRightRotate();
-      }
-   }
-
-   private void notifyHeading() {
-      for (TurtleObserver o : turtleObservers) {
-         o.updateHeading();
-      }
-   }
-
-   private void notifyPenDown() {
-      for (TurtleObserver o : turtleObservers) {
-         o.updatePenDown();
-      }
-   }
-
-   private void notifyHome() {
-      for (TurtleObserver o : turtleObservers) {
-         o.updateHome();
-      }
-   }
-
-   private void notifyVisibilityChange() {
-      for (TurtleObserver o : turtleObservers) {
-         o.updateVisibility();
-      }
-   }
-
-   private void notifyClear() {
-      for (TurtleObserver o : turtleObservers) {
-         o.updateClear();
-      }
-   }
-   */
 }
