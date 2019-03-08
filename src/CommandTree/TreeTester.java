@@ -28,8 +28,8 @@ public class TreeTester {
       TurtleModel model = new TurtleModel();
       VariablePaneModel varModel = new VariablePaneModel();
       CommandHandler handler = new CommandHandler(model, varModel);
-      CommandRoot root = new CommandRoot(temp, handler);
-      root.execute();
+      //CommandRoot root = new CommandRoot(temp, handler);
+      //root.execute();
    }
 
 }
