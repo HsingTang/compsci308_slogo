@@ -81,10 +81,10 @@ public class TopPane extends GridPane {
             try {
                 this.myWindow.addSlogoTab();
             } catch (Exception exp) {
+                System.out.println("exception in AddTabButton");
                 throw new SlogoTabSetupElementException(exp);
             }
         });
-        // StackPane.setAlignment(myAddTabButton, Pos.TOP_RIGHT);
         myLayoutManager.setLayout(myAddTabButton);
     }
 

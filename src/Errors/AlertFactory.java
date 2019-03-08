@@ -19,7 +19,8 @@ public class AlertFactory {
     }
 
     public SlogoAlert getAlert(Exception exp){
-        String expName = exp.getClass().getName();
+        String[] expNameArr = exp.getClass().getName().split("\\.");
+        String expName = expNameArr[expNameArr.length-1];
         SlogoAlert ret = new SlogoAlert();
         ret.setText(titleResource.getString(expName),headerResource.getString(expName),contentResource.getString(expName));
         return ret;
