@@ -11,9 +11,13 @@ import java.lang.reflect.Method;
 import java.util.ResourceBundle;
 
 public class ElementFactory {
-    private final String ELEMENT_CLASS_PATH_RESOURCE = "elements/PaneElementClassPath";
-    private final String ELEMENT_METHOD_RESOURCE = "elements/PaneElementMethod";
-    private final String ELEMENT_ARGUMENT_RESOURCE = "elements/PaneElementArgument";
+    static final String ELEMENT_CLASS_PATH_RESOURCE = "elements/PaneElementClassPath";
+    static final String ELEMENT_METHOD_RESOURCE = "elements/PaneElementMethod";
+    static final String ELEMENT_ARGUMENT_RESOURCE = "elements/PaneElementArgument";
+    static final Integer INFO_LENGTH_WITHOUT_ARGUMENT = 2;
+    static final Integer INFO_LENGTH_WITH_ARGUMENT = 3;
+    static final Integer METHOD_NAME_INDEX = 1;
+    static final Integer METHOD_ARG_INDEX = 2;
 
     private ResourceBundle myElementClassResources;
     private ResourceBundle myElementMethodResources;
@@ -33,11 +37,11 @@ public class ElementFactory {
             if (myElementMethodResources.containsKey(property)) {
                 String[] methodInfo = myElementMethodResources.getString(property).split(",");
                 Method myMethod;
-                if (methodInfo.length == 2) {
-                    myMethod = myHostPane.getClass().getDeclaredMethod(methodInfo[1]);
+                if (methodInfo.length == INFO_LENGTH_WITH_ARGUMENT) {
+                    myMethod = myHostPane.getClass().getDeclaredMethod(methodInfo[METHOD_NAME_INDEX]);
                     setInvokeMethod(property, (Node) newElement, myMethod, newElement.getClass());
-                } else if (methodInfo.length == 3) {
-                    myMethod = myHostPane.getClass().getDeclaredMethod(methodInfo[1], Class.forName(methodInfo[2]));
+                } else if (methodInfo.length == INFO_LENGTH_WITHOUT_ARGUMENT) {
+                    myMethod = myHostPane.getClass().getDeclaredMethod(methodInfo[METHOD_NAME_INDEX], Class.forName(methodInfo[METHOD_ARG_INDEX]));
                     setInvokeMethod(property, (Node) newElement, myMethod, newElement.getClass());
                 }
             }
