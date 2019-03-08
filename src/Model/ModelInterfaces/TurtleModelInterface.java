@@ -49,6 +49,8 @@ public interface TurtleModelInterface {
 
     void clearPen();
 
+    boolean isMoving();
+
     Queue<TurtleState> getModelStates();
 
 }

@@ -7,13 +7,17 @@ public class TurtleState {
     private double newHeading;
     private boolean penDown;
     private boolean isInvisible;
+    private boolean isMoving;
+    private boolean isPenCleared;
 
-    public TurtleState(double newX, double newY, double newHeading, boolean penDown, boolean isInvisible) {
+    public TurtleState(double newX, double newY, double newHeading, boolean penDown, boolean isInvisible, boolean isMoving, boolean isPenCleared) {
         this.newX = newX;
         this.newY = newY;
         this.newHeading = newHeading;
         this.penDown = penDown;
         this.isInvisible = isInvisible;
+        this.isMoving = isMoving;
+        this.isPenCleared = isPenCleared;
     }
 
     public double getNewX() {
@@ -34,6 +38,12 @@ public class TurtleState {
 
     public boolean getIsInvisible() {
         return this.isInvisible;
+    }
+
+    public boolean getIsMoving() { return this.isMoving; }
+
+    public boolean getIsPenCleared() {
+        return this.isPenCleared;
     }
 
 }

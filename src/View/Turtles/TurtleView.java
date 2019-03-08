@@ -35,9 +35,11 @@ public class TurtleView implements TurtleObserver {
     private double myX;
     private double myY;
     private double myHeading;
-    private boolean penDown = true;
+    private boolean penDown;
+    private boolean isMoving;
     private SlogoPen myPen;
     private Queue<TurtleState> stateQueue;
+    private TurtleState newState;
 
 
     public TurtleView(int id, Image img, TurtleModelInterface model){
@@ -208,27 +210,28 @@ public class TurtleView implements TurtleObserver {
     }
 
     private void updatePenVisibility() {
-        if (myTurtleModel.isPenInvisible()) {
+        if (newState.getIsPenCleared()) {
             this.myPen.clear();
             this.penDown = false;
+            System.out.println("pen should be empty now");
         }
-        myTurtleModel.setPenVisible();
     }
 
     private void updateTurtle() {
-        System.out.println("StateQueue size: " + stateQueue.size());
+        System.out.println("entering update");
         if (!stateQueue.isEmpty()) {
-            System.out.println("entering");
+            System.out.println(stateQueue.size());
             double currentHeading = this.myHeading;
-            previousX = this.myX;
-            previousY = this.myY;
-            TurtleState newState = stateQueue.poll();
+            newState = stateQueue.poll();
             this.getTurtleState(newState);
             updateVisibility();
             updatePenDown();
             updatePenVisibility();
-            calcAnimateParams(newState.getNewX(), newState.getNewY());
+            if (isMoving) {
+                calcAnimateParams(newState.getNewX(), newState.getNewY());
+            }
             animateRotation(currentHeading - newState.getNewHeading());
+            myTurtleModel.setPenVisible();
         }
 
     }
@@ -239,6 +242,7 @@ public class TurtleView implements TurtleObserver {
         this.myHeading = newState.getNewHeading();
         this.penDown = newState.getPenDown();
         this.myImgView.setVisible(!newState.getIsInvisible());
+        this.isMoving = newState.getIsMoving();
     }
 
 }
