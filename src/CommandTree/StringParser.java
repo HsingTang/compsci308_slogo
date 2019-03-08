@@ -62,14 +62,12 @@ public class StringParser {
     * Returns language's type associated with the given text if one exists
     */
    private String getSymbol (String text) {
-      final var ERROR = "NO MATCH";
       for (var e : mySymbols) {
          if (match(text, e.getValue())) {
             return e.getKey();
          }
       }
-      // FIXME: perhaps throw an exception instead
-      return ERROR;
+      return text;
    }
 
    /**
