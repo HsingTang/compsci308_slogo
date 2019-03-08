@@ -103,6 +103,7 @@ public class TopPane extends GridPane {
         myTurtleChooser = new TurtleChooser();
         myTurtleChooser.getButton().setOnAction(e -> changeTurtleImage());
         StackPane.setAlignment(myTurtleChooser.getButton(), Pos.CENTER);
+        myLayoutManager.setLayout(myTurtleChooser.getButton());
     }
 
     public void setLanguage(){

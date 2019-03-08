@@ -1,5 +1,6 @@
 package View.GUIFeatures.Choosers;
 
+import View.GUIFeatures.Buttons.TurtleChooserButton;
 import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
 
@@ -8,11 +9,11 @@ import java.io.File;
 public class TurtleChooser {
 
     private FileChooser turtleChooser;
-    private Button turtleChooserButton;
+    private TurtleChooserButton turtleChooserButton;
 
     public TurtleChooser() {
         turtleChooser = makeChooser();
-        turtleChooserButton = new Button("Choose Turtle Image");
+        turtleChooserButton = new TurtleChooserButton("Choose Turtle Image");
         turtleChooserButton.getStyleClass().add("round-red");
     }
 
