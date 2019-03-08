@@ -1,14 +1,15 @@
 package View.Turtles;
 
+import Handlers.HandlerInterfaces.CommandHandlerInterface;
 import Model.ModelInterfaces.TurtleModelInterface;
-import View.GUIFeatures.Panes.SlogoCanvas;
-
+import State.TurtleState;
 import View.GUIFeatures.Panes.SlogoPen;
 import View.ObserverInterfaces.TurtleObserver;
 import javafx.animation.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
+import java.util.Queue;
 
 
 /**
@@ -24,13 +25,17 @@ public class TurtleView implements TurtleObserver {
     public static final double TURTLE_SIZE = 35;
 
     private TurtleModelInterface myTurtleModel;
+    private CommandHandlerInterface handler;
     private ImageView myImgView;
     private Integer myID;
+    private double previousX;
+    private double previousY;
     private double myX;
     private double myY;
     private double myHeading;
     private boolean penDown = true;
     private SlogoPen myPen;
+    private Queue<TurtleState> stateQueue;
 
 
     public TurtleView(int id, Image img, TurtleModelInterface model){
@@ -78,6 +83,7 @@ public class TurtleView implements TurtleObserver {
     private void animateRotation(double rotationDegrees) {
         RotateTransition rt = new RotateTransition(Duration.millis(TRANSLATION_SPEED), this.myImgView);
         rt.setByAngle(rotationDegrees);
+        rt.setOnFinished(e -> updateTurtle());
         rt.play();
     }
 
@@ -106,8 +112,8 @@ public class TurtleView implements TurtleObserver {
 
 
     private void calcAnimateParams(double xFinal, double yFinal) {
-        Double deltaX = xFinal-myImgView.getTranslateX();
-        Double deltaY = yFinal-myImgView.getTranslateY();
+        Double deltaX = xFinal - this.previousX;
+        Double deltaY = yFinal - this.previousY;
         Double deltaDist = Math.sqrt(Math.pow(deltaX,2)+Math.pow(deltaY,2));
         final Double xAdjust;
         final Double yAdjust;
@@ -124,14 +130,14 @@ public class TurtleView implements TurtleObserver {
     private void animateTranslation(double xAdjust,double yAdjust, double xFinal, double yFinal){
         Timeline timeline = new Timeline();
         var frame = new KeyFrame(Duration.millis(ANIMATION_SPEED), e -> {
-            if(movementComplete(xAdjust,yAdjust,xFinal,yFinal)){
-                timeline.stop();
-            }
-            this.myImgView.setTranslateX(this.myImgView.getTranslateX()+xAdjust);
-            this.myImgView.setTranslateY(this.myImgView.getTranslateY()+yAdjust);
-            if(this.penDown){
-                this.myPen.drawPath(this.myImgView.getTranslateX()-xAdjust,this.myImgView.getTranslateY()-yAdjust,this.myImgView.getTranslateX(),this.myImgView.getTranslateY());
-            }
+                if (movementComplete(xAdjust, yAdjust, xFinal, yFinal)) {
+                    timeline.stop();
+                }
+                this.myImgView.setTranslateX(this.myImgView.getTranslateX() + xAdjust);
+                this.myImgView.setTranslateY(this.myImgView.getTranslateY() + yAdjust);
+                if (this.penDown) {
+                    this.myPen.drawPath(this.myImgView.getTranslateX() - xAdjust, this.myImgView.getTranslateY() - yAdjust, this.myImgView.getTranslateX(), this.myImgView.getTranslateY());
+                }
         });
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.getKeyFrames().add(frame);
@@ -149,10 +155,12 @@ public class TurtleView implements TurtleObserver {
 
     public void updateX() {
         this.myX = myTurtleModel.getX();
+
     }
 
     public void updateY() {
         this.myY = myTurtleModel.getY();
+
     }
 
     public void updateMove() {
@@ -163,6 +171,7 @@ public class TurtleView implements TurtleObserver {
         double newLeftRotateDegs = myTurtleModel.getHeading() - this.myHeading;
         this.myHeading += newLeftRotateDegs;
         animateRotation(-newLeftRotateDegs);
+
     }
 
     public void updateRightRotate() {
@@ -193,6 +202,45 @@ public class TurtleView implements TurtleObserver {
 
     public void updateClear() {
         this.myPen.clear();
+    }
+
+    public void updateView() {
+        this.stateQueue = myTurtleModel.getModelStates();
+        updateTurtle();
+    }
+
+    private void updatePenVisibility() {
+        if (myTurtleModel.isPenInvisible()) {
+            this.myPen.clear();
+            this.penDown = false;
+        }
+        myTurtleModel.setPenVisible();
+    }
+
+    private void updateTurtle() {
+        System.out.println("StateQueue size: " + stateQueue.size());
+        if (!stateQueue.isEmpty()) {
+            System.out.println("entering");
+            double currentHeading = this.myHeading;
+            previousX = this.myX;
+            previousY = this.myY;
+            TurtleState newState = stateQueue.poll();
+            this.getTurtleState(newState);
+            updateVisibility();
+            updatePenDown();
+            updatePenVisibility();
+            calcAnimateParams(newState.getNewX(), newState.getNewY());
+            animateRotation(currentHeading - newState.getNewHeading());
+        }
+
+    }
+
+    private void getTurtleState(TurtleState newState) {
+        this.myX = newState.getNewX();
+        this.myY = newState.getNewY();
+        this.myHeading = newState.getNewHeading();
+        this.penDown = newState.getPenDown();
+        this.myImgView.setVisible(!newState.getIsInvisible());
     }
 
 }
