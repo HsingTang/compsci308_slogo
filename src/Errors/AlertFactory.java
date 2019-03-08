@@ -3,9 +3,9 @@ package Errors;
 import java.util.ResourceBundle;
 
 public class AlertFactory {
-    final String ALERT_CONTENT = "errors/ExceptionAlertContent";
-    final String ALERT_HEADER = "errors/ExceptionAlertHeader";
-    final String ALERT_TITLE = "errors/ExceptionAlertTitle";
+    static final String ALERT_CONTENT = "errors/ExceptionAlertContent";
+    static final String ALERT_HEADER = "errors/ExceptionAlertHeader";
+    static final String ALERT_TITLE = "errors/ExceptionAlertTitle";
 
     private ResourceBundle contentResource;
     private ResourceBundle headerResource;

@@ -5,7 +5,9 @@ import Model.ModelInterfaces.TurtleModelInterface;
 import State.TurtleState;
 import View.GUIFeatures.Panes.SlogoPen;
 import View.ObserverInterfaces.TurtleObserver;
-import javafx.animation.*;
+import javafx.animation.RotateTransition;
+import javafx.animation.Timeline;
+import javafx.animation.KeyFrame;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
@@ -193,11 +195,7 @@ public class TurtleView implements TurtleObserver {
     public void updateHome() { this.goHome(); }
 
     public void updateVisibility() {
-        if (!myTurtleModel.isInvisible()) {
-            this.myImgView.setVisible(true);
-        } else {
-            this.myImgView.setVisible(false);
-        }
+        this.myImgView.setVisible(!myTurtleModel.isInvisible());
     }
 
     public void updateClear() {

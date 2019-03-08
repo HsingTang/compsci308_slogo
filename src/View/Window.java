@@ -4,16 +4,13 @@ import Controller.Controller;
 import Errors.AlertFactory;
 import Errors.SlogoAlert;
 import Errors.SlogoException;
-import View.SlogoTab;
-import View.SplashScreen;
-import View.SlogoTabFactory;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-import java.lang.reflect.InvocationTargetException;
 
 
 public class Window extends Application {

@@ -5,6 +5,7 @@ import View.GUIFeatures.Panes.Variable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class VariablePaneModel extends PaneModel {
 
@@ -34,8 +35,8 @@ public class VariablePaneModel extends PaneModel {
 
     public List getData(){
         ArrayList<Variable> data = new ArrayList<>();
-        for(String var: this.myVariables.keySet()){
-            Variable variable = new Variable(var, Double.toString(this.myVariables.get(var)));
+        for(Map.Entry<String,Double> entry:myVariables.entrySet()){
+            Variable variable = new Variable(entry.getKey(), Double.toString(entry.getValue()));
             // System.out.println("add to returning datalist "+var+" = "+this.myVariables.get(var));
             data.add(variable);
         }
