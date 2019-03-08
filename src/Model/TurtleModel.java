@@ -20,6 +20,7 @@ public class TurtleModel implements TurtleModelInterface {
    private boolean penDown = true;
    private boolean isInvisible = false;
    private boolean isPenInvisible = false;
+   private boolean isMoving = false;
    private List<TurtleObserver> turtleObservers;
    private Queue<TurtleState> modelStates;
 
@@ -42,52 +43,62 @@ public class TurtleModel implements TurtleModelInterface {
 
    public void setX(double x) {
       this.myX = x;
+      this.isMoving = true;
       //notifyX();
    }
 
    public void setY(double y) {
       this.myY = y;
+      this.isMoving = true;
       //notifyY();
    }
 
    public void setHome() {
       this.myX = INITIAL_POSITION;
       this.myY = INITIAL_POSITION;
+      this.isMoving = true;
       //notifyHome();
    }
 
    public void setLeftRotate(double deg) {
       this.myHeading += deg;
+      this.isMoving = false;
       //notifyLeftRotate();
    }
 
    public void setRightRotate(double deg) {
       this.myHeading -= deg;
+      this.isMoving = false;
       //notifyRightRotate();
    }
 
    public void setHeading(double deg) {
       this.myHeading = deg;
+      this.isMoving = false;
       //notifyHeading();
    }
 
    public void setPenDown() {
       this.penDown = true;
+      this.isMoving = false;
       //notifyPenDown();
    }
 
    public void setPenUp() {
       this.penDown = false;
+      this.isMoving = false;
       //notifyPenDown();
    }
 
    public void setInvisible() {
       this.isInvisible = true;
+      this.isMoving = false;
       //notifyVisibilityChange();
    }
 
    public void setVisible() {
       this.isInvisible = false;
+      this.isMoving = false;
       //notifyVisibilityChange();
    }
 
@@ -122,6 +133,10 @@ public class TurtleModel implements TurtleModelInterface {
 
    public void setPenVisible() {
       this.isPenInvisible = false;
+   }
+
+   public boolean isMoving() {
+      return this.isMoving;
    }
 
    public void registerTurtleObserver(TurtleObserver o) {
