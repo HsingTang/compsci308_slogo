@@ -28,9 +28,6 @@ public class SplashScreen extends Scene {
     private double height;
     private Button startButton;
     private Pane root;
-    private Image startImage;
-    private ImageView startImageView;
-    private Text startText;
 
     public SplashScreen(Pane root, double width, double height) {
         super(root, width, height);
@@ -57,7 +54,7 @@ public class SplashScreen extends Scene {
     }
 
     private void displayText() {
-        startText = new Text(TITLE_TEXT);
+        Text startText = new Text(TITLE_TEXT);
         startText.setX(width/2 - TEXT_X_OFFSET);
         startText.setY(TEXT_Y_OFFSET);
         startText.setFill(Color.WHITE);
@@ -70,8 +67,8 @@ public class SplashScreen extends Scene {
     }
 
     private void displayImage(){
-       startImage = new Image("torus.png");
-       startImageView = new ImageView(startImage);
+       Image startImage = new Image("torus.png");
+       ImageView startImageView = new ImageView(startImage);
        startImageView.setX(width/2 - startImage.getWidth()/2);
        startImageView.setY(IMAGE_Y_OFFSET);
        startImageView.setPreserveRatio(true);
