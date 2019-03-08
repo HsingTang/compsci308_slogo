@@ -1,6 +1,8 @@
 package View.GUIFeatures.Panes;
 
 import Controller.ControllerInterface;
+import Errors.MalformedTurtleImgException;
+import Errors.SlogoException;
 import View.GUIFeatures.Buttons.AddTabButton;
 import View.GUIFeatures.Choosers.CanvasColorChooser;
 import View.GUIFeatures.Choosers.LanguageChooser;
@@ -19,7 +21,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 
 public class TopPane extends GridPane {
@@ -44,7 +45,7 @@ public class TopPane extends GridPane {
     private ElementFactory myElementFactory;
     private Stage myStage;
 
-    public TopPane(double height, CanvasPane myCanvasPane, ControllerInterface myController, Window myWindow, TurtleView myTurtle, Stage myStage) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    public TopPane(double height, CanvasPane myCanvasPane, ControllerInterface myController, Window myWindow, TurtleView myTurtle, Stage myStage) throws SlogoException {
         super();
         this.myHeight = height;
         this.myController = myController;
@@ -60,7 +61,7 @@ public class TopPane extends GridPane {
         setVgap(GRIDPANE_PADDING_Y);
     }
 
-    private void initTopPaneElements() throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+    private void initTopPaneElements() throws SlogoException {
         initLanguageChooser();
         initAddTabButton();
         initCanvasColorChooser();
@@ -68,7 +69,7 @@ public class TopPane extends GridPane {
         initTurtleChooser();
     }
 
-    private void initLanguageChooser() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    private void initLanguageChooser() throws SlogoException {
         myLanguageChooser =(LanguageChooser)myElementFactory.makeElement("LanguageChooser");
         myLayoutManager.setLayout(myLanguageChooser);
     }
@@ -87,13 +88,13 @@ public class TopPane extends GridPane {
         System.out.println("after laying out AddTabButton");
     }
 
-    private void initCanvasColorChooser() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    private void initCanvasColorChooser() throws SlogoException {
         myCanvasColorChooser =(CanvasColorChooser)myElementFactory.makeElement("CanvasColorChooser");
         myLayoutManager.setLayout(myCanvasColorChooser);
         myLayoutManager.setLayout(new Text(CANVAS_TEXT));
     }
 
-    private void initPenColorChooser() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    private void initPenColorChooser() throws SlogoException {
         myPenColorChooser =(PenColorChooser)myElementFactory.makeElement("PenColorChooser");
         myLayoutManager.setLayout(myPenColorChooser);
         myLayoutManager.setLayout(new Text(PEN_TEXT));
@@ -120,13 +121,13 @@ public class TopPane extends GridPane {
         myTurtle.getPen().setColor(color);
     }
 
-    private void changeTurtleImage() {
+    private void changeTurtleImage() throws MalformedTurtleImgException{
         File dataFile = myTurtleChooser.getTurtleChooser().showOpenDialog(myStage);
         try {
             Image newImage = new Image(dataFile.toURI().toURL().toExternalForm());
             myTurtle.setImgView(newImage);
         } catch (MalformedURLException e) {
-            e.printStackTrace();
+            throw new MalformedTurtleImgException(e);
         }
     }
 }

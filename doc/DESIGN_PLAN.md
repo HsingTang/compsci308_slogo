@@ -136,8 +136,8 @@ Some of the main goals include developing a nearly closed front end and backend 
     Stores user-defined commands to be executed later.
     * SlogoAlert
     Extends Alert class. Specifically designed to display Alert dialogues to users when invalid commands are input through console. Alert messages should be read in and stored by View.Window, who will initialize the SlogoAlert objects and pass them to AlertPopper on the front end when necessary.
-    * SlogoException
-    Extens RuntimeException class. Specifically designed such that Exceptions can be thrown through layers of callers till they reach View.Window class, who would trigger corresponding SlogoAlerts.
+    * Errors
+    Extens RuntimeException class. Specifically designed such that Errors can be thrown through layers of callers till they reach View.Window class, who would trigger corresponding SlogoAlerts.
 
 ### API Design
 * **Internal APIs**
@@ -330,8 +330,8 @@ classes don't get bogged down with too much responsibility when they can handle 
 * Abstractions
 Main abstractions would be how the back-end handles the commands that are packaged up for it by the front-end. 
 
-### Throwing Exceptions
-If the user inputs some invalid commands, View will be unable to detect the error and will simply pass the commands to View.Window, who make an elementary scan on the command type (i.e. math, logic, object control, etc.) and transfers the commands to the corresponding concrete Parser class for further parsing. A SlogoException could either occur at View.Window (unidentifiable command type) or at a Parser class (invalid data, undefined variable, etc.), and will ultimately be thrown back to View.Window, who then invokes AlertPopper in the View component with appropriate SlogoAlert. AlertPopper will then be able to display the corresponding alert message to user on the front end.
+### Throwing Errors
+If the user inputs some invalid commands, View will be unable to detect the error and will simply pass the commands to View.Window, who make an elementary scan on the command type (i.e. math, logic, object control, etc.) and transfers the commands to the corresponding concrete Parser class for further parsing. A Errors could either occur at View.Window (unidentifiable command type) or at a Parser class (invalid data, undefined variable, etc.), and will ultimately be thrown back to View.Window, who then invokes AlertPopper in the View component with appropriate SlogoAlert. AlertPopper will then be able to display the corresponding alert message to user on the front end.
 
 
 # API Example Code
