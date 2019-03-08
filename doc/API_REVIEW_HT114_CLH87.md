@@ -23,7 +23,7 @@ The external API is intended to establish separate channels between different fr
 The backend will throw different exceptions based on errors from the user. For example, if a command is entered that doesn't exist. In the Front End, I will then catch these errors and alert the user with an appropriate message either through an alert box or through printing something on the screen.
 
 * ht114:
-The user might upload an non-exist image for the turtle's visualization, which could lead to a FileNotFoundException. The Exception can be handled by creating a SlogoException class, wrapping the FileNotFoundException as a SlogoException, and eventually throwing it to either View.Window or View.Window -- one of the main classes on backend or frontend will be responsible for handling all types of Exceptions, probably by popping up alert messages to user.
+The user might upload an non-exist image for the turtle's visualization, which could lead to a FileNotFoundException. The Exception can be handled by creating a Errors class, wrapping the FileNotFoundException as a Errors, and eventually throwing it to either View.Window or View.Window -- one of the main classes on backend or frontend will be responsible for handling all types of Errors, probably by popping up alert messages to user.
 
 #### Why do you think your API/design is good (also define what your measure of good is)?
 * clh87:

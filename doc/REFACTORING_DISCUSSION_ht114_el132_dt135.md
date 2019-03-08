@@ -33,7 +33,7 @@ Issues occur in frontend GUI layout codes. Can be eliminated by replacing hard-c
 Can be fixed by migrating globally declared final variable into appropariate methods.
 
 * Exception/Error Handling  
-Building SlogoException and SlogoAlert classes for popping alert dialogues to users upon any exception/invalid command input. Exceptions generated in any class will be thrown all the way to Window, who will invoke the appropriate alert dialogues. Alert messages shall be read from a source file to eliminate hard-coding.
+Building Errors and SlogoAlert classes for popping alert dialogues to users upon any exception/invalid command input. Errors generated in any class will be thrown all the way to Window, who will invoke the appropriate alert dialogues. Alert messages shall be read from a source file to eliminate hard-coding.
 
 * Duplicate Codes (VariablePaneModel and CommandPaneModel)  
 VariablePaneModel and CommandPaneModel both implement the ModelInterface, while the two classes have duplicate codes in many of their common methods. The design issue can be fixed by refactoring ModelInterface into an abstract class and have VariablePaneModel and CommandPaneModel extend the super class instead of implementing the interface. The shared portion of codes can then be migrated into the abstract super class, which could eliminate the duplication in two concrete subclasses.

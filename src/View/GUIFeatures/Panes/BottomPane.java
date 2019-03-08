@@ -1,5 +1,7 @@
 package View.GUIFeatures.Panes;
 import Controller.ControllerInterface;
+import Errors.InvokeHelpPageException;
+import Errors.SlogoException;
 import View.GUIFeatures.Buttons.*;
 import View.GUIFeatures.ElementFactory;
 import View.Turtles.TurtleView;
@@ -13,7 +15,6 @@ import javafx.scene.layout.StackPane;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 
 
 public class BottomPane extends GridPane {
@@ -31,7 +32,7 @@ public class BottomPane extends GridPane {
     private PaneLayoutManager myLayoutManager;
     private ElementFactory myElementFactory;
 
-    public BottomPane(double height, CanvasPane canvas, ControllerInterface myController, int myID, TurtleView myTurtle) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    public BottomPane(double height, CanvasPane canvas, ControllerInterface myController, int myID, TurtleView myTurtle) throws SlogoException {
         super();
         this.myElementFactory = new ElementFactory(this);
         this.myLayoutManager = new PaneLayoutManager(this);
@@ -46,7 +47,7 @@ public class BottomPane extends GridPane {
 
     }
 
-    private void initBottomPaneElements() throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+    private void initBottomPaneElements() throws SlogoException{
         initConsole();
         initExecuteButton();
         initClearButton();
@@ -55,7 +56,7 @@ public class BottomPane extends GridPane {
         initSpring();
     }
 
-    private void initSpring() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    private void initSpring() throws SlogoException{
         Pane mySpring = (Pane) myElementFactory.makeElement("Spring");
         mySpring.setMinHeight(GRIDPANE_PADDING_Y);
         myLayoutManager.setLayout(mySpring);
@@ -67,12 +68,12 @@ public class BottomPane extends GridPane {
         myLayoutManager.setLayout(myConsole);
     }
 
-    private void initExecuteButton() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    private void initExecuteButton() throws SlogoException{
         Button myExecuteButton = (ExecuteButton)myElementFactory.makeElement("ExecuteButton");
         myLayoutManager.setLayout(myExecuteButton);
     }
 
-    private void initClearButton() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    private void initClearButton() throws SlogoException{
         Button myClearButton = (ClearButton)myElementFactory.makeElement("ClearButton");
         myLayoutManager.setLayout(myClearButton);
     }
@@ -81,12 +82,12 @@ public class BottomPane extends GridPane {
         myConsole.clearText();
     }
 
-    private void initHelpButton() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    private void initHelpButton() throws SlogoException {
         Button myHelpButton = (HelpButton)myElementFactory.makeElement("HelpButton");
         myLayoutManager.setLayout(myHelpButton);
     }
 
-    private void initActionButtons() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    private void initActionButtons() throws SlogoException{
         Button moveForwardButton = (ForwardButton)myElementFactory.makeElement("ForwardButton");
         Button moveBackwardsButton = (BackwardsButton)myElementFactory.makeElement("BackwardsButton");
         Button turnLeftButton = (LeftRotateButton)myElementFactory.makeElement("LeftRotateButton");
@@ -116,12 +117,12 @@ public class BottomPane extends GridPane {
         this.myConsole.clearText();
     }
 
-    public void openHelp() {
+    public void openHelp() throws InvokeHelpPageException{
         File file = new File("resources/Help_Page.html");
         try {
             Desktop.getDesktop().open(file);
         } catch (IOException e1) {
-            e1.printStackTrace();
+            throw new InvokeHelpPageException(e1);
         }
     }
 
