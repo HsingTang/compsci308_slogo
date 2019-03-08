@@ -16,7 +16,16 @@ public class CommandRoot {
    private final CommandNode parent;
    private CommandNode currentParent;
    private int currentIndex;
-
+   public CommandRoot(String[] commandStrings){
+      this.commandStrings = commandStrings;
+      this.numCommands = commandStrings.length;
+      this.myHandler = controller;
+      this.parent = new TreeParentNode(this.myHandler);
+      this.currentParent = this.parent;
+      this.currentIndex = INIT;
+      this.myCommandNodeFactory = new CommandNodeFactory(this.myHandler);
+      this.makeTree();
+   }
    public CommandRoot(String[] commandStrings, CommandHandlerInterface controller) {
       this.commandStrings = commandStrings;
       this.numCommands = commandStrings.length;
