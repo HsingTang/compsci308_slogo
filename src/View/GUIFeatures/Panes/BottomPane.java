@@ -28,7 +28,7 @@ import java.io.IOException;
 
 public class BottomPane extends GridPane {
 
-    static final Double GRIDPANE_PADDING_Y = 10.0;
+    static final Double GRIDPANE_PADDING_Y = 5.0;
     static final Double GRIDPANE_PADDING_X = 20.0;
     static final Double CONSOLE_RATIO = (3.0/5.0);
 
