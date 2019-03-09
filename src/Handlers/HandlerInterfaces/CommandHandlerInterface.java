@@ -33,6 +33,16 @@ public interface CommandHandlerInterface {
 
     double clearScreen();
 
+    double getXcor();
+
+    double getYcor();
+
+    double getHeading();
+
+    double getPenState();
+
+    double getTurtleState();
+
     Queue getQueue();
 
     void makeVariable(String name, Double value);

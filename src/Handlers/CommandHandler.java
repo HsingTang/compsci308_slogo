@@ -123,6 +123,37 @@ public class CommandHandler implements CommandHandlerInterface {
         return distance;
     }
 
+    @Override
+    public double getXcor() {
+        return turtleModel.getX();
+    }
+
+    @Override
+    public double getYcor() {
+        return turtleModel.getY();
+    }
+
+    @Override
+    public double getHeading() {
+        return turtleModel.getHeading();
+    }
+
+    @Override
+    public double getPenState() {
+        if(turtleModel.getPenDown()){
+            return 1;
+        }
+        return 0;
+    }
+
+    @Override
+    public double getTurtleState() {
+        if(turtleModel.isInvisible()){
+            return 0;
+        }
+        return 1;
+    }
+
     private double calcDistance(double x1, double x2, double y1, double y2) {
         return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
     }

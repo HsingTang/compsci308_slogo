@@ -108,5 +108,5 @@ public class CommandNodeFactory {
          nodeString = arrayString.substring(0, 1).toUpperCase() + arrayString.substring(1).toLowerCase() + NODE_BUILDER;
       }
       return nodeString;
-      }
+   }
 }
