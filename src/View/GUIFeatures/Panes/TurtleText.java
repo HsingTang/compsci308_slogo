@@ -1,8 +1,11 @@
 package View.GUIFeatures.Panes;
 
+import View.GUIFeatures.Choosers.PenColorChooser;
 import View.Turtles.TurtleView;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+
+import java.text.DecimalFormat;
 
 public class TurtleText {
 
@@ -22,6 +25,7 @@ public class TurtleText {
     static final Integer XPOS_INDEX = 0;
     static final Integer YPOS_INDEX = 1;
     static final Integer HEADING_INDEX = 2;
+    static final Integer HEX_MODIFIER = 255;
 
     private Text xPos;
     private Text yPos;
@@ -41,29 +45,21 @@ public class TurtleText {
         penDown = new Text(DEFAULT_PEN_DOWN);
     }
 
-    public Text[] getStateLabels() {
+    public Text[] getTurtleLabels() {
         return new Text[] {X_POS_LABEL, Y_POS_LABEL, HEADING_LABEL, ID_LABEL};
     }
 
 
-    public Text[] getStates() {
+    public Text[] getTurtleStates() {
         return new Text[] {xPos, yPos, heading, ID};
     }
 
-    public Text[] getPenStateLabels() {
+    public Text[] getPenLabels() {
         return new Text[] {PEN_COLOR_LABEL, PEN_THICKNESS_LABEL, PEN_DOWN_LABEL};
     }
 
-    public Text getPenColor() {
-        return this.penColor;
-    }
-
-    public Text genPenThickness() {
-        return this.penThickness;
-    }
-
-    public Text getPenDown() {
-        return this.penDown;
+    public Text[] getPenStates() {
+        return new Text[] {penColor, penThickness, penDown};
     }
 
     public void setStateValues(Double[] states) {
@@ -73,26 +69,23 @@ public class TurtleText {
     }
 
     public void setPenColor(Color color) {
-        //TODO: SET TEXT. HEX VALUE IS CONVERTED WITH BELOW CODE
-        int green = (int) (color.getGreen()*255);
+        int green = (int) (color.getGreen()*HEX_MODIFIER);
         String greenString = Integer.toHexString(green);
-        int red = (int) (color.getRed() * 255);
+        int red = (int) (color.getRed() * HEX_MODIFIER);
         String redString = Integer.toHexString(red);
-        int blue = (int) (color.getBlue()*255);
+        int blue = (int) (color.getBlue()*HEX_MODIFIER);
         String blueString = Integer.toHexString(blue);
-        // HEX COLOR STRING
         String hexColor = "#" + redString + greenString + blueString;
-        System.out.println(hexColor);
+        penColor.setText(hexColor);
     }
 
     public void setPenThickness(Double thickness) {
-        //TODO: SET THICKNESS
-        System.out.println(thickness);
+        DecimalFormat df = new DecimalFormat("#.#####");
+        penThickness.setText(df.format(thickness));
     }
 
     public void setPenDownValue(String isDown) {
-        //TODO: SET PEN DOWN VALUE
-        System.out.println(penDown);
+        penDown.setText(isDown);
     }
 
 
