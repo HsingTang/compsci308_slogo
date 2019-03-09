@@ -1,5 +1,6 @@
 package CommandNodes;
 
+import Errors.SlogoException;
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
 
 import java.util.ArrayList;
@@ -120,12 +121,17 @@ public abstract class CommandNode {
       this.myReturnValue = returnValue;
    }*/
 
-   public void fullExecute(){
-      this.execute();
-      this.resetIndex();
+   public void fullExecute()throws SlogoException{
+      try{
+         this.execute();
+         this.resetIndex();
+      }catch (SlogoException e){
+         throw e;
+      }
+
    }
 
-   public abstract void execute();
+   public abstract void execute() throws SlogoException;
 
    protected abstract void parseParameters();
 

@@ -54,20 +54,34 @@ public class CommandRoot {
    }
 
    public void execute(){
-      this.executeNode(this.parent);
+      try{
+         this.executeNode(this.parent);
+      }catch (SlogoException e){
+         throw e;
+      }
+
    }
 
-   private void executeNode(CommandNode parent) {
+   private void executeNode(CommandNode parent) throws SlogoException{
       for (CommandNode c : parent.getMyChildren()) {
          for(int i = 0; i < c.getMyNumRepeat(); i++) {
-            this.executeNode(c);
+            try{
+               this.executeNode(c);
+            }catch (SlogoException e){
+               throw e;
+            }
             System.out.println(c);
          }
       }
-      parent.fullExecute();
-      if(parent instanceof UserCommandNode){
-         this.runUserCommand((UserCommandNode)parent);
+      try{
+         parent.fullExecute();
+         if(parent instanceof UserCommandNode){
+            this.runUserCommand((UserCommandNode)parent);
+         }
+      }catch (SlogoException e){
+         throw e;
       }
+
    }
 
    private void runUserCommand(UserCommandNode parent){
