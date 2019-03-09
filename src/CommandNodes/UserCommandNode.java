@@ -4,10 +4,11 @@ import Handlers.HandlerInterfaces.CommandHandlerInterface;
 import Model.CommandInfo;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class UserCommandNode extends CommandNode {
-   private ArrayList<String> parameters;
-   private ArrayList<CommandNode> executeChildren;
+   private List<String> parameters;
+   private List<CommandNode> executeChildren;
    private String name;
 
    public UserCommandNode(CommandHandlerInterface inHandler){
@@ -40,7 +41,7 @@ public class UserCommandNode extends CommandNode {
       }
    }
 
-   public ArrayList<CommandNode> getExecuteChildren(){
+   public List<CommandNode> getExecuteChildren(){
       return this.executeChildren;
    }
 
