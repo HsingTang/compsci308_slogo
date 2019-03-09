@@ -157,9 +157,9 @@ public class BottomPane extends GridPane {
 
     public void transferCommands() {
         String commands = myConsole.getText();
+        this.myConsole.clearText();
         this.myController.receiveCommand(commands, myID);
         //addToHistory(commands);
-        this.myConsole.clearText();
     }
 
     public void openHelp() throws InvokeHelpPageException{
