@@ -20,6 +20,9 @@ public class RandomNode extends CommandNode {
     @Override
     public void execute() {
         parseParameters();
+        if(myMax < 0){
+            throw new IllegalArgumentException(); //myMax can't be negative so this sort should be thrown
+        }
         double result = myMax * Math.random();
         this.setMyReturnValue(result);
     }

@@ -14,8 +14,8 @@ public class TreeTester {
    }
 
    public static void main(String[] args){
-      String test = "0.500000000";
-      System.out.println(test.substring(3,4));
+      int i = 0%3;
+      int q = 3%0;
    }
 
 }
