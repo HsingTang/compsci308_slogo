@@ -1,5 +1,6 @@
 package View.GUIFeatures.Panes;
 
+import View.GUIFeatures.Choosers.PenColorChooser;
 import View.Turtles.TurtleView;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -41,29 +42,21 @@ public class TurtleText {
         penDown = new Text(DEFAULT_PEN_DOWN);
     }
 
-    public Text[] getStateLabels() {
+    public Text[] getTurtleLabels() {
         return new Text[] {X_POS_LABEL, Y_POS_LABEL, HEADING_LABEL, ID_LABEL};
     }
 
 
-    public Text[] getStates() {
+    public Text[] getTurtleStates() {
         return new Text[] {xPos, yPos, heading, ID};
     }
 
-    public Text[] getPenStateLabels() {
+    public Text[] getPenLabels() {
         return new Text[] {PEN_COLOR_LABEL, PEN_THICKNESS_LABEL, PEN_DOWN_LABEL};
     }
 
-    public Text getPenColor() {
-        return this.penColor;
-    }
-
-    public Text genPenThickness() {
-        return this.penThickness;
-    }
-
-    public Text getPenDown() {
-        return this.penDown;
+    public Text[] getPenStates() {
+        return new Text[] {penColor, penThickness, penDown};
     }
 
     public void setStateValues(Double[] states) {
@@ -73,7 +66,6 @@ public class TurtleText {
     }
 
     public void setPenColor(Color color) {
-        //TODO: SET TEXT. HEX VALUE IS CONVERTED WITH BELOW CODE
         int green = (int) (color.getGreen()*255);
         String greenString = Integer.toHexString(green);
         int red = (int) (color.getRed() * 255);
@@ -82,17 +74,15 @@ public class TurtleText {
         String blueString = Integer.toHexString(blue);
         // HEX COLOR STRING
         String hexColor = "#" + redString + greenString + blueString;
-        System.out.println(hexColor);
+        penColor.setText(hexColor);
     }
 
     public void setPenThickness(Double thickness) {
-        //TODO: SET THICKNESS
-        System.out.println(thickness);
+        penThickness.setText(String.valueOf(thickness));
     }
 
     public void setPenDownValue(String isDown) {
-        //TODO: SET PEN DOWN VALUE
-        System.out.println(penDown);
+        penDown.setText(isDown);
     }
 
 
