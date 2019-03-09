@@ -25,7 +25,7 @@ public class UserCommandNode extends CommandNode {
    public UserCommandNode(CommandHandlerInterface inHandler, CommandNode inParent, CommandInfo info){
       super(inHandler, inParent);
       this.parameters = info.getCommandVariables();
-      System.out.println("SIZE " + this.parameters.size());
+//      System.out.println("SIZE " + this.parameters.size());
       this.setMyNumParams(this.parameters.size());
       this.executeChildren = info.getCommandChildren();
    }
@@ -37,7 +37,7 @@ public class UserCommandNode extends CommandNode {
    public void parseParameters(){
       for(int i = 0; i < this.parameters.size(); i++){
          this.myHandler.makeVariable(this.parameters.get(i), this.getMyChildren().get(i).getMyReturnValue());
-         System.out.println(this.myHandler.isVariable("dog"));
+//         System.out.println(this.myHandler.isVariable("dog"));
       }
    }
 
