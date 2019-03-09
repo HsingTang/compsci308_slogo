@@ -36,11 +36,9 @@ public class CommandRoot {
    private void makeTree() {
       while (this.currentIndex < this.numCommands) {
          String currentString = this.commandStrings[this.currentIndex];
+         myHandler.addToHistory(currentString);
          CommandNode newNode = this.myCommandNodeFactory.newNode(currentString, this.currentParent, this);
          while(this.currentParent.childrenFilled()){
-           /* if(this.currentParent instanceof MakecommandNode){
-               ((MakecommandNode)(this.currentParent)).makeUserCommand();
-            }*/
             this.currentParent = this.currentParent.getParent();
          }
          this.currentParent.addChild(newNode);

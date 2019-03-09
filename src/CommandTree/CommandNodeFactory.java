@@ -26,7 +26,6 @@ public class CommandNodeFactory {
    }
 
    public CommandNode newNode(String arrayString, CommandNode parent, CommandRoot root) throws SlogoException {
-      System.out.println("I am a " + arrayString + " my parent is a " + parent + " and her size is " + parent.getMyChildren().size());
       if(parent instanceof MakevariableNode && parent.getMyChildren().size() == 0){
          return this.newStringNode(parent, arrayString.substring(1));
          }
