@@ -5,7 +5,6 @@ import Handlers.HandlerInterfaces.CommandHandlerInterface;
 public class XcoordinateNode extends CommandNode {
 
     public static final int NUM_PARAMS = 0;
-    private double myXcor;
 
     public XcoordinateNode(CommandHandlerInterface inHandler) {
         super(inHandler);
@@ -20,11 +19,11 @@ public class XcoordinateNode extends CommandNode {
     @Override
     public void execute() {
         this.setMyReturnValue(myHandler.getXcor());
-        System.out.println(this.getMyReturnValue());
     }
 
     @Override
     protected void parseParameters() {
 
     }
+
 }
