@@ -20,7 +20,7 @@ public class RemainderNode extends CommandNode {
     @Override
     public void execute() {
         parseParameters();
-        double result = myValues[0] % myValues[1];
+        double result = myValues[0] % myValues[1]; //Will also throw a division by zero error
         setMyReturnValue(result);
     }
 
