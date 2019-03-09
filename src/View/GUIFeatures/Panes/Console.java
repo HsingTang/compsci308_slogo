@@ -18,22 +18,17 @@ public class Console extends TextArea implements IObserver {
     private List<String> myDisplay;
 
     public Console(double w, double h) {
+        myDisplay = new ArrayList<>();
         this.setMaxSize(w,h);
         this.setPromptText(PROMPT_TEXT);
         this.setFocusTraversable(false);
         this.setWrapText(true);
         this.getStyleClass().add("console-text-area");
-        myDisplay = new ArrayList<>();
+        this.setOnMouseClicked(e->clearText());
     }
 
     public void clearText() {
         this.clear();
-    }
-
-    public String getTextClear() {
-        String text = this.getText();
-        this.clearText();
-        return text;
     }
 
     @Override
