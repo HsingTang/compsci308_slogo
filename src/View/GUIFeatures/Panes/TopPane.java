@@ -31,8 +31,6 @@ public class TopPane extends GridPane {
     static final Double GRIDPANE_PADDING_Y = 5.0;
     static final Double GRIDPANE_PADDING_X = 17.0;
     static final Double MIN_HEIGHT_RATIO = (1/10.0);
-    static final Integer TEXT_COL_0 = 0;
-    static final Integer TEXT_COL_1 = 1;
 
 
     private double myHeight;
@@ -115,14 +113,10 @@ public class TopPane extends GridPane {
         turtleTextState = myTurtle.getTurtleTextState();
         Text[] labels = turtleTextState.getStateLabels();
         Text[] states = turtleTextState.getStates();
-        GridPane textGrid = new GridPane();
-        for (int i = 0; i < labels.length; i++) {
-            textGrid.add(labels[i], TEXT_COL_0, i);
-        }
-        for (int i = 0; i < states.length; i++) {
-            textGrid.add(states[i], TEXT_COL_1, i);
-        }
-        getChildren().add(textGrid);
+        TurtleStatePane stateGrid = new TurtleStatePane();
+        stateGrid.addLabel(labels);
+        stateGrid.addState(states);
+        myLayoutManager.setLayout(stateGrid);
     }
 
     public void setLanguage(){
