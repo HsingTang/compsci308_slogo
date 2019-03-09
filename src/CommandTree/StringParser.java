@@ -54,6 +54,9 @@ public class StringParser {
             parsedCommand[i] = commandWords[i];
 
          }
+         /*
+         Should through and error if the user tries to define a command or variable that is part of the defined commands
+          */
       }
       return parsedCommand;
    }

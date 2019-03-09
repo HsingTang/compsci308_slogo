@@ -1,12 +1,13 @@
 package Model;
 
-import CommandNodes.UserCommandNode;
-import Model.ModelInterfaces.IModel;
 import View.GUIFeatures.Panes.HistoricalCommand;
 
 import java.lang.reflect.Array;
 import java.util.*;
 
+/**
+ * @author Hsingchih Tang
+ */
 public class CommandPaneModel extends PaneModel {
     private ArrayList<String> historyStrings;
     private ArrayList<HistoricalCommand> commandHistory;

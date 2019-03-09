@@ -1,7 +1,5 @@
 package View.GUIFeatures.Panes;
 
-import Controller.Controller;
-import Model.Model;
 import Model.ModelInterfaces.IModel;
 import View.ObserverInterfaces.IObserver;
 import javafx.scene.control.TextArea;
@@ -9,6 +7,10 @@ import javafx.scene.control.TextArea;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Hsingchih Tang
+ * @author Eric Lin
+ */
 public class Console extends TextArea implements IObserver {
 
     public static final String PROMPT_TEXT = "Enter Commands Here";

@@ -1,12 +1,15 @@
 package View.GUIFeatures.Panes;
 
-import View.GUIFeatures.Choosers.PenColorChooser;
 import View.Turtles.TurtleView;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 import java.text.DecimalFormat;
 
+/**
+ * @author Hsingchih Tang
+ * @author Eric Lin
+ */
 public class TurtleText {
 
     static final Text X_POS_LABEL = new Text("X Position: ");

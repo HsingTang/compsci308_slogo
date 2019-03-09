@@ -7,6 +7,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author Hsingchih Tang
+ */
 public class VariablePaneModel extends PaneModel {
 
     private HashMap<String, Double> myVariables;
