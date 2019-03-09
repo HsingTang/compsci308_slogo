@@ -19,7 +19,7 @@ public abstract class CommandNode {
 
 
    public CommandNode(CommandHandlerInterface inHandler) {
-      this.myChildren = new ArrayList<CommandNode>();
+      this.myChildren = new ArrayList<>();
       this.myHandler = inHandler;
       this.myNumParams = INIT;
       this.myChildrenIndex = 0;
@@ -27,7 +27,7 @@ public abstract class CommandNode {
    }
 
    public CommandNode(CommandHandlerInterface inHandler, CommandNode inParent){
-      this.myChildren = new ArrayList<CommandNode>();
+      this.myChildren = new ArrayList<>();
       this.myHandler = inHandler;
       this.myNumParams = INIT;
       this.myParent = inParent;

@@ -1,6 +1,5 @@
 package Handlers;
 
-import CommandNodes.UserCommandNode;
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
 import Model.CommandInfo;
 import Model.CommandPaneModel;
@@ -8,15 +7,15 @@ import Model.ModelInterfaces.TurtleModelInterface;
 import Model.VariablePaneModel;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 
-import Model.TurtleModel;
 import State.TurtleState;
 
 public class CommandHandler implements CommandHandlerInterface {
     public static final double INITIAL_HEADING = 90.0;
 
+    static final double WIDTH = 480;
+    static final double HEIGHT = 480;
     final TurtleModelInterface turtleModel;
     final VariablePaneModel varModel;
     final CommandPaneModel commandModel;
@@ -32,6 +31,9 @@ public class CommandHandler implements CommandHandlerInterface {
 
     public double moveForward(double px) {
         double heading = Math.toRadians(turtleModel.getHeading());
+        double potentialNewX = turtleModel.getX() + px*Math.cos(heading);
+        double potentialNewY = turtleModel.getY() - px*Math.sin(heading);
+        double maxX = turtleModel.getX();
         turtleModel.setX(turtleModel.getX() + px*Math.cos(heading));
         turtleModel.setY(turtleModel.getY() - px*Math.sin(heading));
         addTurtleState();
@@ -165,5 +167,28 @@ public class CommandHandler implements CommandHandlerInterface {
         double initialY = turtleModel.getY();
         turtleModel.setHome();
         return calcDistance(initialX, turtleModel.getX(), initialY, turtleModel.getY());
+    }
+
+    private double[] getMaxDistanceAndPointsForwards(double angle, double xPos, double yPos) {
+        double[] distanceMaxAndMaxY = new double[3];
+        angle = findAngle(angle);
+        if (0 < angle && angle <= 90) { // Quadrant 1
+
+        } else if (angle > 90 && angle <= 180) { // Quadrant 2
+
+        } else if (angle > 180 && angle <= 270) { // Quadrant 3
+
+        } else { // Quadrant 4
+
+        }
+
+        return distanceMaxAndMaxY;
+    }
+
+    private double findAngle(double angle) {
+        while (angle < 0) {
+            angle+=360;
+        }
+        return angle;
     }
 }
