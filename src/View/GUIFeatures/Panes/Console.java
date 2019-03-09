@@ -33,8 +33,11 @@ public class Console extends TextArea implements IObserver {
 
     @Override
     public void updateData() {
+        System.out.println("console gets notified");
         myDisplay = myValModel.getData();
         this.setText(myDisplay.get(0));
+        System.out.println(myDisplay.get(0));
+
     }
 
     @Override
