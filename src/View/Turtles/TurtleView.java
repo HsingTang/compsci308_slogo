@@ -37,7 +37,7 @@ public class TurtleView implements TurtleObserver {
     private double myX;
     private double myY;
     private double myHeading;
-    private boolean penDown;
+    private Boolean penDown;
     private boolean isMoving;
     private SlogoPen myPen;
     private Queue<TurtleState> stateQueue;
@@ -145,6 +145,7 @@ public class TurtleView implements TurtleObserver {
 
     private  void updatePenDown() {
         this.penDown = newState.getPenDown();
+        turtleTextState.setPenDownValue(this.penDown.toString());
     }
 
     public void updateView() {

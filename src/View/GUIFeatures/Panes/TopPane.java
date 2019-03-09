@@ -131,6 +131,7 @@ public class TopPane extends GridPane {
     public void setPenColor() {
         Color color = myPenColorChooser.getValue();
         myTurtle.getPen().setColor(color);
+        myTurtle.getTurtleTextState().setPenColor(color);
     }
 
     private void changeTurtleImage() throws MalformedTurtleImgException{

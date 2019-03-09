@@ -1,17 +1,24 @@
 package View.GUIFeatures.Panes;
 
 import View.Turtles.TurtleView;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 public class TurtleText {
 
-    static final Text xPosLabel = new Text("X Position: ");
-    static final Text yPosLabel = new Text("Y Position: ");
-    static final Text headingLabel = new Text("Heading: ");
-    static final Text IDLabel = new Text("Turtle ID: ");
+    static final Text X_POS_LABEL = new Text("X Position: ");
+    static final Text Y_POS_LABEL = new Text("Y Position: ");
+    static final Text HEADING_LABEL = new Text("Heading: ");
+    static final Text ID_LABEL = new Text("Turtle ID: ");
+    static final Text PEN_COLOR_LABEL = new Text("Pen Color: ");
+    static final Text PEN_THICKNESS_LABEL = new Text("Pen Thickness: ");
+    static final Text PEN_DOWN_LABEL = new Text("Pen Down: ");
     static final String DEFAULT_INIT_POS = "0.0";
     static final String INVALID_INIT_POS = "-0.0";
     static final String DEFAULT_INIT_HEADING = "90.0";
+    static final String DEFAULT_PEN_COLOR = "White";
+    static final String DEFAULT_PEN_THICKNESS = "2.0";
+    static final String DEFAULT_PEN_DOWN = "true";
     static final Integer XPOS_INDEX = 0;
     static final Integer YPOS_INDEX = 1;
     static final Integer HEADING_INDEX = 2;
@@ -20,22 +27,43 @@ public class TurtleText {
     private Text yPos;
     private Text heading;
     private Text ID;
-    private TurtleView turtle;
+    private Text penColor;
+    private Text penThickness;
+    private Text penDown;
 
     public TurtleText(TurtleView turtle) {
-        this.turtle = turtle;
         xPos = new Text(DEFAULT_INIT_POS);
         yPos = new Text(DEFAULT_INIT_POS);
         heading = new Text(DEFAULT_INIT_HEADING);
         ID = new Text(turtle.getMyID().toString());
+        penColor = new Text(DEFAULT_PEN_COLOR);
+        penThickness = new Text(DEFAULT_PEN_THICKNESS);
+        penDown = new Text(DEFAULT_PEN_DOWN);
     }
 
     public Text[] getStateLabels() {
-        return new Text[] {xPosLabel, yPosLabel, headingLabel, IDLabel};
+        return new Text[] {X_POS_LABEL, Y_POS_LABEL, HEADING_LABEL, ID_LABEL};
     }
+
 
     public Text[] getStates() {
         return new Text[] {xPos, yPos, heading, ID};
+    }
+
+    public Text[] getPenStateLabels() {
+        return new Text[] {PEN_COLOR_LABEL, PEN_THICKNESS_LABEL, PEN_DOWN_LABEL};
+    }
+
+    public Text getPenColor() {
+        return this.penColor;
+    }
+
+    public Text genPenThickness() {
+        return this.penThickness;
+    }
+
+    public Text getPenDown() {
+        return this.penDown;
     }
 
     public void setStateValues(Double[] states) {
@@ -43,5 +71,29 @@ public class TurtleText {
         yPos.setText(states[YPOS_INDEX].toString().equals(INVALID_INIT_POS)?DEFAULT_INIT_POS:states[YPOS_INDEX].toString());
         heading.setText(states[HEADING_INDEX].toString());
     }
+
+    public void setPenColor(Color color) {
+        //TODO: SET TEXT. HEX VALUE IS CONVERTED WITH BELOW CODE
+        int green = (int) (color.getGreen()*255);
+        String greenString = Integer.toHexString(green);
+        int red = (int) (color.getRed() * 255);
+        String redString = Integer.toHexString(red);
+        int blue = (int) (color.getBlue()*255);
+        String blueString = Integer.toHexString(blue);
+        // HEX COLOR STRING
+        String hexColor = "#" + redString + greenString + blueString;
+        System.out.println(hexColor);
+    }
+
+    public void setPenThickness(Double thickness) {
+        //TODO: SET THICKNESS
+        System.out.println(thickness);
+    }
+
+    public void setPenDownValue(String isDown) {
+        //TODO: SET PEN DOWN VALUE
+        System.out.println(penDown);
+    }
+
 
 }
