@@ -2,17 +2,17 @@ package CommandNodes;
 
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
 
-public class TanNode extends CommandNode{
+public class ArctangentNode extends CommandNode{
 
     private static final int NUM_PARAMS = 1;
     private double myDegrees;
 
-    public TanNode(CommandHandlerInterface inHandler) {
+    public ArctangentNode(CommandHandlerInterface inHandler) {
         super(inHandler);
         this.setMyNumParams(NUM_PARAMS);
     }
 
-    public TanNode(CommandHandlerInterface inHandler, CommandNode inParent) {
+    public ArctangentNode(CommandHandlerInterface inHandler, CommandNode inParent) {
         super(inHandler, inParent);
         this.setMyNumParams(NUM_PARAMS);
     }
@@ -20,7 +20,7 @@ public class TanNode extends CommandNode{
     @Override
     public void execute() {
         parseParameters();
-        this.setMyReturnValue(Math.tan(myDegrees));
+        this.setMyReturnValue(Math.atan(myDegrees));
     }
 
     @Override

@@ -58,23 +58,36 @@ public class TopPane extends GridPane {
         this.myLayoutManager = new PaneLayoutManager(this);
         this.myElementFactory = new ElementFactory(this);
         setMinHeight(myHeight*MIN_HEIGHT_RATIO);
-        initTopPaneElements();
+        try{
+            initTopPaneElements();
+        }catch (SlogoException e){
+            throw e;
+        }
         setHgap(GRIDPANE_PADDING_X);
         setVgap(GRIDPANE_PADDING_Y);
     }
 
     private void initTopPaneElements() throws SlogoException {
-        initLanguageChooser();
-        initAddTabButton();
-        initCanvasColorChooser();
-        initPenColorChooser();
-        initTurtleChooser();
-        initTurtleTextState();
+        try{
+            initLanguageChooser();
+            initAddTabButton();
+            initCanvasColorChooser();
+            initPenColorChooser();
+            initTurtleChooser();
+            initTurtleTextState();
+        }catch (SlogoException e){
+            throw e;
+        }
     }
 
     private void initLanguageChooser() throws SlogoException {
-        myLanguageChooser =(LanguageChooser)myElementFactory.makeElement("LanguageChooser");
-        myLayoutManager.setLayout(myLanguageChooser);
+        try{
+            myLanguageChooser =(LanguageChooser)myElementFactory.makeElement("LanguageChooser");
+            myLayoutManager.setLayout(myLanguageChooser);
+        }catch (SlogoException e){
+            throw e;
+        }
+
     }
 
     private void initAddTabButton() throws SlogoException{
@@ -82,24 +95,31 @@ public class TopPane extends GridPane {
         myAddTabButton.setOnAction(e-> {
             try {
                 this.myWindow.addSlogoTab();
+                myLayoutManager.setLayout(myAddTabButton);
             } catch (Exception exp) {
-                System.out.println("exception in AddTabButton");
                 throw new SlogoTabSetupElementException(exp);
             }
         });
-        myLayoutManager.setLayout(myAddTabButton);
     }
 
     private void initCanvasColorChooser() throws SlogoException {
-        myCanvasColorChooser =(CanvasColorChooser)myElementFactory.makeElement("CanvasColorChooser");
-        myLayoutManager.setLayout(myCanvasColorChooser);
-        myLayoutManager.setLayout(new Text(CANVAS_TEXT));
+        try{
+            myCanvasColorChooser =(CanvasColorChooser)myElementFactory.makeElement("CanvasColorChooser");
+            myLayoutManager.setLayout(myCanvasColorChooser);
+            myLayoutManager.setLayout(new Text(CANVAS_TEXT));
+        }catch (SlogoException e){
+            throw e;
+        }
     }
 
     private void initPenColorChooser() throws SlogoException {
-        myPenColorChooser =(PenColorChooser)myElementFactory.makeElement("PenColorChooser");
-        myLayoutManager.setLayout(myPenColorChooser);
-        myLayoutManager.setLayout(new Text(PEN_TEXT));
+        try{
+            myPenColorChooser =(PenColorChooser)myElementFactory.makeElement("PenColorChooser");
+            myLayoutManager.setLayout(myPenColorChooser);
+            myLayoutManager.setLayout(new Text(PEN_TEXT));
+        }catch(SlogoException e){
+            throw e;
+        }
     }
 
     private void initTurtleChooser() {

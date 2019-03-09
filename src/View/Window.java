@@ -31,7 +31,7 @@ public class Window extends Application {
         super();
         myViewFactory = new SlogoTabFactory();
         myAlertFactory = new AlertFactory();
-        myController = new Controller();
+        myController = new Controller(this);
         tabCount = 0;
     }
 
@@ -58,7 +58,6 @@ public class Window extends Application {
     }
 
     public void addSlogoTab(){
-       // System.out.println("new tab init");
         myController.initNewTab();
         SlogoTab addTab = null;
         try{
@@ -73,12 +72,19 @@ public class Window extends Application {
         tabCount++;
     }
 
+    public void invokeAlert(SlogoException e){
+        SlogoAlert alert = myAlertFactory.getAlert(e);
+        alert.showAlert();
+        return;
+    }
+
     private void handleTransition() throws SlogoException{
         windowRoot = new TabPane();
         Scene mainWindow = new Scene(windowRoot, DEFAULT_WIDTH, DEFAULT_HEIGHT);
         myStage.setScene(mainWindow);
         addSlogoTab();
     }
+
     public static void main(String[] args){
         launch(args);
     }
