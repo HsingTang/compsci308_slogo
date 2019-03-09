@@ -1,13 +1,11 @@
 package Handlers;
 
-import CommandNodes.UserCommandNode;
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
 import Model.*;
 import Model.ModelInterfaces.TurtleModelInterface;
 
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 
 import State.TurtleState;
@@ -15,6 +13,7 @@ import State.TurtleState;
 public class CommandHandler implements CommandHandlerInterface {
     public static final double INITIAL_HEADING = 90.0;
 
+    static final double MAX = 240;
     final TurtleModelInterface turtleModel;
     final VariablePaneModel varModel;
     final CommandPaneModel commandModel;
@@ -31,20 +30,20 @@ public class CommandHandler implements CommandHandlerInterface {
     }
 
     public double moveForward(double px) {
-        double heading = Math.toRadians(turtleModel.getHeading());
-        turtleModel.setX(turtleModel.getX() + px*Math.cos(heading));
-        turtleModel.setY(turtleModel.getY() - px*Math.sin(heading));
+        double heading = Math.toRadians(getAngle(turtleModel.getHeading()));
+        double newX = turtleModel.getX() + px*Math.cos(heading);
+        double newY = turtleModel.getY() - px*Math.sin(heading);
+        setMovement(newX, newY, heading);
         addTurtleState();
-        System.out.println("forward " + px);
         return px;
     }
 
     public double moveBackwards(double px) {
-        double heading = Math.toRadians(turtleModel.getHeading());
-        turtleModel.setX(turtleModel.getX() - px*Math.cos(heading));
-        turtleModel.setY(turtleModel.getY() + px*Math.sin(heading));
+        double heading = Math.toRadians(getAngle(turtleModel.getHeading()));
+        double newX = turtleModel.getX() - px*Math.cos(heading);
+        double newY = turtleModel.getY() + px*Math.sin(heading);
+        setMovement(newX, newY, heading);
         addTurtleState();
-        System.out.println("backward " + px);
         return px;
     }
 
@@ -203,4 +202,29 @@ public class CommandHandler implements CommandHandlerInterface {
     public void addReturnVal(String val) {
         this.returnModel.addReturnVal(val);
     }
+    private void setMovement(double newX, double newY, double heading) {
+        if (newX > -MAX && newX < MAX && newY < -MAX) {
+            turtleModel.setX(newX - (Math.abs(newY) - MAX)/Math.tan(heading));
+            turtleModel.setY(-MAX);
+        } else if (newX > -MAX && newX < MAX && newY > MAX) {
+            turtleModel.setX(newX - (Math.abs(newY) - MAX)/-Math.tan(heading));
+            turtleModel.setY(MAX);
+        } else if (newY > -MAX && newY < MAX && newX > MAX){
+            turtleModel.setX(MAX);
+            turtleModel.setY(newY + (Math.abs(newX) - MAX)*Math.tan(heading));
+        } else if (newY > -MAX && newY < MAX && newX < -MAX)  {
+            turtleModel.setX(-MAX);
+            turtleModel.setY(newY + (Math.abs(newX) - MAX)*-Math.tan(heading));
+        } else {
+            turtleModel.setX(newX);
+            turtleModel.setY(newY);
+        }
+    }
+
+    private double getAngle(double angle) {
+        while (angle < 0) {
+            angle += 360;
+        }
+        return angle;
+    } 
 }

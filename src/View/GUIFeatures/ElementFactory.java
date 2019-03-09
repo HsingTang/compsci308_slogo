@@ -47,7 +47,7 @@ public class ElementFactory {
             }
             return (Node) newElement;
         } catch (Exception exp) {
-            throw new SlogoTabSetupElementException(exp);
+            throw new SlogoTabSetupElementException();
         }
     }
 
@@ -63,16 +63,16 @@ public class ElementFactory {
             ((ButtonBase) element).setOnAction(e -> {
                 try {
                     myMethod.invoke(myHostPane, (Object[]) myArgs);
-                } catch (Exception exp) {
-                    throw new SlogoTabSetupElementException(exp);
+                } catch(Exception exp){
+                    throw new SlogoTabSetupElementException();
                 }
             });
         } else {
             ((ComboBoxBase<Object>) element).setOnAction(e -> {
                 try {
                     myMethod.invoke(myHostPane, (Object[]) myArgs);
-                } catch (Exception exp) {
-                    throw new SlogoTabSetupElementException(exp);
+                } catch (Exception exp){
+                    throw new SlogoTabSetupElementException();
                 }
             });
         }

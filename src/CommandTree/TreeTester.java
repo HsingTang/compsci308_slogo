@@ -1,9 +1,5 @@
 package CommandTree;
 
-import Handlers.CommandHandler;
-import Model.TurtleModel;
-import Model.VariablePaneModel;
-
 public class TreeTester {
 
    public static void printArray(String[] strings){

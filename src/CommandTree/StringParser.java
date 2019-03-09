@@ -10,7 +10,6 @@ import java.util.regex.Pattern;
 
 public class StringParser {
    private static String WHITESPACE_TRIM = "\\s+";
-   private String myLanguage;
    private List<Entry<String, Pattern>> mySymbols;
    private List<String> myFilter = new ArrayList<>();
 

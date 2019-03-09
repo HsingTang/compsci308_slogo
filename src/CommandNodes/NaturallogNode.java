@@ -1,5 +1,6 @@
 package CommandNodes;
 
+import Errors.InvalidCommandException;
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
 
 public class NaturallogNode extends CommandNode{
@@ -18,7 +19,10 @@ public class NaturallogNode extends CommandNode{
     }
 
     @Override
-    public void execute() {
+    public void execute() throws InvalidCommandException{
+        if(myExprs<=0){
+            throw new InvalidCommandException();
+        }
         this.setMyReturnValue(Math.log(myExprs)); //Math.log will through an exception of myExprs is <= 0;
     }
 

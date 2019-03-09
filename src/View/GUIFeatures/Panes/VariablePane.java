@@ -12,7 +12,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.StackPane;
 import javafx.scene.control.TableColumn.CellEditEvent;
-import javafx.scene.layout.VBox;
 
 /**
  * @author Hsingchih Tang
@@ -30,7 +29,7 @@ public class VariablePane extends StackPane implements IObserver {
     private TableColumn varName;
     private TableColumn varVal;
     private IModel myVarPaneModel;
-    private ObservableList<Variable> myVars = FXCollections.observableArrayList(new Variable("name0","val0"));
+    private ObservableList<Variable> myVars = FXCollections.observableArrayList();
 
 
     public VariablePane(double w, double h){

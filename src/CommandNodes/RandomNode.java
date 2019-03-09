@@ -1,5 +1,6 @@
 package CommandNodes;
 
+import Errors.InvalidCommandException;
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
 
 public class RandomNode extends CommandNode {
@@ -18,10 +19,10 @@ public class RandomNode extends CommandNode {
     }
 
     @Override
-    public void execute() {
+    public void execute() throws InvalidCommandException{
         parseParameters();
         if(myMax < 0){
-            throw new IllegalArgumentException(); //myMax can't be negative so this sort should be thrown
+            throw new InvalidCommandException(); //myMax can't be negative so this sort should be thrown
         }
         double result = myMax * Math.random();
         this.setMyReturnValue(result);
