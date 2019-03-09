@@ -145,7 +145,11 @@ public class TurtleView implements TurtleObserver {
 
     private  void updatePenDown() {
         this.penDown = newState.getPenDown();
-        turtleTextState.setPenDownValue(this.penDown.toString());
+        if (this.penDown) {
+            turtleTextState.setPenDownValue("true");
+        } else {
+            turtleTextState.setPenDownValue("false");
+        }
     }
 
     public void updateView() {
