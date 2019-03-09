@@ -29,19 +29,20 @@ public class CommandHandler implements CommandHandlerInterface {
     }
 
     public double moveForward(double px) {
-        //double heading = Math.toRadians(turtleModel.getHeading());
-        setForward(px);
+        double heading = Math.toRadians(getAngle(turtleModel.getHeading()));
+        double newX = turtleModel.getX() + px*Math.cos(heading);
+        double newY = turtleModel.getY() - px*Math.sin(heading);
+        setMovement(newX, newY, heading);
         addTurtleState();
-        System.out.println("forward " + px);
         return px;
     }
 
     public double moveBackwards(double px) {
-        double heading = Math.toRadians(turtleModel.getHeading());
-        turtleModel.setX(turtleModel.getX() - px*Math.cos(heading));
-        turtleModel.setY(turtleModel.getY() + px*Math.sin(heading));
+        double heading = Math.toRadians(getAngle(turtleModel.getHeading()));
+        double newX = turtleModel.getX() - px*Math.cos(heading);
+        double newY = turtleModel.getY() + px*Math.sin(heading);
+        setMovement(newX, newY, heading);
         addTurtleState();
-        System.out.println("backward " + px);
         return px;
     }
 
@@ -197,26 +198,22 @@ public class CommandHandler implements CommandHandlerInterface {
         return calcDistance(initialX, turtleModel.getX(), initialY, turtleModel.getY());
     }
 
-    private void setForward (double px) {
-        double heading = Math.toRadians(getAngle(turtleModel.getHeading()));
-        double potentialNewX = turtleModel.getX() + px*Math.cos(heading);
-        double potentialNewY = turtleModel.getY() - px*Math.sin(heading);
-        if (potentialNewX > -MAX && potentialNewX < MAX && potentialNewY < -MAX) {
-            turtleModel.setX(potentialNewX - (Math.abs(potentialNewY) - MAX)/Math.tan(heading));
+    private void setMovement(double newX, double newY, double heading) {
+        if (newX > -MAX && newX < MAX && newY < -MAX) {
+            turtleModel.setX(newX - (Math.abs(newY) - MAX)/Math.tan(heading));
             turtleModel.setY(-MAX);
-        } else if (potentialNewX > -MAX && potentialNewX < MAX && potentialNewY > MAX) {
-            turtleModel.setX(potentialNewX - (Math.abs(potentialNewY) - MAX)/-Math.tan(heading));
+        } else if (newX > -MAX && newX < MAX && newY > MAX) {
+            turtleModel.setX(newX - (Math.abs(newY) - MAX)/-Math.tan(heading));
             turtleModel.setY(MAX);
-        } else if (potentialNewY > -MAX && potentialNewY < MAX && potentialNewX > MAX){
+        } else if (newY > -MAX && newY < MAX && newX > MAX){
             turtleModel.setX(MAX);
-            turtleModel.setY(potentialNewY + (Math.abs(potentialNewX) - MAX)*Math.tan(heading));
-        } else if (potentialNewY > -MAX && potentialNewY < MAX && potentialNewX < -MAX)  {
+            turtleModel.setY(newY + (Math.abs(newX) - MAX)*Math.tan(heading));
+        } else if (newY > -MAX && newY < MAX && newX < -MAX)  {
             turtleModel.setX(-MAX);
-            turtleModel.setY(potentialNewY + (Math.abs(potentialNewX) - MAX)*-Math.tan(heading));
-
+            turtleModel.setY(newY + (Math.abs(newX) - MAX)*-Math.tan(heading));
         } else {
-            turtleModel.setX(turtleModel.getX() + px*Math.cos(heading));
-            turtleModel.setY(turtleModel.getY() - px*Math.sin(heading));
+            turtleModel.setX(newX);
+            turtleModel.setY(newY);
         }
     }
 
