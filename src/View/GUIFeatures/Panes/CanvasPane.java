@@ -6,6 +6,9 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
+/**
+ * @author Hsingchih Tang
+ */
 public class CanvasPane extends StackPane {
     public static final Color DEFAULT_BG_COLOR = Color.BLACK;
 
@@ -23,10 +26,6 @@ public class CanvasPane extends StackPane {
         setMaxSize(myWidth, myHeight);
         initBackGround();
         initSlogoCanvas();
-    }
-
-    public SlogoCanvas getCanvas(){
-        return this.myCanvas;
     }
 
     public double getCanvasWidth(){

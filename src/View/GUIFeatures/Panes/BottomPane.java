@@ -25,7 +25,10 @@ import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 
-
+/**
+ * @author Hsingchih Tang
+ * @author Eric Lin
+ */
 public class BottomPane extends GridPane {
 
     static final Double GRIDPANE_PADDING_Y = 5.0;

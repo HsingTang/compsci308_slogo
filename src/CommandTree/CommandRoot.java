@@ -4,6 +4,7 @@ import CommandNodes.CommandNode;
 import CommandNodes.MakecommandNode;
 import CommandNodes.TreeParentNode;
 import CommandNodes.UserCommandNode;
+import Errors.SlogoException;
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
 import View.ObserverInterfaces.TurtleObserver;
 import View.Turtles.TurtleView;
@@ -22,15 +23,20 @@ public class CommandRoot {
    private int currentIndex;
 
 
-   public CommandRoot(String[] commandStrings, CommandHandlerInterface controller, TurtleObserver o) {
-      this.commandStrings = commandStrings;
-      this.numCommands = commandStrings.length;
-      this.myHandler = controller;
-      this.parent = new TreeParentNode(this.myHandler, o);
-      this.currentParent = this.parent;
-      this.currentIndex = INIT;
-      this.myCommandNodeFactory = new CommandNodeFactory(this.myHandler);
-      this.makeTree();
+   public CommandRoot(String[] commandStrings, CommandHandlerInterface controller, TurtleObserver o) throws SlogoException {
+      try{
+         this.commandStrings = commandStrings;
+         this.numCommands = commandStrings.length;
+         this.myHandler = controller;
+         this.parent = new TreeParentNode(this.myHandler, o);
+         this.currentParent = this.parent;
+         this.currentIndex = INIT;
+         this.myCommandNodeFactory = new CommandNodeFactory(this.myHandler);
+         this.makeTree();
+      }catch (SlogoException e){
+         throw e;
+      }
+
    }
 
    private void makeTree() {

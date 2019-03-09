@@ -61,7 +61,6 @@ public class SlogoTab extends Tab{
         }catch (SlogoException e){
             throw e;
         }
-
     }
 
 
@@ -83,7 +82,6 @@ public class SlogoTab extends Tab{
         }catch (SlogoException e){
             throw e;
         }
-
     }
 
 
@@ -120,7 +118,4 @@ public class SlogoTab extends Tab{
         myPane.setRight(myCommandPane);
     }
 
-    private void addToHistory(String commands) {
-
-    }
 }
