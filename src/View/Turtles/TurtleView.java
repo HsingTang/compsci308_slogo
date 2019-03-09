@@ -2,7 +2,6 @@ package View.Turtles;
 
 import Model.ModelInterfaces.TurtleModelInterface;
 import State.TurtleState;
-import View.GUIFeatures.Buttons.ThicknessSlider;
 import View.GUIFeatures.Panes.SlogoPen;
 import View.GUIFeatures.Panes.TurtleText;
 import View.ObserverInterfaces.TurtleObserver;
@@ -31,8 +30,6 @@ public class TurtleView implements TurtleObserver {
     public static final double TURTLE_SIZE = 35;
     public static final double THRESHOLD = 0.00000001;
     public static final double MODIFIER = -1;
-//    public static final double X_BOUND = 240;
-//    public static final double Y_BOUND = 240;
 
     private TurtleModelInterface myTurtleModel;
     private ImageView myImgView;
@@ -95,26 +92,6 @@ public class TurtleView implements TurtleObserver {
         boolean checkXGreaterThanFinal = checkXGreaterThanFinal(xAdjust, yAdjust, xFinal, yFinal);
         return (checkXLessThanFinal || checkXGreaterThanFinal);
     }
-
-
-//    private boolean xOutofBound(double xAdjust){
-//        boolean ret = Math.abs(this.myImgView.getTranslateX()+xAdjust)>=X_BOUND;
-//        if(ret){
-//            myTurtleModel.setX(myTurtleModel.getX()>0?X_BOUND:X_BOUND*(MODIFIER));
-//            myX = (myTurtleModel.getX()>0?X_BOUND:X_BOUND*(MODIFIER));
-//        }
-//        return ret;
-//    }
-//
-//    private boolean yOutofBound(double yAdjust){
-//        boolean ret = Math.abs(this.myImgView.getTranslateY()+yAdjust)>=Y_BOUND;
-//        if(ret){
-//            myTurtleModel.setY(myTurtleModel.getY()>0?Y_BOUND:Y_BOUND*(MODIFIER));
-//            myY = (myTurtleModel.getY()>0?Y_BOUND:Y_BOUND*(MODIFIER));
-//        }
-//        return ret;
-//    }
-
 
     private boolean checkXLessThanFinal(double xAdjust, double yAdjust, double xFinal, double yFinal) {
         double translateX = this.myImgView.getTranslateX();
@@ -216,23 +193,12 @@ public class TurtleView implements TurtleObserver {
         DecimalFormat df = new DecimalFormat("#.#####");
         double retX = (Math.abs(this.myX) > THRESHOLD ? this.myX : 0);
         double retY = (Math.abs(this.myY) > THRESHOLD ? this.myY : 0);
-//        retX = validateRetX();
-//        retY = validateRetY();
         retX = Double.parseDouble(df.format(retX));
         retY = MODIFIER * Double.parseDouble(df.format(retY));
         Double[] newPositions = {retX, retY, this.myHeading};
         turtleTextState.setStateValues(newPositions);
     }
 
-//    private double validateRetX(){
-//        myX = (Math.abs(myTurtleModel.getX())>X_BOUND?(myTurtleModel.getX()>0?X_BOUND:X_BOUND*MODIFIER):myX);
-//        return myX;
-//    }
-//
-//    private double validateRetY(){
-//        myY = (Math.abs(myTurtleModel.getY())>Y_BOUND?(myTurtleModel.getY()>0?Y_BOUND:Y_BOUND*MODIFIER):myY);
-//        return myY;
-//    }
 
 
 }

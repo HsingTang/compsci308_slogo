@@ -12,7 +12,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.StackPane;
 import javafx.scene.control.TableColumn.CellEditEvent;
-import javafx.scene.layout.VBox;
 
 /**
  * @author Hsingchih Tang
