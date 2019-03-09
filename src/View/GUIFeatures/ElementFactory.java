@@ -1,6 +1,5 @@
 package View.GUIFeatures;
 
-import Errors.SlogoException;
 import Errors.SlogoTabSetupElementException;
 import javafx.scene.Node;
 import javafx.scene.control.Button;

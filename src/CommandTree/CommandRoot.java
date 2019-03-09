@@ -1,13 +1,11 @@
 package CommandTree;
 
 import CommandNodes.CommandNode;
-import CommandNodes.MakecommandNode;
 import CommandNodes.TreeParentNode;
 import CommandNodes.UserCommandNode;
 import Errors.SlogoException;
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
 import View.ObserverInterfaces.TurtleObserver;
-import View.Turtles.TurtleView;
 
 public class CommandRoot {
    private static final int INIT = 0;

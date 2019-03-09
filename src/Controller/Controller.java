@@ -15,15 +15,16 @@ import View.Window;
 
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Queue;
 
 public class Controller implements ControllerInterface {
-    HashMap<Integer,TurtleView> myTurtleViews;
-    HashMap<Integer,TurtleModel>myTurtleModels;
-    HashMap<Integer,VariablePaneModel> myVarModels;
-    HashMap<Integer, CommandPaneModel> myCommandModels;
-    HashMap<Integer,ReturnValModel> myReturnValModels;
-    HashMap<CommandHandlerInterface, String> myCommandHandlerMap;
+    Map<Integer,TurtleView> myTurtleViews;
+    Map<Integer,TurtleModel>myTurtleModels;
+    Map<Integer,VariablePaneModel> myVarModels;
+    Map<Integer, CommandPaneModel> myCommandModels;
+    Map<Integer,ReturnValModel> myReturnValModels;
+    Map<CommandHandlerInterface, String> myCommandHandlerMap;
     Queue<CommandHandlerInterface> myCommandHandlers;
     StringParser myParser;
     TurtleFactory myTurtleFactory;
