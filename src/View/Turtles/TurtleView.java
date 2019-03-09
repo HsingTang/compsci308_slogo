@@ -2,6 +2,7 @@ package View.Turtles;
 
 import Model.ModelInterfaces.TurtleModelInterface;
 import State.TurtleState;
+import View.GUIFeatures.Buttons.ThicknessSlider;
 import View.GUIFeatures.Panes.SlogoPen;
 import View.GUIFeatures.Panes.TurtleText;
 import View.ObserverInterfaces.TurtleObserver;
@@ -30,8 +31,8 @@ public class TurtleView implements TurtleObserver {
     public static final double TURTLE_SIZE = 35;
     public static final double THRESHOLD = 0.00000001;
     public static final double MODIFIER = -1;
-    public static final double X_BOUND = 240;
-    public static final double Y_BOUND = 240;
+//    public static final double X_BOUND = 240;
+//    public static final double Y_BOUND = 240;
 
     private TurtleModelInterface myTurtleModel;
     private ImageView myImgView;
@@ -46,7 +47,7 @@ public class TurtleView implements TurtleObserver {
     private TurtleState newState;
     private TurtleText turtleTextState;
 
-    public TurtleView(int id, Image img, TurtleModelInterface model){
+    public TurtleView(int id, Image img, TurtleModelInterface model) {
         this.myTurtleModel = model;
         model.registerTurtleObserver(this);
         this.myImgView = new ImageView(img);
@@ -65,7 +66,7 @@ public class TurtleView implements TurtleObserver {
         return myID;
     }
 
-    public ImageView getImgView(){
+    public ImageView getImgView() {
         return myImgView;
     }
 
@@ -73,7 +74,7 @@ public class TurtleView implements TurtleObserver {
         this.myImgView.setImage(newImg);
     }
 
-    public void setPen(SlogoPen pen){
+    public void setPen(SlogoPen pen) {
         myPen = pen;
     }
 
@@ -89,43 +90,45 @@ public class TurtleView implements TurtleObserver {
     }
 
 
-    private boolean movementComplete(double xAdjust, double yAdjust, double xFinal, double yFinal){
+    private boolean movementComplete(double xAdjust, double yAdjust, double xFinal, double yFinal) {
         boolean checkXLessThanFinal = checkXLessThanFinal(xAdjust, yAdjust, xFinal, yFinal);
         boolean checkXGreaterThanFinal = checkXGreaterThanFinal(xAdjust, yAdjust, xFinal, yFinal);
-        return (checkXLessThanFinal || checkXGreaterThanFinal)||xOutofBound(xAdjust)||yOutofBound(yAdjust);
+        return (checkXLessThanFinal || checkXGreaterThanFinal);
     }
 
 
-    private boolean xOutofBound(double xAdjust){
-        boolean ret = Math.abs(this.myImgView.getTranslateX()+xAdjust)>=X_BOUND;
-        if(ret){
-            myTurtleModel.setX(myTurtleModel.getX()>0?X_BOUND:X_BOUND*(MODIFIER));
-        }
-        return ret;
-    }
-
-    private boolean yOutofBound(double yAdjust){
-        boolean ret = Math.abs(this.myImgView.getTranslateY()+yAdjust)>=Y_BOUND;
-        if(ret){
-            myTurtleModel.setY(myTurtleModel.getY()>0?Y_BOUND:Y_BOUND*(MODIFIER));
-        }
-        return ret;
-    }
+//    private boolean xOutofBound(double xAdjust){
+//        boolean ret = Math.abs(this.myImgView.getTranslateX()+xAdjust)>=X_BOUND;
+//        if(ret){
+//            myTurtleModel.setX(myTurtleModel.getX()>0?X_BOUND:X_BOUND*(MODIFIER));
+//            myX = (myTurtleModel.getX()>0?X_BOUND:X_BOUND*(MODIFIER));
+//        }
+//        return ret;
+//    }
+//
+//    private boolean yOutofBound(double yAdjust){
+//        boolean ret = Math.abs(this.myImgView.getTranslateY()+yAdjust)>=Y_BOUND;
+//        if(ret){
+//            myTurtleModel.setY(myTurtleModel.getY()>0?Y_BOUND:Y_BOUND*(MODIFIER));
+//            myY = (myTurtleModel.getY()>0?Y_BOUND:Y_BOUND*(MODIFIER));
+//        }
+//        return ret;
+//    }
 
 
     private boolean checkXLessThanFinal(double xAdjust, double yAdjust, double xFinal, double yFinal) {
         double translateX = this.myImgView.getTranslateX();
         double translateY = this.myImgView.getTranslateY();
-        boolean check1 = xAdjust<0&&translateX<=xFinal&&yAdjust<0&&translateY<=yFinal;
-        boolean check2 = xAdjust<0&&translateX<=xFinal&&yAdjust>0&&translateY>=yFinal;
+        boolean check1 = xAdjust < 0 && translateX <= xFinal && yAdjust < 0 && translateY <= yFinal;
+        boolean check2 = xAdjust < 0 && translateX <= xFinal && yAdjust > 0 && translateY >= yFinal;
         return (check1 || check2);
     }
 
     private boolean checkXGreaterThanFinal(double xAdjust, double yAdjust, double xFinal, double yFinal) {
         double translateX = this.myImgView.getTranslateX();
         double translateY = this.myImgView.getTranslateY();
-        boolean check1 =  xAdjust>0&&translateX>=xFinal&&yAdjust>0&&translateY>=yFinal;
-        boolean check2 =  xAdjust>0&&translateX>=xFinal&&yAdjust<0&&translateY<=yFinal;
+        boolean check1 = xAdjust > 0 && translateX >= xFinal && yAdjust > 0 && translateY >= yFinal;
+        boolean check2 = xAdjust > 0 && translateX >= xFinal && yAdjust < 0 && translateY <= yFinal;
         return (check1 || check2);
     }
 
@@ -133,32 +136,31 @@ public class TurtleView implements TurtleObserver {
     private void calcAnimateParams(double xFinal, double yFinal) {
         Double deltaX = xFinal - this.myImgView.getTranslateX();
         Double deltaY = yFinal - this.myImgView.getTranslateY();
-        Double deltaDist = Math.sqrt(Math.pow(deltaX,2)+Math.pow(deltaY,2));
-        Double xAdjust = (deltaDist!=INITIAL_POSITION?(deltaX/deltaDist):INITIAL_POSITION);
-        Double yAdjust = (deltaDist!=INITIAL_POSITION?(deltaY/deltaDist):INITIAL_POSITION);
-        animateTranslation(xAdjust,yAdjust,xFinal,yFinal);
+        Double deltaDist = Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2));
+        Double xAdjust = (deltaDist != INITIAL_POSITION ? (deltaX / deltaDist) : INITIAL_POSITION);
+        Double yAdjust = (deltaDist != INITIAL_POSITION ? (deltaY / deltaDist) : INITIAL_POSITION);
+        animateTranslation(xAdjust, yAdjust, xFinal, yFinal);
     }
 
-    private void animateTranslation(double xAdjust,double yAdjust, double xFinal, double yFinal){
+    private void animateTranslation(double xAdjust, double yAdjust, double xFinal, double yFinal) {
         Timeline timeline = new Timeline();
         var frame = new KeyFrame(Duration.millis(ANIMATION_SPEED), e -> {
-                if (movementComplete(xAdjust, yAdjust, xFinal, yFinal)) {
-                    timeline.stop();
-                }
-                if(Math.abs(this.myImgView.getTranslateX()+xAdjust)<X_BOUND && Math.abs(this.myImgView.getTranslateY()+yAdjust)<Y_BOUND){
-                    this.myImgView.setTranslateX(this.myImgView.getTranslateX() + xAdjust);
-                    this.myImgView.setTranslateY(this.myImgView.getTranslateY() + yAdjust);
-                    if (this.penDown) {
-                        this.myPen.drawPath(this.myImgView.getTranslateX() - xAdjust, this.myImgView.getTranslateY() - yAdjust, this.myImgView.getTranslateX(), this.myImgView.getTranslateY());
-                    }
-                }
+            if (movementComplete(xAdjust, yAdjust, xFinal, yFinal)) {
+                timeline.stop();
+            }
+            this.myImgView.setTranslateX(this.myImgView.getTranslateX() + xAdjust);
+            this.myImgView.setTranslateY(this.myImgView.getTranslateY() + yAdjust);
+            if (this.penDown) {
+                this.myPen.drawPath(this.myImgView.getTranslateX() - xAdjust, this.myImgView.getTranslateY() - yAdjust, this.myImgView.getTranslateX(), this.myImgView.getTranslateY());
+            }
+
         });
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.getKeyFrames().add(frame);
         timeline.play();
     }
 
-    private  void updatePenDown() {
+    private void updatePenDown() {
         this.penDown = newState.getPenDown();
         if (this.penDown) {
             turtleTextState.setPenDownValue("true");
@@ -211,19 +213,26 @@ public class TurtleView implements TurtleObserver {
     }
 
     private void setTurtleStateText() {
-        double retX = 0;
-        double retY = 0;
         DecimalFormat df = new DecimalFormat("#.#####");
-        if (Math.abs(this.myX) > THRESHOLD) {
-            retX = this.myX;
-        }
-        if (Math.abs(this.myY) > THRESHOLD) {
-            retY = this.myY;
-        }
+        double retX = (Math.abs(this.myX) > THRESHOLD ? this.myX : 0);
+        double retY = (Math.abs(this.myY) > THRESHOLD ? this.myY : 0);
+//        retX = validateRetX();
+//        retY = validateRetY();
         retX = Double.parseDouble(df.format(retX));
         retY = MODIFIER * Double.parseDouble(df.format(retY));
         Double[] newPositions = {retX, retY, this.myHeading};
         turtleTextState.setStateValues(newPositions);
     }
+
+//    private double validateRetX(){
+//        myX = (Math.abs(myTurtleModel.getX())>X_BOUND?(myTurtleModel.getX()>0?X_BOUND:X_BOUND*MODIFIER):myX);
+//        return myX;
+//    }
+//
+//    private double validateRetY(){
+//        myY = (Math.abs(myTurtleModel.getY())>Y_BOUND?(myTurtleModel.getY()>0?Y_BOUND:Y_BOUND*MODIFIER):myY);
+//        return myY;
+//    }
+
 
 }
