@@ -32,7 +32,7 @@ public class CommandHandler implements CommandHandlerInterface {
         double heading = Math.toRadians(getAngle(turtleModel.getHeading()));
         double newX = turtleModel.getX() + px*Math.cos(heading);
         double newY = turtleModel.getY() - px*Math.sin(heading);
-        setMovement(px, newX, newY, heading);
+        setMovement(newX, newY, heading);
         addTurtleState();
         return px;
     }
@@ -41,7 +41,7 @@ public class CommandHandler implements CommandHandlerInterface {
         double heading = Math.toRadians(getAngle(turtleModel.getHeading()));
         double newX = turtleModel.getX() - px*Math.cos(heading);
         double newY = turtleModel.getY() + px*Math.sin(heading);
-        setMovement(px, newX, newY, heading);
+        setMovement(newX, newY, heading);
         addTurtleState();
         return px;
     }
@@ -198,7 +198,7 @@ public class CommandHandler implements CommandHandlerInterface {
         return calcDistance(initialX, turtleModel.getX(), initialY, turtleModel.getY());
     }
 
-    private void setMovement(double px, double newX, double newY, double heading) {
+    private void setMovement(double newX, double newY, double heading) {
         if (newX > -MAX && newX < MAX && newY < -MAX) {
             turtleModel.setX(newX - (Math.abs(newY) - MAX)/Math.tan(heading));
             turtleModel.setY(-MAX);
