@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.lang.reflect.Constructor;
 import java.util.HashMap;
+import java.util.Map;
 
 public class CommandNodeFactory {
    private static final String EXPRESSION_MAP_FILE = "resources/expressionToString.txt";
@@ -18,7 +19,7 @@ public class CommandNodeFactory {
    private static final String NODE_BUILDER = "Node";
 
    private final CommandHandlerInterface myHandler;
-   private HashMap<String, String> expressionStringMap;
+   private Map<String, String> expressionStringMap;
 
    public CommandNodeFactory(CommandHandlerInterface controller) throws SlogoException{
       this.myHandler = controller;
@@ -81,7 +82,7 @@ public class CommandNodeFactory {
    }
 
    private void setExpressionMap() throws SlogoException{
-      HashMap<String, String> map = new HashMap<>();
+      Map<String, String> map = new HashMap<>();
       try {
          String line;
          BufferedReader reader = new BufferedReader(new FileReader(EXPRESSION_MAP_FILE));

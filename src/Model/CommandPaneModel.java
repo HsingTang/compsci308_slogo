@@ -9,9 +9,8 @@ import java.util.*;
  * @author Hsingchih Tang
  */
 public class CommandPaneModel extends PaneModel {
-    private ArrayList<String> historyStrings;
-    private ArrayList<HistoricalCommand> commandHistory;
-    private HashMap<String, CommandInfo> myCommands;
+    private List<HistoricalCommand> commandHistory;
+    private Map<String, CommandInfo> myCommands;
 
 
     public CommandPaneModel(){
@@ -34,7 +33,7 @@ public class CommandPaneModel extends PaneModel {
         return myCommands.keySet().contains(name);
     }
 
-    public HashMap getCommands(){
+    public Map getCommands(){
         return this.myCommands;
     }
 
