@@ -20,8 +20,9 @@ public class SineNode extends CommandNode{
     @Override
     public void execute() {
         parseParameters();
-        this.setMyReturnValue(Math.sin(myDegrees));
-        System.out.println(this.getMyReturnValue());
+        double radianValue = Math.toRadians(myDegrees);
+        this.setMyReturnValue(Math.sin(radianValue));
+        System.out.println("%" + this.getMyReturnValue());
     }
 
     @Override

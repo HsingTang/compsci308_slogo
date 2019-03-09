@@ -20,7 +20,8 @@ public class CosineNode extends CommandNode{
     @Override
     public void execute() {
         parseParameters();
-        this.setMyReturnValue(Math.cos(myDegrees));
+        double radianValue = Math.toRadians(myDegrees);
+        this.setMyReturnValue(Math.cos(radianValue));
     }
 
     @Override

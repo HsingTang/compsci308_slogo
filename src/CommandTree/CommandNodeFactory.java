@@ -107,7 +107,6 @@ public class CommandNodeFactory {
       } else{
          nodeString = arrayString.substring(0, 1).toUpperCase() + arrayString.substring(1).toLowerCase() + NODE_BUILDER;
       }
-      System.out.println("*"+nodeString+"*");
       return nodeString;
    }
 }

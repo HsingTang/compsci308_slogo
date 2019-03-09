@@ -20,7 +20,8 @@ public class TangentNode extends CommandNode{
     @Override
     public void execute() {
         parseParameters();
-        this.setMyReturnValue(Math.tan(myDegrees));
+        double radianValue = Math.toRadians(myDegrees);
+        this.setMyReturnValue(Math.tan(radianValue));
     }
 
     @Override
