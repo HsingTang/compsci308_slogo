@@ -3,6 +3,9 @@ package View.GUIFeatures.Panes;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
+/**
+ * @author Hsingchih Tang
+ */
 public class StatePane extends GridPane {
     static final Integer TURTLE_LABEL_COL = 0;
     static final Integer TURTLE_VAL_COL = 1;

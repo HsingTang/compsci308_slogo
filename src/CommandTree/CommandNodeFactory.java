@@ -1,10 +1,14 @@
 package CommandTree;
 
 import CommandNodes.*;
+import Errors.InvalidCommandException;
+import Errors.SlogoException;
+import Errors.SlogoFileNotFoundException;
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.InvalidClassException;
 import java.lang.reflect.Constructor;
 import java.util.HashMap;
 
@@ -17,12 +21,16 @@ public class CommandNodeFactory {
    private final CommandHandlerInterface myHandler;
    private HashMap<String, String> expressionStringMap;
 
-   public CommandNodeFactory(CommandHandlerInterface controller) {
+   public CommandNodeFactory(CommandHandlerInterface controller) throws SlogoException{
       this.myHandler = controller;
-      this.setExpressionMap();
+      try{
+         this.setExpressionMap();
+      }catch (SlogoException e){
+         throw e;
+      }
    }
 
-   public CommandNode newNode(String arrayString, CommandNode parent, CommandRoot root) {
+   public CommandNode newNode(String arrayString, CommandNode parent, CommandRoot root) throws SlogoException {
       System.out.println("I am a " + arrayString + " my parent is a " + parent + " and her size is " + parent.getMyChildren().size());
       if(parent instanceof MakevariableNode && parent.getMyChildren().size() == 0){
          return this.newStringNode(parent, arrayString.substring(1));
@@ -48,27 +56,21 @@ public class CommandNodeFactory {
                return this.newNode(nodeClass, parent);
             }
             catch(Exception f){
-               /**
-                * Error regarding class not found
-                */
-               System.out.println("CLASS NOT FOUND: " + nodeString);
-               return null;
+               throw new InvalidCommandException();
             }
          }
    }
 
-   private CommandNode newNode(Class<?> nodeClass, CommandNode parent){
+   private CommandNode newNode(Class<?> nodeClass, CommandNode parent) throws SlogoException{
       try{
             Constructor<?> cons = nodeClass.getConstructor(CommandHandlerInterface.class, CommandNode.class);
             return (CommandNode)(cons.newInstance(myHandler, parent));
       }
       catch(Exception e){
-         /**
-          * Error regarding no such command
-          */
-         return null;
+         throw new InvalidCommandException();
       }
    }
+
    private ConstantNode newConstantNode(CommandNode parent, Double value){
       return new ConstantNode(myHandler, parent, value);
    }
@@ -80,7 +82,7 @@ public class CommandNodeFactory {
       return new VariableNode(myHandler, parent, s);
    }
 
-   private void setExpressionMap(){
+   private void setExpressionMap() throws SlogoException{
       HashMap<String, String> map = new HashMap<>();
       try {
          String line;
@@ -94,9 +96,7 @@ public class CommandNodeFactory {
          reader.close();
          this.expressionStringMap = map;
       } catch (Exception e) {
-         /**Error regarding string map
-          *
-          */
+         throw new SlogoFileNotFoundException();
       }
    }
 

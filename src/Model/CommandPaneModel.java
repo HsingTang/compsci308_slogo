@@ -1,11 +1,12 @@
 package Model;
 
-import CommandNodes.UserCommandNode;
-import Model.ModelInterfaces.IModel;
 import View.GUIFeatures.Panes.HistoricalCommand;
 
 import java.util.*;
 
+/**
+ * @author Hsingchih Tang
+ */
 public class CommandPaneModel extends PaneModel {
     private ArrayList<HistoricalCommand> commandHistory;
     private HashMap<String, CommandInfo> myCommands;
@@ -40,6 +41,11 @@ public class CommandPaneModel extends PaneModel {
     public List<HistoricalCommand> getData(){
         this.toData();
         return Collections.unmodifiableList(commandHistory);
+    }
+
+    @Override
+    public void ObserverUpdateModel(Object o) {
+
     }
 
     private void toData(){

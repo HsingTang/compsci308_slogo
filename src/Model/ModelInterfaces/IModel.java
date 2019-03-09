@@ -14,4 +14,7 @@ public interface IModel {
 
     List getData();
 
+    void ObserverUpdateModel(Object o);
+
+
 }

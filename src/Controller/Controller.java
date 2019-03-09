@@ -2,6 +2,7 @@ package Controller;
 
 import CommandTree.CommandRoot;
 import CommandTree.StringParser;
+import Errors.SlogoException;
 import Handlers.CommandHandler;
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
 import Model.CommandPaneModel;
@@ -10,6 +11,7 @@ import Model.TurtleModel;
 import Model.VariablePaneModel;
 import View.Turtles.TurtleFactory;
 import View.Turtles.TurtleView;
+import View.Window;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -27,19 +29,21 @@ public class Controller implements ControllerInterface {
     TurtleFactory myTurtleFactory;
     private int turtleNumber = 0;
     private String myLanguage = "English";
+    private Window myWindow;
     // private boolean executing = false;
 
-    public Controller() {
+    public Controller(Window window) {
         this.turtleNumber = 0;
         this.myTurtleFactory = new TurtleFactory();
         this.myTurtleViews = new HashMap<>();
         this.myTurtleModels = new HashMap<>();
         this.myVarModels = new HashMap<>();
         this.myCommandModels = new HashMap<>();
-        myReturnValModels = new HashMap<>();
+        this.myReturnValModels = new HashMap<>();
         this.myCommandHandlers = new LinkedList<>();
         this.myCommandHandlerMap = new HashMap<>();
         this.myParser = new StringParser();
+        this.myWindow = window;
     }
 
     public void initNewTab(){
@@ -77,17 +81,26 @@ public class Controller implements ControllerInterface {
         for (String s: myParser.parseCommand(command)){
             System.out.println(s);
         }
-        CommandHandlerInterface addCommandHandler = new CommandHandler(myTurtleModels.get(id), myVarModels.get(id), myCommandModels.get(id));
-        myCommandHandlerMap.put(addCommandHandler,command);
-        myCommandHandlers.add(addCommandHandler);
-        executeCommands(id);
+        CommandHandlerInterface addCommandHandler;
+        try{
+            addCommandHandler = new CommandHandler(myTurtleModels.get(id), myVarModels.get(id), myCommandModels.get(id));
+            myCommandHandlerMap.put(addCommandHandler,command);
+            myCommandHandlers.add(addCommandHandler);
+            executeCommands(id);
+        }catch (SlogoException e){
+            myWindow.invokeAlert(e);
+        }
     }
 
     private void executeCommands(int id){
         while(!myCommandHandlers.isEmpty()){
             CommandHandlerInterface currHandler = myCommandHandlers.poll();
-            CommandRoot root = new CommandRoot(this.myParser.parseCommand(myCommandHandlerMap.get(currHandler)), currHandler, myTurtleViews.get(id));
-            root.execute();
+            try{
+                CommandRoot root = new CommandRoot(this.myParser.parseCommand(myCommandHandlerMap.get(currHandler)), currHandler, myTurtleViews.get(id));
+                root.execute();
+            }catch (SlogoException e){
+                myWindow.invokeAlert(e);
+            }
         }
     }
 

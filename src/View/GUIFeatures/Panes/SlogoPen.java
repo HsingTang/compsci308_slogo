@@ -4,6 +4,9 @@ import javafx.scene.Node;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
+/**
+ * @author Hsingchih Tang
+ */
 public class SlogoPen extends Node {
     static final Color DEFAULT_PEN_COLOR = Color.WHITE;
     static final double DEFAULT_PEN_WIDTH = 2.0;
