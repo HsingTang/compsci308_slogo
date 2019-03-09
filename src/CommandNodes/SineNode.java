@@ -2,17 +2,17 @@ package CommandNodes;
 
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
 
-public class SinNode extends CommandNode{
+public class SineNode extends CommandNode{
 
     private static final int NUM_PARAMS = 1;
     private double myDegrees;
 
-    public SinNode(CommandHandlerInterface inHandler) {
+    public SineNode(CommandHandlerInterface inHandler) {
         super(inHandler);
         this.setMyNumParams(NUM_PARAMS);
     }
 
-    public SinNode(CommandHandlerInterface inHandler, CommandNode inParent) {
+    public SineNode(CommandHandlerInterface inHandler, CommandNode inParent) {
         super(inHandler, inParent);
         this.setMyNumParams(NUM_PARAMS);
     }
@@ -21,6 +21,7 @@ public class SinNode extends CommandNode{
     public void execute() {
         parseParameters();
         this.setMyReturnValue(Math.sin(myDegrees));
+        System.out.println(this.getMyReturnValue());
     }
 
     @Override

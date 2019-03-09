@@ -2,17 +2,17 @@ package CommandNodes;
 
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
 
-public class CosNode extends CommandNode{
+public class CosineNode extends CommandNode{
 
     private static final int NUM_PARAMS = 1;
     private double myDegrees;
 
-    public CosNode(CommandHandlerInterface inHandler) {
+    public CosineNode(CommandHandlerInterface inHandler) {
         super(inHandler);
         this.setMyNumParams(NUM_PARAMS);
     }
 
-    public CosNode(CommandHandlerInterface inHandler, CommandNode inParent) {
+    public CosineNode(CommandHandlerInterface inHandler, CommandNode inParent) {
         super(inHandler, inParent);
         this.setMyNumParams(NUM_PARAMS);
     }

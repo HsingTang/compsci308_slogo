@@ -20,11 +20,12 @@ public class ProductNode extends CommandNode {
     @Override
     public void execute() {
         parseParameters();
-        double result = 0;
+        double result = 1;
         for(double x : myValues){
             result *= x;
         }
-        setMyReturnValue(result);
+        this.setMyReturnValue(result);
+        System.out.println(this.getMyReturnValue());
     }
 
     @Override

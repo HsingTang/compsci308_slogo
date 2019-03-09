@@ -2,28 +2,29 @@ package CommandNodes;
 
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
 
-public class LogNode extends CommandNode{
+public class TangentNode extends CommandNode{
 
     private static final int NUM_PARAMS = 1;
-    private double myExprs;
+    private double myDegrees;
 
-    public LogNode(CommandHandlerInterface inHandler) {
+    public TangentNode(CommandHandlerInterface inHandler) {
         super(inHandler);
         this.setMyNumParams(NUM_PARAMS);
     }
 
-    public LogNode(CommandHandlerInterface inHandler, CommandNode inParent) {
+    public TangentNode(CommandHandlerInterface inHandler, CommandNode inParent) {
         super(inHandler, inParent);
         this.setMyNumParams(NUM_PARAMS);
     }
 
     @Override
     public void execute() {
-        this.setMyReturnValue(Math.log(myExprs));
+        parseParameters();
+        this.setMyReturnValue(Math.tan(myDegrees));
     }
 
     @Override
     protected void parseParameters() {
-        myExprs = this.getNextDouble();
+        myDegrees = this.getNextDouble();
     }
 }
