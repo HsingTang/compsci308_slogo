@@ -42,6 +42,11 @@ public class CommandPaneModel extends PaneModel {
         return Collections.unmodifiableList(commandHistory);
     }
 
+    @Override
+    public void ObserverUpdateModel(Object o) {
+
+    }
+
     private void toData(){
         for(String s: myCommands.keySet()){
             HistoricalCommand hist = new HistoricalCommand(s);

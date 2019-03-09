@@ -1,6 +1,7 @@
 package View;
 
 import Controller.Controller;
+import Errors.SlogoAlert;
 import Errors.SlogoException;
 import javafx.stage.Stage;
 
@@ -8,7 +9,7 @@ import javafx.stage.Stage;
 import java.util.HashMap;
 
 public class SlogoTabFactory {
-    private HashMap<Integer, IView> myViews;
+    private HashMap<Integer, SlogoTab> myViews;
     private int productCount;
 
     public SlogoTabFactory(){
@@ -17,9 +18,14 @@ public class SlogoTabFactory {
     }
 
     public SlogoTab getSlogoTab(int id, double w, double h, Controller controller, Stage stage, Window window) throws SlogoException {
-        SlogoTab newViewProduct = new SlogoTab(id, w, h,controller, stage, window);
-        myViews.put(productCount,newViewProduct);
-        productCount++;
-        return newViewProduct;
+        SlogoTab newViewProduct;
+        try{
+            newViewProduct = new SlogoTab(id, w, h,controller, stage, window);
+            myViews.put(productCount,newViewProduct);
+            productCount++;
+            return newViewProduct;
+        }catch (SlogoException e){
+            throw e;
+        }
     }
 }

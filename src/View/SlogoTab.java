@@ -16,14 +16,13 @@ import javafx.scene.control.Tab;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-import java.lang.reflect.InvocationTargetException;
 
 /**
  * @author Hsingchih Tang
  * @author Eric Lin
  * An independent tab managing its own Turtle, commands and variables
  */
-public class SlogoTab extends Tab implements IView {
+public class SlogoTab extends Tab{
 
     static final String STYLE_SHEET = "stylesheets/StyleWindow.css";
     static final String TAB_STRING = "Tab ";
@@ -51,39 +50,20 @@ public class SlogoTab extends Tab implements IView {
         myHeight = height;
         myTurtle = this.myController.getTurtleView(id);
         Label tabTitle = new Label(TAB_STRING + id);
-        initPanes();
-        setContent(myPane);
-        setTurtleView(this.myController.getTurtleView(id));
-        setGraphic(tabTitle);
-        this.myPane.getStylesheets().add(STYLE_SHEET);
-        this.myPane.getStyleClass().add("this");
-        this.setOnClosed(e->{myController.removeTab(myID);});
-    }
-
-    @Override
-    public void notifyConsole() {
-
-    }
-
-    @Override
-    public void notifyVariablePane() {
+        try{
+            initPanes();
+            setContent(myPane);
+            setTurtleView(this.myController.getTurtleView(id));
+            setGraphic(tabTitle);
+            this.myPane.getStylesheets().add(STYLE_SHEET);
+            this.myPane.getStyleClass().add("this");
+            this.setOnClosed(e->{myController.removeTab(myID);});
+        }catch (SlogoException e){
+            throw e;
+        }
 
     }
 
-    @Override
-    public void notifyCommandHistory() {
-
-    }
-
-    @Override
-    public void notifyEnvironment() {
-
-    }
-
-    @Override
-    public void notifyTurtleView() {
-
-    }
 
     public void setTurtleView(TurtleView t){
         myCanvasPane.initTurtleView(t);
@@ -94,20 +74,33 @@ public class SlogoTab extends Tab implements IView {
         myPane = new BorderPane();
         myPane.setMaxSize(myWidth,myHeight);
         myPane.setPadding(new Insets(DEFAULT_PADDING_Y, DEFAULT_PADDING_X, DEFAULT_PADDING_Y, DEFAULT_PADDING_X));
-        initCanvasPane();
-        initTopPane();
-        initBottomPane();
-        initVarPane();
-        initCommandPane();
+        try{
+            initCanvasPane();
+            initTopPane();
+            initBottomPane();
+            initVarPane();
+            initCommandPane();
+        }catch (SlogoException e){
+            throw e;
+        }
+
     }
 
 
     private void initTopPane() throws SlogoException {
-        myPane.setTop(new TopPane(myHeight, myCanvasPane, myController, myWindow, myTurtle, myStage));
+        try{
+            myPane.setTop(new TopPane(myHeight, myCanvasPane, myController, myWindow, myTurtle, myStage));
+        }catch (SlogoException e){
+            throw e;
+        }
     }
 
     private void initBottomPane() throws SlogoException{
-        myPane.setBottom(new BottomPane(myHeight, myCanvasPane, myController, myID, myTurtle));
+        try{
+            myPane.setBottom(new BottomPane(myHeight, myCanvasPane, myController, myID, myTurtle));
+        }catch (SlogoException e){
+            throw e;
+        }
     }
 
     private void initCanvasPane(){

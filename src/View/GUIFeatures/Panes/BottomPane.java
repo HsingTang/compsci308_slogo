@@ -57,18 +57,28 @@ public class BottomPane extends GridPane {
     }
 
     private void initBottomPaneElements() throws SlogoException{
-        initConsole();
-        initExecuteButton();
-        initClearButton();
-        initHelpButton();
-        initActionButtons();
-        initSpring();
+        try{
+            initConsole();
+            initExecuteButton();
+            initClearButton();
+            initHelpButton();
+            initActionButtons();
+            initSpring();
+        }catch (SlogoException e){
+            throw e;
+        }
+
     }
 
     private void initSpring() throws SlogoException{
-        Pane mySpring = (Pane) myElementFactory.makeElement("Spring");
-        mySpring.setMinHeight(GRIDPANE_PADDING_Y);
-        myLayoutManager.setLayout(mySpring);
+        try{
+            Pane mySpring = (Pane) myElementFactory.makeElement("Spring");
+            mySpring.setMinHeight(GRIDPANE_PADDING_Y);
+            myLayoutManager.setLayout(mySpring);
+        }catch (SlogoException e){
+            throw e;
+        }
+
     }
 
     private void initConsole() {
@@ -79,13 +89,21 @@ public class BottomPane extends GridPane {
     }
 
     private void initExecuteButton() throws SlogoException{
-        Button myExecuteButton = (ExecuteButton)myElementFactory.makeElement("ExecuteButton");
-        myLayoutManager.setLayout(myExecuteButton);
+        try{
+            Button myExecuteButton = (ExecuteButton)myElementFactory.makeElement("ExecuteButton");
+            myLayoutManager.setLayout(myExecuteButton);
+        }catch (SlogoException e){
+            throw e;
+        }
     }
 
     private void initClearButton() throws SlogoException{
-        Button myClearButton = (ClearButton)myElementFactory.makeElement("ClearButton");
-        myLayoutManager.setLayout(myClearButton);
+        try{
+            Button myClearButton = (ClearButton)myElementFactory.makeElement("ClearButton");
+            myLayoutManager.setLayout(myClearButton);
+        }catch (SlogoException e){
+            throw e;
+        }
     }
 
     public void clearConsole(){
@@ -93,35 +111,45 @@ public class BottomPane extends GridPane {
     }
 
     private void initHelpButton() throws SlogoException {
-        Button myHelpButton = (HelpButton)myElementFactory.makeElement("HelpButton");
-        myLayoutManager.setLayout(myHelpButton);
+        try{
+            Button myHelpButton = (HelpButton)myElementFactory.makeElement("HelpButton");
+            myLayoutManager.setLayout(myHelpButton);
+        }catch (SlogoException e){
+            throw e;
+        }
+
     }
 
     private void initActionButtons() throws SlogoException{
-        Button moveForwardButton = (ForwardButton)myElementFactory.makeElement("ForwardButton");
-        Button moveBackwardsButton = (BackwardsButton)myElementFactory.makeElement("BackwardsButton");
-        Button turnLeftButton = (LeftRotateButton)myElementFactory.makeElement("LeftRotateButton");
-        Button turnRightButton = (RightRotateButton)myElementFactory.makeElement("RightRotateButton");
-        Button penDown = (PenDownButton)myElementFactory.makeElement("PenDownButton");
-        Button penUp = (PenUpButton)myElementFactory.makeElement("PenUpButton");
-        ThicknessSlider penSlider = (ThicknessSlider)myElementFactory.makeElement("ThicknessSlider");
-        penSlider.setOnMousePressed(e -> {
-            penSlider.changeThickness(myTurtle.getPen());
-            myTurtle.getTurtleTextState().setPenThickness(penSlider.getValue());
-        });
-        penSlider.valueChangingProperty().addListener((ObservableValue<? extends Boolean> obs, Boolean wasChanging, Boolean isNowChanging) -> {
-            if (!isNowChanging) {
+        try{
+            Button moveForwardButton = (ForwardButton)myElementFactory.makeElement("ForwardButton");
+            Button moveBackwardsButton = (BackwardsButton)myElementFactory.makeElement("BackwardsButton");
+            Button turnLeftButton = (LeftRotateButton)myElementFactory.makeElement("LeftRotateButton");
+            Button turnRightButton = (RightRotateButton)myElementFactory.makeElement("RightRotateButton");
+            Button penDown = (PenDownButton)myElementFactory.makeElement("PenDownButton");
+            Button penUp = (PenUpButton)myElementFactory.makeElement("PenUpButton");
+            ThicknessSlider penSlider = (ThicknessSlider)myElementFactory.makeElement("ThicknessSlider");
+            penSlider.setOnMousePressed(e -> {
                 penSlider.changeThickness(myTurtle.getPen());
                 myTurtle.getTurtleTextState().setPenThickness(penSlider.getValue());
-            }
-        });
-        myLayoutManager.setLayout(moveForwardButton);
-        myLayoutManager.setLayout(moveBackwardsButton);
-        myLayoutManager.setLayout(turnLeftButton);
-        myLayoutManager.setLayout(turnRightButton);
-        myLayoutManager.setLayout(penDown);
-        myLayoutManager.setLayout(penUp);
-        myLayoutManager.setLayout(penSlider);
+            });
+            penSlider.valueChangingProperty().addListener((ObservableValue<? extends Boolean> obs, Boolean wasChanging, Boolean isNowChanging) -> {
+                if (!isNowChanging) {
+                    penSlider.changeThickness(myTurtle.getPen());
+                    myTurtle.getTurtleTextState().setPenThickness(penSlider.getValue());
+                }
+            });
+            myLayoutManager.setLayout(moveForwardButton);
+            myLayoutManager.setLayout(moveBackwardsButton);
+            myLayoutManager.setLayout(turnLeftButton);
+            myLayoutManager.setLayout(turnRightButton);
+            myLayoutManager.setLayout(penDown);
+            myLayoutManager.setLayout(penUp);
+            myLayoutManager.setLayout(penSlider);
+        }catch (SlogoException e){
+            throw e;
+        }
+
     }
 
     public void transferCommands() {
