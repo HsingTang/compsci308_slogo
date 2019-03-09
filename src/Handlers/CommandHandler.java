@@ -14,8 +14,7 @@ import State.TurtleState;
 public class CommandHandler implements CommandHandlerInterface {
     public static final double INITIAL_HEADING = 90.0;
 
-    static final double WIDTH = 480;
-    static final double HEIGHT = 480;
+    static final double MAX = 240;
     final TurtleModelInterface turtleModel;
     final VariablePaneModel varModel;
     final CommandPaneModel commandModel;
@@ -30,12 +29,8 @@ public class CommandHandler implements CommandHandlerInterface {
     }
 
     public double moveForward(double px) {
-        double heading = Math.toRadians(turtleModel.getHeading());
-        double potentialNewX = turtleModel.getX() + px*Math.cos(heading);
-        double potentialNewY = turtleModel.getY() - px*Math.sin(heading);
-        double maxX = turtleModel.getX();
-        turtleModel.setX(turtleModel.getX() + px*Math.cos(heading));
-        turtleModel.setY(turtleModel.getY() - px*Math.sin(heading));
+        //double heading = Math.toRadians(turtleModel.getHeading());
+        setForward(px);
         addTurtleState();
         System.out.println("forward " + px);
         return px;
@@ -200,26 +195,34 @@ public class CommandHandler implements CommandHandlerInterface {
         return calcDistance(initialX, turtleModel.getX(), initialY, turtleModel.getY());
     }
 
-    private double[] getMaxDistanceAndPointsForwards(double angle, double xPos, double yPos) {
-        double[] distanceMaxAndMaxY = new double[3];
-        angle = findAngle(angle);
-        if (0 < angle && angle <= 90) { // Quadrant 1
+    private void setForward (double px) {
+        double heading = Math.toRadians(getAngle(turtleModel.getHeading()));
+        double potentialNewX = turtleModel.getX() + px*Math.cos(heading);
+        double potentialNewY = turtleModel.getY() - px*Math.sin(heading);
+        if (potentialNewX > -MAX && potentialNewX < MAX && potentialNewY < -MAX) {
+            turtleModel.setX(potentialNewX - (Math.abs(potentialNewY) - MAX)/Math.tan(heading));
+            turtleModel.setY(-MAX);
+        } else if (potentialNewX > -MAX && potentialNewX < MAX && potentialNewY > MAX) {
+            turtleModel.setX(potentialNewX - (Math.abs(potentialNewY) - MAX)/-Math.tan(heading));
+            turtleModel.setY(MAX);
+        } else if (potentialNewY > -MAX && potentialNewY < MAX && potentialNewX > MAX){
+            turtleModel.setX(MAX);
+            turtleModel.setY(potentialNewY + (Math.abs(potentialNewX) - MAX)*Math.tan(heading));
+        } else if (potentialNewY > -MAX && potentialNewY < MAX && potentialNewX < -MAX)  {
+            turtleModel.setX(-MAX);
+            turtleModel.setY(potentialNewY + (Math.abs(potentialNewX) - MAX)*-Math.tan(heading));
 
-        } else if (angle > 90 && angle <= 180) { // Quadrant 2
-
-        } else if (angle > 180 && angle <= 270) { // Quadrant 3
-
-        } else { // Quadrant 4
-
+        } else {
+            turtleModel.setX(turtleModel.getX() + px*Math.cos(heading));
+            turtleModel.setY(turtleModel.getY() - px*Math.sin(heading));
         }
-
-        return distanceMaxAndMaxY;
     }
 
-    private double findAngle(double angle) {
+    private double getAngle(double angle) {
         while (angle < 0) {
-            angle+=360;
+            angle += 360;
         }
         return angle;
     }
+
 }
