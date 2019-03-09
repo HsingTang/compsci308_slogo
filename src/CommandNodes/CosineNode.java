@@ -2,7 +2,7 @@ package CommandNodes;
 
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
 
-public class CosineNode extends CommandNode{
+public class CosineNode extends TrigNode{
 
     private static final int NUM_PARAMS = 1;
     private double myDegrees;
@@ -20,8 +20,8 @@ public class CosineNode extends CommandNode{
     @Override
     public void execute() {
         parseParameters();
-        double radianValue = Math.toRadians(myDegrees);
-        this.setMyReturnValue(Math.cos(radianValue));
+        double trigValue = Math.cos(Math.toRadians(myDegrees));
+        setReturn(trigValue);
     }
 
     @Override

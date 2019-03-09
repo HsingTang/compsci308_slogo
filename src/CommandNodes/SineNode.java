@@ -2,7 +2,7 @@ package CommandNodes;
 
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
 
-public class SineNode extends CommandNode{
+public class SineNode extends TrigNode{
 
     private static final int NUM_PARAMS = 1;
     private double myDegrees;
@@ -20,9 +20,8 @@ public class SineNode extends CommandNode{
     @Override
     public void execute() {
         parseParameters();
-        double radianValue = Math.toRadians(myDegrees);
-        this.setMyReturnValue(Math.sin(radianValue));
-        System.out.println("%" + this.getMyReturnValue());
+        double trigValue = Math.sin(Math.toRadians(myDegrees));
+        setReturn(trigValue);
     }
 
     @Override

@@ -2,7 +2,7 @@ package CommandNodes;
 
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
 
-public class TangentNode extends CommandNode{
+public class TangentNode extends TrigNode{
 
     private static final int NUM_PARAMS = 1;
     private double myDegrees;
@@ -20,8 +20,8 @@ public class TangentNode extends CommandNode{
     @Override
     public void execute() {
         parseParameters();
-        double radianValue = Math.toRadians(myDegrees);
-        this.setMyReturnValue(Math.tan(radianValue));
+        double trigValue = Math.tan(Math.toRadians(myDegrees));
+        setReturn(trigValue);
     }
 
     @Override
