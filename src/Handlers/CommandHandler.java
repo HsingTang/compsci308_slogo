@@ -1,6 +1,5 @@
 package Handlers;
 
-import CommandNodes.UserCommandNode;
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
 import Model.CommandInfo;
 import Model.CommandPaneModel;
@@ -8,15 +7,14 @@ import Model.ModelInterfaces.TurtleModelInterface;
 import Model.VariablePaneModel;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 
-import Model.TurtleModel;
 import State.TurtleState;
 
 public class CommandHandler implements CommandHandlerInterface {
     public static final double INITIAL_HEADING = 90.0;
 
+    static final double MAX = 240;
     final TurtleModelInterface turtleModel;
     final VariablePaneModel varModel;
     final CommandPaneModel commandModel;
@@ -31,9 +29,8 @@ public class CommandHandler implements CommandHandlerInterface {
     }
 
     public double moveForward(double px) {
-        double heading = Math.toRadians(turtleModel.getHeading());
-        turtleModel.setX(turtleModel.getX() + px*Math.cos(heading));
-        turtleModel.setY(turtleModel.getY() - px*Math.sin(heading));
+        //double heading = Math.toRadians(turtleModel.getHeading());
+        setForward(px);
         addTurtleState();
         System.out.println("forward " + px);
         return px;
@@ -199,4 +196,35 @@ public class CommandHandler implements CommandHandlerInterface {
         turtleModel.setHome();
         return calcDistance(initialX, turtleModel.getX(), initialY, turtleModel.getY());
     }
+
+    private void setForward (double px) {
+        double heading = Math.toRadians(getAngle(turtleModel.getHeading()));
+        double potentialNewX = turtleModel.getX() + px*Math.cos(heading);
+        double potentialNewY = turtleModel.getY() - px*Math.sin(heading);
+        if (potentialNewX > -MAX && potentialNewX < MAX && potentialNewY < -MAX) {
+            turtleModel.setX(potentialNewX - (Math.abs(potentialNewY) - MAX)/Math.tan(heading));
+            turtleModel.setY(-MAX);
+        } else if (potentialNewX > -MAX && potentialNewX < MAX && potentialNewY > MAX) {
+            turtleModel.setX(potentialNewX - (Math.abs(potentialNewY) - MAX)/-Math.tan(heading));
+            turtleModel.setY(MAX);
+        } else if (potentialNewY > -MAX && potentialNewY < MAX && potentialNewX > MAX){
+            turtleModel.setX(MAX);
+            turtleModel.setY(potentialNewY + (Math.abs(potentialNewX) - MAX)*Math.tan(heading));
+        } else if (potentialNewY > -MAX && potentialNewY < MAX && potentialNewX < -MAX)  {
+            turtleModel.setX(-MAX);
+            turtleModel.setY(potentialNewY + (Math.abs(potentialNewX) - MAX)*-Math.tan(heading));
+
+        } else {
+            turtleModel.setX(turtleModel.getX() + px*Math.cos(heading));
+            turtleModel.setY(turtleModel.getY() - px*Math.sin(heading));
+        }
+    }
+
+    private double getAngle(double angle) {
+        while (angle < 0) {
+            angle += 360;
+        }
+        return angle;
+    }
+
 }
