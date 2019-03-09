@@ -111,11 +111,15 @@ public class TopPane extends GridPane {
 
     private void initTurtleTextState() {
         turtleTextState = myTurtle.getTurtleTextState();
-        Text[] labels = turtleTextState.getStateLabels();
-        Text[] states = turtleTextState.getStates();
-        TurtleStatePane stateGrid = new TurtleStatePane();
-        stateGrid.addLabel(labels);
-        stateGrid.addState(states);
+        Text[] turtleLabels = turtleTextState.getTurtleLabels();
+        Text[] turtleStates = turtleTextState.getTurtleStates();
+        Text[] penLabels = turtleTextState.getPenLabels();
+        Text[] penStates = turtleTextState.getPenStates();
+        StatePane stateGrid = new StatePane();
+        stateGrid.addTurtleLabel(turtleLabels);
+        stateGrid.addTurtleState(turtleStates);
+        stateGrid.addPenLabel(penLabels);
+        stateGrid.addPenState(penStates);
         myLayoutManager.setLayout(stateGrid);
     }
 
