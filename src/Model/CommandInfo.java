@@ -2,13 +2,13 @@ package Model;
 
 import CommandNodes.CommandNode;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 public class CommandInfo {
    private String name;
-   private ArrayList<CommandNode> commandChildren;
-   private ArrayList<String> commandVariables;
+   private List<CommandNode> commandChildren;
+   private List<String> commandVariables;
 
    public CommandInfo(String myName, ArrayList<CommandNode> myCommandChildren, ArrayList<String> myVariables){
       this.name = myName;
@@ -20,11 +20,11 @@ public class CommandInfo {
       return this.name;
    }
 
-   public ArrayList<CommandNode> getCommandChildren(){
+   public List<CommandNode> getCommandChildren(){
       return this.commandChildren;
    }
 
-   public ArrayList<String> getCommandVariables(){
+   public List<String> getCommandVariables(){
       return this.commandVariables;
    }
 }

@@ -19,19 +19,17 @@ import java.util.Map;
 import java.util.Queue;
 
 public class Controller implements ControllerInterface {
-    Map<Integer,TurtleView> myTurtleViews;
-    Map<Integer,TurtleModel>myTurtleModels;
-    Map<Integer,VariablePaneModel> myVarModels;
-    Map<Integer, CommandPaneModel> myCommandModels;
-    Map<Integer,ReturnValModel> myReturnValModels;
-    Map<CommandHandlerInterface, String> myCommandHandlerMap;
-    Queue<CommandHandlerInterface> myCommandHandlers;
-    StringParser myParser;
-    TurtleFactory myTurtleFactory;
+    private Map<Integer,TurtleView> myTurtleViews;
+    private Map<Integer,TurtleModel> myTurtleModels;
+    private Map<Integer,VariablePaneModel> myVarModels;
+    private Map<Integer, CommandPaneModel> myCommandModels;
+    private Map<Integer,ReturnValModel> myReturnValModels;
+    private Map<CommandHandlerInterface, String> myCommandHandlerMap;
+    private Queue<CommandHandlerInterface> myCommandHandlers;
+    private StringParser myParser;
+    private TurtleFactory myTurtleFactory;
     private int turtleNumber = 0;
-    private String myLanguage = "English";
     private Window myWindow;
-    // private boolean executing = false;
 
     public Controller(Window window) {
         this.turtleNumber = 0;
@@ -106,7 +104,7 @@ public class Controller implements ControllerInterface {
     }
 
     public void setLanguage(String language) {
-        myLanguage = language;
+        String myLanguage = language;
         this.myParser.setLanguage(myLanguage);
     }
 

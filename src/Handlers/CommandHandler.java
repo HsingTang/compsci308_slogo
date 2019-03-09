@@ -4,8 +4,8 @@ import Handlers.HandlerInterfaces.CommandHandlerInterface;
 import Model.*;
 import Model.ModelInterfaces.TurtleModelInterface;
 
-import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Queue;
 
 import State.TurtleState;
@@ -14,10 +14,10 @@ public class CommandHandler implements CommandHandlerInterface {
     public static final double INITIAL_HEADING = 90.0;
 
     static final double MAX = 240;
-    final TurtleModelInterface turtleModel;
-    final VariablePaneModel varModel;
-    final CommandPaneModel commandModel;
-    final ReturnValModel returnModel;
+    private TurtleModelInterface turtleModel;
+    private VariablePaneModel varModel;
+    private CommandPaneModel commandModel;
+    private ReturnValModel returnModel;
     private Queue<TurtleState> states;
 
 
@@ -165,7 +165,7 @@ public class CommandHandler implements CommandHandlerInterface {
         return this.varModel.getVariable(name);
     }
 
-    public HashMap getVars(){
+    public Map getVars(){
         return this.varModel.getVars();
     }
 
@@ -181,7 +181,7 @@ public class CommandHandler implements CommandHandlerInterface {
 
     public CommandInfo getCommand(String name) { return this.commandModel.getCommand(name);}
 
-    public HashMap getCommands() { return this.commandModel.getCommands();}
+    public Map getCommands() { return this.commandModel.getCommands();}
 
     public void makeCommand(CommandInfo info) { this.commandModel.makeCommand(info);}
 
