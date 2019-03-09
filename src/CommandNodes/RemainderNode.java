@@ -1,5 +1,6 @@
 package CommandNodes;
 
+import Errors.InvalidCommandException;
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
 
 public class RemainderNode extends CommandNode {
@@ -18,9 +19,12 @@ public class RemainderNode extends CommandNode {
     }
 
     @Override
-    public void execute() {
+    public void execute() throws InvalidCommandException{
         parseParameters();
-        double result = myValues[0] % myValues[1];
+        if(myValues[1]==0){
+            throw new InvalidCommandException();
+        }
+        double result = myValues[0] % myValues[1]; //Will also throw a division by zero error
         setMyReturnValue(result);
     }
 

@@ -7,6 +7,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author Hsingchih Tang
+ */
 public class VariablePaneModel extends PaneModel {
 
     private HashMap<String, Double> myVariables;
@@ -18,9 +21,6 @@ public class VariablePaneModel extends PaneModel {
 
     public void makeVariable(String name, Double value){
         this.myVariables.put(name, value);
-        System.out.println("making var");
-        System.out.println(name);
-        System.out.println(value);
         notifyObserver();
     }
 
@@ -40,7 +40,6 @@ public class VariablePaneModel extends PaneModel {
         ArrayList<Variable> data = new ArrayList<>();
         for(Map.Entry<String,Double> entry:myVariables.entrySet()){
             Variable variable = new Variable(entry.getKey(), Double.toString(entry.getValue()));
-            System.out.println("add to returning datalist "+entry.getKey()+" = "+this.myVariables.get(entry.getValue()));
             data.add(variable);
         }
         return data;

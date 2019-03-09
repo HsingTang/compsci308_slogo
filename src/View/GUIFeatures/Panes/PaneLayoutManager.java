@@ -5,7 +5,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
 import java.util.ResourceBundle;
-
+/**
+ * @author Hsingchih Tang
+ */
 public class PaneLayoutManager {
     private final String ELEMENT_LAYOUT_RESOURCE = "elements/PaneElementLayout";
     private final Integer LAYOUT_COMPLEX_ARG_NUM = 4;

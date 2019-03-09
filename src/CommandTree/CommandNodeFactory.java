@@ -3,6 +3,7 @@ package CommandTree;
 import CommandNodes.*;
 import Errors.InvalidCommandException;
 import Errors.SlogoException;
+import Errors.SlogoFileNotFoundException;
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
 
 import java.io.BufferedReader;
@@ -20,13 +21,16 @@ public class CommandNodeFactory {
    private final CommandHandlerInterface myHandler;
    private HashMap<String, String> expressionStringMap;
 
-   public CommandNodeFactory(CommandHandlerInterface controller) {
+   public CommandNodeFactory(CommandHandlerInterface controller) throws SlogoException{
       this.myHandler = controller;
-      this.setExpressionMap();
+      try{
+         this.setExpressionMap();
+      }catch (SlogoException e){
+         throw e;
+      }
    }
 
    public CommandNode newNode(String arrayString, CommandNode parent, CommandRoot root) throws SlogoException {
-      System.out.println("I am a " + arrayString + " my parent is a " + parent + " and her size is " + parent.getMyChildren().size());
       if(parent instanceof MakevariableNode && parent.getMyChildren().size() == 0){
          return this.newStringNode(parent, arrayString.substring(1));
          }
@@ -77,7 +81,7 @@ public class CommandNodeFactory {
       return new VariableNode(myHandler, parent, s);
    }
 
-   private void setExpressionMap(){
+   private void setExpressionMap() throws SlogoException{
       HashMap<String, String> map = new HashMap<>();
       try {
          String line;
@@ -91,9 +95,7 @@ public class CommandNodeFactory {
          reader.close();
          this.expressionStringMap = map;
       } catch (Exception e) {
-         /**Error regarding string map
-          *
-          */
+         throw new SlogoFileNotFoundException();
       }
    }
 

@@ -1,12 +1,15 @@
 package Model;
 
-import CommandNodes.UserCommandNode;
-import Model.ModelInterfaces.IModel;
 import View.GUIFeatures.Panes.HistoricalCommand;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
+/**
+ * @author Hsingchih Tang
+ */
 public class CommandPaneModel extends PaneModel {
+    private ArrayList<String> historyStrings;
     private ArrayList<HistoricalCommand> commandHistory;
     private HashMap<String, CommandInfo> myCommands;
 
@@ -19,7 +22,6 @@ public class CommandPaneModel extends PaneModel {
 
     public void makeCommand(CommandInfo info){
         this.myCommands.put(info.getName(), info);
-        System.out.println("**********: " + info.getName() + ", " + info.getCommandVariables() + ", " + info.getCommandChildren());
         notifyObserver();
     }
 
@@ -29,7 +31,6 @@ public class CommandPaneModel extends PaneModel {
 
 
     public boolean isCommand(String name){
-        System.out.println("********** " + this.myCommands);
         return myCommands.keySet().contains(name);
     }
 
@@ -38,7 +39,6 @@ public class CommandPaneModel extends PaneModel {
     }
 
     public List<HistoricalCommand> getData(){
-        this.toData();
         return Collections.unmodifiableList(commandHistory);
     }
 
@@ -47,10 +47,9 @@ public class CommandPaneModel extends PaneModel {
 
     }
 
-    private void toData(){
-        for(String s: myCommands.keySet()){
-            HistoricalCommand hist = new HistoricalCommand(s);
-            commandHistory.add(hist);
-        }
+    public void addToHistory(String name){
+        HistoricalCommand hist = new HistoricalCommand(name);
+        commandHistory.add(hist);
+        notifyObserver();
     }
 }

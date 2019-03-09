@@ -183,6 +183,8 @@ public class CommandHandler implements CommandHandlerInterface {
 
     public void makeCommand(CommandInfo info) { this.commandModel.makeCommand(info);}
 
+    public void addToHistory(String command) { this.commandModel.addToHistory(command);}
+
     private void addTurtleState() {
         TurtleState newState = new TurtleState(turtleModel.getX(), turtleModel.getY(), turtleModel.getHeading(), turtleModel.getPenDown(), turtleModel.isInvisible(), turtleModel.isMoving(), turtleModel.isPenInvisible());
         turtleModel.getModelStates().add(newState);

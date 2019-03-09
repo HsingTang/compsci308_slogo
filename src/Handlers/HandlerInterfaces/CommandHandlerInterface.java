@@ -61,4 +61,6 @@ public interface CommandHandlerInterface {
 
     void makeCommand(CommandInfo info);
 
+    void addToHistory(String command);
+
 }

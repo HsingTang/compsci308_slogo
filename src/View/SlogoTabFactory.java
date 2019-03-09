@@ -1,13 +1,15 @@
 package View;
 
 import Controller.Controller;
-import Errors.SlogoAlert;
 import Errors.SlogoException;
 import javafx.stage.Stage;
 
 
 import java.util.HashMap;
 
+/**
+ * @author Hsingchih Tang
+ */
 public class SlogoTabFactory {
     private HashMap<Integer, SlogoTab> myViews;
     private int productCount;

@@ -19,7 +19,7 @@ public class CommandHistoryPane extends StackPane implements IObserver {
     static final String COMMAND_CONTENT_FIELD = "myContent";
     private TableView commandTable;
     private IModel myCommandPaneModel;
-    private ObservableList<HistoricalCommand> myCommands = FXCollections.observableArrayList(new HistoricalCommand("Placeholder Command"));
+    private ObservableList<HistoricalCommand> myCommands = FXCollections.observableArrayList();
 
     public CommandHistoryPane(double w, double h){
         super();
