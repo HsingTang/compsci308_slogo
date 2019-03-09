@@ -1,16 +1,19 @@
 package View.GUIFeatures.Panes;
 
+import Controller.Controller;
 import Model.Model;
+import Model.ModelInterfaces.IModel;
+import View.ObserverInterfaces.IObserver;
 import javafx.scene.control.TextArea;
+
+import java.util.ArrayList;
 import java.util.List;
 
-public class Console extends TextArea {
+public class Console extends TextArea implements IObserver {
 
     public static final String PROMPT_TEXT = "Enter Commands Here";
-    private String myDisplay;
-    private Model myMathModel;
-
-    private List<String> myCommands;
+    private IModel myValModel;
+    private List<String> myDisplay;
 
     public Console(double w, double h) {
         this.setMaxSize(w,h);
@@ -18,23 +21,11 @@ public class Console extends TextArea {
         this.setFocusTraversable(false);
         this.setWrapText(true);
         this.getStyleClass().add("console-text-area");
+        myDisplay = new ArrayList<>();
     }
 
     public void clearText() {
         this.clear();
-    }
-
-
-    public void updateDisplay(){
-
-    }
-
-    public void setMathModel(Model m){
-        myMathModel = m;
-    }
-
-    private void displayText(){
-        this.setText(myDisplay);
     }
 
     public String getTextClear() {
@@ -43,4 +34,20 @@ public class Console extends TextArea {
         return text;
     }
 
+    @Override
+    public void updateData() {
+        myDisplay = myValModel.getData();
+        this.setText(myDisplay.get(0));
+    }
+
+    @Override
+    public void setupModel(IModel model) {
+        myValModel = model;
+        myValModel.registerObserver(this);
+    }
+
+    @Override
+    public IModel getModel() {
+        return myValModel;
+    }
 }

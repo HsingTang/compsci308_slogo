@@ -73,6 +73,7 @@ public class BottomPane extends GridPane {
 
     private void initConsole() {
         myConsole = new Console(myHeight* CONSOLE_RATIO, this.getMaxHeight());
+        myConsole.setupModel(myController.getReturnValModel(myID));
         StackPane.setAlignment(myConsole, Pos.CENTER);
         myLayoutManager.setLayout(myConsole);
     }

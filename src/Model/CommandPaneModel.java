@@ -4,10 +4,7 @@ import CommandNodes.UserCommandNode;
 import Model.ModelInterfaces.IModel;
 import View.GUIFeatures.Panes.HistoricalCommand;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class CommandPaneModel extends PaneModel {
     private ArrayList<HistoricalCommand> commandHistory;
