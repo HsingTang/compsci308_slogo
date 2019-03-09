@@ -29,7 +29,9 @@ public class TurtleView implements TurtleObserver {
     public static final double INITIAL_POSITION = 0.0;
     public static final double TURTLE_SIZE = 35;
     public static final double THRESHOLD = 0.00000001;
-    public static final double Y_MODIFIER = -1;
+    public static final double MODIFIER = -1;
+    public static final double X_BOUND = 240;
+    public static final double Y_BOUND = 240;
 
     private TurtleModelInterface myTurtleModel;
     private ImageView myImgView;
@@ -90,8 +92,26 @@ public class TurtleView implements TurtleObserver {
     private boolean movementComplete(double xAdjust, double yAdjust, double xFinal, double yFinal){
         boolean checkXLessThanFinal = checkXLessThanFinal(xAdjust, yAdjust, xFinal, yFinal);
         boolean checkXGreaterThanFinal = checkXGreaterThanFinal(xAdjust, yAdjust, xFinal, yFinal);
-        return (checkXLessThanFinal || checkXGreaterThanFinal);
+        return (checkXLessThanFinal || checkXGreaterThanFinal)||xOutofBound(xAdjust)||yOutofBound(yAdjust);
     }
+
+
+    private boolean xOutofBound(double xAdjust){
+        boolean ret = Math.abs(this.myImgView.getTranslateX()+xAdjust)>=X_BOUND;
+        if(ret){
+            myTurtleModel.setX(myTurtleModel.getX()>0?X_BOUND:X_BOUND*(MODIFIER));
+        }
+        return ret;
+    }
+
+    private boolean yOutofBound(double yAdjust){
+        boolean ret = Math.abs(this.myImgView.getTranslateY()+yAdjust)>=Y_BOUND;
+        if(ret){
+            myTurtleModel.setY(myTurtleModel.getY()>0?Y_BOUND:Y_BOUND*(MODIFIER));
+        }
+        return ret;
+    }
+
 
     private boolean checkXLessThanFinal(double xAdjust, double yAdjust, double xFinal, double yFinal) {
         double translateX = this.myImgView.getTranslateX();
@@ -114,15 +134,8 @@ public class TurtleView implements TurtleObserver {
         Double deltaX = xFinal - this.myImgView.getTranslateX();
         Double deltaY = yFinal - this.myImgView.getTranslateY();
         Double deltaDist = Math.sqrt(Math.pow(deltaX,2)+Math.pow(deltaY,2));
-        final Double xAdjust;
-        final Double yAdjust;
-        if(deltaDist!=INITIAL_POSITION){
-            xAdjust = deltaX/deltaDist;
-            yAdjust = deltaY/deltaDist;
-        }else{
-            xAdjust = INITIAL_POSITION;
-            yAdjust = INITIAL_POSITION;
-        }
+        Double xAdjust = (deltaDist!=INITIAL_POSITION?(deltaX/deltaDist):INITIAL_POSITION);
+        Double yAdjust = (deltaDist!=INITIAL_POSITION?(deltaY/deltaDist):INITIAL_POSITION);
         animateTranslation(xAdjust,yAdjust,xFinal,yFinal);
     }
 
@@ -132,10 +145,12 @@ public class TurtleView implements TurtleObserver {
                 if (movementComplete(xAdjust, yAdjust, xFinal, yFinal)) {
                     timeline.stop();
                 }
-                this.myImgView.setTranslateX(this.myImgView.getTranslateX() + xAdjust);
-                this.myImgView.setTranslateY(this.myImgView.getTranslateY() + yAdjust);
-                if (this.penDown) {
-                    this.myPen.drawPath(this.myImgView.getTranslateX() - xAdjust, this.myImgView.getTranslateY() - yAdjust, this.myImgView.getTranslateX(), this.myImgView.getTranslateY());
+                if(Math.abs(this.myImgView.getTranslateX()+xAdjust)<X_BOUND && Math.abs(this.myImgView.getTranslateY()+yAdjust)<Y_BOUND){
+                    this.myImgView.setTranslateX(this.myImgView.getTranslateX() + xAdjust);
+                    this.myImgView.setTranslateY(this.myImgView.getTranslateY() + yAdjust);
+                    if (this.penDown) {
+                        this.myPen.drawPath(this.myImgView.getTranslateX() - xAdjust, this.myImgView.getTranslateY() - yAdjust, this.myImgView.getTranslateX(), this.myImgView.getTranslateY());
+                    }
                 }
         });
         timeline.setCycleCount(Timeline.INDEFINITE);
@@ -206,7 +221,7 @@ public class TurtleView implements TurtleObserver {
             retY = this.myY;
         }
         retX = Double.parseDouble(df.format(retX));
-        retY = Y_MODIFIER * Double.parseDouble(df.format(retY));
+        retY = MODIFIER * Double.parseDouble(df.format(retY));
         Double[] newPositions = {retX, retY, this.myHeading};
         turtleTextState.setStateValues(newPositions);
     }
