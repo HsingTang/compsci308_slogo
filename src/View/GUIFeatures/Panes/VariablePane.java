@@ -30,7 +30,7 @@ public class VariablePane extends StackPane implements IObserver {
     private TableColumn varName;
     private TableColumn varVal;
     private IModel myVarPaneModel;
-    private ObservableList<Variable> myVars = FXCollections.observableArrayList(new Variable("name0","val0"));
+    private ObservableList<Variable> myVars = FXCollections.observableArrayList();
 
 
     public VariablePane(double w, double h){
