@@ -105,10 +105,14 @@ public class BottomPane extends GridPane {
         Button penDown = (PenDownButton)myElementFactory.makeElement("PenDownButton");
         Button penUp = (PenUpButton)myElementFactory.makeElement("PenUpButton");
         ThicknessSlider penSlider = (ThicknessSlider)myElementFactory.makeElement("ThicknessSlider");
-        penSlider.setOnMousePressed(e -> penSlider.changeThickness(myTurtle.getPen()));
+        penSlider.setOnMousePressed(e -> {
+            penSlider.changeThickness(myTurtle.getPen());
+            myTurtle.getTurtleTextState().setPenThickness(penSlider.getValue());
+        });
         penSlider.valueChangingProperty().addListener((ObservableValue<? extends Boolean> obs, Boolean wasChanging, Boolean isNowChanging) -> {
             if (!isNowChanging) {
                 penSlider.changeThickness(myTurtle.getPen());
+                myTurtle.getTurtleTextState().setPenThickness(penSlider.getValue());
             }
         });
         myLayoutManager.setLayout(moveForwardButton);
