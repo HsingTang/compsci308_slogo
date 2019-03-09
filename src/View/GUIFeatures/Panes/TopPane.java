@@ -31,6 +31,8 @@ public class TopPane extends GridPane {
     static final Double GRIDPANE_PADDING_Y = 5.0;
     static final Double GRIDPANE_PADDING_X = 17.0;
     static final Double MIN_HEIGHT_RATIO = (1/10.0);
+    static final Integer TEXT_COL_0 = 0;
+    static final Integer TEXT_COL_1 = 1;
 
 
     private double myHeight;
@@ -45,6 +47,7 @@ public class TopPane extends GridPane {
     private PaneLayoutManager myLayoutManager;
     private ElementFactory myElementFactory;
     private Stage myStage;
+    private TurtleText turtleTextState;
 
     public TopPane(double height, CanvasPane myCanvasPane, ControllerInterface myController, Window myWindow, TurtleView myTurtle, Stage myStage) throws SlogoException {
         super();
@@ -68,6 +71,7 @@ public class TopPane extends GridPane {
         initCanvasColorChooser();
         initPenColorChooser();
         initTurtleChooser();
+        initTurtleTextState();
     }
 
     private void initLanguageChooser() throws SlogoException {
@@ -105,6 +109,20 @@ public class TopPane extends GridPane {
         myTurtleChooser.getButton().setOnAction(e -> changeTurtleImage());
         StackPane.setAlignment(myTurtleChooser.getButton(), Pos.CENTER);
         myLayoutManager.setLayout(myTurtleChooser.getButton());
+    }
+
+    private void initTurtleTextState() {
+        turtleTextState = myTurtle.getTurtleTextState();
+        Text[] labels = turtleTextState.getStateLabels();
+        Text[] states = turtleTextState.getStates();
+        GridPane textGrid = new GridPane();
+        for (int i = 0; i < labels.length; i++) {
+            textGrid.add(labels[i], TEXT_COL_0, i);
+        }
+        for (int i = 0; i < states.length; i++) {
+            textGrid.add(states[i], TEXT_COL_1, i);
+        }
+        getChildren().add(textGrid);
     }
 
     public void setLanguage(){
