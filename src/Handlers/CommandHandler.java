@@ -226,5 +226,5 @@ public class CommandHandler implements CommandHandlerInterface {
             angle += 360;
         }
         return angle;
-    } 
+    }
 }
