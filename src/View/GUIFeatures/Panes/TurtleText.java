@@ -12,13 +12,13 @@ import java.text.DecimalFormat;
  */
 public class TurtleText {
 
-    static final Text X_POS_LABEL = new Text("X Position: ");
-    static final Text Y_POS_LABEL = new Text("Y Position: ");
-    static final Text HEADING_LABEL = new Text("Heading: ");
-    static final Text ID_LABEL = new Text("Turtle ID: ");
-    static final Text PEN_COLOR_LABEL = new Text("Pen Color: ");
-    static final Text PEN_THICKNESS_LABEL = new Text("Pen Thickness: ");
-    static final Text PEN_DOWN_LABEL = new Text("Pen Down: ");
+    private final Text X_POS_LABEL = new Text("X Position: ");
+    private final Text Y_POS_LABEL = new Text("Y Position: ");
+    private final Text HEADING_LABEL = new Text("Heading: ");
+    private final Text ID_LABEL = new Text("Turtle ID: ");
+    private final Text PEN_COLOR_LABEL = new Text("Pen Color: ");
+    private final Text PEN_THICKNESS_LABEL = new Text("Pen Thickness: ");
+    private final Text PEN_DOWN_LABEL = new Text("Pen Down: ");
     static final String DEFAULT_INIT_POS = "0.0";
     static final String INVALID_INIT_POS = "-0.0";
     static final String DEFAULT_INIT_HEADING = "90.0";
@@ -29,6 +29,7 @@ public class TurtleText {
     static final Integer YPOS_INDEX = 1;
     static final Integer HEADING_INDEX = 2;
     static final Integer HEX_MODIFIER = 255;
+
 
     private Text xPos;
     private Text yPos;
