@@ -1,19 +1,24 @@
 package View.Turtles;
 
-import Handlers.HandlerInterfaces.CommandHandlerInterface;
 import Model.ModelInterfaces.TurtleModelInterface;
 import State.TurtleState;
 import View.GUIFeatures.Panes.SlogoPen;
+import View.GUIFeatures.Panes.TurtleText;
 import View.ObserverInterfaces.TurtleObserver;
-import javafx.animation.*;
+import javafx.animation.RotateTransition;
+import javafx.animation.Timeline;
+import javafx.animation.KeyFrame;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
+
+import java.text.DecimalFormat;
 import java.util.Queue;
 
 
 /**
  * @author Hsingchih Tang
+ * @author Eric Lin
  * Front-end visualization of the Turtle
  */
 public class TurtleView implements TurtleObserver {
@@ -23,20 +28,21 @@ public class TurtleView implements TurtleObserver {
     public static final double ANIMATION_SPEED = 10;
     public static final double INITIAL_POSITION = 0.0;
     public static final double TURTLE_SIZE = 35;
+    public static final double THRESHOLD = 0.00000001;
+    public static final double Y_MODIFIER = -1;
 
     private TurtleModelInterface myTurtleModel;
-    private CommandHandlerInterface handler;
     private ImageView myImgView;
     private Integer myID;
-    private double previousX;
-    private double previousY;
     private double myX;
     private double myY;
     private double myHeading;
-    private boolean penDown = true;
+    private Boolean penDown;
+    private boolean isMoving;
     private SlogoPen myPen;
     private Queue<TurtleState> stateQueue;
-
+    private TurtleState newState;
+    private TurtleText turtleTextState;
 
     public TurtleView(int id, Image img, TurtleModelInterface model){
         this.myTurtleModel = model;
@@ -50,18 +56,11 @@ public class TurtleView implements TurtleObserver {
         this.myY = INITIAL_POSITION;
         this.myHeading = INITIAL_HEADING;
         this.penDown = true;
+        this.turtleTextState = new TurtleText(this);
     }
 
     public Integer getMyID() {
         return myID;
-    }
-
-    public double getX() {
-        return myImgView.getX();
-    }
-
-    public double getY() {
-        return myImgView.getY();
     }
 
     public ImageView getImgView(){
@@ -112,8 +111,8 @@ public class TurtleView implements TurtleObserver {
 
 
     private void calcAnimateParams(double xFinal, double yFinal) {
-        Double deltaX = xFinal - this.previousX;
-        Double deltaY = yFinal - this.previousY;
+        Double deltaX = xFinal - this.myImgView.getTranslateX();
+        Double deltaY = yFinal - this.myImgView.getTranslateY();
         Double deltaDist = Math.sqrt(Math.pow(deltaX,2)+Math.pow(deltaY,2));
         final Double xAdjust;
         final Double yAdjust;
@@ -144,64 +143,9 @@ public class TurtleView implements TurtleObserver {
         timeline.play();
     }
 
-
-    private void goHome() {
-        this.myX = INITIAL_POSITION;
-        this.myY = INITIAL_POSITION;
-        this.myImgView.setTranslateX(this.myX);
-        this.myImgView.setTranslateY(this.myY);
-    }
-
-
-    public void updateX() {
-        this.myX = myTurtleModel.getX();
-
-    }
-
-    public void updateY() {
-        this.myY = myTurtleModel.getY();
-
-    }
-
-    public void updateMove() {
-        calcAnimateParams(myTurtleModel.getX(), myTurtleModel.getY());
-    }
-
-    public void updateLeftRotate() {
-        double newLeftRotateDegs = myTurtleModel.getHeading() - this.myHeading;
-        this.myHeading += newLeftRotateDegs;
-        animateRotation(-newLeftRotateDegs);
-
-    }
-
-    public void updateRightRotate() {
-        double newRightRotateDegs = this.myHeading - myTurtleModel.getHeading();
-        this.myHeading -= newRightRotateDegs;
-        animateRotation(newRightRotateDegs);
-    }
-
-    public void updateHeading() {
-        double newHeading = myTurtleModel.getHeading();
-        animateRotation(this.myHeading - newHeading);
-        this.myHeading = newHeading;
-    }
-
-    public void updatePenDown() {
-        this.penDown = myTurtleModel.getPenDown();
-    }
-
-    public void updateHome() { this.goHome(); }
-
-    public void updateVisibility() {
-        if (!myTurtleModel.isInvisible()) {
-            this.myImgView.setVisible(true);
-        } else {
-            this.myImgView.setVisible(false);
-        }
-    }
-
-    public void updateClear() {
-        this.myPen.clear();
+    private  void updatePenDown() {
+        this.penDown = newState.getPenDown();
+        turtleTextState.setPenDownValue(this.penDown.toString());
     }
 
     public void updateView() {
@@ -210,27 +154,26 @@ public class TurtleView implements TurtleObserver {
     }
 
     private void updatePenVisibility() {
-        if (myTurtleModel.isPenInvisible()) {
+        if (newState.getIsPenCleared()) {
             this.myPen.clear();
             this.penDown = false;
         }
-        myTurtleModel.setPenVisible();
     }
 
     private void updateTurtle() {
-        System.out.println("StateQueue size: " + stateQueue.size());
         if (!stateQueue.isEmpty()) {
-            System.out.println("entering");
+            System.out.println(stateQueue.size());
             double currentHeading = this.myHeading;
-            previousX = this.myX;
-            previousY = this.myY;
-            TurtleState newState = stateQueue.poll();
+            newState = stateQueue.poll();
             this.getTurtleState(newState);
-            updateVisibility();
             updatePenDown();
             updatePenVisibility();
-            calcAnimateParams(newState.getNewX(), newState.getNewY());
+            if (isMoving) {
+                calcAnimateParams(newState.getNewX(), newState.getNewY());
+            }
             animateRotation(currentHeading - newState.getNewHeading());
+            myTurtleModel.setPenVisible();
+            setTurtleStateText();
         }
 
     }
@@ -241,6 +184,27 @@ public class TurtleView implements TurtleObserver {
         this.myHeading = newState.getNewHeading();
         this.penDown = newState.getPenDown();
         this.myImgView.setVisible(!newState.getIsInvisible());
+        this.isMoving = newState.getIsMoving();
+    }
+
+    public TurtleText getTurtleTextState() {
+        return this.turtleTextState;
+    }
+
+    private void setTurtleStateText() {
+        double retX = 0;
+        double retY = 0;
+        DecimalFormat df = new DecimalFormat("#.#####");
+        if (Math.abs(this.myX) > THRESHOLD) {
+            retX = this.myX;
+        }
+        if (Math.abs(this.myY) > THRESHOLD) {
+            retY = this.myY;
+        }
+        retX = Double.parseDouble(df.format(retX));
+        retY = Y_MODIFIER * Double.parseDouble(df.format(retY));
+        Double[] newPositions = {retX, retY, this.myHeading};
+        turtleTextState.setStateValues(newPositions);
     }
 
 }

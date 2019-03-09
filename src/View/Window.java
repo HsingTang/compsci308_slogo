@@ -1,16 +1,16 @@
 package View;
 
 import Controller.Controller;
-import View.SlogoTab;
-import View.SplashScreen;
-import View.SlogoTabFactory;
+import Errors.AlertFactory;
+import Errors.SlogoAlert;
+import Errors.SlogoException;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-import java.lang.reflect.InvocationTargetException;
 
 
 public class Window extends Application {
@@ -22,12 +22,15 @@ public class Window extends Application {
     private Stage myStage;
     private TabPane windowRoot;
     private SlogoTabFactory myViewFactory;
+    private AlertFactory myAlertFactory;
     private Controller myController;
     private int tabCount;
+
 
    public Window(){
         super();
         myViewFactory = new SlogoTabFactory();
+        myAlertFactory = new AlertFactory();
         myController = new Controller();
         tabCount = 0;
     }
@@ -45,22 +48,32 @@ public class Window extends Application {
             try {
                 handleTransition();
             } catch (Exception exp) {
-                exp.printStackTrace();
+                SlogoAlert alert = myAlertFactory.getAlert(exp);
+                alert.showAlert();
+                return;
             }
         });
         myStage.setScene(startScreen);
         myStage.show();
     }
 
-    public void addSlogoTab() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-//       System.out.println("new tab init");
-       myController.initNewTab();
-        SlogoTab addTab = myViewFactory.getSlogoTab(tabCount,DEFAULT_WIDTH,DEFAULT_HEIGHT,myController, myStage,this);
+    public void addSlogoTab(){
+       // System.out.println("new tab init");
+        myController.initNewTab();
+        SlogoTab addTab = null;
+        try{
+            addTab = myViewFactory.getSlogoTab(tabCount,DEFAULT_WIDTH,DEFAULT_HEIGHT,myController, myStage,this);
+        }catch (Exception e){
+            SlogoAlert alert = myAlertFactory.getAlert(e);
+            alert.showAlert();
+            myController.removeLastTab();
+            return;
+        }
         windowRoot.getTabs().add(addTab);
         tabCount++;
     }
 
-    private void handleTransition() throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+    private void handleTransition() throws SlogoException{
         windowRoot = new TabPane();
         Scene mainWindow = new Scene(windowRoot, DEFAULT_WIDTH, DEFAULT_HEIGHT);
         myStage.setScene(mainWindow);

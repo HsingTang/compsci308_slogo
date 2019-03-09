@@ -3,7 +3,12 @@ package View;
 
 import Controller.Controller;
 import Controller.ControllerInterface;
-import View.GUIFeatures.Panes.*;
+import Errors.SlogoException;
+import View.GUIFeatures.Panes.CanvasPane;
+import View.GUIFeatures.Panes.BottomPane;
+import View.GUIFeatures.Panes.TopPane;
+import View.GUIFeatures.Panes.VariablePane;
+import View.GUIFeatures.Panes.CommandHistoryPane;
 import View.Turtles.TurtleView;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
@@ -25,6 +30,7 @@ public class SlogoTab extends Tab implements IView {
     static final Double CANVAS_RATIO = (3.0/5.0);
     static final Double DEFAULT_PADDING_Y = 15.0;
     static final Double DEFAULT_PADDING_X = 30.0;
+    static final Double SIDE_PANE_RATIO = (1.0/3.0);
 
     private Stage myStage;
     private Integer myID;
@@ -36,7 +42,7 @@ public class SlogoTab extends Tab implements IView {
     private ControllerInterface myController;
     private Window myWindow;
 
-    public SlogoTab(int id, double width, double height, Controller controller, Stage stage, Window window) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    public SlogoTab(int id, double width, double height, Controller controller, Stage stage, Window window) throws SlogoException{
         myStage = stage;
         myController = controller;
         myWindow = window;
@@ -51,6 +57,7 @@ public class SlogoTab extends Tab implements IView {
         setGraphic(tabTitle);
         this.myPane.getStylesheets().add(STYLE_SHEET);
         this.myPane.getStyleClass().add("this");
+        this.setOnClosed(e->{myController.removeTab(myID);});
     }
 
     @Override
@@ -83,7 +90,7 @@ public class SlogoTab extends Tab implements IView {
     }
 
 
-    private void initPanes() throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+    private void initPanes() throws SlogoException{
         myPane = new BorderPane();
         myPane.setMaxSize(myWidth,myHeight);
         myPane.setPadding(new Insets(DEFAULT_PADDING_Y, DEFAULT_PADDING_X, DEFAULT_PADDING_Y, DEFAULT_PADDING_X));
@@ -95,11 +102,11 @@ public class SlogoTab extends Tab implements IView {
     }
 
 
-    private void initTopPane() throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+    private void initTopPane() throws SlogoException {
         myPane.setTop(new TopPane(myHeight, myCanvasPane, myController, myWindow, myTurtle, myStage));
     }
 
-    private void initBottomPane() throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+    private void initBottomPane() throws SlogoException{
         myPane.setBottom(new BottomPane(myHeight, myCanvasPane, myController, myID, myTurtle));
     }
 
@@ -109,13 +116,13 @@ public class SlogoTab extends Tab implements IView {
     }
 
     private void initVarPane(){
-        VariablePane myVarPane = new VariablePane(myWidth/3-myCanvasPane.getCanvasWidth()/3,myHeight);
+        VariablePane myVarPane = new VariablePane(myWidth*SIDE_PANE_RATIO-myCanvasPane.getCanvasWidth()*SIDE_PANE_RATIO,myHeight);
         myVarPane.setupModel(myController.getVarModel(myID));
         myPane.setLeft(myVarPane);
     }
 
     private void initCommandPane(){
-        CommandHistoryPane myCommandPane = new CommandHistoryPane(myWidth/3-myCanvasPane.getCanvasHeight()/3,myHeight);
+        CommandHistoryPane myCommandPane = new CommandHistoryPane(myWidth*SIDE_PANE_RATIO-myCanvasPane.getCanvasHeight()*SIDE_PANE_RATIO,myHeight);
         myCommandPane.setupModel(myController.getCommandModel(myID));
         myPane.setRight(myCommandPane);
     }

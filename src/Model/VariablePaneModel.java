@@ -1,21 +1,19 @@
 package Model;
 
-import Model.ModelInterfaces.IModel;
 import View.GUIFeatures.Panes.Variable;
-import View.ObserverInterfaces.IObserver;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class VariablePaneModel implements IModel {
+public class VariablePaneModel extends PaneModel {
 
-    private ArrayList<IObserver> myObservers;
     private HashMap<String, Double> myVariables;
 
     public VariablePaneModel(){
+        super();
         myVariables = new HashMap<>();
-        myObservers = new ArrayList<>();
     }
 
     public void makeVariable(String name, Double value){
@@ -35,29 +33,10 @@ public class VariablePaneModel implements IModel {
         return this.myVariables;
     }
 
-
-    @Override
-    public void registerObserver(IObserver o) {
-        myObservers.add(o);
-    }
-
-    @Override
-    public void removeObserver(IObserver o) {
-        myObservers.remove(o);
-    }
-
-    @Override
-    public void notifyObserver() {
-        for (IObserver o:myObservers){
-            o.updateData();
-        }
-    }
-
-    @Override
     public List getData(){
         ArrayList<Variable> data = new ArrayList<>();
-        for(String var: this.myVariables.keySet()){
-            Variable variable = new Variable(var, Double.toString(this.myVariables.get(var)));
+        for(Map.Entry<String,Double> entry:myVariables.entrySet()){
+            Variable variable = new Variable(entry.getKey(), Double.toString(entry.getValue()));
             // System.out.println("add to returning datalist "+var+" = "+this.myVariables.get(var));
             data.add(variable);
         }

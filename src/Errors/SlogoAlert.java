@@ -1,4 +1,4 @@
-package SlogoException;
+package Errors;
 import javafx.scene.control.Alert;
 /**
  * @author Hsingchih Tang
@@ -6,6 +6,7 @@ import javafx.scene.control.Alert;
  */
 public class SlogoAlert {
     private Alert myAlertBox;
+
 
     /**
      * Constructor of an SlogoAlert

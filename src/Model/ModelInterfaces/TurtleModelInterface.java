@@ -17,8 +17,6 @@ public interface TurtleModelInterface {
 
     void setHome();
 
-    void moveWithAnimation();
-
     void setLeftRotate(double deg);
 
     void setRightRotate(double deg);
@@ -48,6 +46,8 @@ public interface TurtleModelInterface {
     void setPenVisible();
 
     void clearPen();
+
+    boolean isMoving();
 
     Queue<TurtleState> getModelStates();
 

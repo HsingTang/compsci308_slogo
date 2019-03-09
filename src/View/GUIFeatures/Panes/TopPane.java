@@ -1,6 +1,9 @@
 package View.GUIFeatures.Panes;
 
 import Controller.ControllerInterface;
+import Errors.MalformedTurtleImgException;
+import Errors.SlogoException;
+import Errors.SlogoTabSetupElementException;
 import View.GUIFeatures.Buttons.AddTabButton;
 import View.GUIFeatures.Choosers.CanvasColorChooser;
 import View.GUIFeatures.Choosers.LanguageChooser;
@@ -19,7 +22,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 
 public class TopPane extends GridPane {
@@ -28,11 +30,11 @@ public class TopPane extends GridPane {
     static final String PEN_TEXT = "Choose Pen Color";
     static final Double GRIDPANE_PADDING_Y = 5.0;
     static final Double GRIDPANE_PADDING_X = 17.0;
+    static final Double MIN_HEIGHT_RATIO = (1/10.0);
 
 
     private double myHeight;
     private CanvasPane myCanvasPane;
-    private Button myAddTabButton;
     private LanguageChooser myLanguageChooser;
     private TurtleChooser myTurtleChooser;
     private CanvasColorChooser myCanvasColorChooser;
@@ -43,8 +45,9 @@ public class TopPane extends GridPane {
     private PaneLayoutManager myLayoutManager;
     private ElementFactory myElementFactory;
     private Stage myStage;
+    private TurtleText turtleTextState;
 
-    public TopPane(double height, CanvasPane myCanvasPane, ControllerInterface myController, Window myWindow, TurtleView myTurtle, Stage myStage) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    public TopPane(double height, CanvasPane myCanvasPane, ControllerInterface myController, Window myWindow, TurtleView myTurtle, Stage myStage) throws SlogoException {
         super();
         this.myHeight = height;
         this.myController = myController;
@@ -54,46 +57,46 @@ public class TopPane extends GridPane {
         this.myStage = myStage;
         this.myLayoutManager = new PaneLayoutManager(this);
         this.myElementFactory = new ElementFactory(this);
-        setMinHeight(myHeight/10);
+        setMinHeight(myHeight*MIN_HEIGHT_RATIO);
         initTopPaneElements();
         setHgap(GRIDPANE_PADDING_X);
         setVgap(GRIDPANE_PADDING_Y);
     }
 
-    private void initTopPaneElements() throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+    private void initTopPaneElements() throws SlogoException {
         initLanguageChooser();
         initAddTabButton();
         initCanvasColorChooser();
         initPenColorChooser();
         initTurtleChooser();
+        initTurtleTextState();
     }
 
-    private void initLanguageChooser() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    private void initLanguageChooser() throws SlogoException {
         myLanguageChooser =(LanguageChooser)myElementFactory.makeElement("LanguageChooser");
         myLayoutManager.setLayout(myLanguageChooser);
     }
 
-    private void initAddTabButton(){
-        myAddTabButton = new AddTabButton();
+    private void initAddTabButton() throws SlogoException{
+        Button myAddTabButton = new AddTabButton();
         myAddTabButton.setOnAction(e-> {
             try {
                 this.myWindow.addSlogoTab();
             } catch (Exception exp) {
-                exp.printStackTrace();
+                System.out.println("exception in AddTabButton");
+                throw new SlogoTabSetupElementException(exp);
             }
         });
-        // StackPane.setAlignment(myAddTabButton, Pos.TOP_RIGHT);
         myLayoutManager.setLayout(myAddTabButton);
-        System.out.println("after laying out AddTabButton");
     }
 
-    private void initCanvasColorChooser() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    private void initCanvasColorChooser() throws SlogoException {
         myCanvasColorChooser =(CanvasColorChooser)myElementFactory.makeElement("CanvasColorChooser");
         myLayoutManager.setLayout(myCanvasColorChooser);
         myLayoutManager.setLayout(new Text(CANVAS_TEXT));
     }
 
-    private void initPenColorChooser() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    private void initPenColorChooser() throws SlogoException {
         myPenColorChooser =(PenColorChooser)myElementFactory.makeElement("PenColorChooser");
         myLayoutManager.setLayout(myPenColorChooser);
         myLayoutManager.setLayout(new Text(PEN_TEXT));
@@ -104,6 +107,16 @@ public class TopPane extends GridPane {
         myTurtleChooser.getButton().setOnAction(e -> changeTurtleImage());
         StackPane.setAlignment(myTurtleChooser.getButton(), Pos.CENTER);
         myLayoutManager.setLayout(myTurtleChooser.getButton());
+    }
+
+    private void initTurtleTextState() {
+        turtleTextState = myTurtle.getTurtleTextState();
+        Text[] labels = turtleTextState.getStateLabels();
+        Text[] states = turtleTextState.getStates();
+        TurtleStatePane stateGrid = new TurtleStatePane();
+        stateGrid.addLabel(labels);
+        stateGrid.addState(states);
+        myLayoutManager.setLayout(stateGrid);
     }
 
     public void setLanguage(){
@@ -118,15 +131,16 @@ public class TopPane extends GridPane {
     public void setPenColor() {
         Color color = myPenColorChooser.getValue();
         myTurtle.getPen().setColor(color);
+        myTurtle.getTurtleTextState().setPenColor(color);
     }
 
-    private void changeTurtleImage() {
+    private void changeTurtleImage() throws MalformedTurtleImgException{
         File dataFile = myTurtleChooser.getTurtleChooser().showOpenDialog(myStage);
         try {
             Image newImage = new Image(dataFile.toURI().toURL().toExternalForm());
             myTurtle.setImgView(newImage);
         } catch (MalformedURLException e) {
-            e.printStackTrace();
+            throw new MalformedTurtleImgException(e);
         }
     }
 }

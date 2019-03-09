@@ -1,43 +1,51 @@
 package Model;
 
+import CommandNodes.UserCommandNode;
 import Model.ModelInterfaces.IModel;
 import View.GUIFeatures.Panes.HistoricalCommand;
-import View.ObserverInterfaces.IObserver;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
-public class CommandPaneModel implements IModel {
+public class CommandPaneModel extends PaneModel {
+    private ArrayList<HistoricalCommand> commandHistory;
+    private HashMap<String, CommandInfo> myCommands;
 
-
-    private ArrayList<IObserver> myObservers;
-    private ArrayList<HistoricalCommand> myCommandHistory;
 
     public CommandPaneModel(){
-        myCommandHistory = new ArrayList<>();
-        myObservers = new ArrayList<>();
+        super();
+        commandHistory = new ArrayList<>();
+        myCommands = new HashMap<>();
     }
 
-    @Override
-    public void registerObserver(IObserver o) {
-        myObservers.add(o);
+    public void makeCommand(CommandInfo info){
+        this.myCommands.put(info.getName(), info);
+        System.out.println("**********: " + info.getName() + ", " + info.getCommandVariables() + ", " + info.getCommandChildren());
+        notifyObserver();
     }
 
-    @Override
-    public void removeObserver(IObserver o) {
-        myObservers.remove(o);
+    public CommandInfo getCommand(String name){
+        return this.myCommands.get(name);
     }
 
-    @Override
-    public void notifyObserver() {
-        for (IObserver o:myObservers){
-            o.updateData();
-        }
+
+    public boolean isCommand(String name){
+        System.out.println("********** " + this.myCommands);
+        return myCommands.keySet().contains(name);
     }
 
-    @Override
+    public HashMap getCommands(){
+        return this.myCommands;
+    }
+
     public List<HistoricalCommand> getData(){
-        return Collections.unmodifiableList(myCommandHistory);
+        this.toData();
+        return Collections.unmodifiableList(commandHistory);
+    }
+
+    private void toData(){
+        for(String s: myCommands.keySet()){
+            HistoricalCommand hist = new HistoricalCommand(s);
+            commandHistory.add(hist);
+        }
     }
 }

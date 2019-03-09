@@ -1,6 +1,9 @@
 package Handlers;
 
+import CommandNodes.UserCommandNode;
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
+import Model.CommandInfo;
+import Model.CommandPaneModel;
 import Model.ModelInterfaces.TurtleModelInterface;
 import Model.VariablePaneModel;
 import java.util.HashMap;
@@ -16,20 +19,21 @@ public class CommandHandler implements CommandHandlerInterface {
 
     final TurtleModelInterface turtleModel;
     final VariablePaneModel varModel;
+    final CommandPaneModel commandModel;
     private Queue<TurtleState> states;
 
 
-    public CommandHandler(TurtleModelInterface turtleModel, VariablePaneModel varModel) {
+    public CommandHandler(TurtleModelInterface turtleModel, VariablePaneModel varModel, CommandPaneModel commandModel) {
         this.turtleModel = turtleModel;
         this.varModel = varModel;
         this.states = new LinkedList<>();
+        this.commandModel = commandModel;
     }
 
     public double moveForward(double px) {
         double heading = Math.toRadians(turtleModel.getHeading());
         turtleModel.setX(turtleModel.getX() + px*Math.cos(heading));
         turtleModel.setY(turtleModel.getY() - px*Math.sin(heading));
-        turtleModel.moveWithAnimation();
         addTurtleState();
         System.out.println("forward " + px);
         return px;
@@ -39,7 +43,6 @@ public class CommandHandler implements CommandHandlerInterface {
         double heading = Math.toRadians(turtleModel.getHeading());
         turtleModel.setX(turtleModel.getX() - px*Math.cos(heading));
         turtleModel.setY(turtleModel.getY() + px*Math.sin(heading));
-        turtleModel.moveWithAnimation();
         addTurtleState();
         System.out.println("backward " + px);
         return px;
@@ -175,8 +178,16 @@ public class CommandHandler implements CommandHandlerInterface {
         this.varModel.makeVariable(name, value);
     }
 
+    public boolean isCommand(String name) { return this.commandModel.isCommand(name);}
+
+    public CommandInfo getCommand(String name) { return this.commandModel.getCommand(name);}
+
+    public HashMap getCommands() { return this.commandModel.getCommands();}
+
+    public void makeCommand(CommandInfo info) { this.commandModel.makeCommand(info);}
+
     private void addTurtleState() {
-        TurtleState newState = new TurtleState(turtleModel.getX(), turtleModel.getY(), turtleModel.getHeading(), turtleModel.getPenDown(), turtleModel.isInvisible());
+        TurtleState newState = new TurtleState(turtleModel.getX(), turtleModel.getY(), turtleModel.getHeading(), turtleModel.getPenDown(), turtleModel.isInvisible(), turtleModel.isMoving(), turtleModel.isPenInvisible());
         turtleModel.getModelStates().add(newState);
     }
 

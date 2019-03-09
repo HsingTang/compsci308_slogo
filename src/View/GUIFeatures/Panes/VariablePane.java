@@ -18,12 +18,13 @@ import javafx.scene.layout.VBox;
  */
 public class VariablePane extends StackPane implements IObserver {
 
-    private final String VAR_NAME_COL = "Variable Name";
-    private final String VAR_VAL_COL = "Value";
-    private final String VAR_NAME_FIELD = "varName";
-    private final String VAR_VAL_FIELD = "varVal";
-    private TableView<Variable> varTable;
+    static final String VAR_NAME_COL = "Variable Name";
+    static final String VAR_VAL_COL = "Value";
+    static final String VAR_NAME_FIELD = "varName";
+    static final String VAR_VAL_FIELD = "varVal";
+    static final Double COL_HEIGHT_RATIO = 0.5;
 
+    private TableView<Variable> varTable;
     private IModel myVarPaneModel;
     private ObservableList<Variable> myVars = FXCollections.observableArrayList(new Variable("name0","val0"));
 
@@ -40,10 +41,10 @@ public class VariablePane extends StackPane implements IObserver {
     private void initTable(){
         varTable = new TableView();
         TableColumn varName = new TableColumn(VAR_NAME_COL);
-        varName.prefWidthProperty().bind(varTable.widthProperty().multiply(0.5));
+        varName.prefWidthProperty().bind(varTable.widthProperty().multiply(COL_HEIGHT_RATIO));
         varName.setCellValueFactory(new PropertyValueFactory<Variable,String>(VAR_NAME_FIELD));
         TableColumn varVal = new TableColumn(VAR_VAL_COL);
-        varVal.prefWidthProperty().bind(varTable.widthProperty().multiply(0.5));
+        varVal.prefWidthProperty().bind(varTable.widthProperty().multiply(COL_HEIGHT_RATIO));
         varVal.setCellValueFactory(new PropertyValueFactory<Variable,String>(VAR_VAL_FIELD));
         varTable.setItems(myVars);
         varTable.setEditable(true);

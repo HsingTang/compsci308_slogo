@@ -1,7 +1,9 @@
 package CommandTree;
 
 import CommandNodes.CommandNode;
+import CommandNodes.MakecommandNode;
 import CommandNodes.TreeParentNode;
+import CommandNodes.UserCommandNode;
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
 import View.ObserverInterfaces.TurtleObserver;
 import View.Turtles.TurtleView;
@@ -19,6 +21,7 @@ public class CommandRoot {
    private CommandNode currentParent;
    private int currentIndex;
 
+
    public CommandRoot(String[] commandStrings, CommandHandlerInterface controller, TurtleObserver o) {
       this.commandStrings = commandStrings;
       this.numCommands = commandStrings.length;
@@ -35,6 +38,9 @@ public class CommandRoot {
          String currentString = this.commandStrings[this.currentIndex];
          CommandNode newNode = this.myCommandNodeFactory.newNode(currentString, this.currentParent, this);
          while(this.currentParent.childrenFilled()){
+           /* if(this.currentParent instanceof MakecommandNode){
+               ((MakecommandNode)(this.currentParent)).makeUserCommand();
+            }*/
             this.currentParent = this.currentParent.getParent();
          }
          this.currentParent.addChild(newNode);
@@ -51,9 +57,19 @@ public class CommandRoot {
       for (CommandNode c : parent.getMyChildren()) {
          for(int i = 0; i < c.getMyNumRepeat(); i++) {
             this.executeNode(c);
+            System.out.println(c);
          }
       }
       parent.fullExecute();
+      if(parent instanceof UserCommandNode){
+         this.runUserCommand((UserCommandNode)parent);
+      }
+   }
+
+   private void runUserCommand(UserCommandNode parent){
+      for(CommandNode executeChild: parent.getExecuteChildren()){
+         this.executeNode(executeChild);
+      }
    }
 
 }

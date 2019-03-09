@@ -1,6 +1,17 @@
 package View.GUIFeatures.Panes;
 import Controller.ControllerInterface;
-import View.GUIFeatures.Buttons.*;
+import Errors.InvokeHelpPageException;
+import Errors.SlogoException;
+import View.GUIFeatures.Buttons.ExecuteButton;
+import View.GUIFeatures.Buttons.ClearButton;
+import View.GUIFeatures.Buttons.HelpButton;
+import View.GUIFeatures.Buttons.ForwardButton;
+import View.GUIFeatures.Buttons.BackwardsButton;
+import View.GUIFeatures.Buttons.LeftRotateButton;
+import View.GUIFeatures.Buttons.RightRotateButton;
+import View.GUIFeatures.Buttons.PenUpButton;
+import View.GUIFeatures.Buttons.PenDownButton;
+import View.GUIFeatures.Buttons.ThicknessSlider;
 import View.GUIFeatures.ElementFactory;
 import View.Turtles.TurtleView;
 import javafx.beans.value.ObservableValue;
@@ -10,15 +21,14 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
-import java.awt.*;
+import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 
 
 public class BottomPane extends GridPane {
 
-    static final Double GRIDPANE_PADDING_Y = 10.0;
+    static final Double GRIDPANE_PADDING_Y = 5.0;
     static final Double GRIDPANE_PADDING_X = 20.0;
     static final Double CONSOLE_RATIO = (3.0/5.0);
 
@@ -31,7 +41,7 @@ public class BottomPane extends GridPane {
     private PaneLayoutManager myLayoutManager;
     private ElementFactory myElementFactory;
 
-    public BottomPane(double height, CanvasPane canvas, ControllerInterface myController, int myID, TurtleView myTurtle) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    public BottomPane(double height, CanvasPane canvas, ControllerInterface myController, int myID, TurtleView myTurtle) throws SlogoException {
         super();
         this.myElementFactory = new ElementFactory(this);
         this.myLayoutManager = new PaneLayoutManager(this);
@@ -46,7 +56,7 @@ public class BottomPane extends GridPane {
 
     }
 
-    private void initBottomPaneElements() throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+    private void initBottomPaneElements() throws SlogoException{
         initConsole();
         initExecuteButton();
         initClearButton();
@@ -55,7 +65,7 @@ public class BottomPane extends GridPane {
         initSpring();
     }
 
-    private void initSpring() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    private void initSpring() throws SlogoException{
         Pane mySpring = (Pane) myElementFactory.makeElement("Spring");
         mySpring.setMinHeight(GRIDPANE_PADDING_Y);
         myLayoutManager.setLayout(mySpring);
@@ -63,16 +73,17 @@ public class BottomPane extends GridPane {
 
     private void initConsole() {
         myConsole = new Console(myHeight* CONSOLE_RATIO, this.getMaxHeight());
+        myConsole.setupModel(myController.getReturnValModel(myID));
         StackPane.setAlignment(myConsole, Pos.CENTER);
         myLayoutManager.setLayout(myConsole);
     }
 
-    private void initExecuteButton() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    private void initExecuteButton() throws SlogoException{
         Button myExecuteButton = (ExecuteButton)myElementFactory.makeElement("ExecuteButton");
         myLayoutManager.setLayout(myExecuteButton);
     }
 
-    private void initClearButton() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    private void initClearButton() throws SlogoException{
         Button myClearButton = (ClearButton)myElementFactory.makeElement("ClearButton");
         myLayoutManager.setLayout(myClearButton);
     }
@@ -81,12 +92,12 @@ public class BottomPane extends GridPane {
         myConsole.clearText();
     }
 
-    private void initHelpButton() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    private void initHelpButton() throws SlogoException {
         Button myHelpButton = (HelpButton)myElementFactory.makeElement("HelpButton");
         myLayoutManager.setLayout(myHelpButton);
     }
 
-    private void initActionButtons() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    private void initActionButtons() throws SlogoException{
         Button moveForwardButton = (ForwardButton)myElementFactory.makeElement("ForwardButton");
         Button moveBackwardsButton = (BackwardsButton)myElementFactory.makeElement("BackwardsButton");
         Button turnLeftButton = (LeftRotateButton)myElementFactory.makeElement("LeftRotateButton");
@@ -94,10 +105,14 @@ public class BottomPane extends GridPane {
         Button penDown = (PenDownButton)myElementFactory.makeElement("PenDownButton");
         Button penUp = (PenUpButton)myElementFactory.makeElement("PenUpButton");
         ThicknessSlider penSlider = (ThicknessSlider)myElementFactory.makeElement("ThicknessSlider");
-        penSlider.setOnMousePressed(e -> penSlider.changeThickness(myTurtle.getPen()));
+        penSlider.setOnMousePressed(e -> {
+            penSlider.changeThickness(myTurtle.getPen());
+            myTurtle.getTurtleTextState().setPenThickness(penSlider.getValue());
+        });
         penSlider.valueChangingProperty().addListener((ObservableValue<? extends Boolean> obs, Boolean wasChanging, Boolean isNowChanging) -> {
             if (!isNowChanging) {
                 penSlider.changeThickness(myTurtle.getPen());
+                myTurtle.getTurtleTextState().setPenThickness(penSlider.getValue());
             }
         });
         myLayoutManager.setLayout(moveForwardButton);
@@ -116,12 +131,12 @@ public class BottomPane extends GridPane {
         this.myConsole.clearText();
     }
 
-    public void openHelp() {
+    public void openHelp() throws InvokeHelpPageException{
         File file = new File("resources/Help_Page.html");
         try {
             Desktop.getDesktop().open(file);
         } catch (IOException e1) {
-            e1.printStackTrace();
+            throw new InvokeHelpPageException(e1);
         }
     }
 

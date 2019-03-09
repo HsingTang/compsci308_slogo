@@ -5,6 +5,7 @@ import CommandTree.StringParser;
 import Handlers.CommandHandler;
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
 import Model.CommandPaneModel;
+import Model.ReturnValModel;
 import Model.TurtleModel;
 import Model.VariablePaneModel;
 import View.Turtles.TurtleFactory;
@@ -19,13 +20,14 @@ public class Controller implements ControllerInterface {
     HashMap<Integer,TurtleModel>myTurtleModels;
     HashMap<Integer,VariablePaneModel> myVarModels;
     HashMap<Integer, CommandPaneModel> myCommandModels;
+    HashMap<Integer,ReturnValModel> myReturnValModels;
     HashMap<CommandHandlerInterface, String> myCommandHandlerMap;
     Queue<CommandHandlerInterface> myCommandHandlers;
     StringParser myParser;
     TurtleFactory myTurtleFactory;
     private int turtleNumber = 0;
     private String myLanguage = "English";
-    private boolean executing = false;
+    // private boolean executing = false;
 
     public Controller() {
         this.turtleNumber = 0;
@@ -34,6 +36,7 @@ public class Controller implements ControllerInterface {
         this.myTurtleModels = new HashMap<>();
         this.myVarModels = new HashMap<>();
         this.myCommandModels = new HashMap<>();
+        myReturnValModels = new HashMap<>();
         this.myCommandHandlers = new LinkedList<>();
         this.myCommandHandlerMap = new HashMap<>();
         this.myParser = new StringParser();
@@ -42,13 +45,30 @@ public class Controller implements ControllerInterface {
     public void initNewTab(){
         VariablePaneModel addVarModel = new VariablePaneModel();
         CommandPaneModel addCommandModel = new CommandPaneModel();
+        ReturnValModel addReturnValModel = new ReturnValModel();
         TurtleModel addTurtleModel = new TurtleModel();
         TurtleView addTurtleView = myTurtleFactory.makeTurtle(turtleNumber,addTurtleModel);
         myTurtleViews.put(turtleNumber,addTurtleView);
         myTurtleModels.put(turtleNumber,addTurtleModel);
         myVarModels.put(turtleNumber,addVarModel);
         myCommandModels.put(turtleNumber,addCommandModel);
+        myReturnValModels.put(turtleNumber,addReturnValModel);
         turtleNumber++;
+    }
+
+    public void removeLastTab(){
+        myTurtleViews.remove(myTurtleViews.get(turtleNumber-1));
+        myTurtleModels.remove(myTurtleModels.get(turtleNumber-1));
+        myVarModels.remove(myVarModels.get(turtleNumber-1));
+        myCommandModels.remove(myCommandModels.get(turtleNumber-1));
+        myReturnValModels.remove(myReturnValModels.get(turtleNumber-1));
+    }
+
+    public void removeTab(int id){
+        myTurtleViews.remove(myTurtleViews.get(id));
+        myTurtleModels.remove(myTurtleModels.get(id));
+        myVarModels.remove(myVarModels.get(id));
+        myCommandModels.remove(myCommandModels.get(id));
     }
 
     public void receiveCommand(String command, int id) {
@@ -57,8 +77,7 @@ public class Controller implements ControllerInterface {
         for (String s: myParser.parseCommand(command)){
             System.out.println(s);
         }
-
-        CommandHandlerInterface addCommandHandler = new CommandHandler(myTurtleModels.get(id), myVarModels.get(id));
+        CommandHandlerInterface addCommandHandler = new CommandHandler(myTurtleModels.get(id), myVarModels.get(id), myCommandModels.get(id));
         myCommandHandlerMap.put(addCommandHandler,command);
         myCommandHandlers.add(addCommandHandler);
         executeCommands(id);
@@ -91,5 +110,9 @@ public class Controller implements ControllerInterface {
 
     public CommandPaneModel getCommandModel(int id){
         return myCommandModels.get(id);
+    }
+
+    public ReturnValModel getReturnValModel(int id){
+        return myReturnValModels.get(id);
     }
 }

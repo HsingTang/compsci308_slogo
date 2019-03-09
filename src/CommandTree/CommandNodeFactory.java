@@ -23,11 +23,18 @@ public class CommandNodeFactory {
    }
 
    public CommandNode newNode(String arrayString, CommandNode parent, CommandRoot root) {
-         if(arrayString.substring(0,1).equals(":")) {
+      System.out.println("I am a " + arrayString + " my parent is a " + parent + " and her size is " + parent.getMyChildren().size());
+      if(parent instanceof MakevariableNode && parent.getMyChildren().size() == 0){
+         return this.newStringNode(parent, arrayString.substring(1));
+         }
+         else if (parent instanceof MakecommandNode && parent.getMyChildren().size() == 0){
+            return this.newStringNode(parent, arrayString);
+      }
+         else if(arrayString.substring(0,1).equals(":")) {
             return this.newVariableNode(parent, arrayString.substring(1));
          }
-         if(parent instanceof MakevariableNode && parent.getMyChildren().size() == 0){
-            return this.newStringNode(parent, arrayString);
+         else if(myHandler.isCommand(arrayString)){
+            return new UserCommandNode(myHandler, parent, myHandler.getCommand(arrayString));
          }
          try {
             Double constant = Double.parseDouble(arrayString);

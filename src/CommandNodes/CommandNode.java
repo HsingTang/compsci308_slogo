@@ -113,7 +113,7 @@ public abstract class CommandNode {
    }
 
    public int getMyNumParams(){
-      return myNumParams;
+      return this.myNumParams;
    }
 
   /* protected void setReturnValue(Double returnValue){
