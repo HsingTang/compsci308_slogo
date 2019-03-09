@@ -3,6 +3,8 @@ package View.GUIFeatures.Panes;
 import View.Turtles.TurtleView;
 import javafx.scene.text.Text;
 
+import java.util.List;
+
 public class TurtleText {
 
     private Text xPosLabel;
@@ -14,6 +16,7 @@ public class TurtleText {
     private Text heading;
     private Text ID;
     private TurtleView turtle;
+    private List<Text> myText;
 
     public TurtleText(TurtleView turtle) {
         this.turtle = turtle;
