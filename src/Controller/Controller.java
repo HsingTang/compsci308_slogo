@@ -83,7 +83,7 @@ public class Controller implements ControllerInterface {
         }
         CommandHandlerInterface addCommandHandler;
         try{
-            addCommandHandler = new CommandHandler(myTurtleModels.get(id), myVarModels.get(id), myCommandModels.get(id));
+            addCommandHandler = new CommandHandler(myTurtleModels.get(id), myVarModels.get(id), myCommandModels.get(id), myReturnValModels.get(id));
             myCommandHandlerMap.put(addCommandHandler,command);
             myCommandHandlers.add(addCommandHandler);
             executeCommands(id);

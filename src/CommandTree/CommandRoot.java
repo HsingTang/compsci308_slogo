@@ -68,6 +68,7 @@ public class CommandRoot {
       if(parent instanceof UserCommandNode){
          this.runUserCommand((UserCommandNode)parent);
       }
+      this.myHandler.addReturnVal(Double.toString(parent.getMyReturnValue()));
    }
 
    private void runUserCommand(UserCommandNode parent){

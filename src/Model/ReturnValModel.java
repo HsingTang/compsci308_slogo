@@ -32,6 +32,11 @@ public class ReturnValModel implements IModel {
         }
     }
 
+    public void addReturnVal(String val){
+        this.updateReturnVal(val);
+        notifyObserver();
+    }
+
     @Override
     public List getData() {
         return Arrays.asList(myReturnVal);

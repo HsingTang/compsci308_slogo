@@ -24,6 +24,7 @@ public abstract class CommandNode {
       this.myNumParams = INIT;
       this.myChildrenIndex = 0;
       this.myNumRepeat = 1;
+      this.myReturnValue = 0.0;
    }
 
    public CommandNode(CommandHandlerInterface inHandler, CommandNode inParent){
@@ -33,6 +34,7 @@ public abstract class CommandNode {
       this.myParent = inParent;
       this.myChildrenIndex = 0;
       this.myNumRepeat = 1;
+      //this.myReturnValue = 0.0;
 
 }
 

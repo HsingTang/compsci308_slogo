@@ -63,4 +63,5 @@ public interface CommandHandlerInterface {
 
     void addToHistory(String command);
 
+    void addReturnVal(String val);
 }

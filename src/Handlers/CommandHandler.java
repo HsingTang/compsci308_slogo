@@ -2,16 +2,14 @@ package Handlers;
 
 import CommandNodes.UserCommandNode;
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
-import Model.CommandInfo;
-import Model.CommandPaneModel;
+import Model.*;
 import Model.ModelInterfaces.TurtleModelInterface;
-import Model.VariablePaneModel;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-import Model.TurtleModel;
 import State.TurtleState;
 
 public class CommandHandler implements CommandHandlerInterface {
@@ -20,14 +18,16 @@ public class CommandHandler implements CommandHandlerInterface {
     final TurtleModelInterface turtleModel;
     final VariablePaneModel varModel;
     final CommandPaneModel commandModel;
+    final ReturnValModel returnModel;
     private Queue<TurtleState> states;
 
 
-    public CommandHandler(TurtleModelInterface turtleModel, VariablePaneModel varModel, CommandPaneModel commandModel) {
+    public CommandHandler(TurtleModelInterface turtleModel, VariablePaneModel varModel, CommandPaneModel commandModel, ReturnValModel returnModel) {
         this.turtleModel = turtleModel;
         this.varModel = varModel;
         this.states = new LinkedList<>();
         this.commandModel = commandModel;
+        this.returnModel = returnModel;
     }
 
     public double moveForward(double px) {
@@ -198,5 +198,9 @@ public class CommandHandler implements CommandHandlerInterface {
         double initialY = turtleModel.getY();
         turtleModel.setHome();
         return calcDistance(initialX, turtleModel.getX(), initialY, turtleModel.getY());
+    }
+
+    public void addReturnVal(String val) {
+        this.returnModel.addReturnVal(val);
     }
 }
