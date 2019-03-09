@@ -37,6 +37,11 @@ public class ReturnValModel implements IModel {
         return Arrays.asList(myReturnVal);
     }
 
+    @Override
+    public void ObserverUpdateModel(Object o) {
+
+    }
+
     public void updateReturnVal(String s){
         myReturnVal = s;
     }

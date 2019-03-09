@@ -58,7 +58,6 @@ public class Window extends Application {
     }
 
     public void addSlogoTab(){
-       // System.out.println("new tab init");
         myController.initNewTab();
         SlogoTab addTab = null;
         try{
