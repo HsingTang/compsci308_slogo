@@ -5,6 +5,8 @@ import View.Turtles.TurtleView;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
+import java.text.DecimalFormat;
+
 public class TurtleText {
 
     static final Text X_POS_LABEL = new Text("X Position: ");
@@ -23,6 +25,7 @@ public class TurtleText {
     static final Integer XPOS_INDEX = 0;
     static final Integer YPOS_INDEX = 1;
     static final Integer HEADING_INDEX = 2;
+    static final Integer HEX_MODIFIER = 255;
 
     private Text xPos;
     private Text yPos;
@@ -66,19 +69,19 @@ public class TurtleText {
     }
 
     public void setPenColor(Color color) {
-        int green = (int) (color.getGreen()*255);
+        int green = (int) (color.getGreen()*HEX_MODIFIER);
         String greenString = Integer.toHexString(green);
-        int red = (int) (color.getRed() * 255);
+        int red = (int) (color.getRed() * HEX_MODIFIER);
         String redString = Integer.toHexString(red);
-        int blue = (int) (color.getBlue()*255);
+        int blue = (int) (color.getBlue()*HEX_MODIFIER);
         String blueString = Integer.toHexString(blue);
-        // HEX COLOR STRING
         String hexColor = "#" + redString + greenString + blueString;
         penColor.setText(hexColor);
     }
 
     public void setPenThickness(Double thickness) {
-        penThickness.setText(String.valueOf(thickness));
+        DecimalFormat df = new DecimalFormat("#.#####");
+        penThickness.setText(df.format(thickness));
     }
 
     public void setPenDownValue(String isDown) {
