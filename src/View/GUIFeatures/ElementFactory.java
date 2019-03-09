@@ -1,5 +1,6 @@
 package View.GUIFeatures;
 
+import Errors.SlogoException;
 import Errors.SlogoTabSetupElementException;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -62,21 +63,31 @@ public class ElementFactory {
         if (element instanceof Button) {
             ((ButtonBase) element).setOnAction(e -> {
                 try {
-                    myMethod.invoke(myHostPane, (Object[]) myArgs);
-                } catch(Exception exp){
-                    throw new SlogoTabSetupElementException();
+                    safeInvoke(myMethod, myArgs);
+                } catch(SlogoException exp) {
+                    throw exp;
                 }
             });
         } else {
             ((ComboBoxBase<Object>) element).setOnAction(e -> {
                 try {
-                    myMethod.invoke(myHostPane, (Object[]) myArgs);
-                } catch (Exception exp){
-                    throw new SlogoTabSetupElementException();
+                    safeInvoke(myMethod, myArgs);
+                } catch(SlogoException exp) {
+                    throw exp;
                 }
             });
         }
 
+    }
+
+    private void safeInvoke(Method myMethod, String[] myArgs) throws SlogoException{
+        try {
+            myMethod.invoke(myHostPane, (Object[]) myArgs);
+        } catch(SlogoException exp){
+            throw exp;
+        } catch (Exception exp){
+            throw new SlogoTabSetupElementException();
+        }
     }
 
 

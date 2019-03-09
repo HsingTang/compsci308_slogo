@@ -79,7 +79,10 @@ public class CommandRoot {
       }catch (SlogoException e){
          throw e;
       }
-      this.myHandler.addReturnVal(Double.toString(parent.getMyReturnValue()));
+      if(parent.getMyReturnValue()!=null){
+         this.myHandler.addReturnVal(Double.toString(parent.getMyReturnValue()));
+      }
+
    }
 
    private void runUserCommand(UserCommandNode parent){
