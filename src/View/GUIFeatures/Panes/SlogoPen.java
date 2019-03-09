@@ -9,10 +9,12 @@ public class SlogoPen extends Node {
     static final double DEFAULT_PEN_WIDTH = 2.0;
 
     private GraphicsContext myGC;
+    private CanvasPane myCanvasPane;
     private SlogoCanvas myCanvas;
 
-    public SlogoPen(SlogoCanvas canvas){
+    public SlogoPen(SlogoCanvas canvas, CanvasPane pane){
         myCanvas = canvas;
+        myCanvasPane = pane;
         myGC = myCanvas.getGraphicsContext2D();
         myGC.setStroke(DEFAULT_PEN_COLOR);
         myGC.setFill(DEFAULT_PEN_COLOR);
@@ -37,9 +39,9 @@ public class SlogoPen extends Node {
     }
 
     public void clear() {
-        Color canvasColor = myCanvas.getColor();
+        Color canvasColor = myCanvasPane.getColor();
         myGC.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
-        myCanvas.setBackgroundColor(canvasColor);
+        myCanvasPane.setCanvasColor(canvasColor);
     }
 
 }
