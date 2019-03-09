@@ -97,10 +97,10 @@ public class TopPane extends GridPane {
 
     private void initAddTabButton() throws SlogoException{
         Button myAddTabButton = new AddTabButton();
+        myLayoutManager.setLayout(myAddTabButton);
         myAddTabButton.setOnAction(e-> {
             try {
                 this.myWindow.addSlogoTab();
-                myLayoutManager.setLayout(myAddTabButton);
             } catch (Exception exp) {
                 throw new SlogoTabSetupElementException(exp);
             }
