@@ -1,5 +1,7 @@
 package CommandTree;
 
+import Errors.InvalidCommandException;
+
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -53,9 +55,6 @@ public class StringParser {
             parsedCommand[i] = commandWords[i];
 
          }
-         /*
-         Should through and error if the user tries to define a command or variable that is part of the defined commands
-          */
       }
       return parsedCommand;
    }
@@ -69,7 +68,7 @@ public class StringParser {
             return e.getKey();
          }
       }
-      return text;
+      throw new InvalidCommandException();
    }
 
    /**
