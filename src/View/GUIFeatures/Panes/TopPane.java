@@ -24,6 +24,11 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.net.MalformedURLException;
 
+
+/**
+ * @author Hsingchih Tang
+ * @author Eric Lin
+ */
 public class TopPane extends GridPane {
 
     static final String CANVAS_TEXT = "Choose Canvas Color";
