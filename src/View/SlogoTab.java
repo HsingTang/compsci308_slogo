@@ -57,6 +57,7 @@ public class SlogoTab extends Tab implements IView {
         setGraphic(tabTitle);
         this.myPane.getStylesheets().add(STYLE_SHEET);
         this.myPane.getStyleClass().add("this");
+        this.setOnClosed(e->{myController.removeTab(myID);});
     }
 
     @Override

@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.CommandPaneModel;
+import Model.ReturnValModel;
 import Model.TurtleModel;
 import Model.VariablePaneModel;
 import View.Turtles.TurtleView;
@@ -13,6 +14,10 @@ public interface ControllerInterface {
 
     void initNewTab();
 
+    void removeLastTab();
+
+    void removeTab(int id);
+
     TurtleView getTurtleView(int id);
 
     TurtleModel getTurtleModel(int id);
@@ -21,5 +26,6 @@ public interface ControllerInterface {
 
     CommandPaneModel getCommandModel(int id);
 
+    ReturnValModel getReturnValModel(int id);
 
 }

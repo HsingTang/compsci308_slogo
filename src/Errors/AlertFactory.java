@@ -22,6 +22,7 @@ public class AlertFactory {
         String[] expNameArr = exp.getClass().getName().split("\\.");
         String expName = expNameArr[expNameArr.length-1];
         SlogoAlert ret = new SlogoAlert();
+        System.out.println(expName);
         ret.setText(titleResource.getString(expName),headerResource.getString(expName),contentResource.getString(expName));
         return ret;
     }
