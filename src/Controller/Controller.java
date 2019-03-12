@@ -18,6 +18,12 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
 
+/**
+ * Main controller that handles setting up the IDE and interactions between front end and back end
+ *
+ * @author Eric Lin
+ * @author
+ */
 public class Controller implements ControllerInterface {
     private Map<Integer,TurtleView> myTurtleViews;
     private Map<Integer,TurtleModel> myTurtleModels;
@@ -31,6 +37,11 @@ public class Controller implements ControllerInterface {
     private int turtleNumber = 0;
     private Window myWindow;
 
+    /**
+     * Creates an instance of the controller
+     *
+     * @param window window that the IDE is set up in
+     */
     public Controller(Window window) {
         this.turtleNumber = 0;
         this.myTurtleFactory = new TurtleFactory();
@@ -103,6 +114,11 @@ public class Controller implements ControllerInterface {
         }
     }
 
+    /**
+     * sets language of the parser
+     *
+     * @param language  language to set the parser to
+     */
     public void setLanguage(String language) {
         String myLanguage = language;
         this.myParser.setLanguage(myLanguage);

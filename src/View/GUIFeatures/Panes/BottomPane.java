@@ -28,6 +28,8 @@ import java.io.IOException;
 /**
  * @author Hsingchih Tang
  * @author Eric Lin
+ *
+ * Bottom pane with console, pen buttons, and buttons for console
  */
 public class BottomPane extends GridPane {
 
@@ -44,6 +46,15 @@ public class BottomPane extends GridPane {
     private PaneLayoutManager myLayoutManager;
     private ElementFactory myElementFactory;
 
+    /**
+     * Instantiates an instance of the bottom pane
+     * @param height        height of bottom pane
+     * @param canvas        height of canvas
+     * @param myController  controller
+     * @param myID          ID of the turtle
+     * @param myTurtle      turtle view
+     * @throws SlogoException error thrown on failure to instantiate bottom pane
+     */
     public BottomPane(double height, CanvasPane canvas, ControllerInterface myController, int myID, TurtleView myTurtle) throws SlogoException {
         super();
         this.myElementFactory = new ElementFactory(this);
@@ -53,7 +64,11 @@ public class BottomPane extends GridPane {
         this.myID = myID;
         this.myTurtle = myTurtle;
         setMaxHeight(height-canvas.getPrefHeight()/2);
-        initBottomPaneElements();
+        try {
+            initBottomPaneElements();
+        } catch (SlogoException e) {
+            throw e;
+        }
         setVgap(GRIDPANE_PADDING_Y);
         setHgap(GRIDPANE_PADDING_X);
 
@@ -109,6 +124,9 @@ public class BottomPane extends GridPane {
         }
     }
 
+    /**
+     * Clears the console of text
+     */
     public void clearConsole(){
         myConsole.clearText();
     }
@@ -155,6 +173,9 @@ public class BottomPane extends GridPane {
 
     }
 
+    /**
+     * transfers commands entered from console to the parser
+     */
     public void transferCommands() {
         String commands = myConsole.getText();
         this.myConsole.clearText();
@@ -162,6 +183,11 @@ public class BottomPane extends GridPane {
         //addToHistory(commands);
     }
 
+    /**
+     * opens the help screen
+     *
+     * @throws InvokeHelpPageException error thrown when unable to find the page
+     */
     public void openHelp() throws InvokeHelpPageException{
         File file = new File("resources/Help_Page.html");
         try {
@@ -171,6 +197,11 @@ public class BottomPane extends GridPane {
         }
     }
 
+    /**
+     * transfers commands from the pre instantiated pen buttons
+     *
+     * @param s command to be transferred
+     */
     public void buttonTransferCommands(String s) {
         this.myController.receiveCommand(s, myID);
         //addToHistory(command);

@@ -72,6 +72,11 @@ public class TurtleText {
         return new Text[] {penColor, penThickness, penDown};
     }
 
+    /**
+     * Sets the states to be displayed on screen
+     *
+     * @param states array of turtle state values
+     */
     public void setStateValues(Double[] states) {
         xPos.setText(states[XPOS_INDEX].toString().equals(INVALID_INIT_POS)?DEFAULT_INIT_POS:states[XPOS_INDEX].toString());
         yPos.setText(states[YPOS_INDEX].toString().equals(INVALID_INIT_POS)?DEFAULT_INIT_POS:states[YPOS_INDEX].toString());
@@ -94,6 +99,11 @@ public class TurtleText {
         penThickness.setText(df.format(thickness));
     }
 
+    /**
+     * Set value of pendown
+     *
+     * @param isDown    string of whether pen is down or up
+     */
     public void setPenDownValue(String isDown) {
         penDown.setText(isDown);
     }

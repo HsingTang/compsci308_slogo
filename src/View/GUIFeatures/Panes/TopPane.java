@@ -26,6 +26,8 @@ import java.net.MalformedURLException;
 
 
 /**
+ * top most pane that includes choosers and turtle info
+ *
  * @author Hsingchih Tang
  * @author Eric Lin
  */
@@ -52,6 +54,17 @@ public class TopPane extends GridPane {
     private Stage myStage;
     private TurtleText turtleTextState;
 
+    /**
+     * instantiates instance of the top pane
+     *
+     * @param height        height of pane
+     * @param myCanvasPane  canvas pane
+     * @param myController  controller
+     * @param myWindow      window that holds the pane
+     * @param myTurtle      turtleview
+     * @param myStage       stage that holds the pane
+     * @throws SlogoException   exception on fail of initializing top tab
+     */
     public TopPane(double height, CanvasPane myCanvasPane, ControllerInterface myController, Window myWindow, TurtleView myTurtle, Stage myStage) throws SlogoException {
         super();
         this.myHeight = height;
@@ -148,15 +161,24 @@ public class TopPane extends GridPane {
         myLayoutManager.setLayout(stateGrid);
     }
 
+    /**
+     * sets language of the parser to understand
+     */
     public void setLanguage(){
         this.myController.setLanguage(myLanguageChooser.getValue().toString());
     }
 
+    /**
+     * sets background color of the canvas
+     */
     public void setCanvasBackground(){
         Color color = myCanvasColorChooser.getValue();
         myCanvasPane.setCanvasColor(color);
     }
 
+    /**
+     * sets the pen color
+     */
     public void setPenColor() {
         Color color = myPenColorChooser.getValue();
         myTurtle.getPen().setColor(color);
