@@ -10,6 +10,8 @@ import java.util.List;
 /**
  * @author Hsingchih Tang
  * @author Eric Lin
+ *
+ * Console that reads in commands
  */
 public class Console extends TextArea implements IObserver {
 
@@ -17,6 +19,12 @@ public class Console extends TextArea implements IObserver {
     private IModel myValModel;
     private List<String> myDisplay;
 
+    /**
+     * instantiates an instance of the console
+     *
+     * @param w width of console
+     * @param h height of console
+     */
     public Console(double w, double h) {
         myDisplay = new ArrayList<>();
         this.setMaxSize(w,h);
@@ -27,7 +35,7 @@ public class Console extends TextArea implements IObserver {
         this.setOnMouseClicked(e->clearText());
     }
 
-    public void clearText() {
+    void clearText() {
         this.clear();
     }
 

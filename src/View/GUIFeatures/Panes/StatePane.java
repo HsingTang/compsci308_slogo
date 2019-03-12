@@ -19,25 +19,25 @@ public class StatePane extends GridPane {
         this.setHgap(H_GAP);
     }
 
-    public void addTurtleLabel(Text[] labels){
+    void addTurtleLabel(Text[] labels){
         for (int i = 0; i < labels.length; i++) {
             this.add(labels[i], TURTLE_LABEL_COL, i);
         }
     }
 
-    public void addTurtleState(Text[] states){
+    void addTurtleState(Text[] states){
         for (int i = 0; i < states.length; i++) {
             this.add(states[i], TURTLE_VAL_COL, i);
         }
     }
 
-    public void addPenLabel(Text[] labels){
+    void addPenLabel(Text[] labels){
         for (int i = 0; i < labels.length; i++) {
             this.add(labels[i], PEN_LABEL_COL, i);
         }
     }
 
-    public void addPenState(Text[] states){
+    void addPenState(Text[] states){
         for (int i = 0; i < states.length; i++) {
             this.add(states[i], PEN_VAL_COL, i);
         }
