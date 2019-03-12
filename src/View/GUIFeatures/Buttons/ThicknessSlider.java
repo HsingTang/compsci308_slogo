@@ -4,6 +4,11 @@ import View.GUIFeatures.Panes.SlogoPen;
 import javafx.scene.control.Slider;
 import javafx.scene.text.Text;
 
+/**
+ * Slider to adjust thickness of pen
+ *
+ * @author Eric Lin
+ */
 public class ThicknessSlider extends Slider {
 
     static final int BASE = 1;
@@ -13,6 +18,9 @@ public class ThicknessSlider extends Slider {
 
     private Text sliderText;
 
+    /**
+     * creates an instance of thickness slider
+     */
     public ThicknessSlider() {
         super(BASE, MAX, DEFAULT);
         this.setShowTickLabels(true);

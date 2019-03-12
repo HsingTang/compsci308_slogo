@@ -9,6 +9,8 @@ import java.text.DecimalFormat;
 /**
  * @author Hsingchih Tang
  * @author Eric Lin
+ *
+ * Text to display the turtes and pens state
  */
 public class TurtleText {
 
@@ -39,6 +41,11 @@ public class TurtleText {
     private Text penThickness;
     private Text penDown;
 
+    /**
+     * Creates an instance of the turtle text
+     *
+     * @param turtle    Turtle View
+     */
     public TurtleText(TurtleView turtle) {
         xPos = new Text(DEFAULT_INIT_POS);
         yPos = new Text(DEFAULT_INIT_POS);
@@ -49,20 +56,19 @@ public class TurtleText {
         penDown = new Text(DEFAULT_PEN_DOWN);
     }
 
-    public Text[] getTurtleLabels() {
+    Text[] getTurtleLabels() {
         return new Text[] {X_POS_LABEL, Y_POS_LABEL, HEADING_LABEL, ID_LABEL};
     }
 
-
-    public Text[] getTurtleStates() {
+    Text[] getTurtleStates() {
         return new Text[] {xPos, yPos, heading, ID};
     }
 
-    public Text[] getPenLabels() {
+    Text[] getPenLabels() {
         return new Text[] {PEN_COLOR_LABEL, PEN_THICKNESS_LABEL, PEN_DOWN_LABEL};
     }
 
-    public Text[] getPenStates() {
+    Text[] getPenStates() {
         return new Text[] {penColor, penThickness, penDown};
     }
 
@@ -72,7 +78,7 @@ public class TurtleText {
         heading.setText(states[HEADING_INDEX].toString());
     }
 
-    public void setPenColor(Color color) {
+    void setPenColor(Color color) {
         int green = (int) (color.getGreen()*HEX_MODIFIER);
         String greenString = Integer.toHexString(green);
         int red = (int) (color.getRed() * HEX_MODIFIER);
@@ -83,7 +89,7 @@ public class TurtleText {
         penColor.setText(hexColor);
     }
 
-    public void setPenThickness(Double thickness) {
+    void setPenThickness(Double thickness) {
         DecimalFormat df = new DecimalFormat("#.#####");
         penThickness.setText(df.format(thickness));
     }

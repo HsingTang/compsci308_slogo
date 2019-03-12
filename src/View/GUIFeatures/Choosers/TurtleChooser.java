@@ -6,11 +6,19 @@ import javafx.stage.FileChooser;
 
 import java.io.File;
 
+/**
+ * Chooses image of turtle
+ *
+ * @author Eric Lin
+ */
 public class TurtleChooser {
 
     private FileChooser turtleChooser;
     private TurtleChooserButton turtleChooserButton;
 
+    /**
+     * Creates an instance of the turtle chooser
+     */
     public TurtleChooser() {
         turtleChooser = makeChooser();
         turtleChooserButton = new TurtleChooserButton("Choose Turtle Image");
@@ -25,10 +33,20 @@ public class TurtleChooser {
         return chooser;
     }
 
+    /**
+     * gets the button in the file chooser
+     *
+     * @return file chooser button
+     */
     public Button getButton() {
         return this.turtleChooserButton;
     }
 
+    /**
+     * gets the file chooser
+     *
+     * @return file chooser
+     */
     public FileChooser getTurtleChooser() {
         return this.turtleChooser;
     }
