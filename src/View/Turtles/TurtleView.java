@@ -19,7 +19,7 @@ import java.util.Queue;
 /**
  * @author Hsingchih Tang
  * @author Eric Lin
- * Front-end visualization of the Turtle
+ * Front-end visualization of the Turtle. There should be one Turtle per tab
  */
 public class TurtleView implements TurtleObserver {
 
@@ -44,6 +44,12 @@ public class TurtleView implements TurtleObserver {
     private TurtleState newState;
     private TurtleText turtleTextState;
 
+    /**
+     * Instantiates a new TurtleView object
+     * @param id indicating which tab this TurtleView belongs to
+     * @param img the ImageView visualization of the Turtle
+     * @param model the TurtleModel associated with this TurtleView
+     */
     public TurtleView(int id, Image img, TurtleModelInterface model) {
         this.myTurtleModel = model;
         model.registerTurtleObserver(this);
@@ -59,24 +65,74 @@ public class TurtleView implements TurtleObserver {
         this.turtleTextState = new TurtleText(this);
     }
 
-    public Integer getMyID() {
-        return myID;
-    }
-
-    public ImageView getImgView() {
-        return myImgView;
-    }
-
+    /**
+     * Updates the ImageView visualization for this TurtleView
+     * @param newImg the new visualization image
+     */
     public void setImgView(Image newImg) {
         this.myImgView.setImage(newImg);
     }
 
+    /**
+     * Ties the TurtleView with its corresponding SlogoPen for canvas drawing
+     * @param pen the SlogoPen to be tied with this TurtleView
+     */
     public void setPen(SlogoPen pen) {
         myPen = pen;
     }
 
+    /**
+     * Retrieve the TurtleView states from its TurtleModel as a result of command execution
+     * and update the front-end visualization based on TurtleModel's data
+     */
+    public void updateView() {
+        this.stateQueue = myTurtleModel.getModelStates();
+        updateTurtle();
+    }
+
+    /**
+     * @return ID number of this TurtleView
+     */
+    public Integer getMyID() {
+        return myID;
+    }
+
+    /**
+     * @return ImageView visualization of this TurtleView
+     */
+    public ImageView getImgView() {
+        return myImgView;
+    }
+
+    /**
+     * @return the SlogoPen tied with this TurtleView
+     */
     public SlogoPen getPen() {
         return this.myPen;
+    }
+
+    /**
+     * @return the TurtleView's states (positions, heading, etc.) wrapped in TurtleText format
+     */
+    public TurtleText getTurtleTextState() {
+        return this.turtleTextState;
+    }
+
+    private void updateTurtle() {
+        if (!stateQueue.isEmpty()) {
+            System.out.println(stateQueue.size());
+            double currentHeading = this.myHeading;
+            newState = stateQueue.poll();
+            this.getTurtleState(newState);
+            updatePenDown();
+            updatePenVisibility();
+            if (isMoving) {
+                calcAnimateParams(newState.getNewX(), newState.getNewY());
+            }
+            animateRotation(currentHeading - newState.getNewHeading());
+            myTurtleModel.setPenVisible();
+            setTurtleStateText();
+        }
     }
 
     private void animateRotation(double rotationDegrees) {
@@ -85,7 +141,6 @@ public class TurtleView implements TurtleObserver {
         rt.setOnFinished(e -> updateTurtle());
         rt.play();
     }
-
 
     private boolean movementComplete(double xAdjust, double yAdjust, double xFinal, double yFinal) {
         boolean checkXLessThanFinal = checkXLessThanFinal(xAdjust, yAdjust, xFinal, yFinal);
@@ -108,7 +163,6 @@ public class TurtleView implements TurtleObserver {
         boolean check2 = xAdjust > 0 && translateX >= xFinal && yAdjust < 0 && translateY <= yFinal;
         return (check1 || check2);
     }
-
 
     private void calcAnimateParams(double xFinal, double yFinal) {
         Double deltaX = xFinal - this.myImgView.getTranslateX();
@@ -146,34 +200,11 @@ public class TurtleView implements TurtleObserver {
         }
     }
 
-    public void updateView() {
-        this.stateQueue = myTurtleModel.getModelStates();
-        updateTurtle();
-    }
-
     private void updatePenVisibility() {
         if (newState.getIsPenCleared()) {
             this.myPen.clear();
             this.penDown = false;
         }
-    }
-
-    private void updateTurtle() {
-        if (!stateQueue.isEmpty()) {
-            System.out.println(stateQueue.size());
-            double currentHeading = this.myHeading;
-            newState = stateQueue.poll();
-            this.getTurtleState(newState);
-            updatePenDown();
-            updatePenVisibility();
-            if (isMoving) {
-                calcAnimateParams(newState.getNewX(), newState.getNewY());
-            }
-            animateRotation(currentHeading - newState.getNewHeading());
-            myTurtleModel.setPenVisible();
-            setTurtleStateText();
-        }
-
     }
 
     private void getTurtleState(TurtleState newState) {
@@ -185,10 +216,6 @@ public class TurtleView implements TurtleObserver {
         this.isMoving = newState.getIsMoving();
     }
 
-    public TurtleText getTurtleTextState() {
-        return this.turtleTextState;
-    }
-
     private void setTurtleStateText() {
         DecimalFormat df = new DecimalFormat("#.#####");
         double retX = (Math.abs(this.myX) > THRESHOLD ? this.myX : 0);
@@ -198,7 +225,5 @@ public class TurtleView implements TurtleObserver {
         Double[] newPositions = {retX, retY, this.myHeading};
         turtleTextState.setStateValues(newPositions);
     }
-
-
 
 }

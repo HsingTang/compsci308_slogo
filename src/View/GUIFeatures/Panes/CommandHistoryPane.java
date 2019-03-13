@@ -12,7 +12,8 @@ import javafx.scene.layout.StackPane;
 
 /**
  * @author Hsingchih Tang
- * Displays previously executed commands
+ * Right-hand section of the GUI for displaying previously entered commands via JavaFX TableView feature
+ * There should be one CommandHistoryPane per tab
  */
 public class CommandHistoryPane extends StackPane implements IObserver {
     static final String COMMAND_COL = "Historical Commands";
@@ -21,6 +22,11 @@ public class CommandHistoryPane extends StackPane implements IObserver {
     private IModel myCommandPaneModel;
     private ObservableList<HistoricalCommand> myCommands = FXCollections.observableArrayList();
 
+    /**
+     * Instantiates an instance of CommandHistoryPane
+     * @param w width of the table
+     * @param h height of the table
+     */
     public CommandHistoryPane(double w, double h){
         super();
         initTable();
@@ -28,6 +34,34 @@ public class CommandHistoryPane extends StackPane implements IObserver {
         this.setHeight(h);
         this.getChildren().addAll(commandTable);
         this.setAlignment(Pos.CENTER);
+    }
+
+    /**
+     * Sets up the CommandHistoryPane's corresponding back-end Model
+     * @param model the Model component to be associated to this CommandHistoryPane
+     */
+    @Override
+    public void setupModel(IModel model){
+        myCommandPaneModel = model;
+        model.registerObserver(this);
+    }
+
+    /**
+     * @return the VariablePane's corresponding back-end Model
+     */
+    @Override
+    public IModel getModel() {
+        return myCommandPaneModel;
+    }
+
+    /**
+     * Retrieves the list of user-entered commands from the Model
+     * and displays the data (String command contents)
+     */
+    @Override
+    public void updateData() {
+        this.myCommands.clear();
+        this.myCommands.addAll(myCommandPaneModel.getData());
     }
 
     private void initTable(){
@@ -38,22 +72,5 @@ public class CommandHistoryPane extends StackPane implements IObserver {
         commandTable.setItems(myCommands);
         commandTable.setEditable(false);
         commandTable.getColumns().addAll(commandCol);
-    }
-
-    @Override
-    public void setupModel(IModel model){
-        myCommandPaneModel = model;
-        model.registerObserver(this);
-    }
-
-    @Override
-    public IModel getModel() {
-        return myCommandPaneModel;
-    }
-
-    @Override
-    public void updateData() {
-        this.myCommands.clear();
-        this.myCommands.addAll(myCommandPaneModel.getData());
     }
 }

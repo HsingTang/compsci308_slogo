@@ -28,8 +28,8 @@ import java.io.IOException;
 /**
  * @author Hsingchih Tang
  * @author Eric Lin
- *
- * Bottom pane with console, pen buttons, and buttons for console
+ * Bottom section of the GUI, where console, pen buttons, and command execution/clearing buttons reside
+ * There should be one BottomPane per tab
  */
 public class BottomPane extends GridPane {
 
@@ -49,10 +49,10 @@ public class BottomPane extends GridPane {
     /**
      * Instantiates an instance of the bottom pane
      * @param height        height of bottom pane
-     * @param canvas        height of canvas
-     * @param myController  controller
-     * @param myID          ID of the turtle
-     * @param myTurtle      turtle view
+     * @param canvas        canvas object in the same tab
+     * @param myController  main Controller
+     * @param myID          ID of the tab
+     * @param myTurtle      TurtleView of the tab
      * @throws SlogoException error thrown on failure to instantiate bottom pane
      */
     public BottomPane(double height, CanvasPane canvas, ControllerInterface myController, int myID, TurtleView myTurtle) throws SlogoException {
@@ -71,8 +71,47 @@ public class BottomPane extends GridPane {
         }
         setVgap(GRIDPANE_PADDING_Y);
         setHgap(GRIDPANE_PADDING_X);
-
     }
+
+    /**
+     * Transfers commands entered from Console to the Controller. Invoked by ExecuteButton on clicking action.
+     */
+    public void transferCommands() {
+        String commands = myConsole.getText();
+        this.myConsole.clearText();
+        this.myController.receiveCommand(commands, myID);
+        //addToHistory(commands);
+    }
+
+    /**
+     * Opens the help screen. Invoked by HelpButton on clicking action.
+     * @throws InvokeHelpPageException error thrown when unable to find the page
+     */
+    public void openHelp() throws InvokeHelpPageException{
+        File file = new File("resources/Help_Page.html");
+        try {
+            Desktop.getDesktop().open(file);
+        } catch (IOException e1) {
+            throw new InvokeHelpPageException(e1);
+        }
+    }
+
+    /**
+     * Transfers pre-instantiated commands when TurtleView-motion-control/pen-control buttons are invoked.
+     * @param s command to be transferred to Controller
+     */
+    public void buttonTransferCommands(String s) {
+        this.myController.receiveCommand(s, myID);
+        //addToHistory(command);
+    }
+
+    /**
+     * Clears the text displayed in Console. Invoked by ClearButton on clicking action.
+     */
+    public void clearConsole(){
+        myConsole.clearText();
+    }
+
 
     private void initBottomPaneElements() throws SlogoException{
         try{
@@ -124,13 +163,6 @@ public class BottomPane extends GridPane {
         }
     }
 
-    /**
-     * Clears the console of text
-     */
-    public void clearConsole(){
-        myConsole.clearText();
-    }
-
     private void initHelpButton() throws SlogoException {
         try{
             Button myHelpButton = (HelpButton)myElementFactory.makeElement("HelpButton");
@@ -170,42 +202,5 @@ public class BottomPane extends GridPane {
         }catch (SlogoException e){
             throw e;
         }
-
     }
-
-    /**
-     * transfers commands entered from console to the parser
-     */
-    public void transferCommands() {
-        String commands = myConsole.getText();
-        this.myConsole.clearText();
-        this.myController.receiveCommand(commands, myID);
-        //addToHistory(commands);
-    }
-
-    /**
-     * opens the help screen
-     *
-     * @throws InvokeHelpPageException error thrown when unable to find the page
-     */
-    public void openHelp() throws InvokeHelpPageException{
-        File file = new File("resources/Help_Page.html");
-        try {
-            Desktop.getDesktop().open(file);
-        } catch (IOException e1) {
-            throw new InvokeHelpPageException(e1);
-        }
-    }
-
-    /**
-     * transfers commands from the pre instantiated pen buttons
-     *
-     * @param s command to be transferred
-     */
-    public void buttonTransferCommands(String s) {
-        this.myController.receiveCommand(s, myID);
-        //addToHistory(command);
-    }
-
-
 }

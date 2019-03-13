@@ -12,7 +12,15 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 
-
+/**
+ * @author Hsingchih Tang
+ * Highest-level View component (front-end) class that manages multiple tabs (each controlling own Turtle and commands)
+ * and coordinates with main Controller for transferring commands.
+ * Main class of the whole program; implements JavaFX TabPane to realize multiple Turtle feature,
+ * so that there is only one Window for the whole program that could be in charge of many tabs.
+ * All types of Exceptions generated at any point of the whole program will eventually be thrown to Window,
+ * where the AlertFactory will be triggered to handle the Exception by displaying alert dialogues to user.
+ */
 public class Window extends Application {
 
     public static final String PROJECT_NAME = "SLogo IDE";
@@ -26,7 +34,10 @@ public class Window extends Application {
     private Controller myController;
     private int tabCount;
 
-
+    /**
+     * Instantiates a new Window for the program
+     * Creates the main Controller and Factories
+     */
    public Window(){
         super();
         myViewFactory = new SlogoTabFactory();
@@ -35,12 +46,19 @@ public class Window extends Application {
         tabCount = 0;
     }
 
+    /**
+     * Entry point of the JavaFX application
+     * @param myStage stage where front-end scene is displayed
+     */
     public void start(Stage myStage) {
         this.myStage = myStage;
         myStage.setTitle(PROJECT_NAME);
         displayStartScreen();
     }
 
+    /**
+     * Set the stage's scene to the program's opening screen
+     */
     public void displayStartScreen(){
         Pane splashRoot = new Pane();
         SplashScreen startScreen = new SplashScreen(splashRoot, DEFAULT_WIDTH, DEFAULT_HEIGHT);
@@ -57,6 +75,9 @@ public class Window extends Application {
         myStage.show();
     }
 
+    /**
+     * Invokes Controller to create models on the back end, and invokes SlogoTabFactory to create a new SlogoTab
+     */
     public void addSlogoTab(){
         myController.initNewTab();
         SlogoTab addTab = null;
@@ -72,6 +93,10 @@ public class Window extends Application {
         tabCount++;
     }
 
+    /**
+     * Invokes a SlogoAlert by triggering AlertFactory by a specific SlogoException
+     * @param e the SlogoException caught by Window
+     */
     public void invokeAlert(SlogoException e){
         SlogoAlert alert = myAlertFactory.getAlert(e);
         alert.showAlert();
@@ -85,6 +110,9 @@ public class Window extends Application {
         addSlogoTab();
     }
 
+    /**
+     * Main function for launching the program
+     */
     public static void main(String[] args){
         launch(args);
     }

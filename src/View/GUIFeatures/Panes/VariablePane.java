@@ -15,7 +15,8 @@ import javafx.scene.control.TableColumn.CellEditEvent;
 
 /**
  * @author Hsingchih Tang
- * Displays variables and associated values
+ * Left-hand section of the GUI, where created variables and their values are displayed via JavaFX TableView feature
+ * There should be one VariablePane per tab
  */
 public class VariablePane extends StackPane implements IObserver {
 
@@ -32,6 +33,11 @@ public class VariablePane extends StackPane implements IObserver {
     private ObservableList<Variable> myVars = FXCollections.observableArrayList();
 
 
+    /**
+     * Instantiates an instance of the VariablePane.
+     * @param w total width of the whole table
+     * @param h  height of the table
+     */
     public VariablePane(double w, double h){
         super();
         initTable();
@@ -41,18 +47,29 @@ public class VariablePane extends StackPane implements IObserver {
         this.setAlignment(Pos.CENTER);
     }
 
-    @Override
-    public void updateData(){
-        myVars.clear();
-        myVars.addAll(myVarPaneModel.getData());
-    }
-
+    /**
+     * Sets up the VariablePane's corresponding back-end Model
+     * @param model the Model component to be associated to this VariablePane
+     */
     @Override
     public void setupModel(IModel model) {
         myVarPaneModel = model;
         model.registerObserver(this);
     }
 
+    /**
+     * Retrieves the most up-to-date list of Variables from the Model
+     * and displays the data (variable & value)
+     */
+    @Override
+    public void updateData(){
+        myVars.clear();
+        myVars.addAll(myVarPaneModel.getData());
+    }
+
+    /**
+     * @return the VariablePane's corresponding back-end Model
+     */
     @Override
     public IModel getModel() {
         return myVarPaneModel;

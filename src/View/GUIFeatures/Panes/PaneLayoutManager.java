@@ -3,10 +3,11 @@ package View.GUIFeatures.Panes;
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
-
 import java.util.ResourceBundle;
+
 /**
  * @author Hsingchih Tang
+ * Reads content in resource file to flexibly adjust front-end element layout on a GridPane
  */
 public class PaneLayoutManager {
     private final String ELEMENT_LAYOUT_RESOURCE = "elements/PaneElementLayout";
@@ -19,11 +20,19 @@ public class PaneLayoutManager {
     private GridPane myPane;
     private ResourceBundle myElementLayoutResources;
 
+    /**
+     * Instantiates a LayoutManager object. There should be one LayoutManager per GridPane in need of element layout.
+     * @param p the Pane (either TopPane or BottomPane) which invokes the LayoutManager
+     */
     public PaneLayoutManager(GridPane p){
         myPane = p;
         myElementLayoutResources = ResourceBundle.getBundle(ELEMENT_LAYOUT_RESOURCE);
     }
 
+    /**
+     * Manages layout for  the input element using its assigned row and column indices retrieved from resource file
+     * @param element the element to be managed
+     */
     public void setLayout(Node element){
         String[] keyArr;
         if(element instanceof Text){
