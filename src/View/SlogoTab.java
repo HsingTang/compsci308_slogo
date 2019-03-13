@@ -20,7 +20,8 @@ import javafx.stage.Stage;
 /**
  * @author Hsingchih Tang
  * @author Eric Lin
- * An independent tab managing its own Turtle, commands and variables
+ * An independent tab managing its own Turtle, console, commands and variables
+ * There can be as many tabs as the user desire, and all tabs reside in the same Window
  */
 public class SlogoTab extends Tab{
 
@@ -41,6 +42,16 @@ public class SlogoTab extends Tab{
     private ControllerInterface myController;
     private Window myWindow;
 
+    /**
+     * Instantiates a new SlogoTab object
+     * @param id ID number of this SlogoTab (ordered starting from 0 in sequence of creation)
+     * @param width width of the window
+     * @param height height of the window
+     * @param controller Main Controller of the program
+     * @param stage Main stage of the program
+     * @param window Main Window holding all tabs
+     * @throws SlogoException on failure of initiating tab elements
+     */
     public SlogoTab(int id, double width, double height, Controller controller, Stage stage, Window window) throws SlogoException{
         myStage = stage;
         myController = controller;
@@ -63,11 +74,13 @@ public class SlogoTab extends Tab{
         }
     }
 
-
+    /**
+     * Calls the tab's Center CanvasPane to set up the TurtleView
+     * @param t the TurtleView to be tied to the tab's canvas
+     */
     public void setTurtleView(TurtleView t){
         myCanvasPane.initTurtleView(t);
     }
-
 
     private void initPanes() throws SlogoException{
         myPane = new BorderPane();
@@ -83,7 +96,6 @@ public class SlogoTab extends Tab{
             throw e;
         }
     }
-
 
     private void initTopPane() throws SlogoException {
         try{

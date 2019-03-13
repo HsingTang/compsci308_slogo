@@ -13,7 +13,6 @@ import java.text.DecimalFormat;
  * Text to display the turtes and pens state
  */
 public class TurtleText {
-
     private final Text X_POS_LABEL = new Text("X Position: ");
     private final Text Y_POS_LABEL = new Text("Y Position: ");
     private final Text HEADING_LABEL = new Text("Heading: ");
@@ -43,8 +42,7 @@ public class TurtleText {
 
     /**
      * Creates an instance of the turtle text
-     *
-     * @param turtle    Turtle View
+     * @param turtle target TurtleView whose states are to be displayed
      */
     public TurtleText(TurtleView turtle) {
         xPos = new Text(DEFAULT_INIT_POS);
@@ -56,25 +54,10 @@ public class TurtleText {
         penDown = new Text(DEFAULT_PEN_DOWN);
     }
 
-    Text[] getTurtleLabels() {
-        return new Text[] {X_POS_LABEL, Y_POS_LABEL, HEADING_LABEL, ID_LABEL};
-    }
-
-    Text[] getTurtleStates() {
-        return new Text[] {xPos, yPos, heading, ID};
-    }
-
-    Text[] getPenLabels() {
-        return new Text[] {PEN_COLOR_LABEL, PEN_THICKNESS_LABEL, PEN_DOWN_LABEL};
-    }
-
-    Text[] getPenStates() {
-        return new Text[] {penColor, penThickness, penDown};
-    }
-
     /**
      * Sets the states to be displayed on screen
-     *
+     * Sometimes the TurtleView's position is -0.0 due to accuracy issue
+     * In such cases the position shall be adjusted and displayed as 0.0
      * @param states array of turtle state values
      */
     public void setStateValues(Double[] states) {
@@ -83,6 +66,18 @@ public class TurtleText {
         heading.setText(states[HEADING_INDEX].toString());
     }
 
+    /**
+     * Set pen state value of up/down
+     * @param isDown String indicating whether the pen is down or up
+     */
+    public void setPenDownValue(String isDown) {
+        penDown.setText(isDown);
+    }
+
+    /**
+     * Set pen color value and display as RGB number
+     * @param color the color currently held by the pen
+     */
     void setPenColor(Color color) {
         int green = (int) (color.getGreen()*HEX_MODIFIER);
         String greenString = Integer.toHexString(green);
@@ -94,19 +89,41 @@ public class TurtleText {
         penColor.setText(hexColor);
     }
 
+    /**
+     * Set pen width value
+     * @param thickness the width currently held by the pen
+     */
     void setPenThickness(Double thickness) {
         DecimalFormat df = new DecimalFormat("#.#####");
         penThickness.setText(df.format(thickness));
     }
 
     /**
-     * Set value of pendown
-     *
-     * @param isDown    string of whether pen is down or up
+     * @return array of labels of TurtleView states
      */
-    public void setPenDownValue(String isDown) {
-        penDown.setText(isDown);
+    Text[] getTurtleLabels() {
+        return new Text[] {X_POS_LABEL, Y_POS_LABEL, HEADING_LABEL, ID_LABEL};
     }
 
+    /**
+     * @return array of values of TurtleView states
+     */
+    Text[] getTurtleStates() {
+        return new Text[] {xPos, yPos, heading, ID};
+    }
+
+    /**
+     * @return array of labels of pen states
+     */
+    Text[] getPenLabels() {
+        return new Text[] {PEN_COLOR_LABEL, PEN_THICKNESS_LABEL, PEN_DOWN_LABEL};
+    }
+
+    /**
+     * @return array of values of pen states
+     */
+    Text[] getPenStates() {
+        return new Text[] {penColor, penThickness, penDown};
+    }
 
 }

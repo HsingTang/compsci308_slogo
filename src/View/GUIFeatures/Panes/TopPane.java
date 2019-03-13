@@ -26,10 +26,11 @@ import java.net.MalformedURLException;
 
 
 /**
- * top most pane that includes choosers and turtle info
- *
  * @author Hsingchih Tang
  * @author Eric Lin
+ * Top section of the GUI, where TurtleView's image file chooser, pen/canvas color chooser, language chooser
+ * and the StatePane for displaying TurtleView and pen's current states reside
+ * There should be one TopPane per tab
  */
 public class TopPane extends GridPane {
 
@@ -57,13 +58,13 @@ public class TopPane extends GridPane {
     /**
      * instantiates instance of the top pane
      *
-     * @param height        height of pane
-     * @param myCanvasPane  canvas pane
-     * @param myController  controller
-     * @param myWindow      window that holds the pane
-     * @param myTurtle      turtleview
-     * @param myStage       stage that holds the pane
-     * @throws SlogoException   exception on fail of initializing top tab
+     * @param height        height of the top pane
+     * @param myCanvasPane  CanvasPane in the same tab
+     * @param myController  main Controller
+     * @param myWindow      main Window that holds the tab
+     * @param myTurtle      TurtleView of the tab
+     * @param myStage       stage of the program
+     * @throws SlogoException   exception on failure to initialize top tab
      */
     public TopPane(double height, CanvasPane myCanvasPane, ControllerInterface myController, Window myWindow, TurtleView myTurtle, Stage myStage) throws SlogoException {
         super();
@@ -83,6 +84,30 @@ public class TopPane extends GridPane {
         }
         setHgap(GRIDPANE_PADDING_X);
         setVgap(GRIDPANE_PADDING_Y);
+    }
+
+    /**
+     * Updates the language in which commands are parsed. Invoked by LanguageChooser on user action.
+     */
+    public void setLanguage(){
+        this.myController.setLanguage(myLanguageChooser.getValue().toString());
+    }
+
+    /**
+     * Updates background color of the canvas. Invoked by CanvasColorChooser on user action.
+     */
+    public void setCanvasBackground(){
+        Color color = myCanvasColorChooser.getValue();
+        myCanvasPane.setCanvasColor(color);
+    }
+
+    /**
+     * Updates the pen color. Invoked by PenColorChooser on user action.
+     */
+    public void setPenColor() {
+        Color color = myPenColorChooser.getValue();
+        myTurtle.getPen().setColor(color);
+        myTurtle.getTurtleTextState().setPenColor(color);
     }
 
     private void initTopPaneElements() throws SlogoException {
@@ -147,6 +172,16 @@ public class TopPane extends GridPane {
         myLayoutManager.setLayout(myTurtleChooser.getButton());
     }
 
+    private void changeTurtleImage() throws MalformedTurtleImgException{
+        File dataFile = myTurtleChooser.getTurtleChooser().showOpenDialog(myStage);
+        try {
+            Image newImage = new Image(dataFile.toURI().toURL().toExternalForm());
+            myTurtle.setImgView(newImage);
+        } catch (MalformedURLException e) {
+            throw new MalformedTurtleImgException(e);
+        }
+    }
+
     private void initTurtleTextState() {
         turtleTextState = myTurtle.getTurtleTextState();
         Text[] turtleLabels = turtleTextState.getTurtleLabels();
@@ -159,39 +194,5 @@ public class TopPane extends GridPane {
         stateGrid.addPenLabel(penLabels);
         stateGrid.addPenState(penStates);
         myLayoutManager.setLayout(stateGrid);
-    }
-
-    /**
-     * sets language of the parser to understand
-     */
-    public void setLanguage(){
-        this.myController.setLanguage(myLanguageChooser.getValue().toString());
-    }
-
-    /**
-     * sets background color of the canvas
-     */
-    public void setCanvasBackground(){
-        Color color = myCanvasColorChooser.getValue();
-        myCanvasPane.setCanvasColor(color);
-    }
-
-    /**
-     * sets the pen color
-     */
-    public void setPenColor() {
-        Color color = myPenColorChooser.getValue();
-        myTurtle.getPen().setColor(color);
-        myTurtle.getTurtleTextState().setPenColor(color);
-    }
-
-    private void changeTurtleImage() throws MalformedTurtleImgException{
-        File dataFile = myTurtleChooser.getTurtleChooser().showOpenDialog(myStage);
-        try {
-            Image newImage = new Image(dataFile.toURI().toURL().toExternalForm());
-            myTurtle.setImgView(newImage);
-        } catch (MalformedURLException e) {
-            throw new MalformedTurtleImgException(e);
-        }
     }
 }
