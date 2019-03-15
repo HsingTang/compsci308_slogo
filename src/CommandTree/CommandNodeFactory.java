@@ -8,6 +8,7 @@ import Handlers.HandlerInterfaces.CommandHandlerInterface;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.util.HashMap;
 import java.util.Map;
@@ -94,7 +95,7 @@ public class CommandNodeFactory {
          }
          reader.close();
          this.expressionStringMap = map;
-      } catch (Exception e) {
+      } catch (IOException e) {
          throw new SlogoFileNotFoundException();
       }
    }

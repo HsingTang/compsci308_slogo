@@ -9,16 +9,16 @@ import javafx.scene.canvas.Canvas;
  */
 public class SlogoCanvas extends Canvas {
 
-
-
+    /**
+     * Instantiates a SlogoCanvas object. There should be one SlogoCanvas per tab.
+     * @param w width of the canvas
+     * @param h height of the canvas
+     */
     public SlogoCanvas(double w, double h) {
         super(w,h);
         this.setWidth(w);
         this.setHeight(h);
         this.getStyleClass().add("canvas");
     }
-
-
-
 
 }

@@ -28,6 +28,8 @@ import java.io.IOException;
 /**
  * @author Hsingchih Tang
  * @author Eric Lin
+ * Bottom section of the GUI, where console, pen buttons, and command execution/clearing buttons reside
+ * There should be one BottomPane per tab
  */
 public class BottomPane extends GridPane {
 
@@ -44,6 +46,15 @@ public class BottomPane extends GridPane {
     private PaneLayoutManager myLayoutManager;
     private ElementFactory myElementFactory;
 
+    /**
+     * Instantiates an instance of the bottom pane
+     * @param height        height of bottom pane
+     * @param canvas        canvas object in the same tab
+     * @param myController  main Controller
+     * @param myID          ID of the tab
+     * @param myTurtle      TurtleView of the tab
+     * @throws SlogoException error thrown on failure to instantiate bottom pane
+     */
     public BottomPane(double height, CanvasPane canvas, ControllerInterface myController, int myID, TurtleView myTurtle) throws SlogoException {
         super();
         this.myElementFactory = new ElementFactory(this);
@@ -53,11 +64,54 @@ public class BottomPane extends GridPane {
         this.myID = myID;
         this.myTurtle = myTurtle;
         setMaxHeight(height-canvas.getPrefHeight()/2);
-        initBottomPaneElements();
+        try {
+            initBottomPaneElements();
+        } catch (SlogoException e) {
+            throw e;
+        }
         setVgap(GRIDPANE_PADDING_Y);
         setHgap(GRIDPANE_PADDING_X);
-
     }
+
+    /**
+     * Transfers commands entered from Console to the Controller. Invoked by ExecuteButton on clicking action.
+     */
+    public void transferCommands() {
+        String commands = myConsole.getText();
+        this.myConsole.clearText();
+        this.myController.receiveCommand(commands, myID);
+        //addToHistory(commands);
+    }
+
+    /**
+     * Opens the help screen. Invoked by HelpButton on clicking action.
+     * @throws InvokeHelpPageException error thrown when unable to find the page
+     */
+    public void openHelp() throws InvokeHelpPageException{
+        File file = new File("resources/Help_Page.html");
+        try {
+            Desktop.getDesktop().open(file);
+        } catch (IOException e1) {
+            throw new InvokeHelpPageException(e1);
+        }
+    }
+
+    /**
+     * Transfers pre-instantiated commands when TurtleView-motion-control/pen-control buttons are invoked.
+     * @param s command to be transferred to Controller
+     */
+    public void buttonTransferCommands(String s) {
+        this.myController.receiveCommand(s, myID);
+        //addToHistory(command);
+    }
+
+    /**
+     * Clears the text displayed in Console. Invoked by ClearButton on clicking action.
+     */
+    public void clearConsole(){
+        myConsole.clearText();
+    }
+
 
     private void initBottomPaneElements() throws SlogoException{
         try{
@@ -109,10 +163,6 @@ public class BottomPane extends GridPane {
         }
     }
 
-    public void clearConsole(){
-        myConsole.clearText();
-    }
-
     private void initHelpButton() throws SlogoException {
         try{
             Button myHelpButton = (HelpButton)myElementFactory.makeElement("HelpButton");
@@ -152,29 +202,5 @@ public class BottomPane extends GridPane {
         }catch (SlogoException e){
             throw e;
         }
-
     }
-
-    public void transferCommands() {
-        String commands = myConsole.getText();
-        this.myController.receiveCommand(commands, myID);
-        //addToHistory(commands);
-        this.myConsole.clearText();
-    }
-
-    public void openHelp() throws InvokeHelpPageException{
-        File file = new File("resources/Help_Page.html");
-        try {
-            Desktop.getDesktop().open(file);
-        } catch (IOException e1) {
-            throw new InvokeHelpPageException(e1);
-        }
-    }
-
-    public void buttonTransferCommands(String s) {
-        this.myController.receiveCommand(s, myID);
-        //addToHistory(command);
-    }
-
-
 }

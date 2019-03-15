@@ -4,12 +4,20 @@ import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.TreeSet;
 
+/**
+ * Chooses language of the parser to understand
+ *
+ * @author Eric Lin
+ */
 public class LanguageChooser extends ComboBox {
 
     public static final String PROMPT_TEXT = "English";
 
     private final ResourceBundle languageListBundle = ResourceBundle.getBundle("languages/LanguageList");
 
+    /**
+     * Creates an instance of the language chooser button
+     */
     public LanguageChooser() {
         super();
         this.getStyleClass().add("language-chooser");

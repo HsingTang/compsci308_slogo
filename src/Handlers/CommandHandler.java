@@ -10,6 +10,12 @@ import java.util.Queue;
 
 import State.TurtleState;
 
+/**
+ * Handles command transferring between each node and the model
+ *
+ * @author Eric Lin
+ * @author
+ */
 public class CommandHandler implements CommandHandlerInterface {
     public static final double INITIAL_HEADING = 90.0;
 
@@ -21,6 +27,14 @@ public class CommandHandler implements CommandHandlerInterface {
     private Queue<TurtleState> states;
 
 
+    /**
+     * Instantiates a command handler
+     *
+     * @param turtleModel   model interface for turtle
+     * @param varModel      model for variablePane
+     * @param commandModel  model for command
+     * @param returnModel   model for return value
+     */
     public CommandHandler(TurtleModelInterface turtleModel, VariablePaneModel varModel, CommandPaneModel commandModel, ReturnValModel returnModel) {
         this.turtleModel = turtleModel;
         this.varModel = varModel;
@@ -29,6 +43,12 @@ public class CommandHandler implements CommandHandlerInterface {
         this.returnModel = returnModel;
     }
 
+    /**
+     * Sets turtle model new x and y in forward direction
+     *
+     * @param px distance traveled
+     * @return   distance traveled
+     */
     public double moveForward(double px) {
         double heading = Math.toRadians(getAngle(turtleModel.getHeading()));
         double newX = turtleModel.getX() + px*Math.cos(heading);
@@ -38,6 +58,12 @@ public class CommandHandler implements CommandHandlerInterface {
         return px;
     }
 
+    /**
+     * moves turtle backwards
+     *
+     * @param px    distance traveled
+     * @return      distance traveled
+     */
     public double moveBackwards(double px) {
         double heading = Math.toRadians(getAngle(turtleModel.getHeading()));
         double newX = turtleModel.getX() - px*Math.cos(heading);
@@ -47,18 +73,36 @@ public class CommandHandler implements CommandHandlerInterface {
         return px;
     }
 
+    /**
+     * turns turtle left
+     *
+     * @param deg   degrees turned
+     * @return      degrees turned
+     */
     public double turnLeft(double deg) {
         turtleModel.setLeftRotate(deg);
         addTurtleState();
         return deg;
     }
 
+    /**
+     * turns turtle right
+     *
+     * @param deg   degrees turned
+     * @return      degrees turned
+     */
     public double turnRight(double deg) {
         turtleModel.setRightRotate(deg);
         addTurtleState();
         return deg;
     }
 
+    /**
+     * sets heading of the turtle
+     *
+     * @param deg   new heading of turtle
+     * @return      new heading of turtle
+     */
     public double setHeading(double deg) {
         double initialHeading = turtleModel.getHeading();
         turtleModel.setHeading(deg);
@@ -66,6 +110,13 @@ public class CommandHandler implements CommandHandlerInterface {
         return turtleModel.getHeading() - initialHeading;
     }
 
+    /**
+     * Turns toward a location
+     *
+     * @param x x of new location
+     * @param y y of new location
+     * @return  new heading
+     */
     public double turnTowards(double x, double y) {
         double angle = Math.atan(y/x);
         double initialHeading = turtleModel.getHeading();
@@ -74,6 +125,13 @@ public class CommandHandler implements CommandHandlerInterface {
         return turtleModel.getHeading() - initialHeading;
     }
 
+    /**
+     * moves turtle to specific location
+     *
+     * @param x x of new location
+     * @param y y of new location
+     * @return  distance travelled
+     */
     public double goTo(double x, double y) {
         double initialX = turtleModel.getX();
         double initialY = turtleModel.getY();
@@ -83,30 +141,55 @@ public class CommandHandler implements CommandHandlerInterface {
         return calcDistance(initialX, turtleModel.getX(), initialY, turtleModel.getY());
     }
 
+    /**
+     * sets the turtles pen to down
+     *
+     * @return  indication of pen being down (1)
+     */
     public double penDown() {
         turtleModel.setPenDown();
         addTurtleState();
         return 1;
     }
 
+    /**
+     * sets the turtles pen to up
+     *
+     * @return  indication of pen being up (0)
+     */
     public double penUp() {
         turtleModel.setPenUp();
         addTurtleState();
         return 0;
     }
 
+    /**
+     * Shows the turtle on the screen if invisible
+     *
+     * @return  indication that the turtle is visible (1)
+     */
     public double showTurtle() {
         turtleModel.setVisible();
         addTurtleState();
         return 1;
     }
 
+    /**
+     * Hides the turtle if is visible
+     *
+     * @return  indication that the turtle is invisible (0)
+     */
     public double hideTurtle() {
         turtleModel.setInvisible();
         addTurtleState();
         return 0;
     }
 
+    /**
+     * return to center
+     *
+     * @return  distance travelled
+     */
     public double goHome() {
         double distance = setHomePositioning();
         addTurtleState();
@@ -114,6 +197,11 @@ public class CommandHandler implements CommandHandlerInterface {
 
     }
 
+    /**
+     * clears the screen of pen and returns the turtle back to center
+     *
+     * @return  distance travelled
+     */
     public double clearScreen() {
         turtleModel.setHeading(INITIAL_HEADING);
         double distance = setHomePositioning();
@@ -169,6 +257,11 @@ public class CommandHandler implements CommandHandlerInterface {
         return this.varModel.getVars();
     }
 
+    /**
+     * Gets the queue of turtle states
+     *
+     * @return  turtle states queue
+     */
     public Queue getQueue() {
         return this.states;
     }
@@ -202,6 +295,7 @@ public class CommandHandler implements CommandHandlerInterface {
     public void addReturnVal(String val) {
         this.returnModel.addReturnVal(val);
     }
+
     private void setMovement(double newX, double newY, double heading) {
         if (newX > -MAX && newX < MAX && newY < -MAX) {
             turtleModel.setX(newX - (Math.abs(newY) - MAX)/Math.tan(heading));
