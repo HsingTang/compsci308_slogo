@@ -2,6 +2,11 @@ package CommandNodes;
 
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
 
+/**
+ * Command Node that calculates the sum of two given values.
+ *
+ * @author Duc Tran
+ */
 public class SumNode extends CommandNode{
 
     public static final int NUM_PARAMS = 2;
@@ -17,6 +22,9 @@ public class SumNode extends CommandNode{
         this.setMyNumParams(NUM_PARAMS);
     }
 
+    /**
+     * Calculates the sum of myValues[0] and myValues[1] and sets myReturnValue to the result.
+     */
     @Override
     public void execute() {
         parseParameters();

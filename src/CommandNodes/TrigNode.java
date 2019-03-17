@@ -2,6 +2,11 @@ package CommandNodes;
 
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
 
+/**
+ * Command Node that the trig commands extends. Contains methods that help format and set the result of the trig commands.
+ *
+ * @author Duc Tran
+ */
 public abstract class TrigNode extends CommandNode{
 
     public TrigNode(CommandHandlerInterface inHandler) {
@@ -12,6 +17,10 @@ public abstract class TrigNode extends CommandNode{
         super(inHandler, inParent);
     }
 
+    /**
+     * Sets myReturnValue either to zero or to the result of the trig command rounded to the nearest hundredths.
+     * @param trigValue
+     */
     public void setReturn(double trigValue) {
         if (trigValue == 0.0){
             this.setMyReturnValue(trigValue);

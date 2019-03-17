@@ -2,6 +2,11 @@ package CommandNodes;
 
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
 
+/**
+ * Command Node that checks if the turtle's pen is down or up.
+ *
+ * @author Duc Tran
+ */
 public class IspendownNode extends CommandNode {
 
     public static final int NUM_PARAMS = 0;
@@ -16,6 +21,10 @@ public class IspendownNode extends CommandNode {
         setMyNumParams(NUM_PARAMS);
     }
 
+    /**
+     * Uses the myHandler to get the current state of the pen. If the pen is down the value 1 is set to myReturnValue
+     * and 0 if the pen is up.
+     */
     @Override
     public void execute() {
         this.setMyReturnValue(myHandler.getPenState());

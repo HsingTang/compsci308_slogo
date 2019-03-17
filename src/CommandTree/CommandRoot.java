@@ -68,7 +68,6 @@ public class CommandRoot {
             }catch (SlogoException e){
                throw e;
             }
-            System.out.println(c);
          }
       }
       try{

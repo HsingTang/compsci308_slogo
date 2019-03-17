@@ -61,7 +61,6 @@ public class MakecommandNode extends CommandNode{
          }
          else {
             if(left == 1 && !(c instanceof RightBracketNode)){
-                  System.out.println(left + c.getClass().toString());
                   this.variables.add(((VariableNode) (c)).getMyStringValue());
                }
             else if(left == 2 && !(c instanceof RightBracketNode)){

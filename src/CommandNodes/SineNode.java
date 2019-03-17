@@ -2,6 +2,11 @@ package CommandNodes;
 
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
 
+/**
+ * Command Node that calculates the Sine of a given angle.
+ *
+ * @author Duc Tran
+ */
 public class SineNode extends TrigNode{
 
     private static final int NUM_PARAMS = 1;
@@ -17,6 +22,10 @@ public class SineNode extends TrigNode{
         this.setMyNumParams(NUM_PARAMS);
     }
 
+    /**
+     * Calculates the sine of myDegrees and sets myReturnValue to the result. The result is rounded to the nearest
+     * hundredths.
+     */
     @Override
     public void execute() {
         parseParameters();

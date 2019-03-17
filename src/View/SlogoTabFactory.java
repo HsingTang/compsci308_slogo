@@ -4,7 +4,6 @@ import Controller.Controller;
 import Errors.SlogoException;
 import javafx.stage.Stage;
 
-
 import java.util.HashMap;
 
 /**

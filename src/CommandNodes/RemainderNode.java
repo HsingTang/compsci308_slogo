@@ -3,6 +3,11 @@ package CommandNodes;
 import Errors.InvalidCommandException;
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
 
+/**
+ * Command Node that calculates the remainder from dividing two given values.
+ *
+ * @author Duc Tran
+ */
 public class RemainderNode extends CommandNode {
 
     public static final int NUM_PARAMS = 2;
@@ -18,13 +23,19 @@ public class RemainderNode extends CommandNode {
         this.setMyNumParams(NUM_PARAMS);
     }
 
+    /**
+     * Calculates the remainder from dividing myValues[0] by myValues[1] and sets myReturnValue to the result. Throws an
+     * error if myValues[1] is zero.
+     *
+     * @throws InvalidCommandException Throws an InvalidCommandException to avoid a division by zero error.
+     */
     @Override
     public void execute() throws InvalidCommandException{
         parseParameters();
         if(myValues[1]==0){
             throw new InvalidCommandException();
         }
-        double result = myValues[0] % myValues[1]; //Will also throw a division by zero error
+        double result = myValues[0] % myValues[1];
         setMyReturnValue(result);
     }
 

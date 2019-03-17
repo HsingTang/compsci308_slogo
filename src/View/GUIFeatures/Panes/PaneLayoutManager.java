@@ -3,6 +3,7 @@ package View.GUIFeatures.Panes;
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
+
 import java.util.ResourceBundle;
 
 /**

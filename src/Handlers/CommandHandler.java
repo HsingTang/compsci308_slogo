@@ -1,14 +1,16 @@
 package Handlers;
 
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
-import Model.*;
+import Model.CommandInfo;
+import Model.CommandPaneModel;
 import Model.ModelInterfaces.TurtleModelInterface;
+import Model.ReturnValModel;
+import Model.VariablePaneModel;
+import State.TurtleState;
 
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
-
-import State.TurtleState;
 
 /**
  * Handles command transferring between each node and the model

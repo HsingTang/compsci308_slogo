@@ -1,5 +1,7 @@
 package View.GUIFeatures.Choosers;
+
 import javafx.scene.control.ComboBox;
+
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.TreeSet;

@@ -2,6 +2,11 @@ package CommandNodes;
 
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
 
+/**
+ * Command Node that calculates the tangent of a given angle.
+ *
+ * @author Duc Tran
+ */
 public class TangentNode extends TrigNode{
 
     private static final int NUM_PARAMS = 1;
@@ -17,6 +22,10 @@ public class TangentNode extends TrigNode{
         this.setMyNumParams(NUM_PARAMS);
     }
 
+    /**
+     * Calculates the result the tangent of myDegrees ans sets myReturnValue to the result. The result is rounded to
+     * the nearest hundredths.
+     */
     @Override
     public void execute() {
         parseParameters();
