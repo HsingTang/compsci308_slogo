@@ -2,6 +2,11 @@ package CommandNodes;
 
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
 
+/**
+ * Command Node that checks if the turtle is visible or not.
+ *
+ * @author Duc Tran
+ */
 public class IsshowingNode extends CommandNode {
 
     public static final int NUM_PARAMS = 0;
@@ -16,9 +21,12 @@ public class IsshowingNode extends CommandNode {
         setMyNumParams(NUM_PARAMS);
     }
 
+    /**
+     * Checks if the turtle is visible. If it is, myReturnValue is set to 1, and 0 if not.
+     */
     @Override
     public void execute() {
-        this.setMyReturnValue(myHandler.getXcor());
+        this.setMyReturnValue(myHandler.getTurtleState());
     }
 
     @Override

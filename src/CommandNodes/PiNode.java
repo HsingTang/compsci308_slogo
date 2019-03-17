@@ -2,6 +2,11 @@ package CommandNodes;
 
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
 
+/**
+ * Command Node that returns the value of Pi.
+ *
+ * @author Duc Tran
+ */
 public class PiNode extends CommandNode{
 
     private static final int NUM_PARAMS = 0;
@@ -17,6 +22,9 @@ public class PiNode extends CommandNode{
         this.setMyNumParams(NUM_PARAMS);
     }
 
+    /**
+     * Sets myReturnValue to the value of Pi.
+     */
     @Override
     public void execute() {
         this.setMyReturnValue(Math.PI);

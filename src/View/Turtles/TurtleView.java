@@ -5,9 +5,9 @@ import State.TurtleState;
 import View.GUIFeatures.Panes.SlogoPen;
 import View.GUIFeatures.Panes.TurtleText;
 import View.ObserverInterfaces.TurtleObserver;
+import javafx.animation.KeyFrame;
 import javafx.animation.RotateTransition;
 import javafx.animation.Timeline;
-import javafx.animation.KeyFrame;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
@@ -120,7 +120,6 @@ public class TurtleView implements TurtleObserver {
 
     private void updateTurtle() {
         if (!stateQueue.isEmpty()) {
-            System.out.println(stateQueue.size());
             double currentHeading = this.myHeading;
             newState = stateQueue.poll();
             this.getTurtleState(newState);

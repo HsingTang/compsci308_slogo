@@ -2,6 +2,11 @@ package CommandNodes;
 
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
 
+/**
+ * Command Node that negates a given value.
+ *
+ * @author Duc Tran
+ */
 public class MinusClass extends CommandNode {
 
     private static final int NUM_PARAMS = 1;
@@ -17,6 +22,9 @@ public class MinusClass extends CommandNode {
         this.setMyNumParams(NUM_PARAMS);
     }
 
+    /**
+     * Negates myExpr and sets myReturnValue to that result.
+     */
     @Override
     public void execute() {
         parseParameters();

@@ -2,6 +2,11 @@ package CommandNodes;
 
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
 
+/**
+ * Command Node that calculates the result of raising a given base to a given power.
+ *
+ * @author Duc Tran
+ */
 public class PowNode extends CommandNode{
 
     private static final int NUM_PARAMS = 2;
@@ -17,6 +22,9 @@ public class PowNode extends CommandNode{
         this.setMyNumParams(NUM_PARAMS);
     }
 
+    /**
+     * Calculates the result of raising myValue[0] to the power of myValue[1] and then sets the result to myReturnValue.
+     */
     @Override
     public void execute() {
         parseParameters();

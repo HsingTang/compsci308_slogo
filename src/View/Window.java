@@ -4,7 +4,6 @@ import Controller.Controller;
 import Errors.AlertFactory;
 import Errors.SlogoAlert;
 import Errors.SlogoException;
-
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.TabPane;

@@ -10,19 +10,29 @@ import java.util.Map.Entry;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
+/**
+ * This class takes in a command from a user as a string and then converts that string into usable information for other
+ * classes to create the command nodes. The StringParser is created by the controller class.
+ *
+ * @author Duc Tran
+ * @author Robert Duval
+ */
 public class StringParser {
    private static String WHITESPACE_TRIM = "\\s+";
    private List<Entry<String, Pattern>> mySymbols;
    private List<String> myFilter = new ArrayList<>();
 
+   /**
+    * The constructor reads in a list of strings that should be dealt with differently if encountered. Also sets
+    * the initial language to English.
+    */
    public StringParser(){
       mySymbols = new ArrayList<>();
       var filterList = ResourceBundle.getBundle("languages/Filter");
       for (var key : Collections.list(filterList.getKeys())){
          myFilter.add(key);
       }
-      addPatterns("languages/Syntax");
-      addPatterns("languages/English");
+      setLanguage("English");
    }
 
    /**
@@ -36,12 +46,25 @@ public class StringParser {
       }
    }
 
+   /**
+    * Takes in a language and sets the StringParser's understood language to the new language.
+    *
+    * @param language The language that the StringParser will be set too.
+    */
    public void setLanguage(String language){
       mySymbols.clear();
       addPatterns("languages/Syntax");
       addPatterns("languages/" + language);
    }
 
+   /**
+    * Takes in the user's command and then using the set language, translates the command into an array of string that
+    * the command tree class can use.
+    *
+    * @param command The command that the user inputs.
+    *
+    * @return An array of strings with that the command tree class will use. Throws an error if a command is not correct.
+    */
    public String[] parseCommand(String command){
       if(command.indexOf("#")!=-1) {
          command = command.substring(0, command.indexOf("#"));

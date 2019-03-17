@@ -2,6 +2,11 @@ package CommandNodes;
 
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
 
+/**
+ * Command Node that calculates the product of two given values.
+ *
+ * @author Duc Tran
+ */
 public class ProductNode extends CommandNode {
 
     public static final int NUM_PARAMS = 2;
@@ -17,6 +22,9 @@ public class ProductNode extends CommandNode {
         this.setMyNumParams(NUM_PARAMS);
     }
 
+    /**
+     * Calculates the product of the values inside myValues and sets the result to myReturnValue.
+     */
     @Override
     public void execute() {
         parseParameters();
@@ -25,7 +33,6 @@ public class ProductNode extends CommandNode {
             result *= x;
         }
         this.setMyReturnValue(result);
-        System.out.println(this.getMyReturnValue());
     }
 
     @Override
