@@ -1,6 +1,9 @@
 package Model;
 
 import View.GUIFeatures.Panes.HistoricalCommand;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.TableView;
 
 import java.util.*;
 
@@ -12,7 +15,7 @@ import java.util.*;
  * Concrete subclass extending the abstract PaneModel class, which implements IModel interface
  */
 public class CommandPaneModel extends PaneModel {
-    private List<HistoricalCommand> commandHistory;
+    private ObservableList<HistoricalCommand> myCommandList;
     private Map<String, CommandInfo> myCommands;
 
     /**
@@ -20,8 +23,8 @@ public class CommandPaneModel extends PaneModel {
      */
     public CommandPaneModel(){
         super();
-        commandHistory = new ArrayList<>();
         myCommands = new HashMap<>();
+        myCommandList = FXCollections.observableArrayList();
     }
 
     /**
@@ -30,7 +33,6 @@ public class CommandPaneModel extends PaneModel {
      */
     public void makeCommand(CommandInfo info){
         this.myCommands.put(info.getName(), info);
-        notifyObserver();
     }
 
     /**
@@ -57,20 +59,10 @@ public class CommandPaneModel extends PaneModel {
         return this.myCommands;
     }
 
-    /**
-     * @return recorded commands in an unmodifiable list of HistoricalCommand objects
-     */
-    public List<HistoricalCommand> getData(){
-        return Collections.unmodifiableList(commandHistory);
-    }
 
-    /**
-     * Empty method that doesn't need to be implemented on CommandHistoryPane/CommandPaneModel pair
-     * since only one-way (back to front end) data transfer is expected for this View/Model pair
-     */
     @Override
-    public void ObserverUpdateModel(Object o) {
-
+    public void registerObserverData(Object o) {
+        ((TableView)(o)).setItems(myCommandList);
     }
 
     /**
@@ -79,7 +71,6 @@ public class CommandPaneModel extends PaneModel {
      */
     public void addToHistory(String name){
         HistoricalCommand hist = new HistoricalCommand(name);
-        commandHistory.add(hist);
-        notifyObserver();
+        myCommandList.add(hist);
     }
 }

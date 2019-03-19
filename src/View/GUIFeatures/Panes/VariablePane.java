@@ -3,12 +3,8 @@ package View.GUIFeatures.Panes;
 
 import Model.ModelInterfaces.IModel;
 import View.ObserverInterfaces.IObserver;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.StackPane;
@@ -30,7 +26,6 @@ public class VariablePane extends StackPane implements IObserver {
     private TableColumn varName;
     private TableColumn varVal;
     private IModel myVarPaneModel;
-    private ObservableList<Variable> myVars = FXCollections.observableArrayList();
 
 
     /**
@@ -40,10 +35,8 @@ public class VariablePane extends StackPane implements IObserver {
      */
     public VariablePane(double w, double h){
         super();
-        initTable();
         this.setMaxWidth(w);
         this.setHeight(h);
-        this.getChildren().addAll(varTable);
         this.setAlignment(Pos.CENTER);
     }
 
@@ -54,18 +47,11 @@ public class VariablePane extends StackPane implements IObserver {
     @Override
     public void setupModel(IModel model) {
         myVarPaneModel = model;
-        model.registerObserver(this);
+        initTable();
+        this.getChildren().addAll(varTable);
+
     }
 
-    /**
-     * Retrieves the most up-to-date list of Variables from the Model
-     * and displays the data (variable & value)
-     */
-    @Override
-    public void updateData(){
-        myVars.clear();
-        myVars.addAll(myVarPaneModel.getData());
-    }
 
     /**
      * @return the VariablePane's corresponding back-end Model
@@ -76,6 +62,7 @@ public class VariablePane extends StackPane implements IObserver {
     }
 
 
+
     private void initTable(){
         varTable = new TableView();
         varName = new TableColumn(VAR_NAME_COL);
@@ -84,24 +71,10 @@ public class VariablePane extends StackPane implements IObserver {
         varVal = new TableColumn(VAR_VAL_COL);
         varVal.prefWidthProperty().bind(varTable.widthProperty().multiply(COL_HEIGHT_RATIO));
         varVal.setCellValueFactory(new PropertyValueFactory<Variable,String>(VAR_VAL_FIELD));
-        varTable.setItems(myVars);
+        myVarPaneModel.registerObserverData(varTable);
         varTable.setEditable(true);
         varTable.getColumns().addAll(varName,varVal);
-        //setEditReaction();
     }
 
-    private void setEditReaction(){
-        varVal.setOnEditCommit(new EventHandler<CellEditEvent>() {
-            @Override
-            public void handle(CellEditEvent event) {
-                final var value = event.getNewValue() != null ? event.getNewValue() :
-                        event.getOldValue();
-                ((Variable) event.getTableView().getItems()
-                        .get(event.getTablePosition().getRow()))
-                        .setVarVal((String)value);
-                varTable.refresh();
-            }
-        });
-    }
 
 }

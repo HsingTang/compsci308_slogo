@@ -53,7 +53,6 @@ public class TopPane extends GridPane {
     private PaneLayoutManager myLayoutManager;
     private ElementFactory myElementFactory;
     private Stage myStage;
-    private TurtleText turtleTextState;
 
     /**
      * instantiates instance of the top pane
@@ -183,7 +182,7 @@ public class TopPane extends GridPane {
     }
 
     private void initTurtleTextState() {
-        turtleTextState = myTurtle.getTurtleTextState();
+        TurtleText turtleTextState = myTurtle.getTurtleTextState();
         Text[] turtleLabels = turtleTextState.getTurtleLabels();
         Text[] turtleStates = turtleTextState.getTurtleStates();
         Text[] penLabels = turtleTextState.getPenLabels();

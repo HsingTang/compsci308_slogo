@@ -8,7 +8,6 @@ import Model.ModelInterfaces.IModel;
  * so that they may interact with their back-end Model components.
  */
 public interface IObserver {
-    void updateData();
 
     void setupModel(IModel model);
 

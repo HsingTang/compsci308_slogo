@@ -2,8 +2,6 @@ package View.GUIFeatures.Panes;
 
 import Model.ModelInterfaces.IModel;
 import View.ObserverInterfaces.IObserver;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -20,7 +18,6 @@ public class CommandHistoryPane extends StackPane implements IObserver {
     static final String COMMAND_CONTENT_FIELD = "myContent";
     private TableView commandTable;
     private IModel myCommandPaneModel;
-    private ObservableList<HistoricalCommand> myCommands = FXCollections.observableArrayList();
 
     /**
      * Instantiates an instance of CommandHistoryPane
@@ -29,10 +26,8 @@ public class CommandHistoryPane extends StackPane implements IObserver {
      */
     public CommandHistoryPane(double w, double h){
         super();
-        initTable();
         this.setMaxWidth(w);
         this.setHeight(h);
-        this.getChildren().addAll(commandTable);
         this.setAlignment(Pos.CENTER);
     }
 
@@ -43,7 +38,8 @@ public class CommandHistoryPane extends StackPane implements IObserver {
     @Override
     public void setupModel(IModel model){
         myCommandPaneModel = model;
-        model.registerObserver(this);
+        initTable();
+        this.getChildren().addAll(commandTable);
     }
 
     /**
@@ -54,22 +50,13 @@ public class CommandHistoryPane extends StackPane implements IObserver {
         return myCommandPaneModel;
     }
 
-    /**
-     * Retrieves the list of user-entered commands from the Model
-     * and displays the data (String command contents)
-     */
-    @Override
-    public void updateData() {
-        this.myCommands.clear();
-        this.myCommands.addAll(myCommandPaneModel.getData());
-    }
 
     private void initTable(){
         commandTable = new TableView();
         TableColumn commandCol = new TableColumn(COMMAND_COL);
         commandCol.prefWidthProperty().bind(commandTable.widthProperty());
         commandCol.setCellValueFactory(new PropertyValueFactory<HistoricalCommand, String>(COMMAND_CONTENT_FIELD));
-        commandTable.setItems(myCommands);
+        myCommandPaneModel.registerObserverData(commandTable);
         commandTable.setEditable(false);
         commandTable.getColumns().addAll(commandCol);
     }

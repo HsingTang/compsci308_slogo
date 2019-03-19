@@ -11,13 +11,13 @@ import java.util.ResourceBundle;
  * Reads content in resource file to flexibly adjust front-end element layout on a GridPane
  */
 public class PaneLayoutManager {
-    private final String ELEMENT_LAYOUT_RESOURCE = "elements/PaneElementLayout";
-    private final Integer LAYOUT_COMPLEX_ARG_NUM = 4;
-    private final Integer LAYOUT_SIMPLE_ARG_NUM = 2;
-    private final Integer LAYOUT_COL_INDEX = 0;
-    private final Integer LAYOUT_ROW_INDEX = 1;
-    private final Integer LAYOUT_WIDTH_INDEX = 2;
-    private final Integer LAYOUT_HEIGHT_INDEX = 3;
+    static final String ELEMENT_LAYOUT_RESOURCE = "elements/PaneElementLayout";
+    static final Integer LAYOUT_COMPLEX_ARG_NUM = 4;
+    static final Integer LAYOUT_SIMPLE_ARG_NUM = 2;
+    static final Integer LAYOUT_COL_INDEX = 0;
+    static final Integer LAYOUT_ROW_INDEX = 1;
+    static final Integer LAYOUT_WIDTH_INDEX = 2;
+    static final Integer LAYOUT_HEIGHT_INDEX = 3;
     private GridPane myPane;
     private ResourceBundle myElementLayoutResources;
 

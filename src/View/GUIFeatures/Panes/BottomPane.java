@@ -3,7 +3,16 @@ package View.GUIFeatures.Panes;
 import Controller.ControllerInterface;
 import Errors.InvokeHelpPageException;
 import Errors.SlogoException;
-import View.GUIFeatures.Buttons.*;
+import View.GUIFeatures.Buttons.ExecuteButton;
+import View.GUIFeatures.Buttons.ClearButton;
+import View.GUIFeatures.Buttons.HelpButton;
+import View.GUIFeatures.Buttons.ForwardButton;
+import View.GUIFeatures.Buttons.BackwardsButton;
+import View.GUIFeatures.Buttons.LeftRotateButton;
+import View.GUIFeatures.Buttons.RightRotateButton;
+import View.GUIFeatures.Buttons.PenDownButton;
+import View.GUIFeatures.Buttons.PenUpButton;
+import View.GUIFeatures.Buttons.ThicknessSlider;
 import View.GUIFeatures.ElementFactory;
 import View.Turtles.TurtleView;
 import javafx.beans.value.ObservableValue;
@@ -13,7 +22,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
-import java.awt.*;
+import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 

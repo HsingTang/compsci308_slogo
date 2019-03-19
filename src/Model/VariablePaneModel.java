@@ -2,10 +2,13 @@ package Model;
 
 import View.GUIFeatures.Panes.Variable;
 
-import java.util.ArrayList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.TableView;
+
+
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
 
 /**
  * @author Mary Gooneratne
@@ -17,6 +20,7 @@ import java.util.Map;
 public class VariablePaneModel extends PaneModel {
 
     private HashMap<String, Double> myVariables;
+    private ObservableList<Variable> myVarList;
 
     /**
      * Instantiates a new VariablePaneModel object
@@ -24,6 +28,7 @@ public class VariablePaneModel extends PaneModel {
     public VariablePaneModel(){
         super();
         myVariables = new HashMap<>();
+        myVarList = FXCollections.observableArrayList();
     }
 
     /**
@@ -33,7 +38,7 @@ public class VariablePaneModel extends PaneModel {
      */
     public void makeVariable(String name, Double value){
         this.myVariables.put(name, value);
-        notifyObserver();
+        myVarList.add(new Variable(name, String.valueOf(value)));
     }
 
     /**
@@ -60,26 +65,10 @@ public class VariablePaneModel extends PaneModel {
         return this.myVariables;
     }
 
-    /**
-     * @return recorded variable name/value pairs in a list of Variable objects
-     */
+
     @Override
-    public List getData(){
-        ArrayList<Variable> data = new ArrayList<>();
-        for(Map.Entry<String,Double> entry:myVariables.entrySet()){
-            Variable variable = new Variable(entry.getKey(), Double.toString(entry.getValue()));
-            data.add(variable);
-        }
-        return data;
+    public void registerObserverData(Object o) {
+        ((TableView)(o)).setItems(myVarList);
     }
 
-    /**
-     * Updates a variable value that has been updated on the front-end by user action
-     * @param o the variable that is being updated
-     */
-    @Override
-    public void ObserverUpdateModel(Object o) {
-        Variable newVar = (Variable) o;
-        myVariables.put(newVar.getVarName(),Double.valueOf(newVar.getVarVal()));
-    }
 }
