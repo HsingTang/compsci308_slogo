@@ -6,6 +6,10 @@ import Handlers.HandlerInterfaces.CommandHandlerInterface;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Mary Gooneratne
+ * Abstract tree node object to store slogo commands
+ */
 public abstract class CommandNode {
 
    private static final int INIT = 0;
@@ -18,7 +22,10 @@ public abstract class CommandNode {
    private int myChildrenIndex;
    private double myNumRepeat;
 
-
+   /**
+    * Instantiates new CommandNode object
+    * @param inHandler handler that executes commands
+    */
    public CommandNode(CommandHandlerInterface inHandler) {
       this.myChildren = new ArrayList<>();
       this.myHandler = inHandler;
@@ -27,6 +34,11 @@ public abstract class CommandNode {
       this.myNumRepeat = 1;
    }
 
+   /**
+    * Instantiates new CommandNode object
+    * @param inHandler handler that executes commands
+    * @param inParent parent of created CommandNode
+    */
    public CommandNode(CommandHandlerInterface inHandler, CommandNode inParent){
       this.myChildren = new ArrayList<>();
       this.myHandler = inHandler;
@@ -37,36 +49,39 @@ public abstract class CommandNode {
 
 }
 
-   public void setChildren(List<CommandNode> newChildren){
-      this.myChildren = newChildren;
-      for(CommandNode child: newChildren){
-         child.setParent(this);
-      }
-   }
-
+   /**
+    * Adds child to current CommandNode
+    * @param newChild commandNode to be added as child
+    */
    public void addChild(CommandNode newChild){
       newChild.setParent(this);
       this.myChildren.add(newChild);
       this.myNumParams--;
    }
 
+   /**
+    * @return children of CommandNode
+    */
    public List<CommandNode> getMyChildren(){
       return this.myChildren;
    }
 
+   /**
+    * Sets new parent of CommandNode
+    * @param newParent for the CommandNode to be the child of
+    */
    public void setParent(CommandNode newParent){
       this.myParent = newParent;
    }
 
+   /**
+    * @return parent of CommandNode
+    */
    public CommandNode getParent(){
       return this.myParent;
    }
 
-   public int getMyChildrenIndex(){
-      return this.myChildrenIndex;
-   }
-
-   protected CommandNode getNextNode(){
+   private CommandNode getNextNode(){
       CommandNode nextNode = null;
       try{
          nextNode = this.getMyChildren().get(this.myChildrenIndex);
@@ -86,19 +101,23 @@ public abstract class CommandNode {
       return nextNode.getMyReturnValue();
    }
 
+   /**
+    * Checks to see if current CommandNode has a sufficient number of parameters (nodes/children)
+    * @return true if sufficient number of children, else false
+    */
    public boolean childrenFilled() {
       return this.myNumParams == 0;
    }
 
+   /**
+    * @return number of times commandNode should be executed
+    */
    public double getMyNumRepeat() { return this.myNumRepeat; }
 
 
-   /* public CommandNode getNewNode(){
-      ConstantNode newNode = new ConstantNode(this.myHandler, this.myParent);
-      newNode.setMyValue(this.myReturnValue)
-      return newNode;
-   }*/
-
+   /**
+    * @return return value of the CommandNode
+    */
    public Double getMyReturnValue(){
       return this.myReturnValue;
    }
@@ -107,20 +126,27 @@ public abstract class CommandNode {
       this.myNumParams = num;
    }
 
-   protected void setMyNumRepeat(double num) { this.myNumRepeat = num; }
+   /**
+    * Sets value for number of times command is to be repeated
+    * @param num number of times to be repeated
+    */
+   public void setMyNumRepeat(double num) { this.myNumRepeat = num; }
 
-   protected void resetIndex(){
+   private void resetIndex(){
       this.myChildrenIndex = 0;
    }
 
+   /**
+    * @return number of parameters of this command node
+    */
    public int getMyNumParams(){
       return this.myNumParams;
    }
 
-  /* protected void setReturnValue(Double returnValue){
-      this.myReturnValue = returnValue;
-   }*/
-
+   /**
+    * The full execution method for CommandNode objects that executes the node and resets number of children
+    * @throws SlogoException
+    */
    public void fullExecute()throws SlogoException{
       try{
          this.execute();
@@ -131,6 +157,9 @@ public abstract class CommandNode {
 
    }
 
+   /**
+    * Abstract method parses command parameters and calls appropriate execution method on handler
+    */
    public abstract void execute() throws SlogoException;
 
    protected abstract void parseParameters();

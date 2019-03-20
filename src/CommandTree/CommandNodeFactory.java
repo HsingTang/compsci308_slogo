@@ -13,6 +13,10 @@ import java.lang.reflect.Constructor;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author Mary Gooneratne
+ * Factory class that creates Command Nodes for the tree based on string and parent
+ */
 public class CommandNodeFactory {
    private static final String EXPRESSION_MAP_FILE = "resources/expressionToString.txt";
    private static final String MAP_SPLIT = ":";
@@ -22,6 +26,11 @@ public class CommandNodeFactory {
    private final CommandHandlerInterface myHandler;
    private Map<String, String> expressionStringMap;
 
+   /**
+    * Instantiates CommandNodeFactory object
+    * @param controller controller of factory
+    * @throws SlogoException
+    */
    public CommandNodeFactory(CommandHandlerInterface controller) throws SlogoException{
       this.myHandler = controller;
       try{
@@ -31,6 +40,14 @@ public class CommandNodeFactory {
       }
    }
 
+   /**
+    * Creates new node based on name
+    * @param arrayString string name of node to be created
+    * @param parent parent of node to be created
+    * @param root root that the node is created on
+    * @return created node
+    * @throws SlogoException
+    */
    public CommandNode newNode(String arrayString, CommandNode parent, CommandRoot root) throws SlogoException {
       if(parent instanceof MakevariableNode && parent.getMyChildren().size() == 0){
          return this.newStringNode(parent, arrayString.substring(1));
