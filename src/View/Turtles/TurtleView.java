@@ -19,7 +19,13 @@ import java.util.Queue;
 /**
  * @author Hsingchih Tang
  * @author Eric Lin
- * Front-end visualization of the Turtle. There should be one Turtle per tab
+ * Front-end visualization of the Turtle. There should be one Turtle per tab. I'v chosen this class, along with the
+ * Turtle Model class as my masterpiece classes to reflect the observer/observable design pattern that I've used.
+ * Also, the methods in this class are as succint as can be and the use of helper methods is important within the
+ * turtle view to calculate distances travelled. The turtleView has a dependency, only on the TurtleModelInterface is
+ * passed to the observer. The front-end has a depencedency on this model interface, but as you will see in the model,
+ * there is only a dependency of the model on the observer interface which only has an udpate Method. Overall,
+ * this class is used to change the front-end view of the turtle on model change.
  */
 public class TurtleView implements TurtleObserver {
 
@@ -30,6 +36,7 @@ public class TurtleView implements TurtleObserver {
     public static final double TURTLE_SIZE = 35;
     public static final double THRESHOLD = 0.00000001;
     public static final double MODIFIER = -1;
+    public static final String DOUBLE_PATTERN = "#.#####";
 
     private TurtleModelInterface myTurtleModel;
     private ImageView myImgView;
@@ -174,29 +181,25 @@ public class TurtleView implements TurtleObserver {
 
     private void animateTranslation(double xAdjust, double yAdjust, double xFinal, double yFinal) {
         Timeline timeline = new Timeline();
-        var frame = new KeyFrame(Duration.millis(ANIMATION_SPEED), e -> {
-            if (movementComplete(xAdjust, yAdjust, xFinal, yFinal)) {
-                timeline.stop();
-            }
-            this.myImgView.setTranslateX(this.myImgView.getTranslateX() + xAdjust);
-            this.myImgView.setTranslateY(this.myImgView.getTranslateY() + yAdjust);
-            if (this.penDown) {
-                this.myPen.drawPath(this.myImgView.getTranslateX() - xAdjust, this.myImgView.getTranslateY() - yAdjust, this.myImgView.getTranslateX(), this.myImgView.getTranslateY());
-            }
-
-        });
+        var frame = new KeyFrame(Duration.millis(ANIMATION_SPEED), e -> drawPen(xAdjust, yAdjust, xFinal, yFinal, timeline));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.getKeyFrames().add(frame);
         timeline.play();
     }
 
-    private void updatePenDown() {
-        this.penDown = newState.getPenDown();
-        if (this.penDown) {
-            turtleTextState.setPenDownValue("true");
-        } else {
-            turtleTextState.setPenDownValue("false");
+    private void drawPen(double xAdjust, double yAdjust, double xFinal, double yFinal, Timeline timeline) {
+        if (movementComplete(xAdjust, yAdjust, xFinal, yFinal)) {
+            timeline.stop();
         }
+        this.myImgView.setTranslateX(this.myImgView.getTranslateX() + xAdjust);
+        this.myImgView.setTranslateY(this.myImgView.getTranslateY() + yAdjust);
+        if (this.penDown) {
+            this.myPen.drawPath(this.myImgView.getTranslateX() - xAdjust, this.myImgView.getTranslateY() - yAdjust, this.myImgView.getTranslateX(), this.myImgView.getTranslateY());
+        }
+    }
+
+    private void updatePenDown() {
+        turtleTextState.setPenDownValue(this.penDown.toString());
     }
 
     private void updatePenVisibility() {
@@ -216,7 +219,7 @@ public class TurtleView implements TurtleObserver {
     }
 
     private void setTurtleStateText() {
-        DecimalFormat df = new DecimalFormat("#.#####");
+        DecimalFormat df = new DecimalFormat(DOUBLE_PATTERN);
         double retX = (Math.abs(this.myX) > THRESHOLD ? this.myX : 0);
         double retY = (Math.abs(this.myY) > THRESHOLD ? this.myY : 0);
         retX = Double.parseDouble(df.format(retX));

@@ -10,7 +10,10 @@ import java.util.List;
 import java.util.Queue;
 
 /**
- * Model for the turtle on the backend
+ * Model for the turtle on the backend. I've included this as part of my masterpiece because it shows
+ * part of the observer/observable design pattern I implemented. It extends an interface that defines what methods
+ * it must use. Even more, the only dependency from the front-end is on the turtle observer interface, which only
+ * implements the "update" method. This means that on final change (in TreeParentNode), the view will update. 
  *
  * @author Eric Lin
  */
