@@ -1,0 +1,1 @@
+repeat random 100 [ fd sum random 25 25 rt random 360]
