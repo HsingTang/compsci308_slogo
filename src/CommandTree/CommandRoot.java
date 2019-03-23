@@ -7,6 +7,11 @@ import Errors.SlogoException;
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
 import View.ObserverInterfaces.TurtleObserver;
 
+/**
+ * @author Mary Gooneratne
+ * Data structure object for each command block separated by the pressing of the execute button, holds handler and tree of commands.
+ * Responsible for execution of command nodes.
+ */
 public class CommandRoot {
    private static final int INIT = 0;
 
@@ -20,7 +25,13 @@ public class CommandRoot {
    private CommandNode currentParent;
    private int currentIndex;
 
-
+   /**
+    * Instantiates CommandRoot object
+    * @param commandStrings array of translated strings
+    * @param controller controller for this root
+    * @param o observer for this root
+    * @throws SlogoException
+    */
    public CommandRoot(String[] commandStrings, CommandHandlerInterface controller, TurtleObserver o) throws SlogoException {
       try{
          this.commandStrings = commandStrings;
@@ -51,6 +62,9 @@ public class CommandRoot {
       }
    }
 
+   /**
+    * Responsible for the execution of tree in pre-order traversal by calling execute on each node
+    */
    public void execute(){
       try{
          this.executeNode(this.parent);
