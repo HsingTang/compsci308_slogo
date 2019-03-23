@@ -15,11 +15,19 @@ import java.util.Map;
 
 /**
  * @author Mary Gooneratne
- * Factory class that creates Command Nodes for the tree based on string and parent
+ * Factory class that creates Command Nodes for the tree based on string and parent node.
+ *
+ * This class is a good reflection of my progress in this class both in concepts we've learned and its differentiation
+ * from my previous factory class in the Cellular Automata project.
+ * In the Cellular Automata project, I made the factory static, hard-coded data, and used a long series of if-statements.
+ * This class demonstrates the use of reflection and three if statements (for those commands with more parameters)
+ * to create more than 50 different kinds of classes. I used generalized declared classes in the instance variables
+ * and limited the information that was hard-coded. The class's parameter for constrution is encapsulated in the controller,
+ * making it clean, and the only public class is the creation class.
  */
 public class CommandNodeFactory {
    private static final String EXPRESSION_MAP_FILE = "resources/expressionToString.txt";
-   private static final String MAP_SPLIT = ":";
+   private static final String DEFINE = ":";
    private static final int MAP_LIMIT = 2;
    private static final String NODE_BUILDER = "Node";
 
@@ -51,16 +59,16 @@ public class CommandNodeFactory {
    public CommandNode newNode(String arrayString, CommandNode parent, CommandRoot root) throws SlogoException {
       if(parent instanceof MakevariableNode && parent.getMyChildren().size() == 0){
          return this.newStringNode(parent, arrayString.substring(1));
-         }
-         else if (parent instanceof MakecommandNode && parent.getMyChildren().size() == 0){
-            return this.newStringNode(parent, arrayString);
       }
-         else if(arrayString.substring(0,1).equals(":")) {
-            return this.newVariableNode(parent, arrayString.substring(1));
-         }
-         else if(myHandler.isCommand(arrayString)){
-            return new UserCommandNode(myHandler, parent, myHandler.getCommand(arrayString));
-         }
+      else if (parent instanceof MakecommandNode && parent.getMyChildren().size() == 0){
+         return this.newStringNode(parent, arrayString);
+      }
+      else if(arrayString.substring(0,1).equals(":")) {
+         return this.newVariableNode(parent, arrayString.substring(1));
+      }
+      else if(myHandler.isCommand(arrayString)){
+         return new UserCommandNode(myHandler, parent, myHandler.getCommand(arrayString));
+      }
          try {
             Double constant = Double.parseDouble(arrayString);
             return this.newConstantNode(parent, constant);
@@ -78,6 +86,16 @@ public class CommandNodeFactory {
          }
    }
 
+   private String getNodeString(String arrayString) {
+      String nodeString = "";
+      if (this.expressionStringMap.containsKey(arrayString)) {
+         nodeString = this.expressionStringMap.get(arrayString) + (NODE_BUILDER);
+      } else{
+         nodeString = arrayString.substring(0, 1).toUpperCase() + arrayString.substring(1).toLowerCase() + NODE_BUILDER;
+      }
+      return nodeString;
+   }
+
    private CommandNode newNode(Class<?> nodeClass, CommandNode parent) throws SlogoException{
       try{
             Constructor<?> cons = nodeClass.getConstructor(CommandHandlerInterface.class, CommandNode.class);
@@ -93,7 +111,7 @@ public class CommandNodeFactory {
    }
 
    private StringNode newStringNode(CommandNode parent, String s){
-            return new StringNode(myHandler, parent, s);
+      return new StringNode(myHandler, parent, s);
       }
    private VariableNode newVariableNode(CommandNode parent, String s){
       return new VariableNode(myHandler, parent, s);
@@ -105,7 +123,7 @@ public class CommandNodeFactory {
          String line;
          BufferedReader reader = new BufferedReader(new FileReader(EXPRESSION_MAP_FILE));
          while ((line = reader.readLine()) != null) {
-            String[] parts = line.split(MAP_SPLIT, MAP_LIMIT);
+            String[] parts = line.split(DEFINE, MAP_LIMIT);
             String key = parts[0];
             String value = parts[1];
             map.put(key, value);
@@ -115,15 +133,5 @@ public class CommandNodeFactory {
       } catch (IOException e) {
          throw new SlogoFileNotFoundException();
       }
-   }
-
-   private String getNodeString(String arrayString) {
-      String nodeString = "";
-      if (this.expressionStringMap.containsKey(arrayString)) {
-         nodeString = this.expressionStringMap.get(arrayString) + (NODE_BUILDER);
-      } else{
-         nodeString = arrayString.substring(0, 1).toUpperCase() + arrayString.substring(1).toLowerCase() + NODE_BUILDER;
-      }
-      return nodeString;
    }
 }
