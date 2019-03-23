@@ -1,5 +1,6 @@
 package CommandNodes;
 
+import Errors.InvalidCommandException;
 import Handlers.HandlerInterfaces.CommandHandlerInterface;
 
 public class ForwardNode extends TurtleCommandNode {
@@ -17,19 +18,21 @@ public class ForwardNode extends TurtleCommandNode {
       this.setMyNumParams(FORWARD_PARAMS);
    }
 
-   public void execute(){
-      this.parseParameters();
+   public void execute() throws InvalidCommandException{
+      try{
+         this.parseParameters();
+      }catch (InvalidCommandException exp){
+         throw exp;
+      }
       this.setMyReturnValue(this.myHandler.moveForward(this.myPixels));
    }
 
-   protected void parseParameters(){
+   protected void parseParameters() throws InvalidCommandException{
       try {
          this.myPixels = this.getPixels();
       }
       catch(Exception e){
-         /**
-          * Error regarding parameter parsing
-          */
+         throw new InvalidCommandException();
       }
    }
 
