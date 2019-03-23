@@ -1,0 +1,6 @@
+MAKE :r 5
+
+REPEAT 30 [
+   FD :r RT 20
+   MAKE :r SUM :r 1
+ ]

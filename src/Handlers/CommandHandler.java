@@ -16,7 +16,6 @@ import java.util.Queue;
  * Handles command transferring between each node and the model
  *
  * @author Eric Lin
- * @author
  */
 public class CommandHandler implements CommandHandlerInterface {
     public static final double INITIAL_HEADING = 90.0;
@@ -268,14 +267,37 @@ public class CommandHandler implements CommandHandlerInterface {
         return this.states;
     }
 
+    /**
+     * Makes variable in model
+     *
+     * @param name      name of variable
+     * @param value     value of variable
+     */
     public void makeVariable(String name, Double value){
         this.varModel.makeVariable(name, value);
     }
 
+    /**
+     * Determine whether or not text is a command
+     *
+     * @param name  command
+     * @return      boolean whether or not is true
+     */
     public boolean isCommand(String name) { return this.commandModel.isCommand(name);}
 
+    /**
+     * Gets the command form the command model
+     *
+     * @param name  command
+     * @return      command if found
+     */
     public CommandInfo getCommand(String name) { return this.commandModel.getCommand(name);}
 
+    /**
+     * Gets mapping of commands
+     *
+     * @return  map of commands
+     */
     public Map getCommands() { return this.commandModel.getCommands();}
 
     public void makeCommand(CommandInfo info) { this.commandModel.makeCommand(info);}
@@ -294,6 +316,11 @@ public class CommandHandler implements CommandHandlerInterface {
         return calcDistance(initialX, turtleModel.getX(), initialY, turtleModel.getY());
     }
 
+    /**
+     * add return value to the return model
+     *
+     * @param val   return value
+     */
     public void addReturnVal(String val) {
         this.returnModel.addReturnVal(val);
     }
