@@ -1,0 +1,9 @@
+This line first.
+================
+
+def :ant 90 def :bus 100 def :can 4
+
+This line second.
+=================
+
+repete :can [ dev :bus dr :ant ]
