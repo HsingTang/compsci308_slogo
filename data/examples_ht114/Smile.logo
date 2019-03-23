@@ -1,0 +1,22 @@
+PU
+GOTO -50 -100
+RT 180
+
+PD
+FD 50
+
+PU
+GOTO 50 -100
+
+PD
+FD 50
+
+PU
+GOTO -50 0
+SETH -60
+
+PD
+REPEAT 10 [
+  FD 12
+  LT 12
+]
