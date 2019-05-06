@@ -5,6 +5,7 @@ import Errors.MalformedTurtleImgException;
 import Errors.SlogoException;
 import Errors.SlogoTabSetupElementException;
 import View.GUIFeatures.Buttons.AddTabButton;
+import View.GUIFeatures.Buttons.ViewTurtlesButton;
 import View.GUIFeatures.Choosers.CanvasColorChooser;
 import View.GUIFeatures.Choosers.LanguageChooser;
 import View.GUIFeatures.Choosers.PenColorChooser;
@@ -47,6 +48,7 @@ public class TopPane extends GridPane {
     private TurtleChooser myTurtleChooser;
     private CanvasColorChooser myCanvasColorChooser;
     private PenColorChooser myPenColorChooser;
+    private ViewTurtlesButton myViewTurtlesButton;
     private ControllerInterface myController;
     private Window myWindow;
     private TurtleView myTurtle;
@@ -114,6 +116,7 @@ public class TopPane extends GridPane {
         try{
             initLanguageChooser();
             initAddTabButton();
+            initViewTurtlesButton();
             initCanvasColorChooser();
             initPenColorChooser();
             initTurtleChooser();
@@ -170,6 +173,12 @@ public class TopPane extends GridPane {
         myTurtleChooser.getButton().setOnAction(e -> changeTurtleImage());
         StackPane.setAlignment(myTurtleChooser.getButton(), Pos.CENTER);
         myLayoutManager.setLayout(myTurtleChooser.getButton());
+    }
+
+    private void initViewTurtlesButton(){
+        myViewTurtlesButton = new ViewTurtlesButton();
+        myLayoutManager.setLayout(myViewTurtlesButton);
+        myViewTurtlesButton.setOnAction(e->myWindow.viewTurtles());
     }
 
     private void changeTurtleImage() throws MalformedTurtleImgException{

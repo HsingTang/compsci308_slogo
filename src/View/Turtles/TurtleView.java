@@ -71,6 +71,8 @@ public class TurtleView implements TurtleObserver {
      */
     public void setImgView(Image newImg) {
         this.myImgView.setImage(newImg);
+        myImgView.setFitWidth(TURTLE_SIZE);
+        myImgView.setFitHeight(TURTLE_SIZE);
     }
 
     /**

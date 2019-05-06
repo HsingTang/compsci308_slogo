@@ -7,6 +7,7 @@ import Errors.SlogoException;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.TabPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -22,9 +23,11 @@ import javafx.stage.Stage;
  */
 public class Window extends Application {
 
-    public static final String PROJECT_NAME = "SLogo IDE";
-    public static final double DEFAULT_HEIGHT = 800;
-    public static final double DEFAULT_WIDTH = 1200;
+    private static final String PROJECT_NAME = "SLogo IDE";
+    private static final double DEFAULT_HEIGHT = 800;
+    private static final double DEFAULT_WIDTH = 1200;
+    private static final double VIEW_TURTLE_HEIGHT = 200;
+    private static final double VIEW_TURTLE_WIDTH = 300;
 
     private Stage myStage;
     private TabPane windowRoot;
@@ -90,6 +93,16 @@ public class Window extends Application {
         }
         windowRoot.getTabs().add(addTab);
         tabCount++;
+    }
+
+    /**
+     * Opens up a new window to display currently existing turtles' images to user, and let user click on the turtles and update their images
+     */
+    public void viewTurtles(){
+        Stage viewTurtleStage = new Stage();
+        ViewTurtleScreen viewTurtleScreen = new ViewTurtleScreen(viewTurtleStage,new GridPane(),VIEW_TURTLE_WIDTH,VIEW_TURTLE_HEIGHT,myController.getTurtleViews());
+        viewTurtleStage.setScene(viewTurtleScreen);
+        viewTurtleStage.show();
     }
 
     /**

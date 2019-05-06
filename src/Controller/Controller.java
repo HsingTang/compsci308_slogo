@@ -13,10 +13,7 @@ import View.Turtles.TurtleFactory;
 import View.Turtles.TurtleView;
 import View.Window;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * Main controller that bridges View and Model components. Controller is notified by Window (front end) each time
@@ -151,6 +148,14 @@ public class Controller implements ControllerInterface {
         return myTurtleViews.get(id);
     }
 
+
+    /**
+     * @return all the existing TurtleViews and their corresponding indices
+     */
+    public Map<Integer,TurtleView> getTurtleViews(){
+        return Collections.unmodifiableMap(myTurtleViews);
+    }
+
     /**
      * @param id of the tab whose View component triggers this function
      * @return the TurtleModel object associated to the TurtleView held by the caller tab
@@ -182,4 +187,5 @@ public class Controller implements ControllerInterface {
     public ReturnValModel getReturnValModel(int id){
         return myReturnValModels.get(id);
     }
+
 }

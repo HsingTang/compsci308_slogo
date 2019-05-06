@@ -6,6 +6,8 @@ import Model.TurtleModel;
 import Model.VariablePaneModel;
 import View.Turtles.TurtleView;
 
+import java.util.Map;
+
 public interface ControllerInterface {
 
     void receiveCommand(String command, int id);
@@ -19,6 +21,8 @@ public interface ControllerInterface {
     void removeTab(int id);
 
     TurtleView getTurtleView(int id);
+
+    Map<Integer,TurtleView> getTurtleViews();
 
     TurtleModel getTurtleModel(int id);
 
