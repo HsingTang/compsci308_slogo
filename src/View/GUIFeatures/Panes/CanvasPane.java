@@ -88,5 +88,4 @@ public class CanvasPane extends StackPane {
         myBackGroundCanvas.getGraphicsContext2D().fillRect(0, 0, myWidth, myHeight);
         this.getChildren().add(myBackGroundCanvas);
     }
-
 }

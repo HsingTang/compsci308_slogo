@@ -8,10 +8,12 @@ import View.GUIFeatures.ElementFactory;
 import View.Turtles.TurtleView;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
 import java.awt.*;
 import java.io.File;
@@ -113,6 +115,7 @@ public class BottomPane extends GridPane {
             initHelpButton();
             initActionButtons();
             initSpring();
+            initViewButton();
         }catch (SlogoException e){
             throw e;
         }
@@ -195,4 +198,19 @@ public class BottomPane extends GridPane {
             throw e;
         }
     }
+
+    public void openView() {
+        ViewAllTurtles root;
+        root = new ViewAllTurtles(this.myID, this.myController);
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root, 500, 500));
+        stage.show();
+        root.setStage(stage);
+    }
+
+    private void initViewButton(){
+        Button viewTurtles = (ViewTurtlesButton)(myElementFactory.makeElement("ViewTurtlesButton"));
+        myLayoutManager.setLayout(viewTurtles);
+    }
+
 }
