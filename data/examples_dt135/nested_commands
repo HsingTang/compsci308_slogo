@@ -1,0 +1,4 @@
+This is two show multiple tabs working at the same time. Open a new tab in the program window using
+add a new tab button. Then paste this command into both command boxes and click execute.
+
+repeat random 100 [ fd sum random 25 25 rt random 360 ]
