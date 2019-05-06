@@ -8,10 +8,12 @@ import View.GUIFeatures.ElementFactory;
 import View.Turtles.TurtleView;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
 import java.awt.*;
 import java.io.File;
@@ -97,6 +99,16 @@ public class BottomPane extends GridPane {
         //addToHistory(command);
     }
 
+    public void openView() {
+        TurtleViewThing root;
+        root = new TurtleViewThing(myID, myController);
+        Stage stage = new Stage();
+        stage.setTitle("See Turtles for Tab: " + myID);
+        stage.setScene(new Scene(root, 450, 450));
+        stage.show();
+        root.setStage(stage);
+    }
+
     /**
      * Clears the text displayed in Console. Invoked by ClearButton on clicking action.
      */
@@ -111,6 +123,7 @@ public class BottomPane extends GridPane {
             initExecuteButton();
             initClearButton();
             initHelpButton();
+            initSeeButton();
             initActionButtons();
             initSpring();
         }catch (SlogoException e){
@@ -163,6 +176,15 @@ public class BottomPane extends GridPane {
             throw e;
         }
 
+    }
+
+    private void initSeeButton() throws SlogoException {
+        try {
+            Button seeTurtlesButton = (SeeTurtlesButton) myElementFactory.makeElement("SeeTurtlesButton");
+            myLayoutManager.setLayout(seeTurtlesButton);
+        } catch (SlogoException e) {
+            throw e;
+        }
     }
 
     private void initActionButtons() throws SlogoException{
