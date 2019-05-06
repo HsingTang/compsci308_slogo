@@ -36,7 +36,6 @@ public class TurtleModel implements TurtleModelInterface {
     * creates an instance of the turtle model
     */
    public TurtleModel(){
-      super();
       turtleObservers = new ArrayList<>();
       this.myX = INITIAL_POSITION;
       this.myY = INITIAL_POSITION;
